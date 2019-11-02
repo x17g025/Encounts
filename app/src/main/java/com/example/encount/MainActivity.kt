@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //画面部品ListViewを取得
-        val lvCityList = findViewById<ListView>(R.id.lvCityList)
+        val postList = findViewById<ListView>(R.id.postList)
 
         //SimpleAdapterで使用するMutableListオブジェクトを用意。
         val cityList: MutableList<MutableMap<String, String>> = mutableListOf()
@@ -60,9 +60,6 @@ class MainActivity : AppCompatActivity() {
             val cityName = item["name"]
             val cityId = item["id"]
 
-            //取得した都市名をtvCityNameに設定。
-            val tvCityName = findViewById<TextView>(R.id.tvCityName)
-            tvCityName.setText(cityName + "の天気: ")
 
             //WeatherInfoReceiverインスタンスを生成。
             val receiver = WeatherInfoReceiver()
@@ -91,8 +88,10 @@ class MainActivity : AppCompatActivity() {
             val con = url.openConnection() as HttpURLConnection
 
             //http接続メソッドを設定。
-            con.requestMethod = "POST"
+            con.requestMethod = "GET"
             con.doOutput = true
+            con.setReadTimeout(10000)
+            con.setConnectTimeout(20000)
             val outStream = con.outputStream
             outStream.write(postData.toByteArray())
             outStream.flush()
@@ -139,9 +138,9 @@ class MainActivity : AppCompatActivity() {
             val telop = forecastNow.getString("telop")
 
             //天気情報用文字列をTextViewにセット。
-            val tvWeatherTelop = findViewById<TextView>(R.id.tvWeatherTelop)
+
             val tvWeatherDesc = findViewById<TextView>(R.id.tvWeatherDesc)
-            tvWeatherTelop.text = telop
+
             tvWeatherDesc.text = desc
         }
     }
