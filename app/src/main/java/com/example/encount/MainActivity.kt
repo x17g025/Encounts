@@ -23,17 +23,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /*
         //画面部品ListViewを取得
         val postList = findViewById<ListView>(R.id.postList)
 
         //SimpleAdapterで使用するMutableListオブジェクトを用意。
         val cityList: MutableList<MutableMap<String, String>> = mutableListOf()
-
-        //都市データを格納するMutableMapオブジェクトの用意とcityListへのデータ登録。
-        var city = mutableMapOf("name" to "大阪","id" to "270000")
-        cityList.add(city)
-        city = mutableMapOf("name" to "神戸", "id" to "280010")
-        cityList.add(city)
 
         //SimpleAdapterで使用するfrom-to用変数の用意。
         val from = arrayOf("name")
@@ -47,9 +42,9 @@ class MainActivity : AppCompatActivity() {
         lvCityList.adapter = adapter
 
         //リストタップのリスナクラス登録。
-        lvCityList.onItemClickListener = ListItemClickListener()
+        lvCityList.onItemClickListener = ListItemClickListener()*/
     }
-
+/*
     //リストがタップされたときの処理が記述されたメンバクラス。
     private inner class ListItemClickListener : AdapterView.OnItemClickListener {
 
@@ -157,5 +152,5 @@ class MainActivity : AppCompatActivity() {
 
         reader.close()
         return sb.toString()
-    }
+    }*/
 }

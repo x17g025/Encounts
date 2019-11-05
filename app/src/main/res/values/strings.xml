@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Encount</string>
-    <string name="tv_winfo_title">お天気詳細</string>
     <string name="userPost">投稿</string>
-    <string name="userFollow">フォローする</string>
+    <string name="userFollow">フレンド</string>
+    <string name="userStar">いいね</string>
+    <string name="cngProf">プロフィール変更</string>
 </resources>
