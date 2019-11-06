@@ -16,46 +16,87 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="60dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/userIcon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="#FFFF00"/>
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="110dp"
-            android:layout_height="35dp"
-            android:text="@string/cngProf"
-            android:textSize="10sp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="130dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/userIcon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#FFFF00"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="2dp"
+                android:background="#00FFFF"
+                android:text="@string/cngProf"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:singleLine="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                android:text="中村雄太"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/userAcoName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="\@NakmauraYuta"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="#5F5F5F"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="110dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="125dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/userPostCount"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="12"
                 android:maxLength="6"
+                android:text="12"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="15sp" />
 
             <TextView
@@ -68,20 +109,22 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="0dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/userFollowCount"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="111111"
                 android:maxLength="6"
+                android:text="10"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="15sp" />
 
             <TextView
@@ -94,20 +137,22 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="0dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/userStarCount"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="122000"
                 android:maxLength="6"
+                android:text="1113"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="15sp" />
 
             <TextView
@@ -132,11 +177,104 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/userBio"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:textSize="15sp"
-                android:background="#FF00FF"/>
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/userStar"
+                android:background="#00FF00"
+                android:textSize="10sp" />
+
+
+
+
+
+
 
         </LinearLayout>
 
