@@ -31,7 +31,7 @@
                 android:background="#FFFF00"/>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/prfCng"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginTop="2dp"
@@ -39,7 +39,6 @@
                 android:text="@string/cngProf"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textSize="10sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -65,11 +64,9 @@
                 android:layout_height="wrap_content"
                 android:text="\@NakmauraYuta"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#5F5F5F"
+                android:textColor="#dcdcdc"
                 android:textSize="15sp" />
-
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -105,7 +102,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/userPost"
                 android:textSize="10sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -161,9 +157,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/userStar"
                 android:textSize="10sp" />
-
         </LinearLayout>
-
     </LinearLayout>
 
     <ScrollView
@@ -176,110 +170,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <ListView
+                android:id="@+id/userPostList"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
+                android:layout_height="match_parent"
                 android:background="#00FF00"
                 android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="@string/userStar"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-
-
-
-
-
-
-
         </LinearLayout>
-
     </ScrollView>
-
 </FrameLayout>
 
 
