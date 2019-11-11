@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         prfCng.setOnClickListener {
 
             //3.Intentクラスのオブジェクトを生成。
-            val intent = Intent(this@MainActivity, UserProfileChange::class.java)
+            val intent = Intent(this, UserProfileChange::class.java)
             //生成したオブジェクトを引数に画面を起動！
             startActivity(intent)
         }
