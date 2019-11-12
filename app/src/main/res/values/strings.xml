@@ -3,5 +3,11 @@
     <string name="userPost">投稿</string>
     <string name="userFollow">フレンド</string>
     <string name="userStar">いいね</string>
-    <string name="cngProf">プロフィール変更</string>
+    <string name="userCngProf">プロフィール変更</string>
+    <string name="userLogin">ログイン</string>
+    <string name="userLoginMail">メールアドレス</string>
+    <string name="userLoginPass">パスワード</string>
+    <string name="userLoginNew">新規登録</string>
+
+
 </resources>
