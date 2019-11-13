@@ -9,23 +9,21 @@ class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 
     companion object{
 
-        private const val DATABASE_NAME = "userLogin.db"
+        private const val DATABASE_NAME = "userInfo.db"
         private const val DATABASE_VERSION = 1
     }
 
     override fun onCreate(db: SQLiteDatabase) {
 
         val sb = StringBuilder()
-        sb.append("create table userLogin(")
-        sb.append("_id integer primary key,")
-        sb.append("userId integer,")
+        sb.append("CREATE TABLE userInfo(")
+        sb.append("_id INTEGER PRIMARY KEY,")
+        sb.append("user_id INTEGER")
         sb.append(");")
         val sql = sb.toString()
-
         db.execSQL(sql)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-
     }
 }
