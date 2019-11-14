@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserLogin"/>
+        <activity android:name=".UserLogin"></activity>
+        <activity android:name=".UserSingin" />
+        <activity android:name=".UserLoginPost" />
         <activity android:name=".UserProfile" />
         <activity android:name=".UserLike" />
         <activity android:name=".UserTimeline" />

@@ -53,17 +53,13 @@
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
-                android:text="中村雄太"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="23sp" />
 
             <TextView
-                android:id="@+id/userAcoName"
+                android:id="@+id/userAtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="\@NakmauraYuta"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#dcdcdc"
                 android:textSize="15sp" />
@@ -95,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:maxLength="6"
-                android:text="12"
+                android:text="0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="15sp" />
 
@@ -122,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:maxLength="6"
-                android:text="10"
+                android:text="0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="15sp" />
 
@@ -150,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:maxLength="6"
-                android:text="1113"
+                android:text="0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="15sp" />
 

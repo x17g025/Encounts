@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
     tools:context="com.example.encount.UserLogin">
 
     <ImageView
@@ -21,7 +20,7 @@
         android:id="@+id/usermail"
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:background="#11000000"
+        android:background="#AFEEEE"
         android:drawableLeft="@drawable/ic_action_user"
         android:ems="10"
         android:hint="@string/userLoginMail"
@@ -35,7 +34,7 @@
         android:id="@+id/userpass"
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:background="#11000000"
+        android:background="#AFEEEE"
         android:drawableLeft="@drawable/ic_action_pass"
         android:ems="10"
         android:hint="@string/userLoginPass"
@@ -51,11 +50,10 @@
         android:layout_height="50dp"
         android:layout_above="@+id/usernew"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        app:cardBackgroundColor="@color/colorAccent"
-        android:background="#FFDF1961"
+        app:cardBackgroundColor="#AFEEEE"
         app:cardCornerRadius="25dp"
-        app:cardElevation="10dp">
+        android:layout_marginBottom="50dp"
+        android:background="#FFDF1961">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -67,12 +65,12 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/userLogin"
-                android:textColor="#fff"
+                android:textColor="#898989"
                 android:textSize="18sp" />
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-
     <TextView
         android:id="@+id/usernew"
         android:layout_width="wrap_content"
