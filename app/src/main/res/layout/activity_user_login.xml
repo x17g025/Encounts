@@ -60,8 +60,18 @@
         android:layout_height="wrap_content"
         android:textColor="#FF0000"
         android:textSize="15sp"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/userpass"
+        android:layout_above="@+id/loginbtn"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"/>
+
+    <ProgressBar
+        android:id="@+id/loginProgress"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="?android:attr/progressBarStyle"
+        android:layout_above="@+id/loginbtn"
+        android:layout_marginBottom="10dp"
+        tools:visibility="visible"
         android:layout_centerHorizontal="true"/>
 
     <androidx.cardview.widget.CardView

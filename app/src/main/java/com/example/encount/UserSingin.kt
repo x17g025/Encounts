@@ -5,7 +5,9 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_user_singin.*
@@ -25,6 +27,9 @@ class UserSingin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_singin)
 
+        val progress = findViewById<ProgressBar>(R.id.singinProgress)
+        progress.visibility = View.GONE
+
         singinbtn.setOnClickListener {
 
             val etName = findViewById<EditText>(R.id.username)
@@ -36,8 +41,10 @@ class UserSingin : AppCompatActivity() {
             mail = etMail.text.toString()
             pass = etPass.text.toString()
             repass = etrePass.text.toString()
+            etError.text = ""
 
             if(pass == repass) {
+                progress.visibility = View.VISIBLE
                 SinginDataPost().execute()
             }
             else{
@@ -87,6 +94,8 @@ class UserSingin : AppCompatActivity() {
 
             val db = _helper.writableDatabase
             var singinFlag = Gson().fromJson(result, SinginDataClassList::class.java)
+            val progress = findViewById<ProgressBar>(R.id.singinProgress)
+            progress.visibility = View.GONE
 
             if(singinFlag.userSinginFlag) {
 

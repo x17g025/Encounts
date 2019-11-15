@@ -5,7 +5,9 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_user_login.*
@@ -23,12 +25,18 @@ class UserLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_login)
 
+        val progress = findViewById<ProgressBar>(R.id.loginProgress)
+        progress.visibility = View.GONE
+
         loginbtn.setOnClickListener {
 
             val etMail = findViewById<EditText>(R.id.usermail)
             val etPass = findViewById<EditText>(R.id.userpass)
+            val etError = findViewById<TextView>(R.id.error)
             mail = etMail.text.toString()
             pass = etPass.text.toString()
+            etError.text = ""
+            progress.visibility = View.VISIBLE
             LoginDataPost().execute()
         }
 
@@ -41,6 +49,8 @@ class UserLogin : AppCompatActivity() {
     private inner class LoginDataPost() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
+
+
 
             val client = OkHttpClient()
 
@@ -73,6 +83,8 @@ class UserLogin : AppCompatActivity() {
 
             val db = _helper.writableDatabase
             var loginFlag = Gson().fromJson(result, LoginDataClassList::class.java)
+            val progress = findViewById<ProgressBar>(R.id.loginProgress)
+            progress.visibility = View.GONE
 
             if(loginFlag.userLoginFlag) {
 
@@ -87,6 +99,7 @@ class UserLogin : AppCompatActivity() {
                 goProflie()
             }
             else{
+
                 val etError = findViewById<TextView>(R.id.error)
                 etError.text = loginFlag.result
             }
