@@ -7,33 +7,62 @@
     android:layout_height="match_parent"
     tools:context="com.example.encount.UserLogin">
 
+    <ImageView
+        android:id="@+id/LoginImg"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/logo"/>
+
+    <TextView
+        android:id="@+id/LoginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="#898989"
+        android:text="@string/userLogin"
+        android:layout_below="@+id/LoginImg"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
+
     <EditText
         android:id="@+id/usermail"
-        android:layout_width="250dp"
+        android:layout_width="290dp"
         android:layout_height="40dp"
+        android:layout_below="@+id/LoginTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:background="#AFEEEE"
-        android:drawableLeft="@drawable/ic_action_user"
+        android:drawableLeft="@drawable/ic_action_mail"
         android:ems="10"
         android:hint="@string/userLoginMail"
         android:inputType="textPersonName"
-        android:textSize="16dp"
-        android:layout_marginBottom="35dp"
-        android:layout_above="@+id/userpass"
-        android:layout_centerHorizontal="true" />
+        android:textSize="16dp" />
 
     <EditText
         android:id="@+id/userpass"
-        android:layout_width="250dp"
+        android:layout_width="290dp"
         android:layout_height="40dp"
         android:background="#AFEEEE"
         android:drawableLeft="@drawable/ic_action_pass"
         android:ems="10"
         android:hint="@string/userLoginPass"
         android:inputType="textPassword"
-        android:layout_marginBottom="200dp"
-        android:layout_alignBottom="@+id/loginbtn"
-        android:layout_alignLeft="@+id/usermail"
-        android:layout_alignStart="@+id/usermail" />
+        android:layout_below="@+id/usermail"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="15sp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/userpass"
+        android:layout_centerHorizontal="true"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/loginbtn"
@@ -43,7 +72,7 @@
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="#AFEEEE"
         app:cardCornerRadius="25dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="15dp"
         android:background="#FFDF1961">
 
         <RelativeLayout
@@ -67,15 +96,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/userLoginNew"
-        android:layout_above="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="0dp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:id="@+id/linearLayout">
-    </LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"/>
+
 </RelativeLayout>

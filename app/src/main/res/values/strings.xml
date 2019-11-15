@@ -5,8 +5,9 @@
     <string name="userStar">いいね</string>
     <string name="userCngProf">プロフィール変更</string>
     <string name="userLogin">ログイン</string>
+    <string name="userAlready">アカウントを持っている方はこちら</string>
     <string name="userLoginMail">メールアドレス</string>
-    <string name="userName">名前</string>
+    <string name="userName">ユーザー名</string>
     <string name="userAtName">ユーザー名</string>
     <string name="userLoginPass">パスワード</string>
     <string name="reuserLoginPass">パスワード(確認)</string>

@@ -85,12 +85,9 @@ class UserSingin : AppCompatActivity() {
 
         override fun onPostExecute(result: String) {
 
-            Log.d("Debug",result)
-
             val db = _helper.writableDatabase
             var singinFlag = Gson().fromJson(result, SinginDataClassList::class.java)
 
-            Log.d("Debug",singinFlag.result)
             if(singinFlag.userSinginFlag) {
 
                 val sqlDelete = "delete from userInfo"
@@ -101,15 +98,6 @@ class UserSingin : AppCompatActivity() {
                 stmt = db.compileStatement(sqlInsert)
                 stmt.bindLong(1, singinFlag.userId)
                 stmt.executeInsert()
-
-                val sql = "select * from userInfo"
-                val cursor = db.rawQuery(sql, null)
-
-                while (cursor.moveToNext()) {
-
-                    val test = cursor.getColumnIndex("user_id")
-                    Log.d("Debug", cursor.getString(test))
-                }
                 goProflie()
             }
             else{
