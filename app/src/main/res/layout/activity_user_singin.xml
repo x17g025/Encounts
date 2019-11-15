@@ -29,7 +29,7 @@
         android:drawableLeft="@drawable/ic_action_person"
         android:ems="10"
         android:hint="@string/userName"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:textSize="16dp" />
 
     <EditText
@@ -43,7 +43,7 @@
         android:drawableLeft="@drawable/ic_action_mail"
         android:ems="10"
         android:hint="@string/userLoginMail"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textSize="16dp" />
 
     <EditText

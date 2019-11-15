@@ -38,7 +38,7 @@
         android:drawableLeft="@drawable/ic_action_mail"
         android:ems="10"
         android:hint="@string/userLoginMail"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textSize="16dp" />
 
     <EditText
