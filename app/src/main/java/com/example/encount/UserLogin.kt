@@ -36,8 +36,17 @@ class UserLogin : AppCompatActivity() {
             mail = etMail.text.toString()
             pass = etPass.text.toString()
             etError.text = ""
-            progress.visibility = View.VISIBLE
-            LoginDataPost().execute()
+
+            if(mail != "" && pass != ""){
+
+                progress.visibility = View.VISIBLE
+                LoginDataPost().execute()
+            }
+            else{
+
+                etError.text = "ユーザーまたはパスワードが入力されていません"
+            }
+
         }
 
         usernew.setOnClickListener {

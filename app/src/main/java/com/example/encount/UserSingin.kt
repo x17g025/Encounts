@@ -44,10 +44,20 @@ class UserSingin : AppCompatActivity() {
             etError.text = ""
 
             if(pass == repass) {
-                progress.visibility = View.VISIBLE
-                SinginDataPost().execute()
+
+                if(name != "" && pass != "" && mail != ""){
+
+                    progress.visibility = View.VISIBLE
+                    SinginDataPost().execute()
+                }
+                else{
+
+                    etError.text = "入力されていない項目があります"
+                }
+
             }
             else{
+
                 etError.text = "パスワードが一致しません"
             }
         }
