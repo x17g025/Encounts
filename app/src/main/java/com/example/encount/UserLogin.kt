@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.widget.EditText
 import com.google.gson.Gson
@@ -30,6 +29,11 @@ class UserLogin : AppCompatActivity() {
             mail = etMail.text.toString()
             pass = etPass.text.toString()
             LoginDataPost().execute()
+        }
+
+        usernew.setOnClickListener {
+
+            startActivity(Intent(this, UserSingin::class.java))
         }
     }
 

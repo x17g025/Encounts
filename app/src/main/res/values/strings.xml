@@ -6,7 +6,10 @@
     <string name="userCngProf">プロフィール変更</string>
     <string name="userLogin">ログイン</string>
     <string name="userLoginMail">メールアドレス</string>
+    <string name="userName">名前</string>
+    <string name="userAtName">ユーザー名</string>
     <string name="userLoginPass">パスワード</string>
+    <string name="reuserLoginPass">パスワード(確認)</string>
     <string name="userLoginNew">新規登録</string>
 
 
