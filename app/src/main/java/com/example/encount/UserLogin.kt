@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -58,8 +57,6 @@ class UserLogin : AppCompatActivity() {
     private inner class LoginDataPost() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
-
-
 
             val client = OkHttpClient()
 

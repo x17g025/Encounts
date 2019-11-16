@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -30,13 +29,14 @@ class UserProfile : AppCompatActivity() {
         val userPostBtn       = findViewById<LinearLayout>(R.id.UserPost)
         val userFriendBtn     = findViewById<LinearLayout>(R.id.UserFriend)
         val userLikeBtn       = findViewById<LinearLayout>(R.id.UserLike)
+        val menuHomeBtn       = findViewById<LinearLayout>(R.id.MenuHome)
         val userSettingsBtn   = findViewById<ImageView>(R.id.UserSettings)
 
         actFriend.visibility = View.GONE
         actStar.visibility   = View.GONE
 
         UserDataGet().execute()
-        UserPostData().execute()
+        //UserPostData().execute()
 
         userPostBtn.setOnClickListener {
             actPost.visibility   = View.VISIBLE
@@ -62,9 +62,16 @@ class UserProfile : AppCompatActivity() {
             UserLikeData().execute()
         }
 
+        menuHomeBtn.setOnClickListener {
+
+            startActivity(Intent(this, UserHome::class.java))
+            overridePendingTransition(0, 0)
+        }
+
         userSettingsBtn.setOnClickListener {
 
-            startActivity(Intent(this, UserProfileChange::class.java))
+            startActivity(Intent(this, UserSettings::class.java))
+            overridePendingTransition(0, 0)
         }
 
     }
@@ -73,16 +80,15 @@ class UserProfile : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String): String {
 
-            var id = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
+            var id     = ""
+            val db     = _helper.writableDatabase
+            val sql    = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
             while(cursor.moveToNext()){
-                val idxId = cursor.getColumnIndex("user_id")
 
+                val idxId = cursor.getColumnIndex("user_id")
                 id = cursor.getString(idxId)
-                Log.d("DebugUser",id)
             }
 
             val client = OkHttpClient()
@@ -94,7 +100,7 @@ class UserProfile : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id",id)
+            formBuilder.add("id", id)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -104,8 +110,7 @@ class UserProfile : AppCompatActivity() {
             try {
                 val response = client.newCall(request).execute()
                 return response.body()!!.string()
-            }
-            catch (e: IOException) {
+            } catch (e: IOException) {
                 e.printStackTrace()
                 return "Error"
             }
@@ -131,10 +136,9 @@ class UserProfile : AppCompatActivity() {
             val cursor = db.rawQuery(sql, null)
 
             while(cursor.moveToNext()){
-                val idxId = cursor.getColumnIndex("user_id")
 
+                val idxId = cursor.getColumnIndex("user_id")
                 id = cursor.getString(idxId)
-                Log.d("DebugUser",id)
             }
 
             val client = OkHttpClient()
@@ -184,7 +188,6 @@ class UserProfile : AppCompatActivity() {
                 val idxId = cursor.getColumnIndex("user_id")
 
                 id = cursor.getString(idxId)
-                Log.d("DebugUser",id)
             }
 
             val client = OkHttpClient()
@@ -234,7 +237,6 @@ class UserProfile : AppCompatActivity() {
                 val idxId = cursor.getColumnIndex("user_id")
 
                 id = cursor.getString(idxId)
-                Log.d("DebugUser",id)
             }
 
             val client = OkHttpClient()

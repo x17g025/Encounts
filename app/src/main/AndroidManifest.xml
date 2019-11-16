@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.encount">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,20 +11,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserLogin"></activity>
-        <activity android:name=".UserSingin" />
-        <activity android:name=".UserLoginPost" />
+        <activity
+            android:name=".UserLogin"
+            android:noHistory="true"/>
+        <activity
+            android:name=".UserSingin"
+            android:noHistory="true"/>
         <activity android:name=".UserProfile" />
-        <activity android:name=".UserLike" />
-        <activity android:name=".UserTimeline" />
-        <activity android:name=".UserProfileChange" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".UserHome" />
+        <activity android:name=".UserSettings" />
+        <activity
+            android:name=".MainActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

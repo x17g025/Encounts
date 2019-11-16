@@ -201,24 +201,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/MenuMap"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:clickable="true">
+            android:gravity="center|center_vertical"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/menumap"/>
 
             <TextView
@@ -232,17 +229,15 @@
         <LinearLayout
             android:id="@+id/MenuHome"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/menuhome"/>
 
             <TextView
@@ -256,30 +251,22 @@
         <LinearLayout
             android:id="@+id/MenuUser"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="0dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:src="@drawable/menuuser"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/menuuseract"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/menuUser"
                 android:textSize="10sp" />
-
-            <View
-                android:layout_width="30dp"
-                android:layout_height="3dp"
-                android:visibility="visible"
-                android:background="#BEF0FF"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

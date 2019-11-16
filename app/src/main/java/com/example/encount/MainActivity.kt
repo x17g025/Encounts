@@ -3,7 +3,7 @@ package com.example.encount
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
         val db = _helper.writableDatabase
         val sql = "select * from userInfo"
@@ -24,12 +25,18 @@ class MainActivity : AppCompatActivity() {
             userId = cursor.getString(idxId)
         }
 
-        Log.d("Debug",userId)
-        when {
+        Handler().postDelayed(Runnable {
+            when {
 
-            userId == null  -> startActivity(Intent(this, UserLogin::class.java))
-            else            -> startActivity(Intent(this, UserLogin::class.java))
-        }
+                userId == "" || userId == null  -> {startActivity(Intent(this, UserLogin::class.java))
+                                    overridePendingTransition(0, 0)}
+                else            -> {startActivity(Intent(this, UserHome::class.java))
+                                    overridePendingTransition(0, 0)}
+            }
+            finish()
+        }, 1500)
+
+
     }
 
     override fun onDestroy(){
@@ -38,4 +45,5 @@ class MainActivity : AppCompatActivity() {
         _helper.close()
         super.onDestroy()
     }
+
 }

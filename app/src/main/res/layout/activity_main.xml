@@ -1,185 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-    android:layout_width="match_parent"
+<FrameLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:id="@+id/userHeader"
-        android:layout_width="match_parent"
-        android:layout_height="115dp"
-        android:background="#FF0000"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="60dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/userIcon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="#FFFF00"/>
-
-            <Button
-                android:id="@+id/prfCng"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginTop="2dp"
-                android:background="#00FFFF"
-                android:text="@string/userCngProf"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textSize="10sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:singleLine="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-
-                android:text="中村雄太"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="23sp" />
-
-            <TextView
-                android:id="@+id/userAcoName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="\@NakmauraYuta"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#dcdcdc"
-                android:textSize="15sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="125dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:onClick="testToast">
-
-            <TextView
-                android:id="@+id/userPostCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:maxLength="6"
-                android:text="12"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/userPost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/userPost"
-                android:textSize="10sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/userFollowCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:maxLength="6"
-                android:text="10"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/userFollow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/userFollow"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/userStarCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:maxLength="6"
-                android:text="1113"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/userStar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/userStar"
-                android:textSize="10sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <ScrollView
+        android:id="@+id/LoginImg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="175dp">
+        android:layout_centerInParent="true"
+        android:src="@drawable/logo"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <ProgressBar
+        android:id="@+id/loginProgress"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="?android:attr/progressBarStyle"
+        android:layout_above="@+id/loginbtn"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="100dp"
+        tools:visibility="visible"
+        android:layout_centerHorizontal="true"/>
 
-            <ListView
-                android:id="@+id/userPostList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#00FF00"
-                android:textSize="10sp" />
-        </LinearLayout>
-    </ScrollView>
 </FrameLayout>
 
 
