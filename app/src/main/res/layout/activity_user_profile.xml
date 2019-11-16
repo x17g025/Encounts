@@ -3,78 +3,79 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
-        android:id="@+id/userHeader"
-        android:layout_width="match_parent"
-        android:layout_height="115dp"
-        android:background="#FF0000"/>
-
-    <LinearLayout
+        android:id="@+id/UserSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_action_settings"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/userIcon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="#FFFF00"/>
-
-            <Button
-                android:id="@+id/prfCng"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginTop="2dp"
-                android:background="#00FFFF"
-                android:text="@string/userCngProf"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textSize="10sp" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/UserIcon"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="5dp"
+            android:background="#dcdcdc"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:singleLine="true"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/userName"
+                android:id="@+id/UserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:textStyle="bold"
+                android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="23sp" />
+                android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/userAtName"
+                android:id="@+id/UserBio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="4"
+                android:ellipsize="end"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#dcdcdc"
-                android:textSize="15sp" />
+                android:textColor="#595757"
+                android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:id="@+id/line_horizontal_center"
+        android:visibility="visible"
+        android:layout_marginTop="130dp"
+        android:background="#dcdcdc"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="133dp"
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/UserPost"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
@@ -82,11 +83,10 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:clickable="true"
-            android:onClick="testToast">
+            android:clickable="true">
 
             <TextView
-                android:id="@+id/userPostCount"
+                android:id="@+id/UserPostCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -96,14 +96,21 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/userPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/userPost"
                 android:textSize="10sp" />
+
+            <View
+                android:id="@+id/PostLine"
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:visibility="visible"
+                android:background="#BEF0FF"/>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/UserFriend"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -113,7 +120,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/userFollowCount"
+                android:id="@+id/UserFriendCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -123,15 +130,22 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/userFollow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/userFollow"
                 android:textSize="10sp" />
 
+            <View
+                android:id="@+id/FriendLine"
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:visibility="visible"
+                android:background="#BEF0FF"/>
+
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/UserLike"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -141,7 +155,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/userStarCount"
+                android:id="@+id/UserLikeCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -151,17 +165,25 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/userStar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/userStar"
                 android:textSize="10sp" />
+
+            <View
+                android:id="@+id/LikeLine"
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:visibility="visible"
+                android:background="#BEF0FF"/>
         </LinearLayout>
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#dcdcdc"
+        android:layout_marginBottom="50dp"
         android:layout_marginTop="175dp">
 
         <LinearLayout
@@ -169,14 +191,97 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/userPostList"
+            <TextView
+                android:id="@+id/UserDataList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#00FF00"
                 android:textSize="10sp" />
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/MenuMap"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:src="@drawable/menumap"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menuMap"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/MenuHome"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:src="@drawable/menuhome"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menuHome"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/MenuUser"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:src="@drawable/menuuser"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menuUser"
+                android:textSize="10sp" />
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:visibility="visible"
+                android:background="#BEF0FF"/>
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>
 
 

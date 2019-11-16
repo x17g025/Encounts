@@ -10,8 +10,11 @@
     <string name="userName">ユーザー名</string>
     <string name="userAtName">ユーザー名</string>
     <string name="userLoginPass">パスワード</string>
-    <string name="reuserLoginPass">パスワード(確認)</string>
+    <string name="reUserLoginPass">パスワード(確認)</string>
     <string name="userLoginNew">新規登録</string>
+    <string name="menuUser">ユーザー</string>
+    <string name="menuHome">ホーム</string>
+    <string name="menuMap">マップ</string>
 
 
 </resources>
