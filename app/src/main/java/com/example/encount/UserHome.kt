@@ -11,7 +11,7 @@ class UserHome : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_home)
 
-        val menuUserBtn       = findViewById<LinearLayout>(R.id.MenuUser)
+        val menuUserBtn = findViewById<LinearLayout>(R.id.MenuUser)
 
         menuUserBtn.setOnClickListener {
 

@@ -19,6 +19,7 @@ class UserProfile : AppCompatActivity() {
     private val _helper = SQLiteHelper(this@UserProfile)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 

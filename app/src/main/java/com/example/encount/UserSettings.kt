@@ -1,9 +1,15 @@
 package com.example.encount
 
+import android.app.LauncherActivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_user_profile_change.*
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class UserSettings : AppCompatActivity() {
 
@@ -21,7 +27,9 @@ class UserSettings : AppCompatActivity() {
             var stmt = db.compileStatement(sqlDelete)
             stmt.executeUpdateDelete()
 
-            startActivity(Intent(this, UserLogin::class.java))
+            val intent = Intent(this, UserLogin::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
         }
     }
 }

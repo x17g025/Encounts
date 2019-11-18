@@ -19,7 +19,9 @@
             android:noHistory="true"/>
         <activity android:name=".UserProfile" />
         <activity android:name=".UserHome" />
-        <activity android:name=".UserSettings" />
+        <activity
+            android:name=".UserSettings"
+            android:noHistory="true"/>
         <activity
             android:name=".MainActivity"
             android:noHistory="true">
