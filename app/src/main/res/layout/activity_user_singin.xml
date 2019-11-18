@@ -25,7 +25,7 @@
         android:layout_below="@+id/SinginTitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="#BEF0FF"
+        android:background="#dcdcdc"
         android:drawableLeft="@drawable/ic_action_person"
         android:ems="10"
         android:hint="@string/userName"
@@ -39,7 +39,7 @@
         android:layout_below="@+id/username"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="#BEF0FF"
+        android:background="#dcdcdc"
         android:drawableLeft="@drawable/ic_action_mail"
         android:ems="10"
         android:hint="@string/userLoginMail"
@@ -53,7 +53,7 @@
         android:layout_below="@+id/usermail"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="#BEF0FF"
+        android:background="#dcdcdc"
         android:drawableLeft="@drawable/ic_action_pass"
         android:ems="10"
         android:hint="@string/userLoginPass"
@@ -66,7 +66,7 @@
         android:layout_below="@+id/userpass"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="#BEF0FF"
+        android:background="#dcdcdc"
         android:drawableLeft="@drawable/ic_action_pass"
         android:ems="10"
         android:hint="@string/reUserLoginPass"
@@ -98,10 +98,9 @@
         android:layout_height="50dp"
         android:layout_above="@+id/userlogin"
         android:layout_centerHorizontal="true"
-        app:cardBackgroundColor="#BEF0FF"
+        app:cardBackgroundColor="#00bde7"
         app:cardCornerRadius="25dp"
-        android:layout_marginBottom="15dp"
-        android:background="#FFDF1961">
+        android:layout_marginBottom="15dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -113,7 +112,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/userLoginNew"
-                android:textColor="#898989"
                 android:textSize="18sp"
                 android:layout_centerHorizontal="true"/>
 

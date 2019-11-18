@@ -273,6 +273,4 @@ class UserProfile : AppCompatActivity() {
         }
     }
 
-
-
 }

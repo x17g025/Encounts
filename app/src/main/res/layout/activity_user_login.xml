@@ -34,7 +34,7 @@
         android:layout_below="@+id/LoginTitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="#BEF0FF"
+        android:background="#dcdcdc"
         android:drawableLeft="@drawable/ic_action_mail"
         android:ems="10"
         android:hint="@string/userLoginMail"
@@ -45,7 +45,7 @@
         android:id="@+id/userpass"
         android:layout_width="290dp"
         android:layout_height="40dp"
-        android:background="#BEF0FF"
+        android:background="#dcdcdc"
         android:drawableLeft="@drawable/ic_action_pass"
         android:ems="10"
         android:hint="@string/userLoginPass"
@@ -80,7 +80,7 @@
         android:layout_height="50dp"
         android:layout_above="@+id/usernew"
         android:layout_centerHorizontal="true"
-        app:cardBackgroundColor="#BEF0FF"
+        app:cardBackgroundColor="#00bde7"
         app:cardCornerRadius="25dp"
         android:layout_marginBottom="15dp"
         android:background="#FFDF1961">
@@ -95,7 +95,6 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/userLogin"
-                android:textColor="#898989"
                 android:textSize="18sp" />
 
         </RelativeLayout>
