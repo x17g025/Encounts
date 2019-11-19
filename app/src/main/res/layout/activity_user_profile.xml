@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout android:layout_width="match_parent"
+<FrameLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF">
 
     <ImageView
         android:id="@+id/UserSettings"
@@ -63,7 +64,6 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:id="@+id/line_horizontal_center"
         android:visibility="visible"
         android:layout_marginTop="130dp"
         android:background="#dcdcdc"/>
@@ -188,17 +188,13 @@
         android:layout_marginBottom="50dp"
         android:layout_marginTop="175dp">
 
-        <LinearLayout
+
+        <ListView
+            android:id="@+id/UserPostList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/UserDataList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="10sp" />
-        </LinearLayout>
+            android:layout_marginTop="1dp"
+            android:textSize="10sp" />
     </ScrollView>
 
     <LinearLayout

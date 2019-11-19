@@ -61,7 +61,7 @@ class UserLogin : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/LoginCheck.php"
+            val url = "https://kinako.cf/UserLogin.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -113,11 +113,13 @@ class UserLogin : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+
         _helper.close()
         super.onDestroy()
     }
 
     fun goProflie(){
+
         startActivity(Intent(this, UserProfile::class.java))
     }
 }

@@ -1,14 +1,15 @@
 package com.example.encount
 
 import android.content.Intent
+import android.graphics.Insets.add
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -37,14 +38,14 @@ class UserProfile : AppCompatActivity() {
         actStar.visibility   = View.GONE
 
         UserDataGet().execute()
-        //UserPostData().execute()
+        UserPostGet().execute()
 
         userPostBtn.setOnClickListener {
             actPost.visibility   = View.VISIBLE
             actFriend.visibility = View.GONE
             actStar.visibility   = View.GONE
 
-            UserPostData().execute()
+            UserPostGet().execute()
         }
 
         userFriendBtn.setOnClickListener {
@@ -52,7 +53,7 @@ class UserProfile : AppCompatActivity() {
             actFriend.visibility = View.VISIBLE
             actStar.visibility   = View.GONE
 
-            UserFriendData().execute()
+            UserFriendGet().execute()
         }
 
         userLikeBtn.setOnClickListener {
@@ -60,7 +61,7 @@ class UserProfile : AppCompatActivity() {
             actFriend.visibility = View.GONE
             actStar.visibility   = View.VISIBLE
 
-            UserLikeData().execute()
+            UserLikeGet().execute()
         }
 
         menuHomeBtn.setOnClickListener {
@@ -127,7 +128,8 @@ class UserProfile : AppCompatActivity() {
         }
     }
 
-    private inner class UserPostData() : AsyncTask<String, String, String>() {
+    //ユーザ投稿データ取得
+    private inner class UserPostGet() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
 
@@ -145,7 +147,7 @@ class UserProfile : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/UserDataGet.php"
+            val url = "https://kinako.cf/UserPostGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -170,62 +172,22 @@ class UserProfile : AppCompatActivity() {
 
         override fun onPostExecute(result: String) {
 
-            val etName = findViewById<TextView>(R.id.UserName)
-            val userData = Gson().fromJson(result, UserDataClassList::class.java)
-            etName.text = userData.userName
+            val lvPost = findViewById<ListView>(R.id.UserPostList)
+            var postList = mutableListOf<post>()
+            val listType = object : TypeToken<List<PostDataClassList>>() {}.type
+            val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
+
+            for(i in postData){
+
+                postList.add(post(i.userName,i.postText))
+                lvPost.adapter = UserAdapter(this@UserProfile, postList)
+            }
+
+
         }
     }
 
-    private inner class UserFriendData() : AsyncTask<String, String, String>() {
-
-        override fun doInBackground(vararg params: String): String {
-
-            var id = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-                val idxId = cursor.getColumnIndex("user_id")
-
-                id = cursor.getString(idxId)
-            }
-
-            val client = OkHttpClient()
-
-            //アクセスするURL
-            val url = "https://kinako.cf/UserDataGet.php"
-
-            //Formを作成
-            val formBuilder = FormBody.Builder()
-
-            //formに要素を追加
-            formBuilder.add("id",id)
-            //リクエストの内容にformを追加
-            val form = formBuilder.build()
-
-            //リクエストを生成
-            val request = Request.Builder().url(url).post(form).build()
-
-            try {
-                val response = client.newCall(request).execute()
-                return response.body()!!.string()
-            }
-            catch (e: IOException) {
-                e.printStackTrace()
-                return "Error"
-            }
-        }
-
-        override fun onPostExecute(result: String) {
-
-            val etName = findViewById<TextView>(R.id.UserName)
-            val userData = Gson().fromJson(result, UserDataClassList::class.java)
-            etName.text = userData.userName
-        }
-    }
-
-    private inner class UserLikeData() : AsyncTask<String, String, String>() {
+    private inner class UserFriendGet() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
 
@@ -273,5 +235,56 @@ class UserProfile : AppCompatActivity() {
             etName.text = userData.userName
         }
     }
+
+    private inner class UserLikeGet() : AsyncTask<String, String, String>() {
+
+        override fun doInBackground(vararg params: String): String {
+
+            var id = ""
+            val db = _helper.writableDatabase
+            val sql = "select * from userInfo"
+            val cursor = db.rawQuery(sql, null)
+
+            while(cursor.moveToNext()){
+                val idxId = cursor.getColumnIndex("user_id")
+
+                id = cursor.getString(idxId)
+            }
+
+            val client = OkHttpClient()
+
+            //アクセスするURL
+            val url = "https://kinako.cf/UserDataGet.php"
+
+            //Formを作成
+            val formBuilder = FormBody.Builder()
+
+            //formに要素を追加
+            formBuilder.add("id",id)
+            //リクエストの内容にformを追加
+            val form = formBuilder.build()
+
+            //リクエストを生成
+            val request = Request.Builder().url(url).post(form).build()
+
+            try {
+                val response = client.newCall(request).execute()
+                return response.body()!!.string()
+            }
+            catch (e: IOException) {
+                e.printStackTrace()
+                return "Error"
+            }
+        }
+
+        override fun onPostExecute(result: String) {
+
+            val etName = findViewById<TextView>(R.id.UserName)
+            val userData = Gson().fromJson(result, UserDataClassList::class.java)
+            etName.text = userData.userName
+        }
+    }
+
+
 
 }
