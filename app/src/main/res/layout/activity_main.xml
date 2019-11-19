@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         style="?android:attr/progressBarStyle"
         android:layout_above="@+id/loginbtn"
+        android:indeterminateTint="#00bde7"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="100dp"
         tools:visibility="visible"

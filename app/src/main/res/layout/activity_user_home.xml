@@ -32,8 +32,6 @@
         android:layout_height="50dp"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="20dp"
-        app:civ_border_width="0.5dp"
-        app:civ_border_color="#000000"
         android:layout_gravity="bottom|right"
         android:src="@drawable/post_up"/>
 
