@@ -7,36 +7,24 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_gravity="top">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/icon"/>
 
     </LinearLayout>
 
-    <ScrollView
+    <ListView
+        android:id="@+id/PostDataList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#dcdcdc"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="50dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/UserDataList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="10sp" />
-        </LinearLayout>
-    </ScrollView>
+        android:textSize="10sp"
+        android:layout_marginBottom="45dp"
+        android:layout_marginTop="45dp"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/btnPost"
@@ -44,12 +32,14 @@
         android:layout_height="50dp"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="20dp"
+        app:civ_border_width="0.5dp"
+        app:civ_border_color="#000000"
         android:layout_gravity="bottom|right"
-        android:src="@drawable/userpostpen"/>
+        android:src="@drawable/post_up"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_gravity="bottom"
         android:orientation="horizontal">
 
@@ -58,23 +48,15 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center|center_vertical"
-            android:orientation="vertical">
+            android:gravity="center">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:gravity="center_horizontal"
-                android:src="@drawable/menumap"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menuMap"
-                android:textSize="10sp" />
+                android:src="@drawable/menu_map"/>
 
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/MenuHome"
             android:layout_width="60dp"
@@ -82,23 +64,15 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="0dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:gravity="center_horizontal"
-                android:src="@drawable/menuhomeact"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menuHome"
-                android:textSize="10sp" />
+                android:src="@drawable/menu_home_act"/>
 
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/MenuUser"
             android:layout_width="60dp"
@@ -106,20 +80,13 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="0dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:gravity="center">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:gravity="center_horizontal"
-                android:src="@drawable/menuuser"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menuUser"
-                android:textSize="10sp" />
+                android:src="@drawable/menu_user"/>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

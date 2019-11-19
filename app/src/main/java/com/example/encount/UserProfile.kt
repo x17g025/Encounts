@@ -172,18 +172,20 @@ class UserProfile : AppCompatActivity() {
 
         override fun onPostExecute(result: String) {
 
-            val lvPost = findViewById<ListView>(R.id.UserPostList)
-            var postList = mutableListOf<post>()
-            val listType = object : TypeToken<List<PostDataClassList>>() {}.type
-            val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
+            if(result != null || result != "") {
+                val lvPost = findViewById<ListView>(R.id.UserPostList)
+                var postList = mutableListOf<post>()
+                val listType = object : TypeToken<List<PostDataClassList>>() {}.type
+                val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
 
-            for(i in postData){
+                for (i in postData) {
 
-                postList.add(post(i.userName,i.postText))
-                lvPost.adapter = UserAdapter(this@UserProfile, postList)
+                    postList.add(post(i.userName, i.postText))
+                    Log.d("a",i.postDate)
+                }
+
+                lvPost.adapter = PostAdapter(this@UserProfile, postList)
             }
-
-
         }
     }
 

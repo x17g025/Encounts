@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.post_list.view.*
 
-class UserAdapter(val context: Context, val posts: List<post>): BaseAdapter() {
+class PostAdapter(val context: Context, val posts: List<post>): BaseAdapter() {
 
     val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
