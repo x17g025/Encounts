@@ -30,7 +30,6 @@ class PostAdapter(val context: Context, val posts: List<post>): BaseAdapter() {
         val view = layoutInflater.inflate(R.layout.post_list, parent, false)
         view.PostUserName.text = posts[position].name
         view.PostUserText.text = posts[position].text
-
         Glide.with(context).load(posts[position].image).into(view.PostImage)
         return view
     }
