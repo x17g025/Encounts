@@ -61,7 +61,7 @@ class UserLogin : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/UserLogin.php"
+            val url = "https://kinako.cf/encount/UserLogin.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()

@@ -51,7 +51,7 @@ class UserHome : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/UserPostGet.php"
+            val url = "https://kinako.cf/encount/UserPostGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -84,13 +84,12 @@ class UserHome : AppCompatActivity() {
 
                 for (i in postData) {
 
-                    postList.add(post(i.userName, i.postText))
+                    postList.add(post(i.userName, i.postText, i.postImage))
                     Log.d("a",i.postDate)
                 }
 
                 lvPost.adapter = PostAdapter(this@UserHome, postList)
             }
-
         }
     }
 }
