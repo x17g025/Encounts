@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_user_settings.*
 
-
 class UserSettings : AppCompatActivity() {
 
     private val _helper = SQLiteHelper(this@UserSettings)

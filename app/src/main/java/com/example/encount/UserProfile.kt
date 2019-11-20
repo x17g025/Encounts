@@ -1,7 +1,6 @@
 package com.example.encount
 
 import android.content.Intent
-import android.graphics.Insets.add
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -75,7 +74,6 @@ class UserProfile : AppCompatActivity() {
             startActivity(Intent(this, UserSettings::class.java))
             overridePendingTransition(0, 0)
         }
-
     }
 
     private inner class UserDataGet() : AsyncTask<String, String, String>() {

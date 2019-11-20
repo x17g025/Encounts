@@ -45,7 +45,6 @@ class UserLogin : AppCompatActivity() {
 
                 etError.text = "ユーザーまたはパスワードが入力されていません"
             }
-
         }
 
         usernew.setOnClickListener {
