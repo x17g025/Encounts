@@ -3,7 +3,9 @@
     android:id="@+id/PoStData"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -76,62 +78,6 @@
                     android:ellipsize="end"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="15sp" />
-
-                <LinearLayout
-                    android:layout_width="200dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_gravity="bottom|end"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:id="@+id/PostLike"
-                        android:layout_width="60dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/PostLikeImage"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/post_like"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/PostShare"
-                        android:layout_width="60dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="30dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/post_share"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/PostMenu"
-                        android:layout_width="60dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="30dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/post_menu"/>
-
-                    </LinearLayout>
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

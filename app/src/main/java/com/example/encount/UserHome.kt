@@ -83,8 +83,14 @@ class UserHome : AppCompatActivity() {
 
                 for (i in postData) {
 
-                    postList.add(post(i.userName, i.postText, i.postImage))
-                    Log.d("a",i.postDate)
+                    if(i.likeId == null){
+
+                        postList.add(post("false", i.postId, i.userName, i.postText, i.postImage))
+                    }
+                    else{
+
+                        postList.add(post(i.likeId, i.postId, i.userName, i.postText, i.postImage))
+                    }
                 }
 
                 lvPost.adapter = PostAdapter(this@UserHome, postList)
