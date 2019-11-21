@@ -181,7 +181,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="175dp"
         android:layout_marginBottom="45dp"
-        android:textSize="10sp"/>
+        android:textSize="10sp"
+        android:divider="@null"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:id="@+id/PoStData"
+<FrameLayout
+    android:id="@+id/PoStData"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +19,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:background="#FFFFFF">
 
         <ImageView
             android:id="@+id/PostImage"
@@ -87,13 +92,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:id="@+id/line_horizontal_center"
-        android:visibility="visible"
-        android:layout_gravity="bottom"
-        android:background="#dcdcdc"/>
 </FrameLayout>

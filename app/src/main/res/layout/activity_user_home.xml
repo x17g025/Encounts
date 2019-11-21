@@ -30,7 +30,8 @@
             android:id="@+id/PostDataList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:divider="@null"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
