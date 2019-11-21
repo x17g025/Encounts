@@ -30,9 +30,6 @@
                 android:text="ログアウト"
                 android:textColor="#898989"
                 android:textSize="18sp" />
-
         </RelativeLayout>
-
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>

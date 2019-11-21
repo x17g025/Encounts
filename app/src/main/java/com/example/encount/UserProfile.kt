@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
-import com.example.encount.UserSettings
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_profile.*
@@ -73,8 +71,7 @@ class UserProfile : AppCompatActivity() {
 
         userSettingsBtn.setOnClickListener {
 
-            startActivity(Intent(this, UserSettings::class.java))
-            overridePendingTransition(0, 0)
+            startActivity(Intent(this, com.example.encount.UserSettings::class.java))
         }
     }
 

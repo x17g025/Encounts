@@ -38,7 +38,6 @@ class UserHome : AppCompatActivity() {
             val intent = Intent(this, PostDetails::class.java)
             intent.putExtra("Post_Id", postId)
             startActivity(intent)
-            overridePendingTransition(0, 0)
         }
 
         PostDataList.setOnItemLongClickListener { parent, view, position, id ->
@@ -59,14 +58,12 @@ class UserHome : AppCompatActivity() {
             if(userId == id){
 
                 startActivity(Intent(this, UserProfile::class.java))
-                overridePendingTransition(0, 0)
             }
             else{
 
                 val intent = Intent(this, FriendProfile::class.java)
                 intent.putExtra("User_Id", userId)
                 startActivity(intent)
-                overridePendingTransition(0, 0)
             }
 
             return@setOnItemLongClickListener true

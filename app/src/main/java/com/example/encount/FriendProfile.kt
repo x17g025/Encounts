@@ -27,7 +27,6 @@ class FriendProfile : AppCompatActivity() {
         userId = intent.getStringExtra("User_Id")
 
         val menuHomeBtn     = findViewById<LinearLayout>(R.id.MenuHome)
-        val userSettingsBtn = findViewById<ImageView>(R.id.UserSettings)
 
         UserDataGet().execute()
         UserPostGet().execute()

@@ -28,10 +28,8 @@ class MainActivity : AppCompatActivity() {
         Handler().postDelayed({
             when {
 
-                userId == "" || userId == null  -> {startActivity(Intent(this, UserLogin::class.java))
-                                    overridePendingTransition(0, 0)}
-                else            -> {startActivity(Intent(this, UserHome::class.java))
-                                    overridePendingTransition(0, 0)}
+                userId == "" || userId == null  -> startActivity(Intent(this, UserLogin::class.java))
+                else            -> startActivity(Intent(this, UserHome::class.java))
             }
             finish()
         }, 1500)
