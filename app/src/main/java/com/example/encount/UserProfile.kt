@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import com.example.encount.UserSettings
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.activity_user_profile.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -27,11 +29,11 @@ class UserProfile : AppCompatActivity() {
         val actFriend = findViewById<View>(R.id.FriendLine)
         val actStar   = findViewById<View>(R.id.LikeLine)
 
-        val userPostBtn       = findViewById<LinearLayout>(R.id.UserPost)
-        val userFriendBtn     = findViewById<LinearLayout>(R.id.UserFriend)
-        val userLikeBtn       = findViewById<LinearLayout>(R.id.UserLike)
-        val menuHomeBtn       = findViewById<LinearLayout>(R.id.MenuHome)
-        val userSettingsBtn   = findViewById<ImageView>(R.id.UserSettings)
+        val userPostBtn     = findViewById<LinearLayout>(R.id.UserPost)
+        val userFriendBtn   = findViewById<LinearLayout>(R.id.UserFriend)
+        val userLikeBtn     = findViewById<LinearLayout>(R.id.UserLike)
+        val menuHomeBtn     = findViewById<LinearLayout>(R.id.MenuHome)
+        val userSettingsBtn = findViewById<ImageView>(R.id.UserSettings)
 
         actFriend.visibility = View.GONE
         actStar.visibility   = View.GONE
@@ -175,8 +177,11 @@ class UserProfile : AppCompatActivity() {
                 var postList = mutableListOf<post>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
+                var postCount = 0
 
                 for (i in postData) {
+
+                    postCount++
 
                     if(i.likeId == null){
 
@@ -186,8 +191,9 @@ class UserProfile : AppCompatActivity() {
 
                         postList.add(post(i.likeId, i.postId, i.userName, i.postText, i.postDate, i.postImage))
                     }
-                }
 
+                }
+                UserPostCount.text = Integer.toString(postCount)
                 lvPost.adapter = PostAdapter(this@UserProfile, postList)
             }
         }
