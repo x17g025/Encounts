@@ -34,8 +34,7 @@
         android:orientation="vertical"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:background="#FFFFFF">
+        android:layout_marginStart="10dp">
 
         <ImageView
             android:id="@+id/PostImage"
@@ -47,7 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="bottom">
+            android:layout_gravity="bottom"
+            android:background="#FFFFFF">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/UserIcon"
