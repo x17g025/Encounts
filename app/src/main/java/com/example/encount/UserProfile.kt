@@ -185,11 +185,11 @@ class UserProfile : AppCompatActivity() {
 
                     if(i.likeId == null){
 
-                        postList.add(post("null", i.postId, i.userName, i.postText, i.postDate, i.postImage))
+                        postList.add(post("null", i.postId, i.userId, i.userName, i.postText, i.postDate, i.postImage))
                     }
                     else{
 
-                        postList.add(post(i.likeId, i.postId, i.userName, i.postText, i.postDate, i.postImage))
+                        postList.add(post(i.likeId, i.postId, i.userId, i.userName, i.postText, i.postDate, i.postImage))
                     }
 
                 }

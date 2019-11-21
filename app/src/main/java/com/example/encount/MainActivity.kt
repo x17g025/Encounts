@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             userId = cursor.getString(idxId)
         }
 
-        Handler().postDelayed(Runnable {
+        Handler().postDelayed({
             when {
 
                 userId == "" || userId == null  -> {startActivity(Intent(this, UserLogin::class.java))

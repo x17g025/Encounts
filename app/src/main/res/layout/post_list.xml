@@ -6,6 +6,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <TextView
+        android:id="@+id/PostId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="0sp" />
+
+    <TextView
+        android:id="@+id/UserId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="0sp" />
+
     <ProgressBar
         android:id="@+id/loginProgress"
         android:layout_height="wrap_content"
