@@ -1,10 +1,11 @@
 package com.example.encount
 
-class post(
+data class post(
     val likeid: String,
     val postid: String,
     val name: String,
     val text: String,
+    val date: String,
     val image: String
 )
 

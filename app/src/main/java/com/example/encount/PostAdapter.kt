@@ -10,12 +10,13 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_user_settings.*
 import kotlinx.android.synthetic.main.post_list.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PostAdapter(val context: Context, val posts: List<post>): BaseAdapter() {
 
@@ -41,12 +42,9 @@ class PostAdapter(val context: Context, val posts: List<post>): BaseAdapter() {
         val view = layoutInflater.inflate(R.layout.post_list, parent, false)
         view.PostUserName.text = posts[position].name
         view.PostUserText.text = posts[position].text
+        view.PostDate.text     = posts[position].date
         Glide.with(context).load(posts[position].image).into(view.PostImage)
         postId = posts[position].postid
-
-        Log.d("postid", postId)
-
-
 
         return view
     }
@@ -95,7 +93,6 @@ class PostAdapter(val context: Context, val posts: List<post>): BaseAdapter() {
 
         override fun onPostExecute(result: String) {
 
-            Log.d("aaaaa", result)
             likeFlag = Gson().fromJson(result, like::class.java).likeFlag
         }
     }

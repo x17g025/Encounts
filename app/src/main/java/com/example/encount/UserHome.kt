@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.LinearLayout
 import android.widget.ListView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.activity_user_home.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -29,6 +29,10 @@ class UserHome : AppCompatActivity() {
 
             startActivity(Intent(this, UserProfile::class.java))
             overridePendingTransition(0, 0)
+        }
+
+        swipelayout.setOnRefreshListener {
+            UserPostGet().execute()
         }
     }
 
@@ -85,16 +89,18 @@ class UserHome : AppCompatActivity() {
 
                     if(i.likeId == null){
 
-                        postList.add(post("false", i.postId, i.userName, i.postText, i.postImage))
+                        postList.add(post("false", i.postId, i.userName, i.postText, i.postDate, i.postImage))
                     }
                     else{
 
-                        postList.add(post(i.likeId, i.postId, i.userName, i.postText, i.postImage))
+                        postList.add(post(i.likeId, i.postId, i.userName, i.postText, i.postDate, i.postImage))
                     }
                 }
 
                 lvPost.adapter = PostAdapter(this@UserHome, postList)
             }
+
+            swipelayout.isRefreshing = false
         }
     }
 }
