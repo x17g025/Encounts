@@ -15,6 +15,10 @@
     <string name="menuUser">ユーザー</string>
     <string name="menuHome">ホーム</string>
     <string name="menuMap">マップ</string>
-
+    <string name="bt_map_search">地図検索</string>
+    <string name="tv_current_title">現在地</string>
+    <string name="tv_latitude_title">緯度:</string>
+    <string name="tv_longitude_title">経度:</string>
+    <string name="bt_map_current">地図表示</string>
 
 </resources>

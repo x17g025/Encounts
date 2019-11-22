@@ -75,6 +75,11 @@ class UserHome : AppCompatActivity() {
             overridePendingTransition(0, 0)
         }
 
+        btnPost.setOnClickListener{
+
+            startActivity(Intent(this, UserPost::class.java))
+        }
+
         swipelayout.setOnRefreshListener {
             UserPostGet().execute()
         }
