@@ -98,6 +98,7 @@
         />
 
     <!--投稿タグ用テキストボックス-->
+    <!--
     <EditText
         android:id="@+id/tagInput"
         android:layout_width="match_parent"
@@ -110,6 +111,7 @@
         android:inputType="text"
         android:background="@drawable/partsdesign2"
         />
+        -->
 
     <!--ファイル名確認用-->
 
@@ -133,15 +135,7 @@
         android:layout_width="match_parent"
         android:layout_height="33dp"
         android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/http"
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_marginRight="5dp"
-        android:layout_weight="0.5"
-        android:maxLines="1" />
-
+    <!--
     <Button
         android:id="@+id/getButton"
         android:layout_width="wrap_content"
@@ -154,14 +148,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="86dp" />
+        tools:layout_editor_absoluteY="86dp" />-->
 
     <Button
         android:id="@+id/postButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="POST"
+        android:text="投稿(POST)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.117"
         app:layout_constraintLeft_toLeftOf="parent"

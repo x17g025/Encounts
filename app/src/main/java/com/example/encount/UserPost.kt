@@ -1,38 +1,55 @@
 package com.example.encount
 
 import android.Manifest
-import android.content.ContentValues
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import kotlinx.android.synthetic.main.activity_user_post.*
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
+import android.os.AsyncTask
+import android.util.Log
+import okhttp3.*
+import java.io.File
+import java.io.IOException
+import java.util.concurrent.TimeUnit
+
+/**
+ * やること
+ * ストレージ読み込み権限の許可を取るポップアップを表示する
+ *
+ */
 
 /**
  * カメラ機能
  */
 class UserPost : AppCompatActivity() {
 
-    //companion object @JvmField public var cmnt = ""
+    val _helper = SQLiteHelper(this@UserPost)
+
+    //写真のパスを受け取る変数(将来的には撮影した写真のパス、ファイル名を取得して指定する)
+    var uurl = ""
+    //緯度
+    var latitude = ""
+    //経度
+    var longitude = ""
+    //送信するコメント内容の受け取り変数
+    var cmnt = ""
+
+    //写真の保存先デバッグ用
+    var basyo: Uri? = null
 
     /**
      * 保存された画像のURI
@@ -42,53 +59,58 @@ class UserPost : AppCompatActivity() {
     /**
      * 緯度フィールド
      */
+
     private var _latitude = 0.0
     /**
      * 経度フィールド
      */
     private var _longitude = 0.0
 
-    companion object @JvmField var come = ""
-    //val comment = findViewById<EditText>(R.id.commentInput) as EditText
-    /*
-    companion object {
-        @JvmStatic
-        var cmnt = ""
-        var aaaaa = "aa"
-    }*/
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_post)
 
         /**
-         * 投稿ボタン押すと・・・
+         * 投稿処理
+         * 投稿ボタン押すと動作する
          */
         // GETボタンとPOSTボタン取得
+        //val getButton = findViewById<Button>(R.id.getButton)
         val postButton = findViewById<Button>(R.id.postButton)
+        val commentInput = findViewById<EditText>(R.id.commentInput)
 
         // POSTボタンが押された時
-        postButton.setOnClickListener(View.OnClickListener {
+        postButton.setOnClickListener {
 
-            // エディットテキストのテキストを取得
-            //if(comment.text != null){
-            // 取得したテキストをcmntに張り付ける
-            //  cmnt = comment.text.toString()
-            //}
+            //パスの処理
+            val uuri = getFileSchemeUri(_imageUri as Uri)
+            println(uuri.toString())
+            //OkHttpPost.uurl = uuri.toString()
+            var pass = uuri.toString().substring(uuri.toString().length - 17)
+            print(pass)
+            uurl = pass
+
+            //コメントをEditTextから取得
+            cmnt = commentInput.getText().toString()
+            //緯度を取得
+            //OkHttpPost.latitude = "35.703092"
+            latitude = _latitude.toString()
+            //経度を取得
+            //OkHttpPost.longitude = "139.985561"
+            longitude = _longitude.toString()
+
+            basyo = _imageUri;
 
             val postTask = OkHttpPost()
-            postTask.execute()
+            postTask.execute(/*uuri.toString()*/)
 
-            //val cmnt1 = findViewById<TextView>(R.id.http)
-            //http.text = cmnt1.toString()
-            //http.text = OkHttpPost.aaa
+            startActivity(Intent(this, UserHome::class.java))
+        }
 
-        })
-        //ここまで
 
-        //追加
+        /**
+         * 位置情報取得
+         */
         //LocationManagerオブジェクトを取得。
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         //位置情報が更新された際のリスナオブジェクトを生成。
@@ -108,16 +130,28 @@ class UserPost : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+
         //カメラアプリからの戻りでかつ撮影成功の場合
         if(requestCode == 200 && resultCode == RESULT_OK) {
             //撮影された画像のビットマップデータを取得。
-//			val bitmap = data?.getParcelableExtra<Bitmap>("data")
+            val bitmap = data?.getParcelableExtra<Bitmap>("data")
             //画像を表示するImageViewを取得。
             val ivCamera = findViewById<ImageView>(R.id.ivCamera)
             //撮影された画像をImageViewに設定。
-//			ivCamera.setImageBitmap(bitmap)
+            ivCamera.setImageBitmap(bitmap)
             //フィールドの画像URIをImageViewに設定。
             ivCamera.setImageURI(_imageUri)
+
+            //デバッグ用
+            System.out.println("変換前"+_imageUri)
+
+            /**
+             * ここで一番下のメソッドを利用して、パスを取得する
+             */
+            val uuri = getFileSchemeUri(_imageUri as Uri)
+            println("変換後："+uuri.toString())
         }
     }
 
@@ -150,7 +184,7 @@ class UserPost : AppCompatActivity() {
      * 画像部分がタップされたときの処理メソッド。
      * 1101 カメラのパーミッション設定の確認と同時に、ここで現在地取得のパーミッションも確認して、許可がないなら再度リクエストする処理を追加する
      */
-    fun onCameraImageClick(view: View) {
+    private fun onCameraImageClick(view: View) {
         //WRITE_EXTERNAL_STORAGEの許可が下りていないなら…
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //WRITE_EXTERNAL_STORAGEの許可を求めるダイアログを表示。その際、リクエストコードを2000に設定。
@@ -166,14 +200,11 @@ class UserPost : AppCompatActivity() {
         //取得した日時データを「yyyyMMddHHmmss」形式に整形した文字列を生成。
         val nowStr = dateFormat.format(now)
         //ストレージに格納する画像のファイル名を生成。ファイル名の一意を確保するためにタイムスタンプの値を利用。
-
         val fileName = "UseCameraActivityPhoto_${nowStr}.jpg"
 
         /**
          * 画面要素にファイル名を表示するための変数
          */
-        val ffn = findViewById<TextView>(R.id.tvWeatherDesc)
-        tvWeatherDesc.text = fileName
 
         //ContentValuesオブジェクトを生成。
         val values = ContentValues()
@@ -184,6 +215,7 @@ class UserPost : AppCompatActivity() {
 
         //ContentResolverを使ってURIオブジェクトを生成。
         _imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+
         //Intentオブジェクトを生成。
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         //Extra情報として_imageUriを設定。
@@ -191,6 +223,7 @@ class UserPost : AppCompatActivity() {
         //アクティビティを起動。
         startActivityForResult(intent, 200)
     }
+
 
     /**
      * ロケーションリスナクラス。
@@ -216,36 +249,110 @@ class UserPost : AppCompatActivity() {
         override fun onProviderDisabled(provider: String) {}
     }
 
+    /**
+     * URIをFileスキームのURIに変換する.
+     * @param uri 変換前のURI  例) content://media/external/images/media/33
+     * @return 変換後のURI     例) file:///storage/sdcard/test1.jpg
+     */
+    private fun getFileSchemeUri(uri: Uri): Uri {
+        var fileSchemeUri = uri
+        val path = getPath(uri)
+        fileSchemeUri = Uri.fromFile(File(path))
+        return fileSchemeUri
+    }
 
-    private inner class OkHttpPost() : AsyncTask<String, String, String>() {
+    /**
+     * URIからファイルPATHを取得する.
+     * @param uri URI
+     * @return ファイルPATH
+     */
+    private fun getPath(uri: Uri): String {
+        var path = uri.toString()
+        if (path.matches("^file:.*".toRegex())) {
+            return path.replaceFirst("file://".toRegex(), "")
+        } else if (!path.matches("^content:.*".toRegex())) {
+            return path
+        }
+        val context = applicationContext
+        val contentResolver = context.contentResolver
+        val columns = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = contentResolver.query(uri, columns, null, null, null)
+        if (cursor != null) {
+            if (cursor.count > 0) {
+                cursor.moveToFirst()
+                path = cursor.getString(0)
+            }
+            cursor.close()
+        }
+        return path
+    }
 
-        //public static String aaa = "aa";
+    private inner class OkHttpPost : AsyncTask<String, String, String>() {
 
-        override fun doInBackground(vararg strings: String): String? {
+        public override
+        fun doInBackground(vararg ImagePath: String): String? {
+
+            //user-id(将来的にはAndroid内のSQLiteから取得)
+            var id     = ""
+            val db     = _helper.writableDatabase
+            val sql    = "select * from userInfo"
+            val cursor = db.rawQuery(sql, null)
+
+            while(cursor.moveToNext()){
+
+                val idxId = cursor.getColumnIndex("user_id")
+                id = cursor.getString(idxId)
+            }
+
+            //アクセスするURL
+            val url = "https://kinako.cf/encount/PostPhoto.php"
+
+            //パスを設定
+            var pass = "/sdcard/Pictures/"
+            //ファイル名を取得
+            pass = pass + uurl
+            //写真のパスを取得する
+            val file2 = File(pass)
+            val str = file2.absolutePath
+            println("pass : $str")
+            //ファイルの存在確認(uurlの写真が存在するのか)　※デバッグ用
+            if (file2.exists()) {
+                println("ファイルが存在します。")
+            } else {
+                println("ファイルが存在しません。")
+            }
+
+            //ここでPOSTする内容を設定　"image/jpg"の部分は送りたいファイルの形式に合わせて変更する
+            val requestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("userId", id)
+                .addFormDataPart("longitude", longitude)
+                .addFormDataPart("latitude", latitude)
+                .addFormDataPart("word", cmnt)
+                .addFormDataPart(
+                    "file",
+                    file2.name,
+                    RequestBody.create(MediaType.parse("image/jpg"), file2)
+                )
+                .build()
 
             val client = OkHttpClient()
+                .newBuilder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(50, TimeUnit.SECONDS)
+                .build()
 
-            var cmnt = "コメントです"
-
-            val url = "https://kinako.cf/api/pass_check.php"
-
-            //Map<String, String> formParamMap = new HashMap<>();
-            //formParamMap.put("word", "abc");
-            val formBuilder = FormBody.Builder()
-            //formParamMap.forEach(formBuilder::add);
-            formBuilder.add("word", cmnt)
-            val body = formBuilder.build()
-
-            //RequestBody body = RequestBody.create(JSON, json);
-
+            //リクエストの作成
             val request = Request.Builder()
                 .url(url)
-                .post(body)
+                .post(requestBody)
                 .build()
+            //ここまで
 
             try {
                 val response = client.newCall(request).execute()
-                //aaa = response.body().string();
+                //System.out.println(response.body().string());
                 return response.body()!!.string()
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -255,6 +362,7 @@ class UserPost : AppCompatActivity() {
         }
 
         override fun onPostExecute(str: String) {
+            //結果をログに出力(レスポンスのbodyタグ内を出力する)
             Log.d("Debug", str)
         }
     }

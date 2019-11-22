@@ -24,6 +24,7 @@ class UserHome : AppCompatActivity() {
     private val _helper = SQLiteHelper(this@UserHome)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_home)
 
