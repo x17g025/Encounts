@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit
 /**
  * やること
  * ストレージ読み込み権限の許可を取るポップアップを表示する
- *
+ *制作者：大野
  */
 
 /**
