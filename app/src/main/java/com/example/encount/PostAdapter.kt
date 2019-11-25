@@ -9,6 +9,13 @@ import android.widget.BaseAdapter
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.post_list.view.*
 
+/**
+ * やってること
+ * カスタムListViewを適用するためのクラス
+ *
+ * 製作者：中村
+ */
+
 class PostAdapter(val context: Context, val posts: List<post>): BaseAdapter() {
 
     val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

@@ -13,6 +13,13 @@ import kotlinx.android.synthetic.main.activity_user_login.*
 import okhttp3.*
 import java.io.IOException
 
+/**
+ * やってること
+ * メアドとパスワードをサーバに送信し、サーバからログイン成功(true)が帰ってきたらホーム画面に飛ばす
+ *
+ * 製作者：中村
+ */
+
 class UserLogin : AppCompatActivity() {
 
     private val _helper = SQLiteHelper(this@UserLogin)

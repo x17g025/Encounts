@@ -13,6 +13,13 @@ import kotlinx.android.synthetic.main.activity_user_singin.*
 import okhttp3.*
 import java.io.IOException
 
+/**
+ * やってること
+ * 新規登録項目をサーバに送信し、サーバから新規登録成功(true)が帰ってきたらホーム画面に飛ばす
+ *
+ * 製作者：中村
+ */
+
 class UserSingin : AppCompatActivity() {
 
     private val _helper = SQLiteHelper(this@UserSingin)

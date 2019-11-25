@@ -5,6 +5,13 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import java.lang.StringBuilder
 
+/**
+ * やってること
+ * 端末のSQLiteを使うためのクラス(ローカルストレージなのでサーバと通信しない)
+ *
+ * 製作者：中村
+ */
+
 class SQLiteHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object{

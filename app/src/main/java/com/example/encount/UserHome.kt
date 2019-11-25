@@ -19,6 +19,13 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
+/**
+ * やってること
+ * 投稿をサーバから取得してListViewに表示する
+ *
+ * 製作者：中村
+ */
+
 class UserHome : AppCompatActivity() {
 
     private val _helper = SQLiteHelper(this@UserHome)

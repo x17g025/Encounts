@@ -14,6 +14,13 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 
+/**
+ * やってること
+ * ユーザのプロフィールを表示する
+ *
+ * 製作者：中村
+ */
+
 class UserProfile : AppCompatActivity() {
 
     private val _helper = SQLiteHelper(this@UserProfile)

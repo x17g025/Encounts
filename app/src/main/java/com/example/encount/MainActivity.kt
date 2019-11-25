@@ -5,6 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 
+/**
+ * やってること
+ * ログインしてたらホーム画面に、してなければログイン画面に飛ばす
+ *
+ * 製作者：中村
+ */
+
 class MainActivity : AppCompatActivity() {
 
     private val _helper = SQLiteHelper(this@MainActivity)
