@@ -14,6 +14,12 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 
+/**
+ * やること
+ * ストレージ読み込み権限の許可を取るポップアップを表示する
+ * 製作者：中村
+ */
+
 class FriendProfile : AppCompatActivity() {
 
     private val _helper = SQLiteHelper(this@FriendProfile)
