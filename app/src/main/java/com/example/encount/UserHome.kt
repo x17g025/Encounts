@@ -18,6 +18,7 @@ import java.io.IOException
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import java.lang.Exception
 
 /**
  * やってること
@@ -136,7 +137,7 @@ class UserHome : AppCompatActivity() {
 
         override fun onPostExecute(result: String) {
 
-            if(result != null || result != "") {
+            try {
                 val lvPost = findViewById<ListView>(R.id.PostDataList)
                 var postList = mutableListOf<post>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
@@ -155,6 +156,9 @@ class UserHome : AppCompatActivity() {
                 }
 
                 lvPost.adapter = PostAdapter(this@UserHome, postList)
+            }
+            catch(e : Exception){
+
             }
 
             swipelayout.isRefreshing = false
