@@ -9,27 +9,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <!-- The main content view -->
+        <!-- コンテンツ部分 -->
 
         <LinearLayout
-            android:id="@+id/left_draw"
+            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        <!-- The navigation drawer -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hello_world" />
+        </LinearLayout>
+
+        <!-- ドロワー部分 -->
 
         <LinearLayout
-            android:id="@+id/left_drawer"
+            android:id="@+id/drawer"
             android:layout_width="240dp"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:background="#333" >
+            android:layout_gravity="left" >
 
-            <Button
-                android:id="@+id/drawer_button"
+            <!-- ここではFragmentをセットするためのLayoutをいれてみる -->
+
+            <LinearLayout
+                android:id="@+id/fragmentMenu"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="drawer button" />
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:orientation="vertical" />
         </LinearLayout>
 
     </android.support.v4.widget.DrawerLayout>
