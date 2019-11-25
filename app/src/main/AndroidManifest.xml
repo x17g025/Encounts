@@ -27,7 +27,7 @@
             android:noHistory="true"/>
         <activity
             android:name=".UserPost"
-            android:noHistory="true"/>
+            />
         <activity android:name=".UserHome" />
         <activity android:name=".PostDetails" />
         <activity android:name=".FriendProfile" />

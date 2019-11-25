@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit
 /**
  * やること
  * ストレージ読み込み権限の許可を取るポップアップを表示する
- *
+ *制作者：大野
  */
 
 /**
@@ -184,7 +184,8 @@ class UserPost : AppCompatActivity() {
      * 画像部分がタップされたときの処理メソッド。
      * 1101 カメラのパーミッション設定の確認と同時に、ここで現在地取得のパーミッションも確認して、許可がないなら再度リクエストする処理を追加する
      */
-    private fun onCameraImageClick(view: View) {
+    /*private*/ fun onCameraImageClick(view: View) {
+    //↑にprivateをつけるとうまく動作しなくなる
         //WRITE_EXTERNAL_STORAGEの許可が下りていないなら…
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //WRITE_EXTERNAL_STORAGEの許可を求めるダイアログを表示。その際、リクエストコードを2000に設定。
