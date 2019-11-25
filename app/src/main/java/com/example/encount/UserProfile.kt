@@ -13,6 +13,7 @@ import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
+import java.lang.Exception
 
 /**
  * やってること
@@ -176,7 +177,7 @@ class UserProfile : AppCompatActivity() {
 
         override fun onPostExecute(result: String) {
 
-            if(result != null || result != "") {
+            try{
                 val lvPost = findViewById<ListView>(R.id.UserPostList)
                 var postList = mutableListOf<post>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
@@ -199,6 +200,9 @@ class UserProfile : AppCompatActivity() {
                 }
                 UserPostCount.text = Integer.toString(postCount)
                 lvPost.adapter = PostAdapter(this@UserProfile, postList)
+            }
+            catch (e : Exception){
+
             }
         }
     }
