@@ -154,6 +154,7 @@ class UserHome : AppCompatActivity() {
                         postList.add(post(i.likeId, i.postId, i.userId, i.userName, i.postText, i.postDate, i.postImage))
                     }
                 }
+                postList[1].postid
 
                 lvPost.adapter = PostAdapter(this@UserHome, postList)
             }

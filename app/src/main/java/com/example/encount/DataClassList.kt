@@ -43,3 +43,9 @@ data class SinginDataClassList (
     val result: String,
     val userId: Long
 )
+
+data class MapsDataClassList (
+    val mapsLat: Double,
+    val mapsLng: Double,
+    val imagePath: String
+)
