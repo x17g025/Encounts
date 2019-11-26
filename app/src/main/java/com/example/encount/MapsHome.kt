@@ -65,7 +65,7 @@ class MapsHome : FragmentActivity(), OnMapReadyCallback {
     //最新の位置情報の取得(nullが返ってくる可能性)
     fun getLastLocation() {
         fusedLocationClient!!.getLastLocation().addOnCompleteListener(
-            this, object : OnCompleteListener<Location> {
+            this@MapsHome, OnCompleteListener<Location> {
                 fun onCompleteLisner(task: Task<Location>) {
                     //アクセスが成功したら
                     if (task.isSuccessful() && task.getResult() != null) {
@@ -75,12 +75,12 @@ class MapsHome : FragmentActivity(), OnMapReadyCallback {
                             "緯度" + location!!.latitude + "\n" + "経度" + location!!.longitude,
                             Toast.LENGTH_LONG
                         )
-                        toast.show()
+                        //toast.show()
                         Log.d("debug", "計測成功")
                     }
                     else {
                         toast = Toast.makeText(this@MapsHome, "計測不能", Toast.LENGTH_LONG)
-                        toast.show()
+                        //toast.show()
                         Log.d("debug", "計測失敗")
                     }
                 }
@@ -135,6 +135,4 @@ class MapsHome : FragmentActivity(), OnMapReadyCallback {
         private val REQUEST_CODE = 1000
         private val REQUEST_PERMISSION = 1000
     }
-
-
 }
