@@ -4,7 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
+import com.example.encount.post.UserHome
+import com.example.encount.user.UserLogin
 
 /**
  * やってること

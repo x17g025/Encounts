@@ -1,6 +1,6 @@
 package com.example.encount
 
-data class post(
+data class PostList(
     val likeid: String,
     val postid: String,
     val userid: String,

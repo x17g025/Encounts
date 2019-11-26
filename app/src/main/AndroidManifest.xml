@@ -28,27 +28,27 @@
         android:supportsRtl="true"
         android:theme="@style/MyTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".FriendAdd"></activity>
+        <activity android:name=".friend.FriendAdd"></activity>
         <activity
             android:name=".DrawerActivity"
             android:label="@string/title_activity_drawer"
             android:theme="@style/MyTheme.NoActionBar" />
         <activity
-            android:name=".UserLogin"
+            android:name=".user.UserLogin"
             android:noHistory="true" />
         <activity
-            android:name=".UserSingin"
+            android:name=".user.UserSingin"
             android:noHistory="true" />
         <activity
-            android:name=".UserSettings"
+            android:name=".user.UserSettings"
             android:noHistory="true" />
         <activity
-            android:name=".UserProfile"
+            android:name=".user.UserProfile"
             android:noHistory="true" />
-        <activity android:name=".UserPost" />
-        <activity android:name=".UserHome" />
-        <activity android:name=".PostDetails" />
-        <activity android:name=".FriendProfile" />
+        <activity android:name=".post.UserPost" />
+        <activity android:name=".post.UserHome" />
+        <activity android:name=".post.PostDetails" />
+        <activity android:name=".friend.FriendProfile" />
         <activity
             android:name=".MainActivity"
             android:noHistory="true">

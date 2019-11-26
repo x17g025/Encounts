@@ -1,4 +1,4 @@
-package com.example.encount
+package com.example.encount.maps
 
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.encount.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices

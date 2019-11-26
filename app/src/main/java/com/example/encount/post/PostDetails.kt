@@ -1,7 +1,8 @@
-package com.example.encount
+package com.example.encount.post
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.encount.R
 import kotlinx.android.synthetic.main.activity_post_details.*
 
 /**

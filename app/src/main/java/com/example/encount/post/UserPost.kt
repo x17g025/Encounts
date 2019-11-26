@@ -1,4 +1,4 @@
-package com.example.encount
+package com.example.encount.post
 
 import android.Manifest
 import android.content.*
@@ -18,6 +18,9 @@ import java.util.Date
 import android.os.AsyncTask
 import android.util.Log
 import android.widget.*
+import com.example.encount.R
+import com.example.encount.SQLiteHelper
+import com.example.encount.user.UserProfile
 import okhttp3.*
 import java.io.File
 import java.io.IOException

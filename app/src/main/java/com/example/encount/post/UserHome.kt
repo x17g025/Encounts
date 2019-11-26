@@ -1,13 +1,16 @@
-package com.example.encount
+package com.example.encount.post
 
 import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
+import com.example.encount.PostDataClassList
+import com.example.encount.PostList
+import com.example.encount.R
+import com.example.encount.SQLiteHelper
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_home.*
@@ -15,11 +18,8 @@ import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.widget.Toolbar
-import androidx.fragment.app.Fragment
+import com.example.encount.friend.FriendProfile
+import com.example.encount.user.UserProfile
 import java.lang.Exception
 
 /**
@@ -141,7 +141,7 @@ class UserHome : AppCompatActivity() {
 
             try {
                 val lvPost = findViewById<ListView>(R.id.PostDataList)
-                var postList = mutableListOf<post>()
+                var postList = mutableListOf<PostList>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
 
@@ -149,11 +149,31 @@ class UserHome : AppCompatActivity() {
 
                     if(i.likeId == null){
 
-                        postList.add(post("false", i.postId, i.userId, i.userName, i.postText, i.postDate, i.postImage))
+                        postList.add(
+                            PostList(
+                                "false",
+                                i.postId,
+                                i.userId,
+                                i.userName,
+                                i.postText,
+                                i.postDate,
+                                i.postImage
+                            )
+                        )
                     }
                     else{
 
-                        postList.add(post(i.likeId, i.postId, i.userId, i.userName, i.postText, i.postDate, i.postImage))
+                        postList.add(
+                            PostList(
+                                i.likeId,
+                                i.postId,
+                                i.userId,
+                                i.userName,
+                                i.postText,
+                                i.postDate,
+                                i.postImage
+                            )
+                        )
                     }
                 }
                 postList[1].postid

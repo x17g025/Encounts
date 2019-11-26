@@ -1,4 +1,4 @@
-package com.example.encount
+package com.example.encount.user
 
 import android.content.Intent
 import android.os.AsyncTask
@@ -8,6 +8,9 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.example.encount.R
+import com.example.encount.SQLiteHelper
+import com.example.encount.SinginDataClassList
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_user_singin.*
 import okhttp3.*

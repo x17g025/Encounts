@@ -1,12 +1,13 @@
-package com.example.encount
+package com.example.encount.post
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.bumptech.glide.Glide
+import com.example.encount.PostList
+import com.example.encount.R
 import kotlinx.android.synthetic.main.post_list.view.*
 
 /**
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.post_list.view.*
  * 製作者：中村
  */
 
-class PostAdapter(val context: Context, val posts: List<post>): BaseAdapter() {
+class PostAdapter(val context: Context, val posts: List<PostList>): BaseAdapter() {
 
     val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -24,7 +25,7 @@ class PostAdapter(val context: Context, val posts: List<post>): BaseAdapter() {
         return posts.count()
     }
 
-    override fun getItem(position: Int): post {
+    override fun getItem(position: Int): PostList {
         return posts[position]
     }
 

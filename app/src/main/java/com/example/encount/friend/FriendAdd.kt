@@ -1,16 +1,14 @@
-package com.example.encount
+package com.example.encount.friend
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.AsyncTask
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.ListView
-import android.widget.TextView
+import com.example.encount.*
+import com.example.encount.post.PostAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_home.*
@@ -97,13 +95,13 @@ class FriendAdd : AppCompatActivity() {
 
             try {
                 val lvPost = findViewById<ListView>(R.id.PostDataList)
-                var friendList = mutableListOf<post>()
+                var friendList = mutableListOf<PostList>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
 
-                friendList.add(post("false", i.postId, i.userId, i.userName, i.postText, i.postDate, i.postImage))
 
-                lvPost.adapter = PostAdapter(this@FriendAdd, postList)
+
+
             }
             catch(e : Exception){
 

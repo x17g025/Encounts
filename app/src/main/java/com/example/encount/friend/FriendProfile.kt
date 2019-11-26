@@ -1,11 +1,13 @@
-package com.example.encount
+package com.example.encount.friend
 
 import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.*
+import com.example.encount.*
+import com.example.encount.post.PostAdapter
+import com.example.encount.post.UserHome
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_profile.*
@@ -130,7 +132,7 @@ class FriendProfile : AppCompatActivity() {
 
             if(result != null || result != "") {
                 val lvPost = findViewById<ListView>(R.id.UserPostList)
-                var postList = mutableListOf<post>()
+                var postList = mutableListOf<PostList>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
                 var postCount = 0
@@ -141,11 +143,31 @@ class FriendProfile : AppCompatActivity() {
 
                     if(i.likeId == null){
 
-                        postList.add(post("null", i.postId, i.userId, i.userName, i.postText, i.postDate, i.postImage))
+                        postList.add(
+                            PostList(
+                                "null",
+                                i.postId,
+                                i.userId,
+                                i.userName,
+                                i.postText,
+                                i.postDate,
+                                i.postImage
+                            )
+                        )
                     }
                     else{
 
-                        postList.add(post(i.likeId, i.postId, i.userId, i.userName, i.postText, i.postDate, i.postImage))
+                        postList.add(
+                            PostList(
+                                i.likeId,
+                                i.postId,
+                                i.userId,
+                                i.userName,
+                                i.postText,
+                                i.postDate,
+                                i.postImage
+                            )
+                        )
                     }
 
                 }
