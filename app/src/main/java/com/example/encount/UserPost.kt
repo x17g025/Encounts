@@ -11,30 +11,23 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import java.text.SimpleDateFormat
 import java.util.Date
 import android.os.AsyncTask
 import android.util.Log
+import android.widget.*
 import okhttp3.*
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 /**
- * やること
- * ストレージ読み込み権限の許可を取るポップアップを表示する
- *制作者：大野
+ * 投稿機能(カメラ、コメント、位置情報)
+ * 制作者：大野
  */
 
-/**
- * カメラ機能
- */
 class UserPost : AppCompatActivity() {
 
     val _helper = SQLiteHelper(this@UserPost)
@@ -47,9 +40,6 @@ class UserPost : AppCompatActivity() {
     var longitude = ""
     //送信するコメント内容の受け取り変数
     var cmnt = ""
-
-    //写真の保存先デバッグ用
-    var basyo: Uri? = null
 
     /**
      * 保存された画像のURI
@@ -70,43 +60,9 @@ class UserPost : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_post)
 
-        /**
-         * 投稿処理
-         * 投稿ボタン押すと動作する
-         */
-        // GETボタンとPOSTボタン取得
-        //val getButton = findViewById<Button>(R.id.getButton)
-        val postButton = findViewById<Button>(R.id.postButton)
-        val commentInput = findViewById<EditText>(R.id.commentInput)
-
-        // POSTボタンが押された時
-        postButton.setOnClickListener {
-
-            //パスの処理
-            val uuri = getFileSchemeUri(_imageUri as Uri)
-            println(uuri.toString())
-            //OkHttpPost.uurl = uuri.toString()
-            var pass = uuri.toString().substring(uuri.toString().length - 17)
-            print(pass)
-            uurl = pass
-
-            //コメントをEditTextから取得
-            cmnt = commentInput.getText().toString()
-            //緯度を取得
-            //OkHttpPost.latitude = "35.703092"
-            latitude = _latitude.toString()
-            //経度を取得
-            //OkHttpPost.longitude = "139.985561"
-            longitude = _longitude.toString()
-
-            basyo = _imageUri;
-
-            val postTask = OkHttpPost()
-            postTask.execute(/*uuri.toString()*/)
-
-            startActivity(Intent(this, UserHome::class.java))
-        }
-
+        //画面遷移用
+        val menuHomeBtn     = findViewById<LinearLayout>(R.id.MenuHome)
+        val menuUserBtn = findViewById<LinearLayout>(R.id.MenuUser)
 
         /**
          * 位置情報取得
@@ -125,8 +81,57 @@ class UserPost : AppCompatActivity() {
         }
         //位置情報の追跡を開始。
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
-        //ここまで
 
+        /**
+         * 投稿処理
+         * 投稿ボタン押すと動作する
+         */
+        // 投稿ボタン、コメント取得
+        val postButton = findViewById<Button>(R.id.postButton)
+        val commentInput = findViewById<EditText>(R.id.commentInput)
+
+
+        // 投稿ボタンが押された時
+        postButton.setOnClickListener {
+
+            //パスの処理
+            val uuri = getFileSchemeUri(_imageUri as Uri)
+            println(uuri.toString())
+            //OkHttpPost.uurl = uuri.toString()
+            var pass = uuri.toString().substring(uuri.toString().length - 17)
+            print(pass)
+            uurl = pass
+
+            //コメントをEditTextから取得
+            cmnt = commentInput.getText().toString()
+            //緯度を取得
+            latitude = _latitude.toString()
+            //経度を取得
+            longitude = _longitude.toString()
+
+            //ここで現在地取得処理(更新)を終了させる
+            print("GPS終了")
+            locationManager.removeUpdates(locationListener)
+
+            //投稿処理開始
+            val postTask = OkHttpPost()
+            postTask.execute(/*uuri.toString()*/)
+
+            startActivity(Intent(this, UserHome::class.java))
+        }
+
+        //メニューバーを押した場合の処理
+        menuUserBtn.setOnClickListener {
+
+            startActivity(Intent(this, UserProfile::class.java))
+            overridePendingTransition(0, 0)
+        }
+
+        menuHomeBtn.setOnClickListener {
+
+            startActivity(Intent(this, UserHome::class.java))
+            overridePendingTransition(0, 0)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -152,6 +157,10 @@ class UserPost : AppCompatActivity() {
              */
             val uuri = getFileSchemeUri(_imageUri as Uri)
             println("変換後："+uuri.toString())
+
+            //位置情報の更新作業をここで終了させる
+            //locationManager.removeUpdates(this)
+
         }
     }
 
@@ -182,7 +191,7 @@ class UserPost : AppCompatActivity() {
 
     /**
      * 画像部分がタップされたときの処理メソッド。
-     * 1101 カメラのパーミッション設定の確認と同時に、ここで現在地取得のパーミッションも確認して、許可がないなら再度リクエストする処理を追加する
+     * カメラのパーミッション設定の確認と同時に、ここで現在地取得のパーミッションも確認して、許可がないなら再度リクエストする処理を追加する
      */
     /*private*/ fun onCameraImageClick(view: View) {
     //↑にprivateをつけるとうまく動作しなくなる
@@ -203,20 +212,14 @@ class UserPost : AppCompatActivity() {
         //ストレージに格納する画像のファイル名を生成。ファイル名の一意を確保するためにタイムスタンプの値を利用。
         val fileName = "UseCameraActivityPhoto_${nowStr}.jpg"
 
-        /**
-         * 画面要素にファイル名を表示するための変数
-         */
-
         //ContentValuesオブジェクトを生成。
         val values = ContentValues()
         //画像ファイル名を設定。
         values.put(MediaStore.Images.Media.TITLE, fileName)
         //画像ファイルの種類を設定。
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-
         //ContentResolverを使ってURIオブジェクトを生成。
         _imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-
         //Intentオブジェクトを生成。
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         //Extra情報として_imageUriを設定。
@@ -224,7 +227,6 @@ class UserPost : AppCompatActivity() {
         //アクティビティを起動。
         startActivityForResult(intent, 200)
     }
-
 
     /**
      * ロケーションリスナクラス。
@@ -359,7 +361,6 @@ class UserPost : AppCompatActivity() {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-
             return null
         }
 
