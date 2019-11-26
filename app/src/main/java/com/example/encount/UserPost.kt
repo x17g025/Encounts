@@ -309,7 +309,8 @@ class UserPost : AppCompatActivity() {
             val url = "https://kinako.cf/encount/PostPhoto.php"
 
             //パスを設定
-            var pass = "/sdcard/Pictures/"
+            //var pass = "/sdcard/Pictures/"
+            var pass = "/storage/emulated/0/Pictures/"
             //ファイル名を取得
             pass = pass + uurl
             //写真のパスを取得する
