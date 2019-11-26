@@ -82,7 +82,6 @@
             android:hint="コメントを入力"
             android:maxLength="200"
             android:inputType="text"
-            android:background="@drawable/partsdesign2"
             />
 
         <TextView

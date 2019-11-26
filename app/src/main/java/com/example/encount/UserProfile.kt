@@ -1,5 +1,6 @@
 package com.example.encount
 
+import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
@@ -35,14 +36,16 @@ class UserProfile : AppCompatActivity() {
         val actFriend = findViewById<View>(R.id.FriendLine)
         val actStar   = findViewById<View>(R.id.LikeLine)
 
+        val friendAddBtn    = findViewById<ImageView>(R.id.btnFriend)
         val userPostBtn     = findViewById<LinearLayout>(R.id.UserPost)
         val userFriendBtn   = findViewById<LinearLayout>(R.id.UserFriend)
         val userLikeBtn     = findViewById<LinearLayout>(R.id.UserLike)
         val menuHomeBtn     = findViewById<LinearLayout>(R.id.MenuHome)
         val userSettingsBtn = findViewById<ImageView>(R.id.UserSettings)
 
-        actFriend.visibility = View.GONE
-        actStar.visibility   = View.GONE
+        actFriend.visibility    = View.GONE
+        actStar.visibility      = View.GONE
+        friendAddBtn.visibility = View.GONE
 
         UserDataGet().execute()
         UserPostGet().execute()
@@ -50,6 +53,7 @@ class UserProfile : AppCompatActivity() {
         userPostBtn.setOnClickListener {
             actPost.visibility   = View.VISIBLE
             actFriend.visibility = View.GONE
+            friendAddBtn.visibility = View.GONE
             actStar.visibility   = View.GONE
 
             UserPostGet().execute()
@@ -58,6 +62,7 @@ class UserProfile : AppCompatActivity() {
         userFriendBtn.setOnClickListener {
             actPost.visibility   = View.GONE
             actFriend.visibility = View.VISIBLE
+            friendAddBtn.visibility = View.VISIBLE
             actStar.visibility   = View.GONE
 
             UserFriendGet().execute()
@@ -66,6 +71,7 @@ class UserProfile : AppCompatActivity() {
         userLikeBtn.setOnClickListener {
             actPost.visibility   = View.GONE
             actFriend.visibility = View.GONE
+            friendAddBtn.visibility = View.GONE
             actStar.visibility   = View.VISIBLE
 
             UserLikeGet().execute()

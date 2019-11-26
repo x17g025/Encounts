@@ -44,7 +44,7 @@ data class SinginDataClassList (
     val userId: Long
 )
 
-data class MapsDataClassList (
+data class FriendDataClassList (
     val mapsLat: Double,
     val mapsLng: Double,
     val imagePath: String
