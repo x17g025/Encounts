@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
-            android:text="タップして写真を撮影"
+            android:text="@string/userPostCamera"
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
@@ -82,7 +82,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center|center"
             android:background="#dcdcdc"
-            android:hint="コメントを入力"
+            android:hint="@string/userPostComment"
             android:maxLength="200"
             android:textSize="16dp" />
         <!--投稿コメント用テキストボックス　ここまで-->
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="投稿"
+                    android:text="@string/userPostButton"
                     android:textSize="18sp" />
 
             </RelativeLayout>
