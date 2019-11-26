@@ -18,6 +18,8 @@ import java.io.IOException
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.widget.Toolbar
+import androidx.fragment.app.Fragment
 import java.lang.Exception
 
 /**
@@ -154,6 +156,7 @@ class UserHome : AppCompatActivity() {
                         postList.add(post(i.likeId, i.postId, i.userId, i.userName, i.postText, i.postDate, i.postImage))
                     }
                 }
+                postList[1].postid
 
                 lvPost.adapter = PostAdapter(this@UserHome, postList)
             }

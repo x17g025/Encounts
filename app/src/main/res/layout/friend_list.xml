@@ -17,8 +17,7 @@
         android:orientation="horizontal"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginTop="5dp"
-        android:background="#FFFFFF">
+        android:layout_marginTop="5dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/UserIcon"
@@ -41,6 +40,13 @@
             android:maxLines="1"
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="17sp" />
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_action_add"/>
     </LinearLayout>
 </FrameLayout>

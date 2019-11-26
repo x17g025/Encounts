@@ -98,8 +98,13 @@
             android:background="#dcdcdc"
             android:hint="@string/userPostComment"
             android:maxLength="200"
+
             android:textSize="16dp" />
         <!--投稿コメント用テキストボックス　ここまで-->
+
+            android:inputType="text"
+            />
+
 
         <!--投稿コメント用ボタン-->
         <androidx.cardview.widget.CardView
