@@ -23,6 +23,7 @@ import okhttp3.*
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 /**
  * 投稿機能(カメラ、コメント、位置情報)
@@ -121,6 +122,7 @@ class UserPost : AppCompatActivity() {
         }
 
         //メニューバーを押した場合の処理
+        /*
         menuUserBtn.setOnClickListener {
 
             startActivity(Intent(this, UserProfile::class.java))
@@ -131,7 +133,7 @@ class UserPost : AppCompatActivity() {
 
             startActivity(Intent(this, UserHome::class.java))
             overridePendingTransition(0, 0)
-        }
+        }*/
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
