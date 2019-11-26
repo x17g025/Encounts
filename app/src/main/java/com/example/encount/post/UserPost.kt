@@ -18,6 +18,8 @@ import java.util.Date
 import android.os.AsyncTask
 import android.util.Log
 import android.widget.*
+import com.example.encount.post.UserHome
+import com.example.encount.user.UserProfile
 import okhttp3.*
 import java.io.File
 import java.io.IOException
