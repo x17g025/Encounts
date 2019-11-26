@@ -18,6 +18,7 @@ import java.util.Date
 import android.os.AsyncTask
 import android.util.Log
 import android.widget.*
+import kotlinx.android.synthetic.main.activity_user_post.*
 import okhttp3.*
 import java.io.File
 import java.io.IOException
@@ -87,7 +88,6 @@ class UserPost : AppCompatActivity() {
          * 投稿ボタン押すと動作する
          */
         // 投稿ボタン、コメント取得
-        val postButton = findViewById<Button>(R.id.postButton)
         val commentInput = findViewById<EditText>(R.id.commentInput)
 
 

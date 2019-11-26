@@ -74,35 +74,48 @@
         <!--投稿コメント用テキストボックス-->
         <EditText
             android:id="@+id/commentInput"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="25dp"
-            android:gravity="top|left"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/LoginTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center|center"
+            android:background="#dcdcdc"
             android:hint="コメントを入力"
             android:maxLength="200"
-            android:inputType="text"
-            android:background="@drawable/partsdesign2"
-            />
+            android:textSize="16dp" />
+        <!--投稿コメント用テキストボックス　ここまで-->
 
-        <TextView
-            android:id="@+id/tvWeatherDesc"
-            android:layout_width="match_parent"
-            android:layout_height="33dp"
-            android:textSize="15sp" />
-
-        <Button
+        <!--投稿コメント用ボタン-->
+        <androidx.cardview.widget.CardView
             android:id="@+id/postButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
-            android:text="投稿(POST)"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.117"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.352" />
+            android:layout_above="@+id/usernew"
+            android:layout_centerHorizontal="true"
+            app:cardBackgroundColor="#00bde7"
+            app:cardCornerRadius="25dp"
+            android:layout_marginBottom="15dp"
+            android:background="#FFDF1961">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/logintext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="投稿"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <!--投稿コメント用ボタン　ここまで-->
 
     </LinearLayout>
 
