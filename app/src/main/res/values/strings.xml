@@ -15,10 +15,15 @@
     <string name="menuUser">ユーザー</string>
     <string name="menuHome">ホーム</string>
     <string name="menuMap">マップ</string>
-    <string name="bt_map_search">地図検索</string>
+    <!--投稿画面で使用　ここから-->
+    <string name="userPostCamera">タップして写真を撮影</string>
+    <string name="userPostButton">投稿</string>
+    <string name="userPostComment">コメントを入力</string>
     <string name="tv_current_title">現在地</string>
     <string name="tv_latitude_title">緯度:</string>
     <string name="tv_longitude_title">経度:</string>
+
+    <!--投稿画面で使用　こまで-->
     <string name="bt_map_current">地図表示</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -35,5 +40,6 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="title_activity_drawer">DrawerActivity</string>
+
 
 </resources>
