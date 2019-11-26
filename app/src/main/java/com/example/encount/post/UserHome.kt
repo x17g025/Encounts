@@ -7,10 +7,7 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
-import com.example.encount.PostDataClassList
-import com.example.encount.PostList
-import com.example.encount.R
-import com.example.encount.SQLiteHelper
+import com.example.encount.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_home.*
