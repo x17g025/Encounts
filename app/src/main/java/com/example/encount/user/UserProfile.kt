@@ -34,7 +34,7 @@ class UserProfile : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         return  inflater.inflate(R.layout.activity_user_profile, container, false)
 
-        /*FriendLine.visibility    = View.GONE
+        FriendLine.visibility    = View.GONE
         LikeLine.visibility      = View.GONE
         FriendFindBtn.visibility = View.GONE
 
@@ -67,23 +67,13 @@ class UserProfile : Fragment() {
 
             UserLikeGet().execute()
         }
-
-        UserSettings.setOnClickListener {
-
-            startActivity(Intent(this, com.example.encount.user.UserSettings::class.java))
-        }
-
-        FriendFindBtn.setOnClickListener {
-
-            startActivity(Intent(this, com.example.encount.friend.FriendAdd::class.java))
-        }
     }
 
     private inner class UserDataGet() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
 
-            val _helper = SQLiteHelper(this@UserProfile)
+            val _helper = SQLiteHelper(this)
 
             var id     = ""
             val db     = _helper.writableDatabase
@@ -321,6 +311,6 @@ class UserProfile : Fragment() {
             val etName = findViewById<TextView>(R.id.UserName)
             val userData = Gson().fromJson(result, UserDataClassList::class.java)
             etName.text = userData.userName
-        }*/
+        }
     }
 }
