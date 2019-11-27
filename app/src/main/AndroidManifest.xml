@@ -30,10 +30,6 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".friend.FriendAdd"></activity>
         <activity
-            android:name=".DrawerActivity"
-            android:label="@string/title_activity_drawer"
-            android:theme="@style/MyTheme.NoActionBar" />
-        <activity
             android:name=".user.UserLogin"
             android:noHistory="true" />
         <activity
@@ -45,8 +41,8 @@
         <activity
             android:name=".user.UserProfile"
             android:noHistory="true" />
-        <activity android:name=".post.UserPost" />
         <activity android:name=".post.UserHome" />
+        <activity android:name=".post.UserPost"/>
         <activity android:name=".post.PostDetails" />
         <activity android:name=".friend.FriendProfile" />
         <activity

@@ -1,4 +1,4 @@
-package com.example.encount
+package com.example.encount.post
 
 import android.Manifest
 import android.content.*
