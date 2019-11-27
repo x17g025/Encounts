@@ -4,8 +4,11 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
 import com.example.encount.*
 import com.example.encount.post.PostAdapter
 import com.example.encount.post.UserHome
@@ -25,75 +28,62 @@ import java.lang.Exception
  * 製作者：中村
  */
 
-class UserProfile : AppCompatActivity() {
+class UserProfile : Fragment() {
 
-    private val _helper = SQLiteHelper(this@UserProfile)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        return  inflater.inflate(R.layout.activity_user_profile, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_profile)
-
-        val actPost   = findViewById<View>(R.id.PostLine)
-        val actFriend = findViewById<View>(R.id.FriendLine)
-        val actStar   = findViewById<View>(R.id.LikeLine)
-
-        val friendAddBtn    = findViewById<ImageView>(R.id.btnFriend)
-        val userPostBtn     = findViewById<LinearLayout>(R.id.UserPost)
-        val userFriendBtn   = findViewById<LinearLayout>(R.id.UserFriend)
-        val userLikeBtn     = findViewById<LinearLayout>(R.id.UserLike)
-        val menuHomeBtn     = findViewById<LinearLayout>(R.id.MenuHome)
-        val userSettingsBtn = findViewById<ImageView>(R.id.UserSettings)
-
-        actFriend.visibility    = View.GONE
-        actStar.visibility      = View.GONE
-        friendAddBtn.visibility = View.GONE
+        /*FriendLine.visibility    = View.GONE
+        LikeLine.visibility      = View.GONE
+        FriendFindBtn.visibility = View.GONE
 
         UserDataGet().execute()
         UserPostGet().execute()
 
-        userPostBtn.setOnClickListener {
-            actPost.visibility   = View.VISIBLE
-            actFriend.visibility = View.GONE
-            friendAddBtn.visibility = View.GONE
-            actStar.visibility   = View.GONE
+        UserPost.setOnClickListener {
+            PostLine.visibility   = View.VISIBLE
+            FriendLine.visibility = View.GONE
+            FriendFindBtn.visibility = View.GONE
+            LikeLine.visibility   = View.GONE
 
             UserPostGet().execute()
         }
 
-        userFriendBtn.setOnClickListener {
-            actPost.visibility   = View.GONE
-            actFriend.visibility = View.VISIBLE
-            friendAddBtn.visibility = View.VISIBLE
-            actStar.visibility   = View.GONE
+        UserFriend.setOnClickListener {
+            PostLine.visibility   = View.GONE
+            FriendLine.visibility = View.VISIBLE
+            FriendFindBtn.visibility = View.VISIBLE
+            LikeLine.visibility   = View.GONE
 
             UserFriendGet().execute()
         }
 
-        userLikeBtn.setOnClickListener {
-            actPost.visibility   = View.GONE
-            actFriend.visibility = View.GONE
-            friendAddBtn.visibility = View.GONE
-            actStar.visibility   = View.VISIBLE
+        UserLike.setOnClickListener {
+            PostLine.visibility   = View.GONE
+            FriendLine.visibility = View.GONE
+            FriendFindBtn.visibility = View.GONE
+            LikeLine.visibility   = View.VISIBLE
 
             UserLikeGet().execute()
         }
 
-        menuHomeBtn.setOnClickListener {
-
-            startActivity(Intent(this, UserHome::class.java))
-            overridePendingTransition(0, 0)
-        }
-
-        userSettingsBtn.setOnClickListener {
+        UserSettings.setOnClickListener {
 
             startActivity(Intent(this, com.example.encount.user.UserSettings::class.java))
+        }
+
+        FriendFindBtn.setOnClickListener {
+
+            startActivity(Intent(this, com.example.encount.friend.FriendAdd::class.java))
         }
     }
 
     private inner class UserDataGet() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
+
+            val _helper = SQLiteHelper(this@UserProfile)
 
             var id     = ""
             val db     = _helper.writableDatabase
@@ -186,7 +176,7 @@ class UserProfile : AppCompatActivity() {
         override fun onPostExecute(result: String) {
 
             try{
-                val lvPost = findViewById<ListView>(R.id.UserPostList)
+                val lvPost = findViewById<ListView>(R.id.UserDataList)
                 var postList = mutableListOf<PostList>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
@@ -235,6 +225,7 @@ class UserProfile : AppCompatActivity() {
         }
     }
 
+    //ユーザフレンドデータ取得
     private inner class UserFriendGet() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
@@ -330,6 +321,6 @@ class UserProfile : AppCompatActivity() {
             val etName = findViewById<TextView>(R.id.UserName)
             val userData = Gson().fromJson(result, UserDataClassList::class.java)
             etName.text = userData.userName
-        }
+        }*/
     }
 }

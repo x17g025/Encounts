@@ -4,8 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.encount.post.UserHome
 import com.example.encount.user.UserLogin
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * やってること
@@ -23,7 +28,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val db = _helper.writableDatabase
+        val navController = findNavController(R.id.nav_host_fragment)
+        setupWithNavController(bottom_navigation, navController)
+
+       /* val db = _helper.writableDatabase
         val sql = "select * from userInfo"
         val cursor = db.rawQuery(sql, null)
         var userId = ""
@@ -41,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 else            -> startActivity(Intent(this, UserHome::class.java))
             }
             finish()
-        }, 1500)
+        }, 1500)*/
 
 
     }

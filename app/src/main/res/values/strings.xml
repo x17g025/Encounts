@@ -15,6 +15,7 @@
     <string name="menuUser">ユーザー</string>
     <string name="menuHome">ホーム</string>
     <string name="menuMap">マップ</string>
+    <string name="menuSearch">サーチ</string>
     <!--投稿画面で使用　ここから-->
     <string name="userPostCamera">タップして写真を撮影</string>
     <string name="userPostButton">投稿</string>

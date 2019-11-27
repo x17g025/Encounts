@@ -4,9 +4,13 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.encount.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -26,16 +30,15 @@ import java.lang.Exception
  * 製作者：中村
  */
 
-class UserHome : AppCompatActivity() {
+class UserHome : Fragment() {
 
-    private val _helper = SQLiteHelper(this@UserHome)
+    //private val _helper = SQLiteHelper(this@UserHome)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        return  inflater.inflate(R.layout.activity_user_home, container, false)
 
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_home)
-
-        val menuUserBtn = findViewById<LinearLayout>(R.id.MenuUser)
+        /*val menuUserBtn = findViewById<LinearLayout>(R.id.MenuUser)
 
         UserPostGet().execute()
 
@@ -182,6 +185,6 @@ class UserHome : AppCompatActivity() {
             }
 
             swipelayout.isRefreshing = false
-        }
+        }*/
     }
 }

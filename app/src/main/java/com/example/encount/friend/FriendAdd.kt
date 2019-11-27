@@ -6,9 +6,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.os.AsyncTask
 import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.example.encount.*
 import com.example.encount.post.PostAdapter
 import com.example.encount.post.PostDetails
@@ -23,15 +27,15 @@ import java.io.IOException
 import java.lang.Exception
 
 
-class FriendAdd : AppCompatActivity() {
+class FriendAdd : Fragment() {
 
-    private val _helper = SQLiteHelper(this@FriendAdd)
-    var friendId : String? = null
+   // private val _helper = SQLiteHelper(this@FriendAdd)
+    //var friendId : String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_friend_add)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        return  inflater.inflate(R.layout.activity_friend_add, container, false)
+        /*
 
         val userId = findViewById<EditText>(R.id.userid)
 
@@ -55,7 +59,7 @@ class FriendAdd : AppCompatActivity() {
 
         FriendDataList.setOnItemClickListener {parent, view, position, id ->
 
-            friendId = view.findViewById<TextView>(R.id.UserId).text
+           // friendId = view.findViewById<TextView>(R.id.UserId).text
 
             FriendAd()
         }
@@ -109,9 +113,6 @@ class FriendAdd : AppCompatActivity() {
                 var friendList = mutableListOf<PostList>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
-
-
-
 
             }
             catch(e : Exception){
@@ -180,6 +181,6 @@ class FriendAdd : AppCompatActivity() {
             }
 
             swipelayout.isRefreshing = false
-        }
+        }*/
     }
 }

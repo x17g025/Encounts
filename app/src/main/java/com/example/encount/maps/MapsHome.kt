@@ -8,7 +8,11 @@ import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.encount.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
@@ -23,18 +27,18 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 
-class MapsHome : FragmentActivity(), OnMapReadyCallback {
+class MapsHome : Fragment() {
 
-    private var fusedLocationClient: FusedLocationProviderClient? = null
-    private var location: Location? = null
-    private var toast: Toast? = null //デバック用
-    private var mMap: GoogleMap? = null
+   // private var fusedLocationClient: FusedLocationProviderClient? = null
+    //private var location: Location? = null
+    //private var toast: Toast? = null //デバック用
+    //private var mMap: GoogleMap? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        return  inflater.inflate(R.layout.activity_user_profile, container, false)
 
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_maps_home)
-
+        /*
         // Android 6, API 23以上でパーミッションの確認
         if (Build.VERSION.SDK_INT >= 23) {
             val permissions = arrayOf(
@@ -60,9 +64,9 @@ class MapsHome : FragmentActivity(), OnMapReadyCallback {
         //              LocationRequest.PRIORITY_LOW_POWER);              //バッテリー消費を抑えたい場合、精度は10km
         //              LocationRequest.PRIORITY_NO_POWER);               //位置情報取得をアプリが自ら測位しない
 
-        getLastLocation()
+        getLastLocation()*/
     }
-
+    /*
     //最新の位置情報の取得(nullが返ってくる可能性)
     fun getLastLocation() {
         fusedLocationClient!!.getLastLocation().addOnCompleteListener(
@@ -135,5 +139,5 @@ class MapsHome : FragmentActivity(), OnMapReadyCallback {
 
         private val REQUEST_CODE = 1000
         private val REQUEST_PERMISSION = 1000
-    }
+    }*/
 }
