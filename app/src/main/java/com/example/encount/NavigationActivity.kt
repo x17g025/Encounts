@@ -43,7 +43,7 @@ class NavigationActivity : AppCompatActivity() {
             true
         }
 
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, UserHome()).commit()
+        //supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, UserHome()).commit()
     }
 
 

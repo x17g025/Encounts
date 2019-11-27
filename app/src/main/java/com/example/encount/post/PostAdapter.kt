@@ -17,9 +17,9 @@ import kotlinx.android.synthetic.main.post_list.view.*
  * 製作者：中村
  */
 
-class PostAdapter(val context: Context, val posts: List<PostList>): BaseAdapter() {
+class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter() {
 
-    val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    val layoutInflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getCount(): Int {
         return posts.count()

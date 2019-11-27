@@ -35,16 +35,10 @@ class FriendProfile : AppCompatActivity() {
 
         userId = intent.getStringExtra("User_Id")
 
-        val menuHomeBtn     = findViewById<LinearLayout>(R.id.MenuHome)
 
         UserDataGet().execute()
         UserPostGet().execute()
 
-        menuHomeBtn.setOnClickListener {
-
-            startActivity(Intent(this, UserHome::class.java))
-            overridePendingTransition(0, 0)
-        }
     }
 
     private inner class UserDataGet() : AsyncTask<String, String, String>() {
