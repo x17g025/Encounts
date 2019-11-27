@@ -36,7 +36,7 @@ class MapsHome : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return  inflater.inflate(R.layout.activity_user_profile, container, false)
+        return  inflater.inflate(R.layout.activity_maps_home, container, false)
 
         /*
         // Android 6, API 23以上でパーミッションの確認

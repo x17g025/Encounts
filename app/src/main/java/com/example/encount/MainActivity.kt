@@ -28,10 +28,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        setupWithNavController(bottom_navigation, navController)
-
-       /* val db = _helper.writableDatabase
+       val db = _helper.writableDatabase
         val sql = "select * from userInfo"
         val cursor = db.rawQuery(sql, null)
         var userId = ""
@@ -46,10 +43,10 @@ class MainActivity : AppCompatActivity() {
             when {
 
                 userId == "" || userId == null  -> startActivity(Intent(this, UserLogin::class.java))
-                else            -> startActivity(Intent(this, UserHome::class.java))
+                else            -> startActivity(Intent(this, NavigationActivity::class.java))
             }
             finish()
-        }, 1500)*/
+        }, 1500)
 
 
     }

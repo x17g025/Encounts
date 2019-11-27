@@ -4,19 +4,23 @@
     android:id="@+id/navigation_graph"
     app:startDestination="@id/navi_home">
 
-    <fragment android:id="@+id/navi_home"
+    <fragment
+        android:id="@+id/navi_home"
         android:name="com.example.encount.post.UserHome"
         android:label="Fragment1"/>
 
-    <fragment android:id="@+id/navi_map"
+    <fragment
+        android:id="@+id/navi_map"
         android:name="com.example.encount.maps.MapsHome"
         android:label="Fragment2"/>
 
-    <fragment android:id="@+id/navi_search"
+    <fragment
+        android:id="@+id/navi_search"
         android:name="com.example.encount.friend.FriendAdd"
         android:label="Fragment3"/>
 
-    <fragment android:id="@+id/navi_user"
+    <fragment
+        android:id="@+id/navi_user"
         android:name="com.example.encount.user.UserProfile"
         android:label="Fragment4"/>
 </navigation>

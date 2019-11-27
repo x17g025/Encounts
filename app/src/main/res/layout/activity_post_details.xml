@@ -183,60 +183,6 @@
         android:layout_marginBottom="45dp"
         android:divider="@null"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/MenuMap"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/menu_map"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/MenuHome"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/menu_home"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/MenuUser"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/menu_user_act"/>
-
-        </LinearLayout>
-    </LinearLayout>
 </FrameLayout>
 
 
