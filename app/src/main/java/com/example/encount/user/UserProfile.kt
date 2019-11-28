@@ -1,5 +1,6 @@
 package com.example.encount.user
 
+import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,7 +27,8 @@ import java.lang.Exception
 
 class UserProfile : Fragment() {
 
-    val _helper = SQLiteHelper(getContext())
+    var _helper : SQLiteHelper? = null
+    var fragContext : Context? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -36,12 +38,15 @@ class UserProfile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        fragContext = context
+        _helper = SQLiteHelper(fragContext)
+
         FriendLine.visibility    = View.GONE
         LikeLine.visibility      = View.GONE
         FriendFindBtn.visibility = View.GONE
 
         UserDataGet().execute()
-        //UserPostGet().execute()
+        UserPostGet().execute()
 
         UserPost.setOnClickListener {
             PostLine.visibility   = View.VISIBLE
@@ -76,7 +81,7 @@ class UserProfile : Fragment() {
         override fun doInBackground(vararg params: String): String {
 
             var id     = ""
-            val db     = _helper.writableDatabase
+            val db     = _helper!!.writableDatabase
             val sql    = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
@@ -125,7 +130,7 @@ class UserProfile : Fragment() {
         override fun doInBackground(vararg params: String): String {
 
             var id = ""
-            val db = _helper.writableDatabase
+            val db = _helper!!.writableDatabase
             val sql = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
@@ -204,7 +209,7 @@ class UserProfile : Fragment() {
 
                 }
                 UserPostCount.text = Integer.toString(postCount)
-                UserDataList.adapter = PostAdapter(getContext(), postList)
+                UserDataList.adapter = PostAdapter(fragContext, postList)
             }
             catch (e : Exception){
 
@@ -218,7 +223,7 @@ class UserProfile : Fragment() {
         override fun doInBackground(vararg params: String): String {
 
             var id = ""
-            val db = _helper.writableDatabase
+            val db = _helper!!.writableDatabase
             val sql = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
@@ -266,7 +271,7 @@ class UserProfile : Fragment() {
         override fun doInBackground(vararg params: String): String {
 
             var id = ""
-            val db = _helper.writableDatabase
+            val db = _helper!!.writableDatabase
             val sql = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
