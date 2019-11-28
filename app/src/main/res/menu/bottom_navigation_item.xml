@@ -7,7 +7,7 @@
         android:title="@string/menuHome" />
 
     <item
-        android:id="@+id/navi_maps"
+        android:id="@+id/navi_map"
         android:icon="@drawable/ic_menu_map"
         android:title="@string/menuMap" />
 

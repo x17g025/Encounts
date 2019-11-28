@@ -1,5 +1,6 @@
 package com.example.encount.post
 
+import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
@@ -32,13 +33,19 @@ import java.lang.Exception
 
 class UserHome : Fragment() {
 
-    //private val _helper = SQLiteHelper(this@UserHome)
+    var _helper : SQLiteHelper? = null
+    var fragContext : Context? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return  inflater.inflate(R.layout.activity_user_home, container, false)
+        return inflater.inflate(R.layout.activity_user_home, container, false)
 
-        /*val menuUserBtn = findViewById<LinearLayout>(R.id.MenuUser)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        fragContext = context
+        _helper = SQLiteHelper(fragContext)
 
         UserPostGet().execute()
 
@@ -46,9 +53,9 @@ class UserHome : Fragment() {
 
             val postId = view.findViewById<TextView>(R.id.PostId).text
 
-            val intent = Intent(this, PostDetails::class.java)
+           /* val intent = Intent(this, PostDetails::class.java)
             intent.putExtra("Post_Id", postId)
-            startActivity(intent)
+            startActivity(intent)*/
         }
 
         PostDataList.setOnItemLongClickListener { parent, view, position, id ->
@@ -56,7 +63,7 @@ class UserHome : Fragment() {
             val userId = view.findViewById<TextView>(R.id.UserId).text
 
             var id     = ""
-            val db     = _helper.writableDatabase
+            val db     = _helper!!.writableDatabase
             val sql    = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
@@ -68,27 +75,21 @@ class UserHome : Fragment() {
 
             if(userId == id){
 
-                startActivity(Intent(this, UserProfile::class.java))
+               // startActivity(Intent(this, UserProfile::class.java))
             }
             else{
 
-                val intent = Intent(this, FriendProfile::class.java)
+                /*val intent = Intent(this, FriendProfile::class.java)
                 intent.putExtra("User_Id", userId)
-                startActivity(intent)
+                startActivity(intent)*/
             }
 
             return@setOnItemLongClickListener true
         }
 
-        menuUserBtn.setOnClickListener {
-
-            startActivity(Intent(this, UserProfile::class.java))
-            overridePendingTransition(0, 0)
-        }
-
         btnPost.setOnClickListener{
 
-            startActivity(Intent(this, UserPost::class.java))
+           getActivity.startActivity(Intent(this, UserPost::class.java))
         }
 
         swipelayout.setOnRefreshListener {
@@ -101,7 +102,7 @@ class UserHome : Fragment() {
         override fun doInBackground(vararg params: String): String {
 
             var id = ""
-            val db = _helper.writableDatabase
+            val db = _helper!!.writableDatabase
             val sql = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
@@ -140,7 +141,6 @@ class UserHome : Fragment() {
         override fun onPostExecute(result: String) {
 
             try {
-                val lvPost = findViewById<ListView>(R.id.PostDataList)
                 var postList = mutableListOf<PostList>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
@@ -178,13 +178,13 @@ class UserHome : Fragment() {
                 }
                 postList[1].postid
 
-                lvPost.adapter = PostAdapter(this@UserHome, postList)
+                PostDataList.adapter = PostAdapter(fragContext, postList)
             }
             catch(e : Exception){
 
             }
 
             swipelayout.isRefreshing = false
-        }*/
+        }
     }
 }

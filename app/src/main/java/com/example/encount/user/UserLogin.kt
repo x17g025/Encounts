@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.example.encount.LoginDataClassList
+import com.example.encount.NavigationActivity
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
 import com.google.gson.Gson
@@ -129,6 +130,6 @@ class UserLogin : AppCompatActivity() {
 
     fun goProflie(){
 
-        startActivity(Intent(this, UserProfile::class.java))
+        startActivity(Intent(this, NavigationActivity::class.java))
     }
 }

@@ -8,20 +8,25 @@
     <fragment
         android:id="@+id/navi_home"
         android:name="com.example.encount.post.UserHome"
-        android:label="Fragment1"/>
+        android:label="ホーム"/>
 
     <fragment
         android:id="@+id/navi_map"
         android:name="com.example.encount.maps.MapsHome"
-        android:label="Fragment2"/>
+        android:label="マップ"/>
 
     <fragment
         android:id="@+id/navi_search"
         android:name="com.example.encount.friend.FriendAdd"
-        android:label="Fragment3"/>
+        android:label="検索"/>
 
     <fragment
         android:id="@+id/navi_user"
         android:name="com.example.encount.user.UserProfile"
-        android:label="Fragment4"/>
+        android:label="ユーザー"/>
+
+    <fragment
+        android:id="@+id/navi_settings"
+        android:name="com.example.encount.user.UserSettings"
+        android:label="設定"/>
 </navigation>

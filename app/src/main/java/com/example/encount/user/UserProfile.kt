@@ -118,9 +118,14 @@ class UserProfile : Fragment() {
 
         override fun onPostExecute(result: String) {
 
-            val userData = Gson().fromJson(result, UserDataClassList::class.java)
-            UserName.text = userData.userName
-            UserBio.text = userData.userBio
+            try{
+                val userData = Gson().fromJson(result, UserDataClassList::class.java)
+                UserName.text = userData.userName
+                UserBio.text = userData.userBio
+            }
+            catch(e : Exception){
+            }
+
         }
     }
 
