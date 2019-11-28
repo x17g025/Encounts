@@ -64,10 +64,6 @@ class UserPost : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_post)
 
-        //画面遷移用
-        val menuHomeBtn     = findViewById<LinearLayout>(R.id.MenuHome)
-        val menuUserBtn = findViewById<LinearLayout>(R.id.MenuUser)
-
         /**
          * 位置情報取得
          */
