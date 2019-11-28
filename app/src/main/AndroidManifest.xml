@@ -33,7 +33,7 @@
         <activity android:name=".post.UserHome" />
         <activity android:name=".post.UserPost"/>
         <activity android:name=".post.PostDetails" />
-        <activity android:name=".NavigationActivity" />
+        <activity android:name="com.example.encount.NavigationActivity" />
         <activity android:name=".friend.FriendProfile" />
         <activity
             android:name=".MainActivity"

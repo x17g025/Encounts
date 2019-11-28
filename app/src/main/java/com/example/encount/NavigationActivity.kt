@@ -19,9 +19,9 @@ class NavigationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_navigation)
+        setContentView(com.example.encount.R.layout.activity_navigation)
 
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(com.example.encount.R.id.nav_host_fragment)
         setupWithNavController(bottom_navigation, navController)
     }
 }
