@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/navi_user"
-        android:title="@string/menuSettings"/>
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/navi_user"
+            android:icon="@drawable/ic_menu_user"
+            android:title="マイページ" />
+        <item
+            android:id="@+id/navi_friend"
+            android:icon="@drawable/ic_drawer_friend"
+            android:title="フレンドリクエスト" />
+    </group>
+    <group
+        android:id="@+id/menu_other"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/navi_notice"
+            android:title="お知らせ" />
+        <item
+            android:id="@+id/navi_about"
+            android:title="このアプリについて" />
+        <item
+            android:id="@+id/navi_settings"
+            android:title="設定" />
+    </group>
 </menu>

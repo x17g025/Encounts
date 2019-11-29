@@ -21,12 +21,7 @@
         android:label="検索"/>
 
     <fragment
-        android:id="@+id/navi_user"
-        android:name="com.example.encount.user.UserProfile"
-        android:label="ユーザー"/>
-
-    <fragment
-        android:id="@+id/navi_settings"
-        android:name="com.example.encount.user.UserSettings"
-        android:label="設定"/>
+        android:id="@+id/navi_notifications"
+        android:name="com.example.encount.user.UserNotifications"
+        android:label="通知"/>
 </navigation>

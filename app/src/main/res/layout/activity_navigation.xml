@@ -8,6 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    tools:context=".NavigationActivity"
     tools:openDrawer="start">
 
     <!-- ドロワーメニュー 、app:headerLayoutでヘッダ部のレイアウトを指定し、app:menuでメニュー定義を指定している。-->

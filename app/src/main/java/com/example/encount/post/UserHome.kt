@@ -1,5 +1,6 @@
 package com.example.encount.post
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
@@ -34,7 +35,6 @@ import java.lang.Exception
 class UserHome : Fragment() {
 
     var _helper : SQLiteHelper? = null
-    var fragContext : Context? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -44,8 +44,7 @@ class UserHome : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        fragContext = context
-        _helper = SQLiteHelper(fragContext)
+        _helper = SQLiteHelper(context)
 
         UserPostGet().execute()
 
@@ -89,7 +88,8 @@ class UserHome : Fragment() {
 
         btnPost.setOnClickListener{
 
-           getActivity.startActivity(Intent(this, UserPost::class.java))
+            val intent = Intent(context, UserPost::class.java)
+           startActivity(intent)
         }
 
         swipelayout.setOnRefreshListener {
@@ -178,7 +178,7 @@ class UserHome : Fragment() {
                 }
                 postList[1].postid
 
-                PostDataList.adapter = PostAdapter(fragContext, postList)
+                PostDataList.adapter = PostAdapter(context, postList)
             }
             catch(e : Exception){
 
