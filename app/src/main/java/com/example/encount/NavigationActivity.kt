@@ -48,11 +48,13 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
     }
 
     private fun setToolbar(){
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowHomeEnabled(false)
     }
 
     private fun setDrawerLayout(){
+
         val toggle = ActionBarDrawerToggle(Activity(), drawer_layout, toolbar, R.string.nav_open, R.string.nav_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
@@ -60,9 +62,10 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.navi_user -> Log.d("de","aaaa")
 
+        when (item.itemId) {
+
+            R.id.navi_user -> Log.d("de","aaaa")
         }
         // Close the Navigation Drawer.
         drawer_layout.closeDrawer(GravityCompat.START)

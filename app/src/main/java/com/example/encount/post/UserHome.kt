@@ -37,14 +37,16 @@ class UserHome : Fragment() {
     var _helper : SQLiteHelper? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.activity_user_home, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         _helper = SQLiteHelper(context)
+
+        swipelayout.setColorSchemeResources(R.color.colorMain)
 
         UserPostGet().execute()
 
@@ -93,6 +95,7 @@ class UserHome : Fragment() {
         }
 
         swipelayout.setOnRefreshListener {
+
             UserPostGet().execute()
         }
     }
@@ -179,12 +182,13 @@ class UserHome : Fragment() {
                 postList[1].postid
 
                 PostDataList.adapter = PostAdapter(context, postList)
+                swipelayout.isRefreshing = false
             }
             catch(e : Exception){
 
             }
 
-            swipelayout.isRefreshing = false
+
         }
     }
 }

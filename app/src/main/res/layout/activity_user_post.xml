@@ -12,24 +12,25 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!--カメラ起動＆写真表示　ここから-->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp">
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
                 android:text="@string/userPostCamera"
                 android:layout_gravity="center_horizontal"/>
+
             <ImageView
                 android:id="@+id/ivCamera"
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="350dp"
                 android:layout_gravity="center"
                 android:onClick="onCameraImageClick"
                 android:scaleType="fitCenter">
@@ -88,50 +89,20 @@
         <!--投稿コメント用テキストボックス-->
         <EditText
             android:id="@+id/commentInput"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/LoginTitle"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:gravity="center|center"
+            android:gravity="center"
             android:background="#dcdcdc"
             android:hint="@string/userPostComment"
             android:maxLength="200"
-
+            android:layout_weight="1"
             android:textSize="16dp" />
         <!--投稿コメント用テキストボックス　ここまで-->
 
 
         <!--投稿コメント用ボタン-->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/postButton"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_above="@+id/usernew"
-            android:layout_centerHorizontal="true"
-            app:cardBackgroundColor="#00bde7"
-            app:cardCornerRadius="25dp"
-            android:layout_marginBottom="15dp"
-            android:background="#FFDF1961">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-
-                <TextView
-                    android:id="@+id/logintext"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/userPostButton"
-                    android:textSize="18sp" />
-
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
         <!--投稿コメント用ボタン　ここまで-->
 
     </LinearLayout>
