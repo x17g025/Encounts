@@ -61,7 +61,7 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
             R.id.nav_user -> startActivity(Intent(this, UserProfile::class.java))
         }
         drawer_layout.closeDrawer(GravityCompat.START)
-        return true
+        return false
     }
 
     private inner class UserDataGet() : AsyncTask<String, String, String>() {
