@@ -26,7 +26,7 @@
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="20dp"
         android:layout_gravity="bottom|right"
-        android:src="@drawable/post_up"/>
+        android:src="@drawable/to_post"/>
 
 </FrameLayout>
 

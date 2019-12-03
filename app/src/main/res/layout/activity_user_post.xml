@@ -8,50 +8,79 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/postButton"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="70dp"
-        android:layout_marginEnd="20dp"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/post_up"/>
-
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/postClose"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_post_clear"
+                android:layout_weight="0.1"/>
+
+            <ImageView
+                android:layout_height="40dp"
+                android:layout_width="40dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:src="@drawable/icon" />
+
+            <ImageView
+                android:layout_height="40dp"
+                android:layout_width="40dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.1"/>
+        </LinearLayout>
+
+        <!--投稿コメント用テキストボックス-->
+        <!--投稿コメント用テキストボックス　ここまで-->
+
         <!--カメラ起動＆写真表示　ここから-->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/userPostCamera"
-                android:layout_gravity="center_horizontal"/>
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/ivCamera"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_gravity="center"
-                android:onClick="onCameraImageClick"
-                android:scaleType="fitCenter">
-            </ImageView>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:onClick="onCameraImageClick"
-                app:srcCompat="@android:drawable/ic_menu_camera"/>
+        <EditText
+            android:id="@+id/commentInput"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="top|left"
+            android:hint="@string/userPostComment"
+            android:background="#00000000"
+            android:maxLength="200"
+            android:textSize="16dp" />
+
+            <!--投稿コメント用ボタン-->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/postButton"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="bottom|end"
+                android:src="@drawable/to_post"/>
+
+            <!--写真撮影用ボタン-->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/photoButton"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/take_photo"
+                android:layout_gravity="bottom|end"
+                android:onClick="onCameraImageClick"/>
         </FrameLayout>
-        <!--カメラ起動＆写真表示　ここまで-->
 
         <!--デバッグ用　現在地表示　ここから-->
         <LinearLayout
@@ -93,26 +122,15 @@
                 android:maxLines="1" />
 
         </LinearLayout>
-        <!--デバッグ用　現在地表示　ここまで-->
 
-        <!--投稿コメント用テキストボックス-->
-        <EditText
-            android:id="@+id/commentInput"
+        <ImageView
+            android:id="@+id/ivCamera"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:background="#dcdcdc"
-            android:hint="@string/userPostComment"
-            android:maxLength="200"
-            android:layout_weight="1"
-            android:textSize="16dp" />
-        <!--投稿コメント用テキストボックス　ここまで-->
-
-
-        <!--投稿コメント用ボタン-->
-
-        <!--投稿コメント用ボタン　ここまで-->
+            android:layout_height="350dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter">
+        </ImageView>
+        <!--デバッグ用　現在地表示　ここまで-->
 
     </LinearLayout>
 

@@ -16,11 +16,15 @@ import androidx.core.app.ActivityCompat
 import java.text.SimpleDateFormat
 import java.util.Date
 import android.os.AsyncTask
+import android.os.Handler
 import android.util.Log
 import android.widget.*
+import com.example.encount.NavigationActivity
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
+import com.example.encount.user.UserLogin
 import kotlinx.android.synthetic.main.activity_user_post.*
+import kotlinx.android.synthetic.main.activity_user_profile.*
 import okhttp3.*
 import java.io.File
 import java.io.IOException
@@ -60,6 +64,7 @@ class UserPost : AppCompatActivity() {
     private var _longitude = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_post)
 
@@ -85,10 +90,13 @@ class UserPost : AppCompatActivity() {
          * 投稿処理
          * 投稿ボタン押すと動作する
          */
-        // 投稿ボタン、コメント取得
-        //val postButton = findViewById<Button>(R.id.postButton)
+
         val commentInput = findViewById<EditText>(R.id.commentInput)
 
+        postClose.setOnClickListener {
+
+            startActivity(Intent(this, NavigationActivity::class.java))
+        }
 
         // 投稿ボタンが押された時
         postButton.setOnClickListener {
@@ -118,22 +126,20 @@ class UserPost : AppCompatActivity() {
                 val postTask = OkHttpPost()
                 postTask.execute(/*uuri.toString()*/)
 
-                startActivity(Intent(this, UserHome::class.java))
+                Handler().postDelayed({
+
+                    startActivity(Intent(this, NavigationActivity::class.java))
+                    finish()
+                }, 200)
+            }
+            else{
+            }
+
+            ivCamera.setOnClickListener{
+
+                onCameraImageClick(ivCamera)
             }
         }
-
-        /*//メニューバーを押した場合の処理
-        menuUserBtn.setOnClickListener {
-
-            startActivity(Intent(this, UserProfile::class.java))
-            overridePendingTransition(0, 0)
-        }
-
-        menuHomeBtn.setOnClickListener {
-
-            startActivity(Intent(this, UserHome::class.java))
-            overridePendingTransition(0, 0)
-        }*/
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -228,6 +234,8 @@ class UserPost : AppCompatActivity() {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, _imageUri)
         //アクティビティを起動。
         startActivityForResult(intent, 200)
+
+        photoButton.visibility  = View.GONE
     }
 
     /**
