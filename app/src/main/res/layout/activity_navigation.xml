@@ -8,45 +8,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".NavigationActivity"
     tools:openDrawer="start">
-
-    <!-- ドロワーメニュー 、app:headerLayoutでヘッダ部のレイアウトを指定し、app:menuでメニュー定義を指定している。-->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/drawer_navigation_toolbar"
-        app:menu="@menu/drawer_navigation_item" />
 
     <!-- ツールバーとFloatingActionButtonとコンテンツと一体として振る舞わせるコンテナ、たぶん -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".NavigationActivity">
+        android:layout_height="match_parent">
 
-        <!-- ツールバーのコンテナ -->
-        <com.google.android.material.appbar.AppBarLayout
+        <!-- ツールバー -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <!-- ツールバー -->
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="#FFFFFF">
+            android:layout_height="50dp"
+            android:background="#FFFFFF">
 
             <ImageView
-                android:layout_height="45dp"
-                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:layout_width="40dp"
                 android:layout_gravity="center"
                 android:src="@drawable/icon"/>
 
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
 
         <!-- コンテンツ部 -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +51,7 @@
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="?android:attr/windowBackground"
                 app:itemBackground="@android:color/white"
                 app:itemIconTint="@color/colorMain"
@@ -79,5 +61,16 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:menu="@menu/bottom_navigation_item"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- ドロワーメニュー 、app:headerLayoutでヘッダ部のレイアウトを指定し、app:menuでメニュー定義を指定している。-->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/drawer_navigation_toolbar"
+        app:menu="@menu/drawer_navigation_item" />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -3,25 +3,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/navi_home">
+    app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/navi_home"
+        android:id="@+id/nav_home"
         android:name="com.example.encount.post.UserHome"
         android:label="ホーム"/>
 
     <fragment
-        android:id="@+id/navi_map"
+        android:id="@+id/nav_map"
         android:name="com.example.encount.maps.MapsHome"
         android:label="マップ"/>
 
     <fragment
-        android:id="@+id/navi_search"
+        android:id="@+id/nav_search"
         android:name="com.example.encount.friend.FriendAdd"
         android:label="検索"/>
 
     <fragment
-        android:id="@+id/navi_notifications"
+        android:id="@+id/nav_notifications"
         android:name="com.example.encount.user.UserNotifications"
         android:label="通知"/>
+
 </navigation>

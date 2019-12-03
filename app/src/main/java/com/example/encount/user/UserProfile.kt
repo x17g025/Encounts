@@ -1,12 +1,9 @@
 package com.example.encount.user
 
-import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import com.example.encount.*
 import com.example.encount.post.PostAdapter
 import com.google.gson.Gson
@@ -25,21 +22,14 @@ import java.lang.Exception
  * 製作者：中村
  */
 
-class UserProfile : Fragment() {
+class UserProfile : AppCompatActivity() {
 
-    var _helper : SQLiteHelper? = null
-    var fragContext : Context? = null
+    private val _helper = SQLiteHelper(this@UserProfile)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
 
-        super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.activity_user_profile, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        fragContext = context
-        _helper = SQLiteHelper(fragContext)
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_user_profile)
 
         FriendLine.visibility    = View.GONE
         LikeLine.visibility      = View.GONE
@@ -214,7 +204,7 @@ class UserProfile : Fragment() {
 
                 }
                 UserPostCount.text = Integer.toString(postCount)
-                UserDataList.adapter = PostAdapter(fragContext, postList)
+                UserDataList.adapter = PostAdapter(this@UserProfile, postList)
             }
             catch (e : Exception){
 

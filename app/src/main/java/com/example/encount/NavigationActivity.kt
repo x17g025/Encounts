@@ -7,23 +7,11 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import kotlinx.android.synthetic.main.activity_navigation.*
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.Navigation
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
-import com.example.encount.post.UserHome
-import com.example.encount.user.UserLogin
-import com.example.encount.user.UserProfile
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import com.example.encount.user.UserProfile
 import com.google.android.material.navigation.NavigationView
-
 
 /**
  * やってること
@@ -39,18 +27,10 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
 
-        this.setToolbar()
-        this.setDrawerLayout()
+       this.setDrawerLayout()
 
         val navController = findNavController(R.id.nav_host_fragment)
-        NavigationUI.setupActionBarWithNavController(this, navController)
         setupWithNavController(bottom_navigation, navController)
-    }
-
-    private fun setToolbar(){
-
-        setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayShowHomeEnabled(false)
     }
 
     private fun setDrawerLayout(){
@@ -64,10 +44,8 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-
-            R.id.navi_user -> Log.d("de","aaaa")
+            R.id.nav_user -> startActivity(Intent(this, UserProfile::class.java))
         }
-        // Close the Navigation Drawer.
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }

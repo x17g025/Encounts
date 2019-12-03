@@ -20,7 +20,6 @@ import android.util.Log
 import android.widget.*
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
-import com.example.encount.user.UserProfile
 import kotlinx.android.synthetic.main.activity_user_post.*
 import okhttp3.*
 import java.io.File
@@ -94,30 +93,33 @@ class UserPost : AppCompatActivity() {
         // 投稿ボタンが押された時
         postButton.setOnClickListener {
 
+            if(_imageUri != null) {
             //パスの処理
             val uuri = getFileSchemeUri(_imageUri as Uri)
-            println(uuri.toString())
-            //OkHttpPost.uurl = uuri.toString()
-            var pass = uuri.toString().substring(uuri.toString().length - 17)
-            print(pass)
-            uurl = pass
 
-            //コメントをEditTextから取得
-            cmnt = commentInput.getText().toString()
-            //緯度を取得
-            latitude = _latitude.toString()
-            //経度を取得
-            longitude = _longitude.toString()
+                println(uuri.toString())
+                //OkHttpPost.uurl = uuri.toString()
+                var pass = uuri.toString().substring(uuri.toString().length - 17)
+                print(pass)
+                uurl = pass
 
-            //ここで現在地取得処理(更新)を終了させる
-            print("GPS終了")
-            locationManager.removeUpdates(locationListener)
+                //コメントをEditTextから取得
+                cmnt = commentInput.getText().toString()
+                //緯度を取得
+                latitude = _latitude.toString()
+                //経度を取得
+                longitude = _longitude.toString()
 
-            //投稿処理開始
-            val postTask = OkHttpPost()
-            postTask.execute(/*uuri.toString()*/)
+                //ここで現在地取得処理(更新)を終了させる
+                print("GPS終了")
+                locationManager.removeUpdates(locationListener)
 
-            startActivity(Intent(this, UserHome::class.java))
+                //投稿処理開始
+                val postTask = OkHttpPost()
+                postTask.execute(/*uuri.toString()*/)
+
+                startActivity(Intent(this, UserHome::class.java))
+            }
         }
 
         /*//メニューバーを押した場合の処理

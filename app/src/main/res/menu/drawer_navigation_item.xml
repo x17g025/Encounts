@@ -3,25 +3,25 @@
     <group
         android:checkableBehavior="single">
         <item
-            android:id="@+id/navi_user"
+            android:id="@+id/nav_user"
             android:icon="@drawable/ic_menu_user"
-            android:title="マイページ" />
+            android:title="MyPage" />
         <item
-            android:id="@+id/navi_friend"
+            android:id="@+id/nav_friend"
             android:icon="@drawable/ic_drawer_friend"
-            android:title="フレンドリクエスト" />
+            android:title="Friend" />
     </group>
     <group
         android:id="@+id/menu_other"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/navi_notice"
-            android:title="お知らせ" />
+            android:id="@+id/nav_notice"
+            android:title="a" />
         <item
-            android:id="@+id/navi_about"
-            android:title="このアプリについて" />
+            android:id="@+id/nav_about"
+            android:title="b" />
         <item
-            android:id="@+id/navi_settings"
-            android:title="設定" />
+            android:id="@+id/nav_settings"
+            android:title="c" />
     </group>
 </menu>

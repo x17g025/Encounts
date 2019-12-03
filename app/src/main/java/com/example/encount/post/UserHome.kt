@@ -1,16 +1,11 @@
 package com.example.encount.post
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.encount.*
@@ -21,8 +16,6 @@ import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
-import com.example.encount.friend.FriendProfile
-import com.example.encount.user.UserProfile
 import java.lang.Exception
 
 /**
