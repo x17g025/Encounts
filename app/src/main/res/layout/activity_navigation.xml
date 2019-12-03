@@ -71,6 +71,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/drawer_navigation_toolbar"
+        app:headerLayout="@layout/drawer_navigation_header"
         app:menu="@menu/drawer_navigation_item" />
 </androidx.drawerlayout.widget.DrawerLayout>

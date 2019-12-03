@@ -71,7 +71,7 @@ class UserProfile : AppCompatActivity() {
         override fun doInBackground(vararg params: String): String {
 
             var id     = ""
-            val db     = _helper!!.writableDatabase
+            val db     = _helper.writableDatabase
             val sql    = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
@@ -90,7 +90,7 @@ class UserProfile : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", "1")
+            formBuilder.add("id", id)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 

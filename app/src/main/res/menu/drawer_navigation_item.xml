@@ -5,23 +5,23 @@
         <item
             android:id="@+id/nav_user"
             android:icon="@drawable/ic_menu_user"
-            android:title="MyPage" />
+            android:title="マイページ" />
         <item
             android:id="@+id/nav_friend"
             android:icon="@drawable/ic_drawer_friend"
-            android:title="Friend" />
+            android:title="フレンド承認" />
     </group>
     <group
         android:id="@+id/menu_other"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_notice"
-            android:title="a" />
+            android:title="ニュース・お知らせ" />
         <item
             android:id="@+id/nav_about"
-            android:title="b" />
+            android:title="このアプリについて" />
         <item
             android:id="@+id/nav_settings"
-            android:title="c" />
+            android:title="設定・プライバシー" />
     </group>
 </menu>
