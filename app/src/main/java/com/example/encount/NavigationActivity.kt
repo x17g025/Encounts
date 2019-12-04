@@ -122,4 +122,11 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
 
         }
     }
+
+    override fun onDestroy(){
+
+        //ヘルパーオブジェクトの開放
+        _helper.close()
+        super.onDestroy()
+    }
 }

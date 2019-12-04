@@ -18,13 +18,12 @@ import java.util.Date
 import android.os.AsyncTask
 import android.os.Handler
 import android.util.Log
+import android.view.WindowManager
 import android.widget.*
 import com.example.encount.NavigationActivity
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
-import com.example.encount.user.UserLogin
 import kotlinx.android.synthetic.main.activity_user_post.*
-import kotlinx.android.synthetic.main.activity_user_profile.*
 import okhttp3.*
 import java.io.File
 import java.io.IOException
@@ -85,6 +84,7 @@ class UserPost : AppCompatActivity() {
         }
         //位置情報の追跡を開始。
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
 
         /**
          * 投稿処理
@@ -129,10 +129,10 @@ class UserPost : AppCompatActivity() {
                 Handler().postDelayed({
 
                     startActivity(Intent(this, NavigationActivity::class.java))
-                    finish()
                 }, 200)
             }
             else{
+
             }
 
             ivCamera.setOnClickListener{
@@ -250,12 +250,6 @@ class UserPost : AppCompatActivity() {
             _latitude = location.latitude
             //引数のLocationオブジェクトから経度を取得。
             _longitude = location.longitude
-            //取得した緯度をTextViewに表示。
-            val tvLatitude = findViewById<TextView>(R.id.tvLatitude)
-            tvLatitude.text = _latitude.toString()
-            //取得した経度をTextViewに表示。
-            val tvLongitude = findViewById<TextView>(R.id.tvLongitude)
-            tvLongitude.text = _longitude.toString()
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -381,5 +375,12 @@ class UserPost : AppCompatActivity() {
             //結果をログに出力(レスポンスのbodyタグ内を出力する)
             Log.d("Debug", str)
         }
+    }
+
+    override fun onDestroy(){
+
+        //ヘルパーオブジェクトの開放
+        _helper.close()
+        super.onDestroy()
     }
 }

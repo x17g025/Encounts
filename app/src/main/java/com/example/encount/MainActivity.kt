@@ -51,5 +51,4 @@ class MainActivity : AppCompatActivity() {
         _helper.close()
         super.onDestroy()
     }
-
 }
