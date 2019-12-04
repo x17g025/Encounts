@@ -168,7 +168,10 @@ class UserPost : AppCompatActivity() {
 
             //位置情報の更新作業をここで終了させる
             //locationManager.removeUpdates(this)
+        }
+        else{
 
+            photoButton.visibility  = View.VISIBLE
         }
     }
 
