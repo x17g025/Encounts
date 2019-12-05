@@ -92,10 +92,24 @@ class UserPost : AppCompatActivity() {
          */
 
         val commentInput = findViewById<EditText>(R.id.commentInput)
+        ivCameraBig.visibility = View.GONE
+
 
         postClose.setOnClickListener {
 
             startActivity(Intent(this, NavigationActivity::class.java))
+        }
+
+        ivCamera.setOnClickListener {
+
+            ivCamera.visibility = View.GONE
+            ivCameraBig.visibility = View.VISIBLE
+        }
+
+        ivCameraBig.setOnClickListener {
+
+            ivCamera.visibility = View.VISIBLE
+            ivCameraBig.visibility = View.GONE
         }
 
         // 投稿ボタンが押された時
@@ -134,12 +148,10 @@ class UserPost : AppCompatActivity() {
             else{
 
             }
-
-            ivCamera.setOnClickListener{
-
-                onCameraImageClick(ivCamera)
-            }
         }
+
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -154,8 +166,10 @@ class UserPost : AppCompatActivity() {
             val ivCamera = findViewById<ImageView>(R.id.ivCamera)
             //撮影された画像をImageViewに設定。
             ivCamera.setImageBitmap(bitmap)
+            ivCameraBig.setImageBitmap(bitmap)
             //フィールドの画像URIをImageViewに設定。
             ivCamera.setImageURI(_imageUri)
+            ivCameraBig.setImageURI(_imageUri)
 
             //デバッグ用
             System.out.println("変換前"+_imageUri)
