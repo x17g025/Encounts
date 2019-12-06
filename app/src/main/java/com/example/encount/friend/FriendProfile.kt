@@ -48,7 +48,7 @@ class FriendProfile : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/UserDataGet.php"
+            val url = "https://encount.cf/encount/UserDataGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -99,7 +99,7 @@ class FriendProfile : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/UserPostGet.php"
+            val url = "https://encount.cf/encount/UserPostGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()

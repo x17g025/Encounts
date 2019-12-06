@@ -40,8 +40,7 @@ data class UserDataClassList(
 
 data class SinginDataClassList (
     val userSinginFlag: Boolean,
-    val result: String,
-    val userId: Long
+    val result: String
 )
 
 data class FriendDataClassList (

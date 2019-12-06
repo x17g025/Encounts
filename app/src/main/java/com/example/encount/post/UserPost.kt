@@ -329,7 +329,7 @@ class UserPost : AppCompatActivity() {
             }
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/PostPhoto.php"
+            val url = "https://encount.cf/encount/PostPhoto.php"
 
             //パスを設定
             //var pass = "/sdcard/Pictures/"

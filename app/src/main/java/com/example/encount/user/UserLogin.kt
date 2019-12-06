@@ -40,12 +40,9 @@ class UserLogin : AppCompatActivity() {
 
         loginbtn.setOnClickListener {
 
-            val etMail = findViewById<EditText>(R.id.usermail)
-            val etPass = findViewById<EditText>(R.id.userpass)
-            val etError = findViewById<TextView>(R.id.error)
-            mail = etMail.text.toString()
-            pass = etPass.text.toString()
-            etError.text = ""
+            mail = usermail.text.toString()
+            pass = userpass.text.toString()
+            info.text = ""
 
             if(mail != "" && pass != ""){
 
@@ -54,7 +51,7 @@ class UserLogin : AppCompatActivity() {
             }
             else{
 
-                etError.text = "ユーザーまたはパスワードが入力されていません"
+                info.text = "ユーザーまたはパスワードが入力されていません"
             }
         }
 
@@ -71,7 +68,7 @@ class UserLogin : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/UserLogin.php"
+            val url = "https://encount.cf/encount/UserLogin.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -116,8 +113,7 @@ class UserLogin : AppCompatActivity() {
             }
             else{
 
-                val etError = findViewById<TextView>(R.id.error)
-                etError.text = loginFlag.result
+                info.text = loginFlag.result
             }
         }
     }
