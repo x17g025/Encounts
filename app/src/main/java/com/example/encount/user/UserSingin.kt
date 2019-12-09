@@ -84,7 +84,7 @@ class UserSingin : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/UserSingin.php"
+            val url = "https://encount.cf/encount/UserSingin.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
