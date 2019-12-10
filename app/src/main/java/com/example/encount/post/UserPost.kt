@@ -20,9 +20,11 @@ import android.os.Handler
 import android.util.Log
 import android.view.WindowManager
 import android.widget.*
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.encount.NavigationActivity
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
+import com.example.encount.user.UserLogin
 import kotlinx.android.synthetic.main.activity_user_post.*
 import okhttp3.*
 import java.io.File
@@ -140,18 +142,20 @@ class UserPost : AppCompatActivity() {
                 val postTask = OkHttpPost()
                 postTask.execute(/*uuri.toString()*/)
 
-                Handler().postDelayed({
-
-                    startActivity(Intent(this, NavigationActivity::class.java))
-                }, 200)
+                SweetAlertDialog(this@UserPost, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("投稿完了")
+                    .setContentText("")
+                    .setConfirmText("ホーム画面へ")
+                    .setConfirmClickListener {
+                        sDialog -> sDialog.dismissWithAnimation()
+                        goHome()
+                    }
+                    .show()
             }
             else{
 
             }
         }
-
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -396,5 +400,11 @@ class UserPost : AppCompatActivity() {
         //ヘルパーオブジェクトの開放
         _helper.close()
         super.onDestroy()
+    }
+
+    fun goHome(){
+
+        startActivity(Intent(this, NavigationActivity::class.java))
+        finish()
     }
 }
