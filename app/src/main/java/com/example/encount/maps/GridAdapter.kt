@@ -58,12 +58,12 @@ class GridAdapter internal constructor(
         val img = view.findViewById<ImageView>(R.id.image_view)
         img.setScaleType(ImageView.ScaleType.CENTER_CROP)
 
-        Picasso.with(context)
+        /*Picasso.with(context)
             .load(addUrl(position))
             .resize(ScreenWHalf, ScreenWHalf)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.error)
-            .into(img)
+            .into(img)*/
 
         return view
     }

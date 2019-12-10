@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_post_details.*
  * やってること
  * 投稿の詳細な情報を表示する
  *
- * 製作者：菊地
+ * 製作者：中村
  */
 
 class PostDetails : AppCompatActivity() {

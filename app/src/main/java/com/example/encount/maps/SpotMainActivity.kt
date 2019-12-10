@@ -17,6 +17,7 @@ limitations under the License.
 import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.GridView
+
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encount.R
@@ -33,7 +34,7 @@ class SpotMainActivity : AppCompatActivity() {
         setContentView(R.layout.spotmain)
 
         // GridViewのインスタンスを生成
-        val gridview = findViewById<GridView>(R.id.gridview)
+            val gridview = findViewById<GridView>(R.id.gridview)
 
         // BaseAdapter を継承したGridAdapterのインスタンスを生成
         val adapter = GridAdapter(
