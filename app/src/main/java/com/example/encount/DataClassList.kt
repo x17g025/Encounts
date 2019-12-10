@@ -11,7 +11,7 @@ data class PostList(
 )
 
 data class like(
-    val likeFlag: Boolean
+    val flag: Boolean
 )
 
 data class PostDataClassList(
@@ -27,7 +27,7 @@ data class PostDataClassList(
 )
 
 data class LoginDataClassList(
-    val userLoginFlag: Boolean,
+    val flag: Boolean,
     val result: String,
     val userId: Long
 )
@@ -39,7 +39,7 @@ data class UserDataClassList(
 )
 
 data class SinginDataClassList (
-    val userSinginFlag: Boolean,
+    val flag: Boolean,
     val result: String
 )
 

@@ -26,6 +26,12 @@ import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
 
+/**
+ * やってること
+ *
+ *
+ * 製作者：中村
+ */
 
 class FriendAdd : Fragment() {
 

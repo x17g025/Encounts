@@ -35,30 +35,35 @@ class UserLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_login)
 
-        val progress = findViewById<ProgressBar>(R.id.loginProgress)
-        progress.visibility = View.GONE
+        Progress.visibility = View.GONE
 
-        loginbtn.setOnClickListener {
+        btnLogin.setOnClickListener {
 
-            mail = usermail.text.toString()
-            pass = userpass.text.toString()
-            info.text = ""
+            mail = etUserMail.text.toString()
+            pass = etUserPass.text.toString()
+            txInfo.text = ""
 
             if(mail != "" && pass != ""){
 
-                progress.visibility = View.VISIBLE
+                Progress.visibility = View.VISIBLE
                 LoginDataPost().execute()
             }
             else{
 
-                info.text = "ユーザーまたはパスワードが入力されていません"
+                txInfo.text = "ユーザーまたはパスワードが入力されていません"
             }
         }
 
-        usernew.setOnClickListener {
+        btnUserSingin.setOnClickListener {
 
             startActivity(Intent(this, UserSingin::class.java))
         }
+
+        btnPassForgot.setOnClickListener {
+
+            startActivity(Intent(this, PassForgot::class.java))
+        }
+
     }
 
     private inner class LoginDataPost() : AsyncTask<String, String, String>() {
@@ -96,10 +101,9 @@ class UserLogin : AppCompatActivity() {
 
             val db = _helper.writableDatabase
             var loginFlag = Gson().fromJson(result, LoginDataClassList::class.java)
-            val progress = findViewById<ProgressBar>(R.id.loginProgress)
-            progress.visibility = View.GONE
+            Progress.visibility = View.GONE
 
-            if(loginFlag.userLoginFlag) {
+            if(loginFlag.flag) {
 
                 val sqlDelete = "delete from userInfo"
                 var stmt = db.compileStatement(sqlDelete)
@@ -113,7 +117,7 @@ class UserLogin : AppCompatActivity() {
             }
             else{
 
-                info.text = loginFlag.result
+                txInfo.text = loginFlag.result
             }
         }
     }

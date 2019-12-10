@@ -5,7 +5,6 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
@@ -14,8 +13,6 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_user_singin.*
 import okhttp3.*
 import java.io.IOException
-
-
 
 /**
  * やってること
@@ -108,9 +105,7 @@ class UserSingin : AppCompatActivity() {
             val singinFlag = Gson().fromJson(result, SinginDataClassList::class.java)
             singinProgress.visibility = View.GONE
 
-            if(singinFlag.userSinginFlag) {
-
-                info.text = singinFlag.result
+            if(singinFlag.flag) {
 
                 SweetAlertDialog(this@UserSingin, SweetAlertDialog.SUCCESS_TYPE)
                     .setTitleText("新規登録")

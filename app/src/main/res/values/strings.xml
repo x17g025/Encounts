@@ -12,10 +12,12 @@
     <string name="userLoginPass">パスワード</string>
     <string name="reUserLoginPass">パスワード(確認)</string>
     <string name="userLoginNew">新規登録</string>
+    <string name="userPassForgot">パスワードを忘れた</string>
     <string name="menuUser">ユーザー</string>
     <string name="menuHome">ホーム</string>
     <string name="menuMap">マップ</string>
-    <string name="menuSearch">サーチ</string>
+    <string name="Search">検索</string>
+    <string name="SearchAccount">アカウントを探す</string>
     <string name="menuSettings">設定</string>
     <!--投稿画面で使用　ここから-->
     <string name="userPostCamera">タップして写真を撮影</string>

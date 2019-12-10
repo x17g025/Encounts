@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".friend.FriendAdd"></activity>
+        <activity android:name=".user.PassForgot"></activity>
+        <activity android:name=".friend.FriendAdd" />
         <activity
             android:name=".user.UserLogin"
             android:noHistory="true" />
@@ -33,9 +34,9 @@
         <activity android:name=".post.UserHome" />
         <activity
             android:name=".post.UserPost"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".post.PostDetails" />
-        <activity android:name="NavigationActivity" />
+        <activity android:name=".NavigationActivity" />
         <activity android:name=".friend.FriendProfile" />
         <activity
             android:name=".MainActivity"
