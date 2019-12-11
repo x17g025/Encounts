@@ -96,7 +96,6 @@ class UserPost : AppCompatActivity() {
         val commentInput = findViewById<EditText>(R.id.commentInput)
         ivCameraBig.visibility = View.GONE
 
-
         postClose.setOnClickListener {
 
             startActivity(Intent(this, NavigationActivity::class.java))
