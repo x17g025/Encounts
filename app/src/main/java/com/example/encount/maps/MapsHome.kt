@@ -1,34 +1,22 @@
 package com.example.encount.maps
 
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.FragmentActivity
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.AsyncTask
-
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.encount.MapsDataClassList
 import com.example.encount.MapsList
-import com.example.encount.PostList
-
 import com.example.encount.R
-import com.example.encount.post.UserHome
-import com.example.encount.user.UserProfile
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -56,11 +44,14 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        MapPostGet().execute()
+        MapPostGet(this).execute()
+
+        val mapFragment: SupportMapFragment = getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 
         button2.setOnClickListener {
 
-            //startActivity(Intent(this, SpotInfo::class.java))
+            //startActivity(context(this, SpotInfo::class.java))
         }
         // Android 6, API 23以上でパーミッションの確認
         if (Build.VERSION.SDK_INT >= 23) {
@@ -70,10 +61,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             )
             checkPermission(permissions, REQUEST_CODE)
         }
-
-        val mapFragment : SupportMapFragment? = getSupportFragmentManager()
-            .findFragmentById(R.id.map)
-        mapFragment!!.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
         locationRequest.setInterval(10000)   //最遅の更新間隔
@@ -172,60 +159,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         fun setPostList(mapsHome: MapsHome, mutableList: MutableList<MapsList>) {
             mapsHome.postList = mapsHome.postList
             Log.d("debug", "pass" + mapsHome.postList[1].imgpath)
-        }
-    }
-
-    //インナークラス
-    inner class MapPostGet() : AsyncTask<String, String, String>() {
-        override fun doInBackground(vararg params: String): String {
-            Log.d("debug", "background")
-            val client = OkHttpClient()
-
-            //アクセスするURL
-            val url = "https://kinako.cf/encount/MapsDataGet.php"
-
-            //Formを作成
-            val formBuilder = FormBody.Builder()
-
-            //リクエストの内容にformを追加
-            val form = formBuilder.build()
-
-            //リクエストを生成
-            val request = Request.Builder().url(url).post(form).build()
-
-            try {
-                //受信用
-                val response = client.newCall(request).execute()
-                return response.body()!!.string()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                return "Error"
-            }
-        }
-
-
-        //結果表示
-        override fun onPostExecute(result: String) {
-            try {
-                //var postList = mutableListOf<MapsList>()
-                var postList = mutableListOf<MapsList>()
-                val listType = object : TypeToken<List<MapsDataClassList>>() {}.type
-                val postData = Gson().fromJson<List<MapsDataClassList>>(result, listType)
-
-                for (i in postData) {
-                    postList.add(
-                        MapsList(
-                            i.imgPath,
-                            i.imgLat,
-                            i.imgLng
-                        )
-                    )
-                }
-                Log.d("debug", "background result")
-                //Log.d("debug", "pass" + postList[1].imgpath)
-                setPostList(postList)
-            } catch (e: Exception) {
-            }
         }
     }
 }
