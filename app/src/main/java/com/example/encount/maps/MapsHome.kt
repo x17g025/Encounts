@@ -47,7 +47,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        //非同期処理実行
         MapPostGet(this).execute()
 
         val mapFragment: SupportMapFragment = getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
@@ -87,10 +87,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 }
             }
         }
-    }
-
-    fun setPostList(postList: MutableList<MapsList>) {
-        this.postList = postList
     }
 
     override fun onResume() {
@@ -135,6 +131,11 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
     }
+    //setter
+    fun setPostList(postList : MutableList<MapsList>){
+        this.postList = postList
+        Log.d("debug", "pass" + this.postList[0].imgpath)
+    }
 
     //許可されていないパーミッションリクエスト
     fun checkPermission(permissions: Array<String>, request_code: Int) {
@@ -163,11 +164,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     companion object {
         private val REQUEST_CODE = 1000
         private val REQUEST_PERMISSION = 1000
-        //setter
-        fun setPostList(mapsHome: MapsHome, mutableList: MutableList<MapsList>) {
-            mapsHome.postList = mapsHome.postList
-            Log.d("debug", "pass" + mapsHome.postList[1].imgpath)
-        }
     }
 
 
