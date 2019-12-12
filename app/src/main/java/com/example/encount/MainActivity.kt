@@ -1,9 +1,15 @@
 package com.example.encount
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.widget.ImageView
+import androidx.core.app.ActivityCompat
 import com.example.encount.user.UserLogin
 
 /**
@@ -41,8 +47,6 @@ class MainActivity : AppCompatActivity() {
             }
             finish()
         }, 1500)
-
-
     }
 
     override fun onDestroy(){
@@ -51,5 +55,4 @@ class MainActivity : AppCompatActivity() {
         _helper.close()
         super.onDestroy()
     }
-
 }

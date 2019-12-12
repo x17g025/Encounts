@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".friend.FriendAdd"></activity>
+        <activity android:name=".user.PassForgot" />
+        <activity android:name=".friend.FriendAdd" />
         <activity
             android:name=".user.UserLogin"
             android:noHistory="true" />
@@ -31,10 +32,15 @@
             android:name=".user.UserProfile"
             android:noHistory="true" />
         <activity android:name=".post.UserHome" />
-        <activity android:name=".post.UserPost"/>
+        <activity
+            android:name=".post.UserPost"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".post.PostDetails" />
-        <activity android:name="NavigationActivity" />
+        <activity android:name=".NavigationActivity" />
         <activity android:name=".friend.FriendProfile" />
+        <activity android:name=".maps.MapsHome" />
+        <activity android:name=".maps.SpotInfo" />
+        <activity android:name=".maps.SpotMainActivity"/>
         <activity
             android:name=".MainActivity"
             android:noHistory="true">
@@ -44,6 +50,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <!--マップ機能を利用するために必要な記述　ここから-->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <!--マップ機能を利用するために必要な記述　ここまで-->
+
     </application>
 
 </manifest>

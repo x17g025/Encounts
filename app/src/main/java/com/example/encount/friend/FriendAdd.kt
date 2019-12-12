@@ -26,6 +26,12 @@ import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
 
+/**
+ * やってること
+ *
+ *
+ * 製作者：中村
+ */
 
 class FriendAdd : Fragment() {
 
@@ -83,7 +89,7 @@ class FriendAdd : Fragment() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/UserPostGet.php"
+            val url = "https://encount.cf/encount/UserPostGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -141,7 +147,7 @@ class FriendAdd : Fragment() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/UserPostGet.php"
+            val url = "https://encount.cf/encount/UserPostGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()

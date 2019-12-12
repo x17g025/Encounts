@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="230dp"
+    android:background="#f2f2f2"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="3dp" >
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription="@string/description"
+        android:scaleType="fitStart"
+        />
+    <!--android:scaleType="fitCenter"-->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:src="@drawable/post_like"/>
+
+</LinearLayout>

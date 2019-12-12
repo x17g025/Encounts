@@ -22,6 +22,7 @@ import java.io.IOException
 import java.lang.Exception
 import android.widget.TextView
 import android.view.LayoutInflater
+import com.example.encount.user.UserSettings
 
 /**
  * やってること
@@ -59,6 +60,7 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
 
         when (item.itemId) {
             R.id.nav_user -> startActivity(Intent(this, UserProfile::class.java))
+            R.id.nav_settings -> startActivity(Intent(this, UserSettings::class.java))
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return false
@@ -82,7 +84,7 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/UserDataGet.php"
+            val url = "https://encount.cf/encount/UserDataGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -121,5 +123,12 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
             }
 
         }
+    }
+
+    override fun onDestroy(){
+
+        //ヘルパーオブジェクトの開放
+        _helper.close()
+        super.onDestroy()
     }
 }

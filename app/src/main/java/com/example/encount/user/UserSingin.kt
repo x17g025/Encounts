@@ -5,9 +5,7 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
 import com.example.encount.SinginDataClassList
@@ -36,38 +34,31 @@ class UserSingin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_singin)
 
-        val progress = findViewById<ProgressBar>(R.id.singinProgress)
-        progress.visibility = View.GONE
+        singinProgress.visibility = View.GONE
 
         singinbtn.setOnClickListener {
 
-            val etName = findViewById<EditText>(R.id.username)
-            val etMail = findViewById<EditText>(R.id.usermail)
-            val etPass = findViewById<EditText>(R.id.userpass)
-            val etrePass = findViewById<EditText>(R.id.reuserpass)
-            val etError = findViewById<TextView>(R.id.error)
-            name = etName.text.toString()
-            mail = etMail.text.toString()
-            pass = etPass.text.toString()
-            repass = etrePass.text.toString()
-            etError.text = ""
+            name = username.text.toString()
+            mail = usermail.text.toString()
+            pass = userpass.text.toString()
+            repass = reuserpass.text.toString()
+            info.text = ""
 
             if(pass == repass) {
 
                 if(name != "" && pass != "" && mail != ""){
 
-                    progress.visibility = View.VISIBLE
+                    singinProgress.visibility = View.VISIBLE
                     SinginDataPost().execute()
                 }
                 else{
 
-                    etError.text = "入力されていない項目があります"
+                    info.text = "入力されていない項目があります"
                 }
-
             }
             else{
 
-                etError.text = "パスワードが一致しません"
+                info.text = "パスワードが一致しません"
             }
         }
 
@@ -111,26 +102,24 @@ class UserSingin : AppCompatActivity() {
 
         override fun onPostExecute(result: String) {
 
-            val db = _helper.writableDatabase
-            var singinFlag = Gson().fromJson(result, SinginDataClassList::class.java)
-            val progress = findViewById<ProgressBar>(R.id.singinProgress)
-            progress.visibility = View.GONE
+            val singinFlag = Gson().fromJson(result, SinginDataClassList::class.java)
+            singinProgress.visibility = View.GONE
 
-            if(singinFlag.userSinginFlag) {
+            if(singinFlag.flag) {
 
-                val sqlDelete = "delete from userInfo"
-                var stmt = db.compileStatement(sqlDelete)
-                stmt.executeUpdateDelete()
-
-                val sqlInsert = "insert into userInfo (user_id) values (?)"
-                stmt = db.compileStatement(sqlInsert)
-                stmt.bindLong(1, singinFlag.userId)
-                stmt.executeInsert()
-                goProflie()
+                SweetAlertDialog(this@UserSingin, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("新規登録")
+                    .setContentText("登録されたメールアドレスに確認メールを送りました")
+                    .setConfirmText("ログイン画面へ")
+                    .setConfirmClickListener {
+                        sDialog -> sDialog.dismissWithAnimation()
+                        goLogin()
+                    }
+                    .show()
             }
             else{
-                val etError = findViewById<TextView>(R.id.error)
-                etError.text = singinFlag.result
+
+                info.text = singinFlag.result
             }
         }
     }
@@ -140,8 +129,8 @@ class UserSingin : AppCompatActivity() {
         super.onDestroy()
     }
 
-    fun goProflie(){
+    fun goLogin(){
 
-        startActivity(Intent(this, UserProfile::class.java))
+        startActivity(Intent(this, UserLogin::class.java))
     }
 }

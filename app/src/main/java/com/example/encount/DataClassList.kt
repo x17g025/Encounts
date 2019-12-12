@@ -1,5 +1,21 @@
 package com.example.encount
 
+data class like(
+    val flag: Boolean
+)
+
+data class MapsList(
+    val imgpath: String,
+    val imglat: Double,
+    val imglng: Double
+)
+
+data class MapsDataClassList (
+    val imgPath: String,
+    val imgLat: Double,
+    val imgLng: Double
+)
+
 data class PostList(
     val likeid: String,
     val postid: String,
@@ -8,10 +24,6 @@ data class PostList(
     val text: String,
     val date: String,
     val image: String
-)
-
-data class like(
-    val likeFlag: Boolean
 )
 
 data class PostDataClassList(
@@ -27,7 +39,7 @@ data class PostDataClassList(
 )
 
 data class LoginDataClassList(
-    val userLoginFlag: Boolean,
+    val flag: Boolean,
     val result: String,
     val userId: Long
 )
@@ -39,9 +51,8 @@ data class UserDataClassList(
 )
 
 data class SinginDataClassList (
-    val userSinginFlag: Boolean,
-    val result: String,
-    val userId: Long
+    val flag: Boolean,
+    val result: String
 )
 
 data class FriendDataClassList (

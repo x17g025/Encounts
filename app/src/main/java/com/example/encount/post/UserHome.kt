@@ -111,7 +111,7 @@ class UserHome : Fragment() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/UserPostGet.php"
+            val url = "https://encount.cf/encount/UserPostGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()

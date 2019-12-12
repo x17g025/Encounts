@@ -21,20 +21,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:textColor="#898989"
         android:text="@string/userLogin"
         android:layout_below="@+id/LoginImg"
         android:textSize="20sp"
         android:layout_marginTop="20dp"/>
 
     <EditText
-        android:id="@+id/usermail"
-        android:layout_width="290dp"
+        android:id="@+id/etUserMail"
+        android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_below="@+id/LoginTitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="#dcdcdc"
+        android:background="@drawable/edit_text_design"
         android:drawableLeft="@drawable/ic_action_mail"
         android:ems="10"
         android:hint="@string/userLoginMail"
@@ -42,44 +41,44 @@
         android:textSize="16dp" />
 
     <EditText
-        android:id="@+id/userpass"
-        android:layout_width="290dp"
+        android:id="@+id/etUserPass"
+        android:layout_width="300dp"
         android:layout_height="40dp"
-        android:background="#dcdcdc"
+        android:background="@drawable/edit_text_design"
         android:drawableLeft="@drawable/ic_action_pass"
         android:ems="10"
         android:hint="@string/userLoginPass"
         android:inputType="textPassword"
-        android:layout_below="@+id/usermail"
+        android:layout_below="@+id/etUserMail"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/error"
+        android:id="@+id/txInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FF0000"
         android:textSize="15sp"
-        android:layout_above="@+id/loginbtn"
+        android:layout_above="@+id/btnLogin"
         android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"/>
 
     <ProgressBar
-        android:id="@+id/loginProgress"
+        android:id="@+id/Progress"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         style="?android:attr/progressBarStyle"
-        android:layout_above="@+id/loginbtn"
+        android:layout_above="@+id/btnLogin"
         android:indeterminateTint="#00bde7"
         android:layout_marginBottom="10dp"
         tools:visibility="visible"
         android:layout_centerHorizontal="true"/>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/loginbtn"
+        android:id="@+id/btnLogin"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/usernew"
+        android:layout_above="@+id/LoginMenu"
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="#00bde7"
         app:cardCornerRadius="25dp"
@@ -91,7 +90,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/logintext"
+                android:id="@+id/txLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -101,13 +100,30 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
-    <TextView
-        android:id="@+id/usernew"
+
+    <LinearLayout
+        android:id="@+id/LoginMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/btnPassForgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/userPassForgot"
+            android:layout_marginEnd="30dp"/>
+
+        <TextView
+        android:id="@+id/btnUserSingin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/userLoginNew"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginStart="30dp"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

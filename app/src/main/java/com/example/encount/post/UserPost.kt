@@ -18,13 +18,14 @@ import java.util.Date
 import android.os.AsyncTask
 import android.os.Handler
 import android.util.Log
+import android.view.WindowManager
 import android.widget.*
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.encount.NavigationActivity
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
 import com.example.encount.user.UserLogin
 import kotlinx.android.synthetic.main.activity_user_post.*
-import kotlinx.android.synthetic.main.activity_user_profile.*
 import okhttp3.*
 import java.io.File
 import java.io.IOException
@@ -85,6 +86,7 @@ class UserPost : AppCompatActivity() {
         }
         //位置情報の追跡を開始。
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
 
         /**
          * 投稿処理
@@ -92,10 +94,23 @@ class UserPost : AppCompatActivity() {
          */
 
         val commentInput = findViewById<EditText>(R.id.commentInput)
+        ivCameraBig.visibility = View.GONE
 
         postClose.setOnClickListener {
 
             startActivity(Intent(this, NavigationActivity::class.java))
+        }
+
+        ivCamera.setOnClickListener {
+
+            ivCamera.visibility = View.GONE
+            ivCameraBig.visibility = View.VISIBLE
+        }
+
+        ivCameraBig.setOnClickListener {
+
+            ivCamera.visibility = View.VISIBLE
+            ivCameraBig.visibility = View.GONE
         }
 
         // 投稿ボタンが押された時
@@ -126,18 +141,18 @@ class UserPost : AppCompatActivity() {
                 val postTask = OkHttpPost()
                 postTask.execute(/*uuri.toString()*/)
 
-                Handler().postDelayed({
-
-                    startActivity(Intent(this, NavigationActivity::class.java))
-                    finish()
-                }, 200)
+                SweetAlertDialog(this@UserPost, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("投稿完了")
+                    .setContentText("")
+                    .setConfirmText("ホーム画面へ")
+                    .setConfirmClickListener {
+                        sDialog -> sDialog.dismissWithAnimation()
+                        goHome()
+                    }
+                    .show()
             }
             else{
-            }
 
-            ivCamera.setOnClickListener{
-
-                onCameraImageClick(ivCamera)
             }
         }
     }
@@ -154,8 +169,10 @@ class UserPost : AppCompatActivity() {
             val ivCamera = findViewById<ImageView>(R.id.ivCamera)
             //撮影された画像をImageViewに設定。
             ivCamera.setImageBitmap(bitmap)
+            ivCameraBig.setImageBitmap(bitmap)
             //フィールドの画像URIをImageViewに設定。
             ivCamera.setImageURI(_imageUri)
+            ivCameraBig.setImageURI(_imageUri)
 
             //デバッグ用
             System.out.println("変換前"+_imageUri)
@@ -168,7 +185,10 @@ class UserPost : AppCompatActivity() {
 
             //位置情報の更新作業をここで終了させる
             //locationManager.removeUpdates(this)
+        }
+        else{
 
+            photoButton.visibility  = View.VISIBLE
         }
     }
 
@@ -247,12 +267,6 @@ class UserPost : AppCompatActivity() {
             _latitude = location.latitude
             //引数のLocationオブジェクトから経度を取得。
             _longitude = location.longitude
-            //取得した緯度をTextViewに表示。
-            val tvLatitude = findViewById<TextView>(R.id.tvLatitude)
-            tvLatitude.text = _latitude.toString()
-            //取得した経度をTextViewに表示。
-            val tvLongitude = findViewById<TextView>(R.id.tvLongitude)
-            tvLongitude.text = _longitude.toString()
         }
 
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
@@ -318,7 +332,7 @@ class UserPost : AppCompatActivity() {
             }
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/PostPhoto.php"
+            val url = "https://encount.cf/encount/PostPhoto.php"
 
             //パスを設定
             //var pass = "/sdcard/Pictures/"
@@ -378,5 +392,18 @@ class UserPost : AppCompatActivity() {
             //結果をログに出力(レスポンスのbodyタグ内を出力する)
             Log.d("Debug", str)
         }
+    }
+
+    override fun onDestroy(){
+
+        //ヘルパーオブジェクトの開放
+        _helper.close()
+        super.onDestroy()
+    }
+
+    fun goHome(){
+
+        startActivity(Intent(this, NavigationActivity::class.java))
+        finish()
     }
 }

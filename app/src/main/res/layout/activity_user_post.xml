@@ -1,191 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-投稿画面のレイアウト
--->
-
 <FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/postHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+        <ImageView
+            android:id="@+id/postClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_post_clear"
+            android:layout_weight="0.1"/>
 
-            <ImageView
-                android:id="@+id/postClose"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_post_clear"
-                android:layout_weight="0.1"/>
+        <ImageView
+            android:layout_height="45dp"
+            android:layout_width="45dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:src="@drawable/icon" />
 
-            <ImageView
-                android:layout_height="40dp"
-                android:layout_width="40dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:src="@drawable/icon" />
+        <ImageView
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.1"/>
+    </LinearLayout>
 
-            <ImageView
-                android:layout_height="40dp"
-                android:layout_width="40dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.1"/>
-        </LinearLayout>
+    <EditText
+        android:id="@+id/commentInput"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:hint="@string/userPostComment"
+        android:background="#00000000"
+        android:maxLength="200"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="55dp"/>
 
-        <!--投稿コメント用テキストボックス-->
-        <!--投稿コメント用テキストボックス　ここまで-->
+    <FrameLayout
+        android:id="@+id/postMenu"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="bottom"
+        android:background="#FFFFFF">
 
-        <!--カメラ起動＆写真表示　ここから-->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--投稿コメント用ボタン-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/postButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="end"
+            android:src="@drawable/to_post"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="20dp"/>
 
-        <EditText
-            android:id="@+id/commentInput"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="top|left"
-            android:hint="@string/userPostComment"
-            android:background="#00000000"
-            android:maxLength="200"
-            android:textSize="16dp" />
-
-            <!--投稿コメント用ボタン-->
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/postButton"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="bottom|end"
-                android:src="@drawable/to_post"/>
-
-            <!--写真撮影用ボタン-->
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/photoButton"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/take_photo"
-                android:layout_gravity="bottom|end"
-                android:onClick="onCameraImageClick"/>
-        </FrameLayout>
-
-        <!--デバッグ用　現在地表示　ここから-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="@string/tv_current_title" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="@string/tv_latitude_title" />
-
-            <TextView
-                android:id="@+id/tvLatitude"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_weight="0.5"
-                android:maxLines="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:text="@string/tv_longitude_title" />
-
-            <TextView
-                android:id="@+id/tvLongitude"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:maxLines="1" />
-
-        </LinearLayout>
+        <!--写真撮影用ボタン-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/photoButton"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/take_photo"
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="onCameraImageClick"/>
 
         <ImageView
             android:id="@+id/ivCamera"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter">
-        </ImageView>
-        <!--デバッグ用　現在地表示　ここまで-->
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 
-    </LinearLayout>
-
-    <!--
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/MenuMap"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:gravity="center_horizontal"
-                android:src="@drawable/menu_map"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/MenuHome"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:gravity="center_horizontal"
-                android:src="@drawable/menu_home"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/MenuUser"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:gravity="center_horizontal"
-                android:src="@drawable/menu_user"/>
-        </LinearLayout>
-    </LinearLayout>-->
-
+    <ImageView
+        android:id="@+id/ivCameraBig"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 </FrameLayout>
+
+

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:padding="4dp"
+    tools:context=".MainActivity">
+
+    <!--スポットトップ画像＆スポット名　ここから-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/UserIcon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/smile1"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:singleLine="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/SpotName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="17sp"
+                android:text="@string/spot_name"/>
+
+            <TextView
+                android:id="@+id/SpotCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="15sp"
+                android:text="@string/spot_code"/>
+
+            <TextView
+                android:id="@+id/UserBio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="4"
+                android:layout_marginStart="2dp"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="#595757"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--スポットトップ画像＆スポット名　ここまで-->
+
+
+    <!--タブバー　ここから-->
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:visibility="visible"
+        android:layout_marginTop="15dp"
+        android:background="#dcdcdc"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/SpotPopular"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/SpotPopularCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:maxLength="6"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spot_popular"
+                android:textSize="10sp" />
+
+            <View
+                android:id="@+id/PopularLine"
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:visibility="visible"
+                android:background="#00bde7"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/SpotNew"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/SpotNewCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:maxLength="6"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/spot_new"
+                android:textSize="10sp" />
+
+            <View
+                android:id="@+id/NewLine"
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:visibility="visible"
+                android:background="#00bde7"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!--タブバー　ここまで-->
+
+    <!--GridView　ここから-->
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:gravity="center"
+        android:background="#888"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:numColumns="2"
+        android:stretchMode="columnWidth" />
+    <!--GridView　ここまで-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/MenuMap"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:gravity="center_horizontal"
+                android:src="@drawable/menu_map_act"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/MenuHome"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:gravity="center_horizontal"
+                android:src="@drawable/menu_home"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/MenuUser"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:gravity="center_horizontal"
+                android:src="@drawable/menu_user"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
