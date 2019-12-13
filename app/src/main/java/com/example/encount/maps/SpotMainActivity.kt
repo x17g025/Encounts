@@ -24,8 +24,14 @@ import com.example.encount.R
 
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.io.IOException
+import java.lang.Exception
 
 //import android.support.v7.app.AppCompatActivity;
+
+var latitude = 35.70429;
+var longitude = 139.98409;
 
 class SpotMainActivity : AppCompatActivity() {
 
@@ -71,19 +77,45 @@ class SpotMainActivity : AppCompatActivity() {
     }
 
     private inner class SpotPhotoGet() : AsyncTask<String, String, String>(){
+
         override fun doInBackground(vararg params: String?): String {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/UserPostGet.php"
+            val url = "https://kinako.cf/encount/SpotInfoSend.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
 
+            //Formに要素を追加
+            formBuilder.add("latitude", latitude.toString())
+            formBuilder.add("longitude", longitude.toString())
 
+            //リクエスト内容にformを追加
+            val form = formBuilder.build()
 
-            return "a"
+            //リクエストを生成
+            val request = Request.Builder().url(url).post(form).build()
+
+            try {
+                val response = client.newCall(request).execute()
+                return response.body()!!.toString()
+            }catch (e: IOException){
+                e.printStackTrace()
+                return "Error"
+            }
         }
+
+        override fun onPostExecute(result: String?) {
+            try {
+
+            }catch (e: Exception){
+
+            }
+        }
+
+
+
     }
 
 }
