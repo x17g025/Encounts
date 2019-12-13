@@ -2,9 +2,7 @@ package com.example.encount.maps
 
 import androidx.core.app.ActivityCompat
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.encount.MapsDataClassList
 import com.example.encount.MapsList
 import com.example.encount.R
 import com.google.android.gms.location.*
@@ -20,13 +17,8 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_maps_home.*
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import java.io.IOException
+
 
 class MapsHome : Fragment(), OnMapReadyCallback {
 
@@ -35,6 +27,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private val requestingLocationUpdates = true //フラグ
     private val locationRequest: LocationRequest = LocationRequest.create()
     private var postList = mutableListOf<MapsList>()
+    private lateinit var location  : LocationResult //test
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -127,6 +120,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     fun setPostList(postList : MutableList<MapsList>){
         this.postList = postList
         Log.d("debug", "pass" + this.postList[0].imgpath)
+    }
+
+    fun setLocation(location : LocationResult) {
+        this.location = location
     }
 
     //許可されていないパーミッションリクエスト
