@@ -40,7 +40,7 @@ class SpotMainActivity : AppCompatActivity() {
         setContentView(R.layout.spotmain)
 
         // GridViewのインスタンスを生成
-            val gridview = findViewById<GridView>(R.id.gridview)
+        val gridview = findViewById<GridView>(R.id.gridview)
 
         // BaseAdapter を継承したGridAdapterのインスタンスを生成
         val adapter = GridAdapter(
