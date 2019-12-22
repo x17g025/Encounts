@@ -113,7 +113,6 @@ class SpotMainActivity : AppCompatActivity() {
 
             }
         }
-
     }
 
 }
