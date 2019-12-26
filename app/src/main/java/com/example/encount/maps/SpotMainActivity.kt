@@ -91,7 +91,7 @@ class SpotMainActivity : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://kinako.cf/encount/SpotInfoSend.php"
+            val url = "https://encount.cf/encount/SpotInfoSend.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -114,8 +114,6 @@ class SpotMainActivity : AppCompatActivity() {
                 return "Error"
             }
         }
-
-
 
 
         override fun onPostExecute(result: String) {
@@ -143,7 +141,6 @@ class SpotMainActivity : AppCompatActivity() {
 
                 SpotPopularCount.text = Integer.toString(postCount)
                 SpotNewCount.text = Integer.toString(postCount)
-                //UserDataList.adapter = PostAdapter(this@SpotMainActivity, postList)
                 gridview.adapter = GridAdapter(this@SpotMainActivity, postList)
             }
             catch (e : Exception){

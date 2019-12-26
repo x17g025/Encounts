@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.example.encount.MapsDataClassList
 import com.example.encount.MapsList
 import com.example.encount.R
+import com.example.encount.post.UserPost
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -52,6 +53,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         button2.setOnClickListener {
 
             //startActivity(context(this, SpotInfo::class.java))
+            val intent = Intent(context, SpotMainActivity::class.java)
+            startActivity(intent)
         }
         // Android 6, API 23以上でパーミッションの確認
         if (Build.VERSION.SDK_INT >= 23) {
