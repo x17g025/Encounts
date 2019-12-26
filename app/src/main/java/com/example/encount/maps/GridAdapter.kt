@@ -15,8 +15,49 @@ import java.util.ArrayList
 import java.util.Collections
 import java.util.Locale
 import android.content.Context.WINDOW_SERVICE
+import com.bumptech.glide.Glide
+import com.example.encount.PostList
+import com.example.encount.PostList2
+import kotlinx.android.synthetic.main.grid_items.view.*
+import kotlinx.android.synthetic.main.post_list.view.*
+import kotlinx.android.synthetic.main.post_list.view.UserId
+
+/**
+ * やってること
+ * カスタムGridViewを適用するためのクラス
+ *
+ * 製作者：大野
+ */
+
+class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapter() {
+
+    val layoutInflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+    override fun getCount(): Int {
+        return posts.count()
+    }
+
+    override fun getItem(position: Int): PostList2 {
+        return posts[position]
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+
+        val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
+        view.UserId.text       = posts[position].userId
+        view.ImageId.text      = posts[position].imageId
+        Glide.with(context).load(posts[position].imagePath).into(view.PostImage)
+
+        return view
+    }
+}
 
 
+/*
 class GridAdapter internal constructor(
     private val context: Context,
     private val layoutId: Int,
@@ -90,4 +131,4 @@ class GridAdapter internal constructor(
     override fun getItemId(position: Int): Long {
         return 0
     }
-}
+}*/

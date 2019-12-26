@@ -20,7 +20,14 @@ import android.widget.GridView
 
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.example.encount.R
+import com.bumptech.glide.load.engine.bitmap_recycle.IntegerArrayAdapter
+import com.example.encount.*
+import com.example.encount.post.PostAdapter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.activity_user_profile.*
+import kotlinx.android.synthetic.main.post_list.*
+import kotlinx.android.synthetic.main.spotmain.*
 
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -30,8 +37,8 @@ import java.lang.Exception
 
 //import android.support.v7.app.AppCompatActivity;
 
-var latitude = 35.70429;
-var longitude = 139.98409;
+var latitude = 35.70429
+var longitude = 139.98409
 
 class SpotMainActivity : AppCompatActivity() {
 
@@ -39,6 +46,8 @@ class SpotMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.spotmain)
 
+
+        /*
         // GridViewのインスタンスを生成
         val gridview = findViewById<GridView>(R.id.gridview)
 
@@ -73,7 +82,7 @@ class SpotMainActivity : AppCompatActivity() {
             "1858530768_5de645e06b5d7",
             "1858530768_5de645e06b5d7",
             "1858530768_5de645e06b5d7"
-        )
+        )*/
     }
 
     private inner class SpotPhotoGet() : AsyncTask<String, String, String>(){
@@ -106,13 +115,46 @@ class SpotMainActivity : AppCompatActivity() {
             }
         }
 
-        override fun onPostExecute(result: String?) {
-            try {
 
-            }catch (e: Exception){
+
+
+        override fun onPostExecute(result: String) {
+
+            try{
+                var postList = mutableListOf<PostList2>()
+                val listType = object : TypeToken<List<PostList2>>() {}.type
+                val postData = Gson().fromJson<List<PostList2>>(result, listType)
+                var postCount = 0
+
+                for (i in postData) {
+
+                    postCount++
+
+                    postList.add(
+                        PostList2(
+                            i.imageId,
+                            i.userId,
+                            i.imagePath,
+                            i.imageLat,
+                            i.imageLng
+                        )
+                    )
+                }
+
+                SpotPopularCount.text = Integer.toString(postCount)
+                SpotNewCount.text = Integer.toString(postCount)
+                //UserDataList.adapter = PostAdapter(this@SpotMainActivity, postList)
+                gridview.adapter = GridAdapter(this@SpotMainActivity, postList)
+            }
+            catch (e : Exception){
 
             }
         }
+
+
+
+
+
     }
 
 }

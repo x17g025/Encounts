@@ -60,3 +60,11 @@ data class FriendDataClassList (
     val mapsLng: Double,
     val imagePath: String
 )
+
+data class PostList2(
+    val imageId: String,
+    val userId: String,
+    val imagePath: String,
+    val imageLat: Double,
+    val imageLng: Double
+)
