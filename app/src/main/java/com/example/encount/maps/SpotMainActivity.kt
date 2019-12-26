@@ -146,6 +146,7 @@ class SpotMainActivity : AppCompatActivity() {
 
                 SpotPopularCount.text = Integer.toString(postCount)
                 SpotNewCount.text = Integer.toString(postCount)
+                //print(Integer.toString(postCount))
                 gridview.adapter = GridAdapter(this@SpotMainActivity, postList)
             }
             catch (e : Exception){
