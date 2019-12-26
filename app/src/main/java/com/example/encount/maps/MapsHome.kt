@@ -52,7 +52,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
         button2.setOnClickListener {
 
-            //startActivity(context(this, SpotInfo::class.java))
+            //スポット詳細画面へ遷移
             val intent = Intent(context, SpotMainActivity::class.java)
             startActivity(intent)
         }
