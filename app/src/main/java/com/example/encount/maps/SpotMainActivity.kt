@@ -46,6 +46,7 @@ class SpotMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.spotmain)
 
+        SpotPhotoGet().execute()
 
         /*
         // GridViewのインスタンスを生成
@@ -108,6 +109,8 @@ class SpotMainActivity : AppCompatActivity() {
 
             try {
                 val response = client.newCall(request).execute()
+                println(url)
+                println(response.body()!!.string())
                 return response.body()!!.toString()
             }catch (e: IOException){
                 e.printStackTrace()
@@ -117,12 +120,14 @@ class SpotMainActivity : AppCompatActivity() {
 
 
         override fun onPostExecute(result: String) {
-
+            println("aaaaaas")
             try{
                 var postList = mutableListOf<PostList2>()
                 val listType = object : TypeToken<List<PostList2>>() {}.type
                 val postData = Gson().fromJson<List<PostList2>>(result, listType)
                 var postCount = 0
+
+                println("aaaaa")
 
                 for (i in postData) {
 

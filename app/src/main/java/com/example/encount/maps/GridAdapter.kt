@@ -50,7 +50,7 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
         view.UserId.text       = posts[position].userId
         view.ImageId.text      = posts[position].imageId
-        Glide.with(context).load(posts[position].imagePath).into(view.PostImage)
+        Glide.with(context).load(posts[position].imagePath).into(view.image_view)
 
         return view
     }

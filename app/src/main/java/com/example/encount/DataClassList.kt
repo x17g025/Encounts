@@ -65,6 +65,6 @@ data class PostList2(
     val imageId: String,
     val userId: String,
     val imagePath: String,
-    val imageLat: Double,
-    val imageLng: Double
+    val imageLat: String,
+    val imageLng: String
 )
