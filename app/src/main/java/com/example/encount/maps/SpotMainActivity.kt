@@ -37,8 +37,8 @@ import java.lang.Exception
 
 //import android.support.v7.app.AppCompatActivity;
 
-var latitude = 35.70429
-var longitude = 139.98409
+var latitude = 35.704292
+var longitude = 139.984092
 
 class SpotMainActivity : AppCompatActivity() {
 
