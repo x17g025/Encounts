@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:contentDescription="@string/description"
-        android:scaleType="fitStart"
+        android:scaleType="center"
         />
     <!--android:scaleType="fitCenter"-->
 

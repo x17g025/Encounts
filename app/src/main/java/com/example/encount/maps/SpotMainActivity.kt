@@ -97,6 +97,9 @@ class SpotMainActivity : AppCompatActivity() {
             //Formを作成
             val formBuilder = FormBody.Builder()
 
+            println("経度"+latitude.toString())
+            println("緯度"+longitude.toString())
+
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
             formBuilder.add("longitude", longitude.toString())
