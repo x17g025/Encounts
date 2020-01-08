@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.encount.MapsDataClassList
 import com.example.encount.MapsList
 import com.example.encount.PostList2
@@ -22,9 +23,12 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.zzaa
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_maps_home.*
+import kotlinx.android.synthetic.main.grid_items.view.*
 import kotlinx.android.synthetic.main.spotmain.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -44,6 +48,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.activity_maps_home, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,6 +89,11 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 if (location != null) {
                     Log.d("debug", "緯度" + location.latitude)
                     Log.d("debug", "経度" + location.longitude)
+                    //グローバル変数に位置情報を代入
+                    latitude = location.latitude
+                    longitude = location.longitude
+                    //サーバと通信する処理（インナークラス）を呼び出して実行する
+                    SpotPhotoGet().execute()
                 }
             }
         }
@@ -131,6 +141,25 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     BitmapDescriptorFactory.fromResource(R.drawable.smile1)
                 )
         )
+
+    //写真表示テスト
+        mMap!!.addMarker(
+            MarkerOptions()
+                .position(spot)
+                .title("Marker")
+                .icon(
+                    BitmapDescriptorFactory.fromResource(
+                        Picasso.with(context)
+                            .load(addUrl(position))
+                            .resize(ScreenWHalf, ScreenWHalf)
+                            .placeholder(R.drawable.placeholder)
+                            .error(R.drawable.error)
+                            .into(img)
+                    )
+                )
+        )
+
+
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
@@ -171,10 +200,13 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     }
 
 
+
     /**
      * ここから下は、現在地をサーバに送信し、現在地より50m以内で投稿されている写真の情報をサーバから取得する処理にしたい。
      *
      *現状ではスポット詳細画面から処理をコピペしただけ
+     *
+     * 定期的に呼び出される
      */
     private inner class SpotPhotoGet() : AsyncTask<String, String, String>() {
 
@@ -187,8 +219,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             //Formを作成
             val formBuilder = FormBody.Builder()
 
-            println("経度" + latitude.toString())
-            println("緯度" + longitude.toString())
+            println("経度２" + latitude.toString())
+            println("緯度２" + longitude.toString())
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
@@ -203,6 +235,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             try {
                 val response = client.newCall(request).execute()
                 println(url)
+                //println(response.body()!!.string())
+
                 return response.body()!!.string()
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -236,6 +270,19 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 SpotPopularCount.text = Integer.toString(postCount)
                 SpotNewCount.text = Integer.toString(postCount)
                 //gridview.adapter = GridAdapter(this@SpotMainActivity, postList)
+
+
+                //マップ上に写真表示（ピンを打つ）
+                val spot = LatLng(35.7044997, 139.9843911)
+                mMap!!.addMarker(
+                    MarkerOptions()
+                        .position(spot)
+                        .title("Maker2")
+                        .icon(
+                            BitmapDescriptorFactory.fromResource(R.drawable.logo)
+                        )
+                )
+
             } catch (e: Exception) {
 
             }

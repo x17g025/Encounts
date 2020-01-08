@@ -37,6 +37,7 @@ import java.lang.Exception
 
 //import android.support.v7.app.AppCompatActivity;
 
+//将来的には、マップ上でタップした位置情報を変数に代入して処理するようにする
 var latitude = 35.704292
 var longitude = 139.984092
 
