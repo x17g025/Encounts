@@ -7,12 +7,24 @@
     android:gravity="center"
     android:padding="3dp" >
 
+    <TextView
+        android:id="@+id/UserId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="0sp" />
+
+    <TextView
+        android:id="@+id/ImageId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="0sp" />
+
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:contentDescription="@string/description"
-        android:scaleType="fitStart"
+        android:scaleType="center"
         />
     <!--android:scaleType="fitCenter"-->
 
