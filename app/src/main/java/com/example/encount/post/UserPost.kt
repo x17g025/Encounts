@@ -39,7 +39,6 @@ import java.util.concurrent.TimeUnit
 class UserPost : AppCompatActivity() {
 
     val _helper = SQLiteHelper(this@UserPost)
-
     //写真のパスを受け取る変数(将来的には撮影した写真のパス、ファイル名を取得して指定する)
     var uurl = ""
     //緯度
@@ -48,7 +47,6 @@ class UserPost : AppCompatActivity() {
     var longitude = ""
     //送信するコメント内容の受け取り変数
     var cmnt = ""
-
     /**
      * 保存された画像のURI
      */
@@ -65,10 +63,8 @@ class UserPost : AppCompatActivity() {
     private var _longitude = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_post)
-
         /**
          * 位置情報取得
          */
