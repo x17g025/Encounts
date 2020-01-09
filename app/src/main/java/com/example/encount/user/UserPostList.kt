@@ -10,6 +10,7 @@ import com.example.encount.PostDataClassList
 import com.example.encount.PostList
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
+import com.example.encount.maps.GridAdapter
 import com.example.encount.post.PostAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -165,7 +166,7 @@ class UserPostList : Fragment() {
                 }
                 postList[1].postid
 
-                UserProfilePost.adapter = PostAdapter(context, postList)
+                UserProfilePost.adapter = GridAdapter(context, postList)
                 swipelayout.isRefreshing = false
             }
             catch(e : Exception){

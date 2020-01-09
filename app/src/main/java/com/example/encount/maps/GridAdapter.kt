@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.post_list.view.UserId
  * 製作者：大野
  */
 
-class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapter() {
+class GridAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter() {
 
     val layoutInflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -37,7 +37,7 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
         return posts.count()
     }
 
-    override fun getItem(position: Int): PostList2 {
+    override fun getItem(position: Int): PostList {
         return posts[position]
     }
 
