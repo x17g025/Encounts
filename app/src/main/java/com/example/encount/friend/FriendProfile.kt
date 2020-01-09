@@ -165,7 +165,6 @@ class FriendProfile : AppCompatActivity() {
                     }
 
                 }
-                UserPostCount.text = Integer.toString(postCount)
                 lvPost.adapter = PostAdapter(this@FriendProfile, postList)
             }
         }

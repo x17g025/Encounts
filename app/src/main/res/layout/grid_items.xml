@@ -31,6 +31,6 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:src="@drawable/post_like"/>
+        android:src="@drawable/like_post"/>
 
 </LinearLayout>

@@ -4,6 +4,8 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.viewpager.widget.ViewPager
 import com.example.encount.*
 import com.example.encount.post.PostAdapter
 import com.google.gson.Gson
@@ -31,39 +33,16 @@ class UserProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
-        FriendLine.visibility    = View.GONE
-        LikeLine.visibility      = View.GONE
-        FriendFindBtn.visibility = View.GONE
+        // アプリ全体のページビュー
+        val pager : ViewPager = this.findViewById(R.id.UserDataList)
 
-        UserDataGet().execute()
-        UserPostGet().execute()
+        // 下記のページアダプターを設定
+        val fragmentManager : FragmentManager = supportFragmentManager
+        val adapter = UserProfileAdapter(fragmentManager)
+        pager.adapter = adapter
 
-        UserPost.setOnClickListener {
-            PostLine.visibility   = View.VISIBLE
-            FriendLine.visibility = View.GONE
-            FriendFindBtn.visibility = View.GONE
-            LikeLine.visibility   = View.GONE
+        //UserDataGet().execute()
 
-            UserPostGet().execute()
-        }
-
-        UserFriend.setOnClickListener {
-            PostLine.visibility   = View.GONE
-            FriendLine.visibility = View.VISIBLE
-            FriendFindBtn.visibility = View.VISIBLE
-            LikeLine.visibility   = View.GONE
-
-            UserFriendGet().execute()
-        }
-
-        UserLike.setOnClickListener {
-            PostLine.visibility   = View.GONE
-            FriendLine.visibility = View.GONE
-            FriendFindBtn.visibility = View.GONE
-            LikeLine.visibility   = View.VISIBLE
-
-            UserLikeGet().execute()
-        }
     }
 
     private inner class UserDataGet() : AsyncTask<String, String, String>() {
@@ -203,8 +182,6 @@ class UserProfile : AppCompatActivity() {
                     }
 
                 }
-                UserPostCount.text = Integer.toString(postCount)
-                UserDataList.adapter = PostAdapter(this@UserProfile, postList)
             }
             catch (e : Exception){
 
