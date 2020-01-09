@@ -88,16 +88,36 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             for (location in locationResult.locations) {
                 if (location != null) {
                     //ここで前回のマップのピンを全削除する処理
-                    //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
 
+                    //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
+                    //サーバと通信する処理（インナークラス）を呼び出して実行する
+                    SpotPhotoGet().execute()
+
+                    //postList.get()
                     //ここでマップのピンを立てる処理
+                    val spot = LatLng(35.7044997, 139.9843911)
+                    mMap!!.addMarker(
+                    MarkerOptions()
+                        .position(spot)
+                        .title("Maker2")
+                        .icon(
+                            //BitmapDescriptorFactory.fromResource(R.drawable.logo)
+                            //https://encount.cf/files/postImg/173847944_5dea7f508c079.jpg
+                            //BitmapDescriptorFactory.fromResource(
+                                //Glide.with(context).asBitmap().load("https://encount.cf/files/postImg/173847944_5dea7f508c079.jpg").into()
+                                BitmapDescriptorFactory.fromResource(R.drawable.logo)
+                            )
+                        )
+                    //)
+
+                    Log.d("debug", "pass" + postList[0].imgpath)
+
                     Log.d("debug", "緯度" + location.latitude)
                     Log.d("debug", "経度" + location.longitude)
                     //グローバル変数に位置情報を代入
                     latitude = location.latitude
                     longitude = location.longitude
-                    //サーバと通信する処理（インナークラス）を呼び出して実行する
-                    SpotPhotoGet().execute()
+
                 }
             }
         }
@@ -147,7 +167,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         )
 
     //写真表示テスト
-        mMap!!.addMarker(
+       /* mMap!!.addMarker(
             MarkerOptions()
                 .position(spot)
                 .title("Marker")
@@ -161,7 +181,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                             .into(img)
                     )
                 )
-        )
+        )*/
 
 
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
@@ -199,7 +219,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         //setter
         fun setPostList(mapsHome: MapsHome, mutableList: MutableList<MapsList>) {
             mapsHome.postList = mapsHome.postList
-            Log.d("debug", "pass" + mapsHome.postList[1].imgpath)
+            Log.d("debug", "pass" + mapsHome.postList[0].imgpath)
         }
     }
 
@@ -248,7 +268,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             }
         }
 
-
         override fun onPostExecute(result: String) {
             try {
                 var postList = mutableListOf<PostList2>()
@@ -273,19 +292,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                 SpotPopularCount.text = Integer.toString(postCount)
                 SpotNewCount.text = Integer.toString(postCount)
+                //activity.setPostList(postList)
+
                 //gridview.adapter = GridAdapter(this@SpotMainActivity, postList)
-
-
-                //マップ上に写真表示（ピンを打つ）
-                val spot = LatLng(35.7044997, 139.9843911)
-                mMap!!.addMarker(
-                    MarkerOptions()
-                        .position(spot)
-                        .title("Maker2")
-                        .icon(
-                            BitmapDescriptorFactory.fromResource(R.drawable.logo)
-                        )
-                )
 
             } catch (e: Exception) {
 
