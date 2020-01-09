@@ -87,6 +87,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             locationResult ?: return
             for (location in locationResult.locations) {
                 if (location != null) {
+                    //ここで前回のマップのピンを全削除する処理
+                    //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
+
+                    //ここでマップのピンを立てる処理
                     Log.d("debug", "緯度" + location.latitude)
                     Log.d("debug", "経度" + location.longitude)
                     //グローバル変数に位置情報を代入
