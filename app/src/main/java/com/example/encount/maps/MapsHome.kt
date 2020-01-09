@@ -122,12 +122,16 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     Log.d("debug", "現在地の緯度" + location.latitude)
                     Log.d("debug", "現在地の経度" + location.longitude)
 
-                    if(cnt > 1){
-                        Log.d("debug","postList[1].imageLat : " + postList[1].imageLat)
-                        Log.d("debug","postList[1].imageLng : " + postList[1].imageLng)
+                    if(cnt >= 1){
 
+                        //サーバから取得した1番目の写真の位置情報をデバッグ表示
+                        Log.d("debug","postList[1].imageLat : " + postList[0].imageLat)
+                        Log.d("debug","postList[1].imageLng : " + postList[0].imageLng)
+
+                        //下のfor文内で使うカウント変数
                         var ccnt = 0
 
+                        //取得した写真の件数分ピンを打つ処理
                         for(i in postList){
                             val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
                             mMap!!.addMarker(
