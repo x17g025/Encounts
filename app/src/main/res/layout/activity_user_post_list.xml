@@ -9,11 +9,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <ListView
+        <GridView
             android:id="@+id/UserProfilePost"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null"/>
+            android:background="#FFFFFF"
+            android:horizontalSpacing="2dp"
+            android:verticalSpacing="2dp"
+            android:numColumns="2"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>

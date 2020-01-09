@@ -43,7 +43,7 @@ class UserHome : Fragment() {
 
         UserPostGet().execute()
 
-        PostDataList.setOnItemClickListener {parent, view, position, id ->
+        /*PostDataList.setOnItemClickListener {parent, view, position, id ->
 
             val postId = view.findViewById<TextView>(R.id.PostId).text
 
@@ -79,17 +79,17 @@ class UserHome : Fragment() {
             }
 
             return@setOnItemLongClickListener true
-        }
+        }*/
 
         btnPost.setOnClickListener{
 
             val intent = Intent(context, UserPost::class.java)
-           startActivity(intent)
+            startActivity(intent)
         }
 
         swipelayout.setOnRefreshListener {
 
-            UserPostGet().execute()
+           UserPostGet().execute()
         }
     }
 
@@ -143,36 +143,15 @@ class UserHome : Fragment() {
 
                 for (i in postData) {
 
-                    if(i.likeId == null){
-
-                        postList.add(
-                            PostList(
-                                "false",
-                                i.postId,
-                                i.userId,
-                                i.userName,
-                                i.postText,
-                                i.postDate,
-                                i.postImage
-                            )
+                    postList.add(
+                        PostList(
+                            i.postId,
+                            i.userId,
+                            i.postText,
+                            i.postImage
                         )
-                    }
-                    else{
-
-                        postList.add(
-                            PostList(
-                                i.likeId,
-                                i.postId,
-                                i.userId,
-                                i.userName,
-                                i.postText,
-                                i.postDate,
-                                i.postImage
-                            )
-                        )
-                    }
+                    )
                 }
-                postList[1].postid
 
                 PostDataList.adapter = PostAdapter(context, postList)
                 swipelayout.isRefreshing = false

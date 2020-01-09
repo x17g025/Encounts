@@ -120,7 +120,7 @@ class FriendProfile : AppCompatActivity() {
         }
 
         override fun onPostExecute(result: String) {
-
+/*
             if(result != null || result != "") {
                 val lvPost = findViewById<ListView>(R.id.UserPostList)
                 var postList = mutableListOf<PostList>()
@@ -163,7 +163,7 @@ class FriendProfile : AppCompatActivity() {
 
                 }
                 lvPost.adapter = PostAdapter(this@FriendProfile, postList)
-            }
+            }*/
         }
     }
 }

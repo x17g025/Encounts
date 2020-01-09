@@ -6,11 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.encount.PostDataClassList
-import com.example.encount.PostList
-import com.example.encount.R
-import com.example.encount.SQLiteHelper
-import com.example.encount.maps.GridAdapter
+import com.example.encount.*
 import com.example.encount.post.PostAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -135,38 +131,20 @@ class UserPostList : Fragment() {
 
                 for (i in postData) {
 
-                    if(i.likeId == null){
 
-                        postList.add(
-                            PostList(
-                                "false",
-                                i.postId,
-                                i.userId,
-                                i.userName,
-                                i.postText,
-                                i.postDate,
-                                i.postImage
-                            )
-                        )
-                    }
-                    else{
 
-                        postList.add(
-                            PostList(
-                                i.likeId,
-                                i.postId,
-                                i.userId,
-                                i.userName,
-                                i.postText,
-                                i.postDate,
-                                i.postImage
-                            )
+                    postList.add(
+                        PostList(
+                            i.postId,
+                            i.userId,
+                            i.postText,
+                            i.postImage
                         )
-                    }
+                    )
                 }
-                postList[1].postid
+                postList[1].postId
 
-                UserProfilePost.adapter = GridAdapter(context, postList)
+                UserProfilePost.adapter = PostAdapter(context, postList)
                 swipelayout.isRefreshing = false
             }
             catch(e : Exception){
