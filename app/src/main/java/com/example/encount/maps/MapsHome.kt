@@ -95,6 +95,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             for (location in locationResult.locations) {
                 if (location != null) {
 
+                    //ここで前回のマップのピンを全削除する処理
+
                     //グローバル変数に位置情報を代入
                     latitude = location.latitude
                     longitude = location.longitude
@@ -104,11 +106,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //サーバと通信する処理（インナークラス）を呼び出して実行する
                     SpotPhotoGet(this@MapsHome).execute()
 
-                    //ここで前回のマップのピンを全削除する処理
-
-                    //SpotPhotoGet().execute()
-
-                    //postList.get()
                     //ここでマップのピンを立てる処理
                     val spot = LatLng(35.7042531,139.9840158)
                     mMap!!.addMarker(
@@ -122,16 +119,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         )
                     )
 
-                    //Log.d("debug", "pass" + postList[0].imgpath)
-                    //Log.d("debug", "pass" + postList[0].imagePath)
-                    //Log.d("debug", "pass" + postList[1].imagePath)
-                    //Log.d("debug", "pass" + postList[0].imageLat)
-                    //Log.d("debug", "pass" + postList[0].imageLng)
-                    //Log.d("debug", "pass" + postList[0].imageId)
-
-
-                    Log.d("debug", "緯度" + location.latitude)
-                    Log.d("debug", "経度" + location.longitude)
+                    Log.d("debug", "現在地の緯度" + location.latitude)
+                    Log.d("debug", "現在地の経度" + location.longitude)
 
                     if(cnt > 1){
                         Log.d("debug","postList[1].imageLat : " + postList[1].imageLat)
@@ -144,18 +133,14 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                             mMap!!.addMarker(
                                 MarkerOptions()
                                     .position(spot)
-                                    .title("Maker2")
+                                    .title("imageID:"+postList[ccnt].imageId)
                                     .icon(
-                                        //BitmapDescriptorFactory.fromResource(
                                         //Glide.with(context).asBitmap().load(postList[0].imagePath).into()
                                         BitmapDescriptorFactory.fromResource(R.drawable.smile1)
                                     )
                             )
                             ccnt++
                         }
-
-
-
                     }
 
 
@@ -268,8 +253,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             //Formを作成
             val formBuilder = FormBody.Builder()
 
-            println("経度２" + latitude.toString())
-            println("緯度２" + longitude.toString())
+            println("サーバに送信する経度：" + latitude.toString())
+            println("サーバに送信する緯度：" + longitude.toString())
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
