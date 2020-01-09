@@ -4,6 +4,8 @@ import androidx.core.app.ActivityCompat
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.transition.Transition
 import com.example.encount.MapsDataClassList
 import com.example.encount.MapsList
 import com.example.encount.PostList2
@@ -42,7 +45,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var mMap: GoogleMap? = null
     private val requestingLocationUpdates = true //フラグ
     private val locationRequest: LocationRequest = LocationRequest.create()
-    private var postList = mutableListOf<MapsList>()
+    //private var postList = mutableListOf<MapsList>()
+    private var postList = mutableListOf<PostList2>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -87,45 +91,60 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             locationResult ?: return
             for (location in locationResult.locations) {
                 if (location != null) {
+
+                    //グローバル変数に位置情報を代入
+                    latitude = location.latitude
+                    longitude = location.longitude
+
+                    //MapPostGet(this@MapsHome).execute()
+
                     //ここで前回のマップのピンを全削除する処理
 
                     //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
                     //サーバと通信する処理（インナークラス）を呼び出して実行する
-                    SpotPhotoGet().execute()
+                    //SpotPhotoGet().execute()
 
                     //postList.get()
                     //ここでマップのピンを立てる処理
-                    val spot = LatLng(35.7044997, 139.9843911)
+                    //val spot = LatLng(35.7044997, 139.9843911)
+                    //Log.d("debug", "aaaaa" + postList[0].imageLat)
+                    //Log.d("debug", "aaaaa" + postList[0].imageLng)
+                    //val spot = LatLng(postList[0].imageLat.toDouble(),postList[0].imageLng.toDouble())
+                    val spot = LatLng(35.7042531,139.9840158)
                     mMap!!.addMarker(
                     MarkerOptions()
                         .position(spot)
                         .title("Maker2")
                         .icon(
-                            //BitmapDescriptorFactory.fromResource(R.drawable.logo)
-                            //https://encount.cf/files/postImg/173847944_5dea7f508c079.jpg
                             //BitmapDescriptorFactory.fromResource(
-                                //Glide.with(context).asBitmap().load("https://encount.cf/files/postImg/173847944_5dea7f508c079.jpg").into()
+                                //Glide.with(context).asBitmap().load(postList[0].imagePath).into()
                                 BitmapDescriptorFactory.fromResource(R.drawable.logo)
-                            )
                         )
-                    //)
+                    )
 
-                    Log.d("debug", "pass" + postList[0].imgpath)
+                    //Log.d("debug", "pass" + postList[0].imgpath)
+                    Log.d("debug", "pass" + postList[0].imagePath)
+                    Log.d("debug", "pass" + postList[1].imagePath)
+                    Log.d("debug", "pass" + postList[0].imageLat)
+                    Log.d("debug", "pass" + postList[0].imageLng)
+                    Log.d("debug", "pass" + postList[0].imageId)
+
 
                     Log.d("debug", "緯度" + location.latitude)
                     Log.d("debug", "経度" + location.longitude)
-                    //グローバル変数に位置情報を代入
-                    latitude = location.latitude
-                    longitude = location.longitude
 
                 }
             }
         }
     }
 
-    fun setPostList(postList: MutableList<MapsList>) {
+    /*fun setPostList(postList: MutableList<MapsList>) {
+        this.postList = postList
+    }*/
+    fun setPostList(postList: MutableList<PostList2>) {
         this.postList = postList
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -217,88 +236,17 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         private val REQUEST_CODE = 1000
         private val REQUEST_PERMISSION = 1000
         //setter
-        fun setPostList(mapsHome: MapsHome, mutableList: MutableList<MapsList>) {
+        /*fun setPostList(mapsHome: MapsHome, mutableList: MutableList<MapsList>) {
             mapsHome.postList = mapsHome.postList
             Log.d("debug", "pass" + mapsHome.postList[0].imgpath)
+        }*/
+        fun setPostList(mapsHome: MapsHome, mutableList: MutableList<PostList2>) {
+            mapsHome.postList = mapsHome.postList
+            Log.d("debug", "pass" + mapsHome.postList[0])
         }
     }
 
 
 
-    /**
-     * ここから下は、現在地をサーバに送信し、現在地より直径50m、半径25m以内で投稿されている写真の情報をサーバから取得する処理にしたい。
-     *
-     *現状ではスポット詳細画面から処理をコピペしただけ
-     *
-     * 定期的に呼び出される
-     */
-    private inner class SpotPhotoGet() : AsyncTask<String, String, String>() {
 
-        override fun doInBackground(vararg params: String?): String {
-            val client = OkHttpClient()
-
-            //アクセスするURL
-            val url = "https://encount.cf/encount/SpotInfoSend.php"
-
-            //Formを作成
-            val formBuilder = FormBody.Builder()
-
-            println("経度２" + latitude.toString())
-            println("緯度２" + longitude.toString())
-
-            //Formに要素を追加
-            formBuilder.add("latitude", latitude.toString())
-            formBuilder.add("longitude", longitude.toString())
-
-            //リクエスト内容にformを追加
-            val form = formBuilder.build()
-
-            //リクエストを生成
-            val request = Request.Builder().url(url).post(form).build()
-
-            try {
-                val response = client.newCall(request).execute()
-                println(url)
-                //println(response.body()!!.string())
-
-                return response.body()!!.string()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                return "Error"
-            }
-        }
-
-        override fun onPostExecute(result: String) {
-            try {
-                var postList = mutableListOf<PostList2>()
-                val listType = object : TypeToken<List<PostList2>>() {}.type
-                val postData = Gson().fromJson<List<PostList2>>(result, listType)
-                var postCount = 0
-
-                for (i in postData) {
-
-                    postCount++
-
-                    postList.add(
-                        PostList2(
-                            i.imageId,
-                            i.userId,
-                            i.imagePath,
-                            i.imageLat,
-                            i.imageLng
-                        )
-                    )
-                }
-
-                SpotPopularCount.text = Integer.toString(postCount)
-                SpotNewCount.text = Integer.toString(postCount)
-                //activity.setPostList(postList)
-
-                //gridview.adapter = GridAdapter(this@SpotMainActivity, postList)
-
-            } catch (e: Exception) {
-
-            }
-        }
-    }
 }
