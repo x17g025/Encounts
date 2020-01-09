@@ -139,8 +139,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                     .position(spot)
                                     .title("imageID:"+postList[ccnt].imageId)
                                     .icon(
-                                        //Glide.with(context).asBitmap().load(postList[0].imagePath).into()
-                                        BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+                                        Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into()
+                                        //BitmapDescriptorFactory.fromResource(R.drawable.smile1)
                                     )
                             )
                             ccnt++
