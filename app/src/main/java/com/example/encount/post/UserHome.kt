@@ -180,8 +180,6 @@ class UserHome : Fragment() {
             catch(e : Exception){
 
             }
-
-
         }
     }
 }

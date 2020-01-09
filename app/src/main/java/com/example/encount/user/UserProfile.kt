@@ -2,12 +2,8 @@ package com.example.encount.user
 
 import android.os.AsyncTask
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import androidx.viewpager.widget.ViewPager
 import com.example.encount.*
-import com.example.encount.post.PostAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_profile.*
@@ -33,15 +29,11 @@ class UserProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
-        // アプリ全体のページビュー
-        val pager : ViewPager = this.findViewById(R.id.UserDataList)
+        UserDataList.adapter = TabAdapter(supportFragmentManager, this)
+        //TabLayoutにViewPagerを設定
+        tabLayout.setupWithViewPager(UserDataList)
 
-        // 下記のページアダプターを設定
-        val fragmentManager : FragmentManager = supportFragmentManager
-        val adapter = UserProfileAdapter(fragmentManager)
-        pager.adapter = adapter
-
-        //UserDataGet().execute()
+        UserDataGet().execute()
 
     }
 

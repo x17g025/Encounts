@@ -1,16 +1,13 @@
 package com.example.encount.friend
 
-import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.example.encount.*
 import com.example.encount.post.PostAdapter
-import com.example.encount.post.UserHome
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_user_profile.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request

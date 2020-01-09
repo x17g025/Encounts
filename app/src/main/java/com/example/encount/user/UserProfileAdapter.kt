@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class UserProfileAdapter(fm : FragmentManager) : FragmentPagerAdapter(fm) {
+class TabAdapter(fm: FragmentManager, private val context: Context): FragmentPagerAdapter(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(i: Int): Fragment {
 
