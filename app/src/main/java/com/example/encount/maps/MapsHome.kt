@@ -13,8 +13,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.example.encount.MapsDataClassList
 import com.example.encount.MapsList
@@ -31,6 +37,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_maps_home.*
+import kotlinx.android.synthetic.main.grid_items.*
 import kotlinx.android.synthetic.main.grid_items.view.*
 import kotlinx.android.synthetic.main.spotmain.*
 import okhttp3.FormBody
@@ -106,22 +113,12 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //サーバと通信する処理（インナークラス）を呼び出して実行する
                     SpotPhotoGet(this@MapsHome).execute()
 
-                    //ここでマップのピンを立てる処理
-                    val spot = LatLng(35.7042531,139.9840158)
-                    mMap!!.addMarker(
-                    MarkerOptions()
-                        .position(spot)
-                        .title("Maker2")
-                        .icon(
-                            //BitmapDescriptorFactory.fromResource(
-                                //Glide.with(context).asBitmap().load(postList[0].imagePath).into()
-                                BitmapDescriptorFactory.fromResource(R.drawable.smile1)
-                        )
-                    )
+
 
                     Log.d("debug", "現在地の緯度" + location.latitude)
                     Log.d("debug", "現在地の経度" + location.longitude)
 
+                    //写真が１件以上あれば、マップのピンを立てる処理を行う
                     if(cnt >= 1){
 
                         //サーバから取得した1番目の写真の位置情報をデバッグ表示
@@ -139,8 +136,15 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                     .position(spot)
                                     .title("imageID:"+postList[ccnt].imageId)
                                     .icon(
-                                        Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into()
+                                        //Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into()
                                         //BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+                                        /*Glide.with(context!!.applicationContext)
+                                            .asBitmap()
+                                            .load(postList[ccnt].imagePath)
+                                            .into()
+                                         */
+                                        BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+
                                     )
                             )
                             ccnt++
@@ -152,6 +156,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             }
         }
     }
+
+
 
     /*fun setPostList(postList: MutableList<MapsList>) {
         this.postList = postList
