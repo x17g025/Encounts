@@ -47,6 +47,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private val locationRequest: LocationRequest = LocationRequest.create()
     //private var postList = mutableListOf<MapsList>()
     private var postList = mutableListOf<PostList2>()
+    //取得した写真の件数を格納する
+    private var cnt = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -57,7 +59,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        MapPostGet(this).execute()
+        //MapsPostGetを実行
+        //MapPostGet(this).execute()
 
         val mapFragment: SupportMapFragment = getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -96,20 +99,17 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     latitude = location.latitude
                     longitude = location.longitude
 
+                    //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
                     //MapPostGet(this@MapsHome).execute()
+                    //サーバと通信する処理（インナークラス）を呼び出して実行する
+                    SpotPhotoGet(this@MapsHome).execute()
 
                     //ここで前回のマップのピンを全削除する処理
 
-                    //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
-                    //サーバと通信する処理（インナークラス）を呼び出して実行する
                     //SpotPhotoGet().execute()
 
                     //postList.get()
                     //ここでマップのピンを立てる処理
-                    //val spot = LatLng(35.7044997, 139.9843911)
-                    //Log.d("debug", "aaaaa" + postList[0].imageLat)
-                    //Log.d("debug", "aaaaa" + postList[0].imageLng)
-                    //val spot = LatLng(postList[0].imageLat.toDouble(),postList[0].imageLng.toDouble())
                     val spot = LatLng(35.7042531,139.9840158)
                     mMap!!.addMarker(
                     MarkerOptions()
@@ -118,20 +118,46 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         .icon(
                             //BitmapDescriptorFactory.fromResource(
                                 //Glide.with(context).asBitmap().load(postList[0].imagePath).into()
-                                BitmapDescriptorFactory.fromResource(R.drawable.logo)
+                                BitmapDescriptorFactory.fromResource(R.drawable.smile1)
                         )
                     )
 
                     //Log.d("debug", "pass" + postList[0].imgpath)
-                    Log.d("debug", "pass" + postList[0].imagePath)
-                    Log.d("debug", "pass" + postList[1].imagePath)
-                    Log.d("debug", "pass" + postList[0].imageLat)
-                    Log.d("debug", "pass" + postList[0].imageLng)
-                    Log.d("debug", "pass" + postList[0].imageId)
+                    //Log.d("debug", "pass" + postList[0].imagePath)
+                    //Log.d("debug", "pass" + postList[1].imagePath)
+                    //Log.d("debug", "pass" + postList[0].imageLat)
+                    //Log.d("debug", "pass" + postList[0].imageLng)
+                    //Log.d("debug", "pass" + postList[0].imageId)
 
 
                     Log.d("debug", "緯度" + location.latitude)
                     Log.d("debug", "経度" + location.longitude)
+
+                    if(cnt > 1){
+                        Log.d("debug","postList[1].imageLat : " + postList[1].imageLat)
+                        Log.d("debug","postList[1].imageLng : " + postList[1].imageLng)
+
+                        var ccnt = 0
+
+                        for(i in postList){
+                            val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
+                            mMap!!.addMarker(
+                                MarkerOptions()
+                                    .position(spot)
+                                    .title("Maker2")
+                                    .icon(
+                                        //BitmapDescriptorFactory.fromResource(
+                                        //Glide.with(context).asBitmap().load(postList[0].imagePath).into()
+                                        BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+                                    )
+                            )
+                            ccnt++
+                        }
+
+
+
+                    }
+
 
                 }
             }
@@ -144,7 +170,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     fun setPostList(postList: MutableList<PostList2>) {
         this.postList = postList
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -171,7 +196,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
-    //下の処理を再起的に利用してマップ上に写真表示を行う
     //default location
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -184,24 +208,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     BitmapDescriptorFactory.fromResource(R.drawable.smile1)
                 )
         )
-
-    //写真表示テスト
-       /* mMap!!.addMarker(
-            MarkerOptions()
-                .position(spot)
-                .title("Marker")
-                .icon(
-                    BitmapDescriptorFactory.fromResource(
-                        Picasso.with(context)
-                            .load(addUrl(position))
-                            .resize(ScreenWHalf, ScreenWHalf)
-                            .placeholder(R.drawable.placeholder)
-                            .error(R.drawable.error)
-                            .into(img)
-                    )
-                )
-        )*/
-
 
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
@@ -246,7 +252,78 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         }
     }
 
+    /**
+     * ここから下は、現在地をサーバに送信し、現在地より直径50m、半径25m以内で投稿されている写真の情報をサーバから取得する処理にしたい。
+     *
+     *SpotMainActivityを元に作成
+     */
+    private inner class SpotPhotoGet(val activity: MapsHome) : AsyncTask<String, String, String>() {
 
+        override fun doInBackground(vararg params: String?): String {
+            val client = OkHttpClient()
+
+            //アクセスするURL
+            val url = "https://encount.cf/encount/SpotInfoSend.php"
+
+            //Formを作成
+            val formBuilder = FormBody.Builder()
+
+            println("経度２" + latitude.toString())
+            println("緯度２" + longitude.toString())
+
+            //Formに要素を追加
+            formBuilder.add("latitude", latitude.toString())
+            formBuilder.add("longitude", longitude.toString())
+
+            //リクエスト内容にformを追加
+            val form = formBuilder.build()
+
+            //リクエストを生成
+            val request = Request.Builder().url(url).post(form).build()
+
+            try {
+                val response = client.newCall(request).execute()
+                println(url)
+                //println(response.body()!!.string())
+                return response.body()!!.string()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return "Error"
+            }
+        }
+
+        override fun onPostExecute(result: String) {
+            try {
+                var postList = mutableListOf<PostList2>()
+                val listType = object : TypeToken<List<PostList2>>() {}.type
+                val postData = Gson().fromJson<List<PostList2>>(result, listType)
+                var postCount = 0
+
+                for (i in postData) {
+
+                    postCount++
+
+                    postList.add(
+                        PostList2(
+                            i.imageId,
+                            i.userId,
+                            i.imagePath,
+                            i.imageLat,
+                            i.imageLng
+                        )
+                    )
+                }
+
+                //activity.setPostList(postList)
+
+                cnt = postCount
+                activity.setPostList(postList)
+
+            } catch (e: Exception) {
+
+            }
+        }
+    }
 
 
 }

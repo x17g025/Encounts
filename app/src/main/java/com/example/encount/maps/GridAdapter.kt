@@ -47,8 +47,6 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        print("GridApap")
-
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
         view.UserId.text       = posts[position].userId
         view.ImageId.text      = posts[position].imageId
