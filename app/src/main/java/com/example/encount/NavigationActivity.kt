@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Debug
 import android.util.Log
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -22,8 +23,12 @@ import java.io.IOException
 import java.lang.Exception
 import android.widget.TextView
 import android.view.LayoutInflater
+import android.view.View
 import com.example.encount.post.UserHome
 import com.example.encount.user.UserSettings
+import kotlinx.android.synthetic.main.activity_user_singin.*
+import kotlinx.android.synthetic.main.drawer_navigation_header.*
+import kotlinx.android.synthetic.main.drawer_navigation_header.view.*
 
 /**
  * やってること
@@ -41,12 +46,15 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
 
-        UserDataGet()
-
         this.setDrawerLayout()
 
         val navController = findNavController(R.id.nav_host_fragment)
         setupWithNavController(bottom_navigation, navController)
+
+        UserDataGet().execute()
+
+
+
     }
 
     private fun setDrawerLayout(){
@@ -110,15 +118,12 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
         override fun onPostExecute(result: String) {
 
             try{
-
                 val userData = Gson().fromJson(result, UserDataClassList::class.java)
                 val navigationView = findViewById<NavigationView>(R.id.nav_view)
-                val headerView = LayoutInflater.from(this@NavigationActivity).inflate(R.layout.drawer_navigation_header, navigationView, false)
-                navigationView.addHeaderView(headerView)
-                val Name = headerView.findViewById<TextView>(R.id.ToolUserName)
-                Name.text= userData.userName
-                val Number = headerView.findViewById<TextView>(R.id.ToolUserNumber)
-                Number.text = userData.userNumber.toString()
+                val headerView = navigationView.getHeaderView(0)
+
+                headerView.navUserName.text   = userData.userName
+                headerView.navUserNumber.text = "ID : " + userData.userNumber.toString()
             }
             catch(e : Exception){
             }

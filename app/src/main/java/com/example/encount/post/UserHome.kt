@@ -3,15 +3,16 @@ package com.example.encount.post
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.encount.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_home.*
+import kotlinx.android.synthetic.main.grid_items.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
