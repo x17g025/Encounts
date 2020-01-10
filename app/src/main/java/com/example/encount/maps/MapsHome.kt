@@ -131,6 +131,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         //取得した写真の件数分ピンを打つ処理
                         for(i in postList){
                             val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
+
+                            var bitmap = Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into(image_view)
+
                             mMap!!.addMarker(
                                 MarkerOptions()
                                     .position(spot)
@@ -144,7 +147,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                             .load(postList[ccnt].imagePath)
                                             .into()
                                          */
-                                        BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+                                        BitmapDescriptorFactory.fromResource(
+                                            bitmap
+                                        )
                                     )
                             )
                             ccnt++
