@@ -29,6 +29,7 @@ import com.example.encount.R
 import com.example.encount.post.UserPost
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -139,6 +140,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                             )*/
 
                             val bitmap = R.drawable.smile1
+                            print("bitdayo"+bitmap)
                             val bitmap2 = Glide.with(activity).load(postList[ccnt].imagePath).into(200,200)
 
                             val bitmap3 = Glide.with(activity)
@@ -149,7 +151,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
                                     ) {
-                                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                                     }
                                 }
                                 )
@@ -158,10 +160,16 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                 .asBitmap()
                                 .load(postList[0].imagePath)
                                 .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                                    override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
+                                    override fun onResourceReady(
+                                        resource: Bitmap,
+                                        transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
                                         //callback.onReady(createMarkerIcon(resource, iconId))
                                     }
                                 })
+
+                            //val bitmap5 = Glide.with(activity).asBitmap().load(postList[ccnt].imagePath).
+
+
 
                             mMap!!.addMarker(
                                 MarkerOptions()
@@ -169,17 +177,20 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                     .title("imageID:"+postList[ccnt].imageId)
                                     .icon(
                                         //Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into()
-                                        //BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+                                        BitmapDescriptorFactory.fromResource(R.drawable.smile1)
 
                                         /*Glide.with(context!!.applicationContext)
                                             .asBitmap()
                                             .load(postList[ccnt].imagePath)
                                             .into()
                                          */
-                                        BitmapDescriptorFactory.fromResource(
+                                        /*BitmapDescriptorFactory.fromResource(
                                             //R.drawable.smile1
                                         bitmap
-                                        )
+                                        )*/
+
+                                    //BitmapDescriptorFactory.fromBitmap()
+
                                     )
                             )
                             ccnt++
