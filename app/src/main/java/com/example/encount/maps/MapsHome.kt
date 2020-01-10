@@ -138,6 +138,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                     .icon(
                                         //Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into()
                                         //BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+
                                         /*Glide.with(context!!.applicationContext)
                                             .asBitmap()
                                             .load(postList[ccnt].imagePath)
