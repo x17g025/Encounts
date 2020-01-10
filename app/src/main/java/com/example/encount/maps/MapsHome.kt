@@ -132,7 +132,36 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         for(i in postList){
                             val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
 
-                            //var bitmap = Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into(image_view)
+                            /*Glide.with(activity).asBitmap().load(postList[ccnt].imagePath).into<SimpleTarget<Bitmap>>(
+                                override fun onResourceReady(resource : Bitmap,GlideAnimation<? super Bitmap> glideAnimation){
+
+                            }
+                            )*/
+
+                            val bitmap = R.drawable.smile1
+                            val bitmap2 = Glide.with(activity).load(postList[ccnt].imagePath).into(200,200)
+
+                            val bitmap3 = Glide.with(activity)
+                                .asBitmap()
+                                .load(postList[0].imagePath)
+                                .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                                    override fun onResourceReady(
+                                        resource: Bitmap?,
+                                        transition: Transition<in Bitmap>?
+                                    ) {
+                                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                    }
+                                }
+                                )
+
+                            val bitmap4 = Glide.with(context!!.applicationContext)
+                                .asBitmap()
+                                .load(postList[0].imagePath)
+                                .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                                    override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
+                                        //callback.onReady(createMarkerIcon(resource, iconId))
+                                    }
+                                })
 
                             mMap!!.addMarker(
                                 MarkerOptions()
@@ -148,7 +177,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                             .into()
                                          */
                                         BitmapDescriptorFactory.fromResource(
-                                            R.drawable.smile1
+                                            //R.drawable.smile1
+                                        bitmap
                                         )
                                     )
                             )
