@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.bumptech.glide.Glide
 import com.example.encount.PostList
+import com.example.encount.PostList2
 import com.example.encount.R
-import kotlinx.android.synthetic.main.post_list.view.*
+import kotlinx.android.synthetic.main.grid_items.view.*
 
 /**
  * やってること
@@ -35,13 +36,11 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val view = layoutInflater.inflate(R.layout.post_list, parent, false)
-        view.PostUserName.text = posts[position].name
-        view.PostUserText.text = posts[position].text
-        view.PostDate.text     = posts[position].date
-        view.PostId.text       = posts[position].postid
-        view.UserId.text       = posts[position].userid
-        Glide.with(context).load(posts[position].image).into(view.PostImage)
+        val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
+       // view.PostUserText.text = posts[position].text
+        view.PostId.text       = posts[position].postId
+        view.UserId.text       = posts[position].userId
+        Glide.with(context).load(posts[position].image).into(view.image_view)
 
         return view
     }

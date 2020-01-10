@@ -1,38 +1,31 @@
-package com.example.encount.post
+package com.example.encount.user
 
-import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.encount.*
+import com.example.encount.post.PostAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_user_home.*
+import kotlinx.android.synthetic.main.activity_user_home.swipelayout
+import kotlinx.android.synthetic.main.activity_user_post_list.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
 
-/**
- * やってること
- * 投稿をサーバから取得してListViewに表示する
- *
- * 製作者：中村
- */
-
-class UserHome : Fragment() {
+class UserPostList : Fragment() {
 
     var _helper : SQLiteHelper? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.activity_user_home, container, false)
+        return inflater.inflate(R.layout.activity_user_post_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,13 +36,14 @@ class UserHome : Fragment() {
 
         UserPostGet().execute()
 
-        /*PostDataList.setOnItemClickListener {parent, view, position, id ->
+        /*
+        PostDataList.setOnItemClickListener {parent, view, position, id ->
 
             val postId = view.findViewById<TextView>(R.id.PostId).text
 
-           /* val intent = Intent(this, PostDetails::class.java)
-            intent.putExtra("Post_Id", postId)
-            startActivity(intent)*/
+            /* val intent = Intent(this, PostDetails::class.java)
+             intent.putExtra("Post_Id", postId)
+             startActivity(intent)*/
         }
 
         PostDataList.setOnItemLongClickListener { parent, view, position, id ->
@@ -69,7 +63,7 @@ class UserHome : Fragment() {
 
             if(userId == id){
 
-               // startActivity(Intent(this, UserProfile::class.java))
+                // startActivity(Intent(this, UserProfile::class.java))
             }
             else{
 
@@ -81,15 +75,9 @@ class UserHome : Fragment() {
             return@setOnItemLongClickListener true
         }*/
 
-        btnPost.setOnClickListener{
-
-            val intent = Intent(context, UserPost::class.java)
-            startActivity(intent)
-        }
-
         swipelayout.setOnRefreshListener {
 
-           UserPostGet().execute()
+            UserPostGet().execute()
         }
     }
 
@@ -143,6 +131,8 @@ class UserHome : Fragment() {
 
                 for (i in postData) {
 
+
+
                     postList.add(
                         PostList(
                             i.postId,
@@ -152,8 +142,9 @@ class UserHome : Fragment() {
                         )
                     )
                 }
+                postList[1].postId
 
-                PostDataList.adapter = PostAdapter(context, postList)
+                UserProfilePost.adapter = PostAdapter(context, postList)
                 swipelayout.isRefreshing = false
             }
             catch(e : Exception){

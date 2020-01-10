@@ -259,10 +259,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/menu_map_act"/>
 
 
         </LinearLayout>
@@ -276,11 +272,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/menu_home"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -291,11 +282,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/menu_user"/>
 
         </LinearLayout>
     </LinearLayout>

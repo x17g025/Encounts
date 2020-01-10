@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.post_list.view.UserId
  *
  * 製作者：中村
  */
-
+/*
 class FriendAdapter(val context: Context, val posts: List<PostList>): BaseAdapter() {
 
     val layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -45,5 +45,5 @@ class FriendAdapter(val context: Context, val posts: List<PostList>): BaseAdapte
 
         return view
     }
-}
+}*/
 

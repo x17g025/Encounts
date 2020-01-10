@@ -16,6 +16,10 @@
         android:label="マップ"/>
 
     <fragment
+        android:id="@+id/nav_post"
+        android:label="投稿"/>
+
+    <fragment
         android:id="@+id/nav_search"
         android:name="com.example.encount.friend.FriendAdd"
         android:label="検索"/>
