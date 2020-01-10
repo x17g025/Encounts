@@ -11,12 +11,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.encount.MapsDataClassList
 import com.example.encount.MapsList
 import com.example.encount.PostList2
 import com.example.encount.R
-import com.example.encount.post.UserPost
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -31,6 +30,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
+import com.google.android.gms.maps.model.Marker
 
 class MapsHome : Fragment(), OnMapReadyCallback {
 
@@ -40,7 +40,11 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private val locationRequest: LocationRequest = LocationRequest.create()
     private var postList = mutableListOf<MapsList>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.activity_maps_home, container, false)
@@ -50,7 +54,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         //非同期処理実行
         MapPostGet(this).execute()
 
-        val mapFragment: SupportMapFragment = getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
+        val mapFragment: SupportMapFragment =
+            getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         button2.setOnClickListener {
@@ -127,12 +132,24 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     BitmapDescriptorFactory.fromResource(R.drawable.smile1)
                 )
         )
+        // タップ時のイベントハンドラ登録
+        mMap!!.setOnMarkerClickListener(object : GoogleMap.OnMarkerClickListener {
+            override fun onMarkerClick(marker : Marker): Boolean {
+                Toast.makeText(context, "tigatiga", Toast.LENGTH_SHORT).show()
+                //将来的な実装
+                //DBからimageテーブルのidを取得
+                //それをもとにURL + idで個別の別画面へ遷移
+                return false
+            }
+        })
+
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
     }
+
     //setter
-    fun setPostList(postList : MutableList<MapsList>){
+    fun setPostList(postList: MutableList<MapsList>) {
         this.postList = postList
         Log.d("debug", "pass" + this.postList[0].imgpath)
     }
