@@ -22,6 +22,7 @@ import java.io.IOException
 import java.lang.Exception
 import android.widget.TextView
 import android.view.LayoutInflater
+import com.example.encount.post.UserHome
 import com.example.encount.user.UserSettings
 
 /**

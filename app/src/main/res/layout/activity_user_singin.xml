@@ -19,7 +19,8 @@
 
     <EditText
         android:id="@+id/username"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="70dp"
         android:layout_height="40dp"
         android:layout_below="@+id/SinginTitle"
         android:layout_centerHorizontal="true"
@@ -33,7 +34,8 @@
 
     <EditText
         android:id="@+id/usermail"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="70dp"
         android:layout_height="40dp"
         android:layout_below="@+id/username"
         android:layout_centerHorizontal="true"
@@ -47,7 +49,8 @@
 
     <EditText
         android:id="@+id/userpass"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="70dp"
         android:layout_height="40dp"
         android:layout_below="@+id/usermail"
         android:layout_centerHorizontal="true"
@@ -60,7 +63,8 @@
 
     <EditText
         android:id="@+id/reuserpass"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="70dp"
         android:layout_height="40dp"
         android:layout_below="@+id/userpass"
         android:layout_centerHorizontal="true"

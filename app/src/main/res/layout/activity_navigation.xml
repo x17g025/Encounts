@@ -62,6 +62,14 @@
                 app:menu="@menu/bottom_navigation_item"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/btnPost"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="bottom|center"
+            android:src="@drawable/to_post"/>
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <!-- ドロワーメニュー 、app:headerLayoutでヘッダ部のレイアウトを指定し、app:menuでメニュー定義を指定している。-->

@@ -16,17 +16,11 @@ limitations under the License.
 
 import android.os.AsyncTask
 import android.os.Bundle
-import android.widget.GridView
 
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.load.engine.bitmap_recycle.IntegerArrayAdapter
 import com.example.encount.*
-import com.example.encount.post.PostAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_user_profile.*
-import kotlinx.android.synthetic.main.post_list.*
 import kotlinx.android.synthetic.main.spotmain.*
 
 import okhttp3.FormBody

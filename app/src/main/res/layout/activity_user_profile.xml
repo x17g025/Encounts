@@ -2,15 +2,15 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -53,137 +53,25 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:visibility="visible"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="100dp"
         android:background="#dcdcdc"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="133dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/UserPost"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:clickable="true">
-
-            <TextView
-                android:id="@+id/UserPostCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:maxLength="6"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/userPost"
-                android:textSize="10sp" />
-
-            <View
-                android:id="@+id/PostLine"
-                android:layout_width="30dp"
-                android:layout_height="3dp"
-                android:visibility="visible"
-                android:background="#00bde7"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/UserFriend"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/UserFriendCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:maxLength="6"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/userFollow"
-                android:textSize="10sp" />
-
-            <View
-                android:id="@+id/FriendLine"
-                android:layout_width="30dp"
-                android:layout_height="3dp"
-                android:visibility="visible"
-                android:background="#00bde7"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/UserLike"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/UserLikeCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:maxLength="6"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/userStar"
-                android:textSize="10sp" />
-
-            <View
-                android:id="@+id/LikeLine"
-                android:layout_width="30dp"
-                android:layout_height="3dp"
-                android:visibility="visible"
-                android:background="#00bde7"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/FriendFindBtn"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="70dp"
-        android:layout_marginEnd="20dp"
-        android:layout_gravity="bottom|right"
-        android:visibility="visible"
-        android:src="@drawable/friend_add"/>
-
-    <ListView
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/UserDataList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="175dp"
-        android:layout_marginBottom="45dp"
-        android:divider="@null"/>
+        android:layout_marginTop="100dp"
+        android:orientation="vertical">
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            app:tabIndicatorColor="@color/colorMain"
+            app:layout_constraintBottom_toTopOf="@+id/UserDataList"/>
+
+    </androidx.viewpager.widget.ViewPager>
 </FrameLayout>
 
 

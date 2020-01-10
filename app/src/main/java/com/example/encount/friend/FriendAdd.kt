@@ -1,30 +1,11 @@
 package com.example.encount.friend
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.os.AsyncTask
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.encount.*
-import com.example.encount.post.PostAdapter
-import com.example.encount.post.PostDetails
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_friend_add.*
-import kotlinx.android.synthetic.main.activity_user_home.*
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import java.io.IOException
-import java.lang.Exception
 
 /**
  * やってること

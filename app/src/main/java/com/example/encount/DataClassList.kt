@@ -17,12 +17,9 @@ data class MapsDataClassList (
 )
 
 data class PostList(
-    val likeid: String,
-    val postid: String,
-    val userid: String,
-    val name: String,
+    val postId: String,
+    val userId: String,
     val text: String,
-    val date: String,
     val image: String
 )
 
