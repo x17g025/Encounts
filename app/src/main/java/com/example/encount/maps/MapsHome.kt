@@ -132,7 +132,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         for(i in postList){
                             val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
 
-                            var bitmap = Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into(image_view)
+                            //var bitmap = Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into(image_view)
 
                             mMap!!.addMarker(
                                 MarkerOptions()
@@ -148,7 +148,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                             .into()
                                          */
                                         BitmapDescriptorFactory.fromResource(
-                                            bitmap
+                                            R.drawable.smile1
                                         )
                                     )
                             )
