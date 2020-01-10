@@ -113,8 +113,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //サーバと通信する処理（インナークラス）を呼び出して実行する
                     SpotPhotoGet(this@MapsHome).execute()
 
-
-
                     Log.d("debug", "現在地の緯度" + location.latitude)
                     Log.d("debug", "現在地の経度" + location.longitude)
 
@@ -122,11 +120,13 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     if(cnt >= 1){
 
                         //サーバから取得した1番目の写真の位置情報をデバッグ表示
-                        Log.d("debug","postList[1].imageLat : " + postList[0].imageLat)
-                        Log.d("debug","postList[1].imageLng : " + postList[0].imageLng)
+                        Log.d("debug","postList[0].imageLat : " + postList[0].imageLat)
+                        Log.d("debug","postList[0].imageLng : " + postList[0].imageLng)
 
                         //下のfor文内で使うカウント変数
                         var ccnt = 0
+
+                        Log.d("debug","取得した写真の件数 : " + cnt)
 
                         //取得した写真の件数分ピンを打つ処理
                         for(i in postList){
@@ -144,20 +144,15 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                             .into()
                                          */
                                         BitmapDescriptorFactory.fromResource(R.drawable.smile1)
-
                                     )
                             )
                             ccnt++
                         }
                     }
-
-
                 }
             }
         }
     }
-
-
 
     /*fun setPostList(postList: MutableList<MapsList>) {
         this.postList = postList
@@ -308,8 +303,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         )
                     )
                 }
-
-                //activity.setPostList(postList)
 
                 cnt = postCount
                 activity.setPostList(postList)
