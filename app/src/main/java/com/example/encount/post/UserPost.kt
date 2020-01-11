@@ -339,6 +339,7 @@ class UserPost : AppCompatActivity() {
     }
 
     fun goHome(){
+
         startActivity(Intent(this, NavigationActivity::class.java))
         finish()
     }

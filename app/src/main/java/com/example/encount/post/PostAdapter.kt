@@ -39,7 +39,7 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
-       // view.PostUserText.text = posts[position].text
+        //view.PostUserText.text = posts[position].text
         view.PostId.text       = posts[position].postId
         view.UserId.text       = posts[position].userId
         Glide.with(context).load(posts[position].image).into(view.image_view)
