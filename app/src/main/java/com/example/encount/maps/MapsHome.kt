@@ -4,6 +4,8 @@ import androidx.core.app.ActivityCompat
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -11,7 +13,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.example.encount.MapsDataClassList
 import com.example.encount.MapsList
 import com.example.encount.PostList2
@@ -22,9 +32,13 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.zzaa
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_maps_home.*
+import kotlinx.android.synthetic.main.grid_items.*
+import kotlinx.android.synthetic.main.grid_items.view.*
 import kotlinx.android.synthetic.main.spotmain.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -38,17 +52,22 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var mMap: GoogleMap? = null
     private val requestingLocationUpdates = true //フラグ
     private val locationRequest: LocationRequest = LocationRequest.create()
-    private var postList = mutableListOf<MapsList>()
+    //private var postList = mutableListOf<MapsList>()
+    private var postList = mutableListOf<PostList2>()
+    //取得した写真の件数を格納する
+    private var cnt = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.activity_maps_home, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        MapPostGet(this).execute()
+        //MapsPostGetを実行
+        //MapPostGet(this).execute()
 
         val mapFragment: SupportMapFragment = getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -82,14 +101,98 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             locationResult ?: return
             for (location in locationResult.locations) {
                 if (location != null) {
-                    Log.d("debug", "緯度" + location.latitude)
-                    Log.d("debug", "経度" + location.longitude)
+
+                    //ここで前回のマップのピンを全削除する処理
+
+                    //グローバル変数に位置情報を代入
+                    latitude = location.latitude
+                    longitude = location.longitude
+
+                    //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
+                    //MapPostGet(this@MapsHome).execute()
+                    //サーバと通信する処理（インナークラス）を呼び出して実行する
+                    SpotPhotoGet(this@MapsHome).execute()
+
+                    Log.d("debug", "現在地の緯度" + location.latitude)
+                    Log.d("debug", "現在地の経度" + location.longitude)
+
+                    //写真が１件以上あれば、マップのピンを立てる処理を行う
+                    if(cnt >= 1){
+
+                        //サーバから取得した1番目の写真の位置情報をデバッグ表示
+                        Log.d("debug","postList[0].imageLat : " + postList[0].imageLat)
+                        Log.d("debug","postList[0].imageLng : " + postList[0].imageLng)
+
+                        //下のfor文内で使うカウント変数
+                        var ccnt = 0
+
+                        Log.d("debug","取得した写真の件数 : " + cnt)
+
+                        //取得した写真の件数分ピンを打つ処理
+                        for(i in postList){
+                            val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
+
+                            /*Glide.with(activity).asBitmap().load(postList[ccnt].imagePath).into<SimpleTarget<Bitmap>>(
+                                override fun onResourceReady(resource : Bitmap,GlideAnimation<? super Bitmap> glideAnimation){
+                            }
+                            )*/
+
+                            val bitmap = R.drawable.smile1
+                            /*val bitmap2 = Glide.with(activity).load(postList[ccnt].imagePath).into(200,200)
+
+                            val bitmap3 = Glide.with(activity)
+                                .asBitmap()
+                                .load(postList[0].imagePath)
+                                .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                                    override fun onResourceReady(
+                                        resource: Bitmap?,
+                                        transition: Transition<in Bitmap>?
+                                    ) {
+                                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                    }
+                                }
+                                )
+
+                            val bitmap4 = Glide.with(context!!.applicationContext)
+                                .asBitmap()
+                                .load(postList[0].imagePath)
+                                .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                                    override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
+                                        //callback.onReady(createMarkerIcon(resource, iconId))
+                                    }
+                                })
+                            */
+                            mMap!!.addMarker(
+                                MarkerOptions()
+                                    .position(spot)
+                                    .title("imageID:"+postList[ccnt].imageId)
+                                    .icon(
+                                        //Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into()
+                                        //BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+
+                                        /*Glide.with(context!!.applicationContext)
+                                            .asBitmap()
+                                            .load(postList[ccnt].imagePath)
+                                            .into()
+                                         */
+                                        BitmapDescriptorFactory.fromResource(
+                                            //R.drawable.smile1
+                                            bitmap
+                                        )
+                                    )
+                            )
+                            ccnt++
+                        }
+                    }
                 }
             }
         }
     }
 
-    fun setPostList(postList: MutableList<MapsList>) {
+    /*fun setPostList(postList: MutableList<MapsList>) {
+        this.postList = postList
+    }*/
+    fun setPostList(postList: MutableList<PostList2>) {
         this.postList = postList
     }
 
@@ -118,7 +221,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
-    //下の処理を再起的に利用してマップ上に写真表示を行う
     //default location
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -131,6 +233,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     BitmapDescriptorFactory.fromResource(R.drawable.smile1)
                 )
         )
+
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
@@ -164,19 +267,22 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         private val REQUEST_CODE = 1000
         private val REQUEST_PERMISSION = 1000
         //setter
-        fun setPostList(mapsHome: MapsHome, mutableList: MutableList<MapsList>) {
+        /*fun setPostList(mapsHome: MapsHome, mutableList: MutableList<MapsList>) {
             mapsHome.postList = mapsHome.postList
-            Log.d("debug", "pass" + mapsHome.postList[1].imgpath)
+            Log.d("debug", "pass" + mapsHome.postList[0].imgpath)
+        }*/
+        fun setPostList(mapsHome: MapsHome, mutableList: MutableList<PostList2>) {
+            mapsHome.postList = mapsHome.postList
+            Log.d("debug", "pass" + mapsHome.postList[0])
         }
     }
 
-
     /**
-     * ここから下は、現在地をサーバに送信し、現在地より50m以内で投稿されている写真の情報をサーバから取得する処理にしたい。
+     * ここから下は、現在地をサーバに送信し、現在地より直径50m、半径25m以内で投稿されている写真の情報をサーバから取得する処理にしたい。
      *
-     *現状ではスポット詳細画面から処理をコピペしただけ
+     *SpotMainActivityを元に作成
      */
-    private inner class SpotPhotoGet() : AsyncTask<String, String, String>() {
+    private inner class SpotPhotoGet(val activity: MapsHome) : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String?): String {
             val client = OkHttpClient()
@@ -187,8 +293,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             //Formを作成
             val formBuilder = FormBody.Builder()
 
-            println("経度" + latitude.toString())
-            println("緯度" + longitude.toString())
+            println("サーバに送信する経度：" + latitude.toString())
+            println("サーバに送信する緯度：" + longitude.toString())
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
@@ -203,13 +309,13 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             try {
                 val response = client.newCall(request).execute()
                 println(url)
+                //println(response.body()!!.string())
                 return response.body()!!.string()
             } catch (e: IOException) {
                 e.printStackTrace()
                 return "Error"
             }
         }
-
 
         override fun onPostExecute(result: String) {
             try {
@@ -233,9 +339,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     )
                 }
 
-                SpotPopularCount.text = Integer.toString(postCount)
-                SpotNewCount.text = Integer.toString(postCount)
-                //gridview.adapter = GridAdapter(this@SpotMainActivity, postList)
+                cnt = postCount
+                activity.setPostList(postList)
+
             } catch (e: Exception) {
 
             }

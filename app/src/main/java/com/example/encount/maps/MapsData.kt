@@ -65,7 +65,7 @@ class MapPostGet(val activity: MapsHome) : AsyncTask<String, String, String>() {
             }
             Log.d("debug", "background result")
             //Log.d("debug", "pass" + postList[1].imgpath)
-            activity.setPostList(postList)
+           // activity.setPostList(postList)
         } catch (e: Exception) {
 
         }

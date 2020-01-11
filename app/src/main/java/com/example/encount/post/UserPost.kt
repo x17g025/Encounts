@@ -1,141 +1,109 @@
 package com.example.encount.post
 
 import android.Manifest
-import android.content.*
+import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import java.text.SimpleDateFormat
-import java.util.Date
-import android.os.AsyncTask
-import android.os.Handler
-import android.util.Log
-import android.view.WindowManager
-import android.widget.*
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.encount.NavigationActivity
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
-import com.example.encount.user.UserLogin
+import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_user_post.*
 import okhttp3.*
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
  * 投稿機能(カメラ、コメント、位置情報)
- * 制作者：大野
+ * 制作者：大野、社務
  */
 
 class UserPost : AppCompatActivity() {
-
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val requestingLocationUpdates = true //フラグ
+    private val locationRequest: LocationRequest = LocationRequest.create()
     val _helper = SQLiteHelper(this@UserPost)
-
     //写真のパスを受け取る変数(将来的には撮影した写真のパス、ファイル名を取得して指定する)
     var uurl = ""
-    //緯度
-    var latitude = ""
-    //経度
-    var longitude = ""
     //送信するコメント内容の受け取り変数
     var cmnt = ""
 
-    /**
-     * 保存された画像のURI
-     */
+    //保存された画像のURI
     private var _imageUri: Uri? = null
+    //緯度フィールド
+    private var lat = ""
+    //経度フィールド
+    private var lng = ""
 
-    /**
-     * 緯度フィールド
-     */
-
-    private var _latitude = 0.0
-    /**
-     * 経度フィールド
-     */
-    private var _longitude = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_post)
 
-        /**
-         * 位置情報取得
-         */
-        //LocationManagerオブジェクトを取得。
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        //位置情報が更新された際のリスナオブジェクトを生成。
-        val locationListener = GPSLocationListener()
-        //ACCESS_FINE_LOCATIONの許可が下りていないなら…
-        if(ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //ACCESS_FINE_LOCATIONの許可を求めるダイアログを表示。その際、リクエストコードを1000に設定。
-            val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-            ActivityCompat.requestPermissions(this@UserPost, permissions, 1000)
-            //onCreate()メソッドを終了。
-            return
-        }
-        //位置情報の追跡を開始。
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
-        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        locationRequest.setInterval(10000)   //最遅の更新間隔
+        locationRequest.setFastestInterval(5000)   //最速の更新間隔
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
 
         /**
          * 投稿処理
          * 投稿ボタン押すと動作する
          */
-
         val commentInput = findViewById<EditText>(R.id.commentInput)
         ivCameraBig.visibility = View.GONE
-
         postClose.setOnClickListener {
-
             startActivity(Intent(this, NavigationActivity::class.java))
         }
 
         ivCamera.setOnClickListener {
-
             ivCamera.visibility = View.GONE
             ivCameraBig.visibility = View.VISIBLE
         }
 
         ivCameraBig.setOnClickListener {
-
             ivCamera.visibility = View.VISIBLE
             ivCameraBig.visibility = View.GONE
         }
 
         // 投稿ボタンが押された時
         postButton.setOnClickListener {
-
             if(_imageUri != null) {
-            //パスの処理
-            val uuri = getFileSchemeUri(_imageUri as Uri)
+                //パスの処理
+                val uuri = getFileSchemeUri(_imageUri as Uri)
 
                 println(uuri.toString())
-                //OkHttpPost.uurl = uuri.toString()
+
                 var pass = uuri.toString().substring(uuri.toString().length - 17)
                 print(pass)
                 uurl = pass
 
                 //コメントをEditTextから取得
                 cmnt = commentInput.getText().toString()
+                /*
                 //緯度を取得
                 latitude = _latitude.toString()
                 //経度を取得
                 longitude = _longitude.toString()
-
+                */
+                Log.d("debug","緯度Str")
                 //ここで現在地取得処理(更新)を終了させる
                 print("GPS終了")
-                locationManager.removeUpdates(locationListener)
+                onPause()
 
                 //投稿処理開始
                 val postTask = OkHttpPost()
@@ -146,21 +114,17 @@ class UserPost : AppCompatActivity() {
                     .setContentText("")
                     .setConfirmText("ホーム画面へ")
                     .setConfirmClickListener {
-                        sDialog -> sDialog.dismissWithAnimation()
+                            sDialog -> sDialog.dismissWithAnimation()
                         goHome()
                     }
                     .show()
-            }
-            else{
-
+            }else{
             }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
         super.onActivityResult(requestCode, resultCode, data)
-
         //カメラアプリからの戻りでかつ撮影成功の場合
         if(requestCode == 200 && resultCode == RESULT_OK) {
             //撮影された画像のビットマップデータを取得。
@@ -183,32 +147,22 @@ class UserPost : AppCompatActivity() {
             val uuri = getFileSchemeUri(_imageUri as Uri)
             println("変換後："+uuri.toString())
 
-            //位置情報の更新作業をここで終了させる
-            //locationManager.removeUpdates(this)
-        }
-        else{
-
+        } else{
             photoButton.visibility  = View.VISIBLE
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        //追加
         //ACCESS_FINE_LOCATIONに対するパーミションダイアログでかつ許可を選択したなら…
         if(requestCode == 1000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            //LocationManagerオブジェクトを取得。
-            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-            //位置情報が更新された際のリスナオブジェクトを生成。
-            val locationListener = GPSLocationListener()
             //再度ACCESS_FINE_LOCATIONの許可が下りていないかどうかのチェックをし、降りていないなら処理を中止。
             if(ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return
             }
             //位置情報の追跡を開始。
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
+            onResume()
         }
         //ここまで
-
         //WRITE_EXTERNAL_STORAGEに対するパーミションダイアログでかつ許可を選択したなら…
         if(requestCode == 2000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             //もう一度カメラアプリを起動。
@@ -222,7 +176,7 @@ class UserPost : AppCompatActivity() {
      * カメラのパーミッション設定の確認と同時に、ここで現在地取得のパーミッションも確認して、許可がないなら再度リクエストする処理を追加する
      */
     /*private*/ fun onCameraImageClick(view: View) {
-    //↑にprivateをつけるとうまく動作しなくなる
+        //↑にprivateをつけるとうまく動作しなくなる
         //WRITE_EXTERNAL_STORAGEの許可が下りていないなら…
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //WRITE_EXTERNAL_STORAGEの許可を求めるダイアログを表示。その際、リクエストコードを2000に設定。
@@ -256,24 +210,6 @@ class UserPost : AppCompatActivity() {
         startActivityForResult(intent, 200)
 
         photoButton.visibility  = View.GONE
-    }
-
-    /**
-     * ロケーションリスナクラス。
-     */
-    private inner class GPSLocationListener : LocationListener {
-        override fun onLocationChanged(location: Location) {
-            //引数のLocationオブジェクトから緯度を取得。
-            _latitude = location.latitude
-            //引数のLocationオブジェクトから経度を取得。
-            _longitude = location.longitude
-        }
-
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-
-        override fun onProviderEnabled(provider: String) {}
-
-        override fun onProviderDisabled(provider: String) {}
     }
 
     /**
@@ -350,12 +286,13 @@ class UserPost : AppCompatActivity() {
                 println("ファイルが存在しません。")
             }
 
+            Log.d("debug","緯度Str" + lat)
             //ここでPOSTする内容を設定　"image/jpg"の部分は送りたいファイルの形式に合わせて変更する
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("userId", id)
-                .addFormDataPart("longitude", longitude)
-                .addFormDataPart("latitude", latitude)
+                .addFormDataPart("longitude", lng)
+                .addFormDataPart("latitude", lat)
                 .addFormDataPart("word", cmnt)
                 .addFormDataPart(
                     "file",
@@ -402,8 +339,47 @@ class UserPost : AppCompatActivity() {
     }
 
     fun goHome(){
-
         startActivity(Intent(this, NavigationActivity::class.java))
         finish()
+    }
+
+    /**
+     * 位置情報関連の処理
+     */
+    //Update Result
+    val locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult?) {
+            locationResult ?: return
+            for (location in locationResult.locations) {
+                if (location != null) {
+                    lat = location.latitude.toString()
+                    lng = location.longitude.toString()
+                    Log.d("debug", "緯度" + lat)
+                    Log.d("debug", "経度" + lng)
+                }
+            }
+        }
+    }
+    //start locationUpdate
+    override fun onResume() {
+        super.onResume()
+        if (requestingLocationUpdates) startLocationUpdates()
+    }
+
+    private fun startLocationUpdates() {
+        Log.d("debug","位置情報開始")
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback, null /* Looper */
+        )
+    }
+    //stop locationUpdate
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
+
+    private fun stopLocationUpdates() {
+        fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 }
