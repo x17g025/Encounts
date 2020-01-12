@@ -3,15 +3,18 @@ package com.example.encount.post
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.encount.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_home.*
+import kotlinx.android.synthetic.main.grid_items.*
+import kotlinx.android.synthetic.main.grid_items.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -43,43 +46,21 @@ class UserHome : Fragment() {
 
         UserPostGet().execute()
 
-        /*PostDataList.setOnItemClickListener {parent, view, position, id ->
+        //タップで投稿の詳細画面へ
+        PostDataList.setOnItemClickListener {parent, view, position, id ->
 
-            val postId = view.findViewById<TextView>(R.id.PostId).text
-
-           /* val intent = Intent(this, PostDetails::class.java)
-            intent.putExtra("Post_Id", postId)
-            startActivity(intent)*/
+            val intent = Intent(context, PostDetails::class.java)
+            intent.putExtra("Post_Id", view.PostId.text)
+            startActivity(intent)
         }
 
+        //長押しでいいね
         PostDataList.setOnItemLongClickListener { parent, view, position, id ->
 
-            val userId = view.findViewById<TextView>(R.id.UserId).text
-
-            var id     = ""
-            val db     = _helper!!.writableDatabase
-            val sql    = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
-            if(userId == id){
-
-               // startActivity(Intent(this, UserProfile::class.java))
-            }
-            else{
-
-                /*val intent = Intent(this, FriendProfile::class.java)
-                intent.putExtra("User_Id", userId)
-                startActivity(intent)*/
-            }
+            view.flLikeFrame.visibility = View.VISIBLE
 
             return@setOnItemLongClickListener true
-        }*/
+        }
 
         btnPost.setOnClickListener{
 

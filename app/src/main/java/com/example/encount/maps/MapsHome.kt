@@ -138,6 +138,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                 .load(postList[ccnt].imagePath)
                                 .into(object : SimpleTarget<Bitmap>(100,100) {
 
+                                    //正常に写真取得できればピンを打つ
                                     override fun onResourceReady(
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
@@ -149,6 +150,16 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
+
+                                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                                        mMap!!.addMarker(
+                                            MarkerOptions()
+                                                .position(spot)
+                                                .title("エラーで写真を正しく表示できませんでした。")
+                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.error))
+                                        )
+                                    }
+
                                 })
 
                             ccnt++

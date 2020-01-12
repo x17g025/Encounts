@@ -1,6 +1,7 @@
 package com.example.encount.post
 
 import android.content.Context
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.encount.PostList
 import com.example.encount.PostList2
 import com.example.encount.R
+import kotlinx.android.synthetic.main.grid_items.*
 import kotlinx.android.synthetic.main.grid_items.view.*
 
 /**
@@ -37,10 +39,16 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
-       // view.PostUserText.text = posts[position].text
+        //view.PostUserText.text = posts[position].text
         view.PostId.text       = posts[position].postId
         view.UserId.text       = posts[position].userId
         Glide.with(context).load(posts[position].image).into(view.image_view)
+
+        Handler().postDelayed({
+
+            view.Progress.visibility = View.GONE
+            view.ImageNothing.visibility = View.VISIBLE
+        }, 5000)
 
         return view
     }

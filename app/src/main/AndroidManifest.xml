@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".user.UserLikeList"></activity>
+        <activity android:name=".user.UserLikeList"/>
         <activity android:name=".user.UserFriendList" />
         <activity android:name=".user.UserPostList" />
         <activity android:name=".user.ProfileChange" />
@@ -64,5 +64,4 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-
 </manifest>
