@@ -6,6 +6,22 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <ProgressBar
+        android:id="@+id/Progress"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="?android:attr/progressBarStyle"
+        android:indeterminateTint="@color/colorMain"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:id="@+id/ImageNothing"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/image_nothing"/>
+
     <TextView
         android:id="@+id/PostId"
         android:layout_width="0dp"
@@ -30,14 +46,12 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/description"
         android:scaleType="center" />
-    <!--android:scaleType="fitCenter"-->
 
-    <ImageView
-        android:layout_width="22dp"
-        android:layout_height="22dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/like_post"/>
+    <FrameLayout
+        android:id="@+id/flLikeFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/post_like_true"/>
 
 </FrameLayout>

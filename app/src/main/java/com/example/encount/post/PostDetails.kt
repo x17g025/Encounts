@@ -21,6 +21,6 @@ class PostDetails : AppCompatActivity() {
 
         val postId = intent.getStringExtra("Post_Id")
 
-        UserName.text = postId
+        tvUserName.text = postId
     }
 }

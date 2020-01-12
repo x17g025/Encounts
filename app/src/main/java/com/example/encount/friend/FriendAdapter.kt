@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.friend_list.view.*
  *
  * 製作者：中村
  */
+
 /*
 class FriendAdapter(val context: Context, val posts: List<PostList>): BaseAdapter() {
 
