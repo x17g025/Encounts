@@ -132,12 +132,13 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         //取得した写真の件数分ピンを打つ処理
                         for(i in postList){
                             val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
-
+                            println("imageID : " + postList[ccnt].imageId)
                             Glide.with(activity)
                                 .asBitmap()
                                 .load(postList[ccnt].imagePath)
                                 .into(object : SimpleTarget<Bitmap>(100,100) {
 
+                                    //正常に写真取得できればピンを打つ
                                     override fun onResourceReady(
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
@@ -145,10 +146,21 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                .title("imageID:" + postList[3].imageId)
+                                                    //現状だと、
+                                                .title("imageID : " + postList[0].imageId)
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
+
+                                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                                        mMap!!.addMarker(
+                                            MarkerOptions()
+                                                .position(spot)
+                                                .title("エラーで写真を正しく表示できませんでした。")
+                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.error))
+                                        )
+                                    }
+
                                 })
 
                             ccnt++
