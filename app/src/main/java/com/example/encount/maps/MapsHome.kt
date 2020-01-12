@@ -121,8 +121,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     if(cnt >= 1){
 
                         //サーバから取得した1番目の写真の位置情報をデバッグ表示
-                        Log.d("debug","postList[0].imageLat : " + postList[0].imageLat)
-                        Log.d("debug","postList[0].imageLng : " + postList[0].imageLng)
+                        //Log.d("debug","postList[0].imageLat : " + postList[0].imageLat)
+                        //Log.d("debug","postList[0].imageLng : " + postList[0].imageLng)
 
                         //下のfor文内で使うカウント変数
                         var ccnt = 0
@@ -133,45 +133,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         for(i in postList){
                             val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
 
-                            /*Glide.with(activity).asBitmap().load(postList[ccnt].imagePath).into<SimpleTarget<Bitmap>>(
-                                override fun onResourceReady(resource : Bitmap,GlideAnimation<? super Bitmap> glideAnimation){
-
-                            }
-                            )*/
-
-                            val bitmap = R.drawable.smile1
-                            print("bitdayo"+bitmap)
-                            val bitmap2 = Glide.with(activity).load(postList[ccnt].imagePath).into(200,200)
-
-                            val bitmap3 = Glide.with(activity)
-                                .asBitmap()
-                                .load(postList[0].imagePath)
-                                .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                                    override fun onResourceReady(
-                                        resource: Bitmap?,
-                                        transition: Transition<in Bitmap>?
-                                    ) {
-                                        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                                    }
-                                }
-                                )
-
-                            val bitmap4 = Glide.with(context!!.applicationContext)
-                                .asBitmap()
-                                .load(postList[0].imagePath)
-                                .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                                    override fun onResourceReady(
-                                        resource: Bitmap,
-                                        transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
-                                        //callback.onReady(createMarkerIcon(resource, iconId))
-                                    }
-                                })
-
-
-
                             Glide.with(activity)
                                 .asBitmap()
-                                .load(postList[0].imagePath)
+                                .load(postList[ccnt].imagePath)
                                 .into(object : SimpleTarget<Bitmap>(100,100) {
 
                                     override fun onResourceReady(
@@ -181,36 +145,12 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                .title("test")
+                                                .title("imageID:" + postList[0].imageId)
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
                                 })
 
-                            //val bitmap5 = Glide.with(activity).asBitmap().load(postList[ccnt].imagePath).
-
-
-
-                            mMap!!.addMarker(
-                                MarkerOptions()
-                                    .position(spot)
-                                    .title("imageID:"+postList[ccnt].imageId)
-                                    .icon(
-                                        //Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into()
-                                        BitmapDescriptorFactory.fromResource(R.drawable.smile1)
-
-                                        /*Glide.with(context!!.applicationContext)
-                                            .asBitmap()
-                                            .load(postList[ccnt].imagePath)
-                                            .into()
-                                         */
-                                        /*BitmapDescriptorFactory.fromResource(
-                                            //R.drawable.smile1
-                                        bitmap
-                                        )*/
-
-                                    )
-                            )
                             ccnt++
                         }
                     }
