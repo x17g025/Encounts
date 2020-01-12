@@ -167,6 +167,26 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                     }
                                 })
 
+
+
+                            Glide.with(activity)
+                                .asBitmap()
+                                .load(postList[0].imagePath)
+                                .into(object : SimpleTarget<Bitmap>(100,100) {
+
+                                    override fun onResourceReady(
+                                        resource: Bitmap?,
+                                        transition: Transition<in Bitmap>?
+                                    ) {
+                                        mMap!!.addMarker(
+                                            MarkerOptions()
+                                                .position(spot)
+                                                .title("test")
+                                                .icon(BitmapDescriptorFactory.fromBitmap(resource))
+                                        )
+                                    }
+                                })
+
                             //val bitmap5 = Glide.with(activity).asBitmap().load(postList[ccnt].imagePath).
 
 
@@ -188,8 +208,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                             //R.drawable.smile1
                                         bitmap
                                         )*/
-
-                                    //BitmapDescriptorFactory.fromBitmap()
 
                                     )
                             )
