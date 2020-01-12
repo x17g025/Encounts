@@ -145,7 +145,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                .title("imageID:" + postList[0].imageId)
+                                                .title("imageID:" + postList[3].imageId)
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
@@ -248,10 +248,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     }
 
     /**
-     * ここから下は、現在地をサーバに送信し、現在地より直径50m、半径25m以内で投稿されている写真の情報をサーバから取得する処理にしたい。
+     * ここから下はサーバに現在地を表示し、現在地周辺の写真を取得する処理
      *
-     *SpotMainActivityを元に作成
      */
+
     private inner class SpotPhotoGet(val activity: MapsHome) : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String?): String {
@@ -317,6 +317,5 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             }
         }
     }
-
 
 }
