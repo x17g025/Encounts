@@ -72,23 +72,12 @@ class PostDetails : AppCompatActivity() {
         override fun onPostExecute(result: String) {
 
             try {
-                var postList = mutableListOf<PostList>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
 
-                Glide.with(this@PostDetails).load(postData.).into(ivPostImage)
+                Glide.with(this@PostDetails).load(pospostImage).into(ivPostImage)
 
-                for (i in postData) {
 
-                    postList.add(
-                        PostList(
-                            i.postId,
-                            i.userId,
-                            i.postText,
-                            i.postImage
-                        )
-                    )
-                }
             }
             catch(e : Exception){
 
