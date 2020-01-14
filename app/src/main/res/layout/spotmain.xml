@@ -156,7 +156,7 @@
         android:id="@+id/gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#888"
+        android:background="#fff"
         android:horizontalSpacing="2dp"
         android:verticalSpacing="2dp"
         android:numColumns="2"
