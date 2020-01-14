@@ -1,5 +1,6 @@
 package com.example.encount.user
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.encount.*
 import com.example.encount.post.PostAdapter
+import com.example.encount.post.PostDetails
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_user_home.swipelayout
 import kotlinx.android.synthetic.main.activity_user_post_list.*
+import kotlinx.android.synthetic.main.grid_items.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -36,44 +38,27 @@ class UserPostList : Fragment() {
 
         UserPostGet().execute()
 
-        /*
-        PostDataList.setOnItemClickListener {parent, view, position, id ->
+        //タップで投稿の詳細画面へ
+        UserProfilePost.setOnItemClickListener {parent, view, position, id ->
 
-            val postId = view.findViewById<TextView>(R.id.PostId).text
+            view.image_view.setOnClickListener {
 
-            /* val intent = Intent(this, PostDetails::class.java)
-             intent.putExtra("Post_Id", postId)
-             startActivity(intent)*/
+                val intent = Intent(context, PostDetails::class.java)
+                intent.putExtra("Post_Id", view.PostId.text)
+                startActivity(intent)
+            }
+
+            view.ivPostLike.setOnClickListener{
+
+                //Log.d("debugdayio",postId)
+            }
         }
 
-        PostDataList.setOnItemLongClickListener { parent, view, position, id ->
-
-            val userId = view.findViewById<TextView>(R.id.UserId).text
-
-            var id     = ""
-            val db     = _helper!!.writableDatabase
-            val sql    = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
-            if(userId == id){
-
-                // startActivity(Intent(this, UserProfile::class.java))
-            }
-            else{
-
-                /*val intent = Intent(this, FriendProfile::class.java)
-                intent.putExtra("User_Id", userId)
-                startActivity(intent)*/
-            }
+        //長押しでいいね
+        UserProfilePost.setOnItemLongClickListener { parent, view, position, id ->
 
             return@setOnItemLongClickListener true
-        }*/
+        }
 
         swipelayout.setOnRefreshListener {
 
@@ -131,13 +116,10 @@ class UserPostList : Fragment() {
 
                 for (i in postData) {
 
-
-
                     postList.add(
                         PostList(
                             i.postId,
                             i.userId,
-                            i.postText,
                             i.postImage
                         )
                     )

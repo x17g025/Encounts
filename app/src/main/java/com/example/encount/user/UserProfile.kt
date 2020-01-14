@@ -3,9 +3,9 @@ package com.example.encount.user
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.encount.*
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -80,6 +80,8 @@ class UserProfile : AppCompatActivity() {
 
             try{
                 val userData = Gson().fromJson(result, UserDataClassList::class.java)
+
+                Glide.with(this@UserProfile).load(userData.userIcon).into(ivUserIcon)
                 UserName.text = userData.userName
                 UserBio.text = userData.userBio
             }

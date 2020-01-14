@@ -19,7 +19,6 @@ data class MapsDataClassList (
 data class PostList(
     val postId: String,
     val userId: String,
-    val text: String,
     val image: String
 )
 
@@ -44,7 +43,8 @@ data class LoginDataClassList(
 data class UserDataClassList(
     val userName: String,
     val userNumber: Long,
-    val userBio: String
+    val userBio: String,
+    val userIcon: String
 )
 
 data class SinginDataClassList (

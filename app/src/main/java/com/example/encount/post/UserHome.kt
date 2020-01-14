@@ -3,17 +3,15 @@ package com.example.encount.post
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.encount.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_home.*
-import kotlinx.android.synthetic.main.grid_items.*
 import kotlinx.android.synthetic.main.grid_items.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -31,6 +29,7 @@ import java.lang.Exception
 class UserHome : Fragment() {
 
     var _helper : SQLiteHelper? = null
+    var postId = "a"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -49,15 +48,21 @@ class UserHome : Fragment() {
         //タップで投稿の詳細画面へ
         PostDataList.setOnItemClickListener {parent, view, position, id ->
 
-            val intent = Intent(context, PostDetails::class.java)
-            intent.putExtra("Post_Id", view.PostId.text)
-            startActivity(intent)
+            view.image_view.setOnClickListener {
+
+                val intent = Intent(context, PostDetails::class.java)
+                intent.putExtra("Post_Id", view.PostId.text)
+                startActivity(intent)
+            }
+
+            view.ivPostLike.setOnClickListener{
+
+                Log.d("debugdayio",postId)
+            }
         }
 
         //長押しでいいね
         PostDataList.setOnItemLongClickListener { parent, view, position, id ->
-
-            view.flLikeFrame.visibility = View.VISIBLE
 
             return@setOnItemLongClickListener true
         }
@@ -128,7 +133,6 @@ class UserHome : Fragment() {
                         PostList(
                             i.postId,
                             i.userId,
-                            i.postText,
                             i.postImage
                         )
                     )

@@ -33,8 +33,7 @@
             android:name=".user.UserSettings"
             android:noHistory="true" />
         <activity
-            android:name=".user.UserProfile"
-            android:noHistory="true" />
+            android:name=".user.UserProfile"/>
         <activity android:name=".post.UserHome" />
         <activity
             android:name=".post.UserPost"
