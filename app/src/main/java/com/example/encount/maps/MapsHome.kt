@@ -92,7 +92,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
         locationRequest.setInterval(10000)   //最遅の更新間隔
         locationRequest.setFastestInterval(5000)   //最速の更新間隔
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
         onResume()
     }
 
@@ -108,6 +108,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //グローバル変数に位置情報を代入
                     latitude = location.latitude
                     longitude = location.longitude
+
+                    mMap!!.setMyLocationEnabled(true)
 
                     //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
                     //MapPostGet(this@MapsHome).execute()
@@ -217,15 +219,38 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         )*/
         //マップ上に現在地を表示
         mMap!!.setMyLocationEnabled(true)
+
         //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
 
         //タップしたときのリスナーをセット
-        mMap!!.setOnMapClickListener {
-            mMap!!.moveCamera(CameraUpdateFactory.zoomTo(20f))
+        val spot = LatLng(35.7044997, 139.9843911)
+        /*mMap!!.setOnMapClickListener {
+            mMap!!.addMarker(
+                MarkerOptions()
+                    .position(spot)
+                    .title("Marker in FJB")
+                    .icon(
+                        BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+                    )
+            )
+        }*/
+        mMap!!.setOnMapClickListener(object : GoogleMap.OnMapClickListener{
+            override fun onMapClick(latLng: LatLng) {
 
-        }
+                var mm = mMap!!.addMarker(
+                    MarkerOptions()
+                        .position(spot)
+                        .title("タップされました！！")
+                        .snippet("詳細説明用")
+                        .icon(
+                            BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+                        )
+                )
+                mm.setTag(1)
+            }
+        })
     }
 
     //許可されていないパーミッションリクエスト
