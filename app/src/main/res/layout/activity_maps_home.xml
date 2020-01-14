@@ -16,6 +16,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="スポット詳細画面へ(テスト用)" />
 
 </FrameLayout>
