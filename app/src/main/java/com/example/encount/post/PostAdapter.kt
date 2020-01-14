@@ -48,7 +48,7 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
 
             view.Progress.visibility = View.GONE
             view.ImageNothing.visibility = View.VISIBLE
-        }, 5000)
+        }, 15000)
 
         return view
     }

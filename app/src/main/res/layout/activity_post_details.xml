@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#FFFFFF">
+        android:layout_height="50dp">
 
         <ImageView
             android:layout_height="40dp"
@@ -18,32 +18,18 @@
             android:src="@drawable/icon"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:visibility="visible"
+        android:background="#dcdcdc"/>
 
-        <ImageView
-            android:id="@+id/ivPostImage"
-            android:layout_width="match_parent"
-            android:layout_height="450dp"
-            android:background="@color/colorLike"/>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ivPostLike"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_post_like"/>
-
-    </FrameLayout>
     <LinearLayout
         android:id="@+id/llUserData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="5dp">
+        android:layout_margin="7dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivUserIcon"
@@ -56,19 +42,129 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:maxLines="1"
             android:layout_marginStart="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="17sp" />
 
-        </LinearLayout>
-
-        <View
+        <TextView
+            android:id="@+id/tvPostDate"
             android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:visibility="visible"
-            android:background="#dcdcdc"/>
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#808080"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/Progress"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    style="?android:attr/progressBarStyle"
+                    android:indeterminateTint="#00bde7"
+                    android:layout_gravity="center"
+                    tools:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/ivPostImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:scaleType="centerCrop"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/llToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_margin="7dp">
+
+                <ImageView
+                    android:id="@+id/ivPostLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/post_tool_like"/>
+
+                <ImageView
+                    android:id="@+id/ivPostReply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/post_tool_reply"/>
+
+                <ImageView
+                android:id="@+id/ivPostMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/post_tool_menu"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:visibility="visible"
+                android:background="#dcdcdc"/>
+
+            <LinearLayout
+                android:id="@+id/llPostText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/tvPostName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvPostText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#808080"
+                    android:layout_marginStart="10dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="14sp"  />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPostReply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
 
 

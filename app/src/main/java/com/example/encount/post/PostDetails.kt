@@ -1,19 +1,17 @@
 package com.example.encount.post
 
-import android.content.Context
+import android.media.Image
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.encount.PostDataClassList
-import com.example.encount.PostList
 import com.example.encount.R
-import com.example.encount.SQLiteHelper
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_post_details.*
-import kotlinx.android.synthetic.main.activity_user_home.*
-import kotlinx.android.synthetic.main.grid_items.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -24,19 +22,30 @@ import java.lang.Exception
  * やってること
  * 投稿の詳細な情報を表示する
  *
+ * 画像
+ * ユーザーネーム
+ * アイコン
+ * いいねフラグ
+ * テキスト
+ * 投稿日時
+ *
  * 製作者：中村
  */
 
 class PostDetails : AppCompatActivity() {
 
-    val postId = intent.getStringExtra("Post_Id")
+    var postId = "a"
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_details)
 
+        postId = intent.getStringExtra("Post_Id")
+
         tvUserName.text = postId
+
+        UserPostGet().execute()
     }
 
     private inner class UserPostGet() : AsyncTask<String, String, String>() {
@@ -46,7 +55,7 @@ class PostDetails : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://encount.cf/encount/UserPostGet.php"
+            val url = "https://encount.cf/encount/PostDetailsGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -72,12 +81,14 @@ class PostDetails : AppCompatActivity() {
         override fun onPostExecute(result: String) {
 
             try {
-                val listType = object : TypeToken<List<PostDataClassList>>() {}.type
-                val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
 
-                Glide.with(this@PostDetails).load(pospostImage).into(ivPostImage)
+                var postData = Gson().fromJson(result, PostDataClassList::class.java)
 
-
+                Glide.with(this@PostDetails).load(postData.postImage).into(ivPostImage)
+                tvUserName.text = postData.userName
+                tvPostName.text = postData.userName
+                tvPostDate.text = postData.postDate
+                tvPostText.text = postData.postText
             }
             catch(e : Exception){
 
