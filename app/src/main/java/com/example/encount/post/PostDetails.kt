@@ -184,7 +184,7 @@ class PostDetails : AppCompatActivity() {
 
     fun likeToggle(flag : Boolean){
 
-        if(flag) {
+        if(flag) {//a
 
             ivPostLike.setImageResource(R.drawable.post_tool_like_true)
             var animation = AnimationUtils.loadAnimation(this,R.anim.like_touch)
