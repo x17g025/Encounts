@@ -24,7 +24,6 @@ data class PostList(
 )
 
 data class PostDataClassList(
-    val likeId: String,
     val postId: String,
     val userId: String,
     val userName: String,
@@ -32,6 +31,7 @@ data class PostDataClassList(
     val postImage: String,
     val postText: String,
     val postDate: String,
+    val likeFlag: Boolean,
     val postLikeCnt: Long
 )
 

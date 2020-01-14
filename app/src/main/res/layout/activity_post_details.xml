@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/post_tool_like"/>
+                    android:src="@drawable/post_tool_like_false"/>
 
                 <ImageView
                     android:id="@+id/ivPostReply"
