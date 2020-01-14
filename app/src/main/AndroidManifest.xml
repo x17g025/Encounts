@@ -43,8 +43,7 @@
         <activity android:name=".NavigationActivity" />
         <activity android:name=".friend.FriendProfile" />
         <activity android:name=".maps.MapsHome" />
-        <activity android:name=".maps.SpotInfo" />
-        <activity android:name=".maps.SpotMainActivity" />
+        <activity android:name=".maps.SpotMainActivity"/>
         <activity
             android:name=".MainActivity"
             android:noHistory="true">

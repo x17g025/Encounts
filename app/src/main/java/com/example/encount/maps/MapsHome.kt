@@ -29,6 +29,7 @@ import com.example.encount.R
 import com.example.encount.post.UserPost
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -120,8 +121,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     if(cnt >= 1){
 
                         //サーバから取得した1番目の写真の位置情報をデバッグ表示
-                        Log.d("debug","postList[0].imageLat : " + postList[0].imageLat)
-                        Log.d("debug","postList[0].imageLng : " + postList[0].imageLng)
+                        //Log.d("debug","postList[0].imageLat : " + postList[0].imageLat)
+                        //Log.d("debug","postList[0].imageLng : " + postList[0].imageLng)
 
                         //下のfor文内で使うカウント変数
                         var ccnt = 0
@@ -131,56 +132,37 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         //取得した写真の件数分ピンを打つ処理
                         for(i in postList){
                             val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
-
-                            /*Glide.with(activity).asBitmap().load(postList[ccnt].imagePath).into<SimpleTarget<Bitmap>>(
-                                override fun onResourceReady(resource : Bitmap,GlideAnimation<? super Bitmap> glideAnimation){
-                            }
-                            )*/
-
-                            val bitmap = R.drawable.smile1
-                            /*val bitmap2 = Glide.with(activity).load(postList[ccnt].imagePath).into(200,200)
-
-                            val bitmap3 = Glide.with(activity)
+                            println("imageID : " + postList[ccnt].imageId)
+                            Glide.with(activity)
                                 .asBitmap()
-                                .load(postList[0].imagePath)
-                                .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
+                                .load(postList[ccnt].imagePath)
+                                .into(object : SimpleTarget<Bitmap>(100,100) {
+
+                                    //正常に写真取得できればピンを打つ
                                     override fun onResourceReady(
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
                                     ) {
-                                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                                    }
-                                }
-                                )
-
-                            val bitmap4 = Glide.with(context!!.applicationContext)
-                                .asBitmap()
-                                .load(postList[0].imagePath)
-                                .into(object : SimpleTarget<Bitmap>(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL) {
-                                    override fun onResourceReady(resource: Bitmap, transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?) {
-                                        //callback.onReady(createMarkerIcon(resource, iconId))
-                                    }
-                                })
-                            */
-                            mMap!!.addMarker(
-                                MarkerOptions()
-                                    .position(spot)
-                                    .title("imageID:"+postList[ccnt].imageId)
-                                    .icon(
-                                        //Glide.with(context).asBitmap().load(postList[ccnt].imagePath).into()
-                                        //BitmapDescriptorFactory.fromResource(R.drawable.smile1)
-
-                                        /*Glide.with(context!!.applicationContext)
-                                            .asBitmap()
-                                            .load(postList[ccnt].imagePath)
-                                            .into()
-                                         */
-                                        BitmapDescriptorFactory.fromResource(
-                                            //R.drawable.smile1
-                                            bitmap
+                                        mMap!!.addMarker(
+                                            MarkerOptions()
+                                                .position(spot)
+                                                    //現状だと、
+                                                .title("imageID : " + postList[0].imageId)
+                                                .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
-                                    )
-                            )
+                                    }
+
+                                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                                        mMap!!.addMarker(
+                                            MarkerOptions()
+                                                .position(spot)
+                                                .title("エラーで写真を正しく表示できませんでした。")
+                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.error))
+                                        )
+                                    }
+
+                                })
+
                             ccnt++
                         }
                     }
@@ -278,10 +260,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     }
 
     /**
-     * ここから下は、現在地をサーバに送信し、現在地より直径50m、半径25m以内で投稿されている写真の情報をサーバから取得する処理にしたい。
+     * ここから下はサーバに現在地を表示し、現在地周辺の写真を取得する処理
      *
-     *SpotMainActivityを元に作成
      */
+
     private inner class SpotPhotoGet(val activity: MapsHome) : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String?): String {
@@ -347,4 +329,5 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             }
         }
     }
+
 }
