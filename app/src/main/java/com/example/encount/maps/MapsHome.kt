@@ -220,6 +220,12 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
+
+        //タップしたときのリスナーをセット
+        mMap!!.setOnMapClickListener {
+            mMap!!.moveCamera(CameraUpdateFactory.zoomTo(20f))
+
+        }
     }
 
     //許可されていないパーミッションリクエスト
