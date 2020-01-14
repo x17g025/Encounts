@@ -75,7 +75,7 @@ class PostDetails : AppCompatActivity() {
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
 
-                Glide.with(this@PostDetails).load(pospostImage).into(ivPostImage)
+                //Glide.with(this@PostDetails).load(pospostImage).into(ivPostImage)
 
 
             }

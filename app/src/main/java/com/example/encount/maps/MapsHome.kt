@@ -206,7 +206,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     //default location
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val spot = LatLng(35.7044997, 139.9843911)
+        /*val spot = LatLng(35.7044997, 139.9843911)
         mMap!!.addMarker(
             MarkerOptions()
                 .position(spot)
@@ -214,9 +214,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 .icon(
                     BitmapDescriptorFactory.fromResource(R.drawable.smile1)
                 )
-        )
-
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
+        )*/
+        //マップ上に現在地を表示
+        mMap!!.setMyLocationEnabled(true)
+        //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
     }
@@ -275,8 +276,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             //Formを作成
             val formBuilder = FormBody.Builder()
 
-            println("サーバに送信する経度：" + latitude.toString())
-            println("サーバに送信する緯度：" + longitude.toString())
+            println("サーバに送信する緯度：" + latitude.toString())
+            println("サーバに送信する経度：" + longitude.toString())
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
