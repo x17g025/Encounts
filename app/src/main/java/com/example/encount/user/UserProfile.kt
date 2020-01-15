@@ -89,4 +89,11 @@ class UserProfile : AppCompatActivity() {
             }
         }
     }
+
+    override fun onDestroy(){
+
+        //ヘルパーオブジェクトの開放
+        _helper.close()
+        super.onDestroy()
+    }
 }

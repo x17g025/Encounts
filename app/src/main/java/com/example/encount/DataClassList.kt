@@ -19,6 +19,7 @@ data class MapsDataClassList (
 data class PostList(
     val postId: String,
     val userId: String,
+    val likeFlag: Boolean,
     val image: String
 )
 

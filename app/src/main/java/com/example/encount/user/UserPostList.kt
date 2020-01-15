@@ -44,7 +44,7 @@ class UserPostList : Fragment() {
             view.image_view.setOnClickListener {
 
                 val intent = Intent(context, PostDetails::class.java)
-                intent.putExtra("Post_Id", view.PostId.text)
+                intent.putExtra("Post_Id", view.tvPostId.text)
                 startActivity(intent)
             }
 
@@ -120,6 +120,7 @@ class UserPostList : Fragment() {
                         PostList(
                             i.postId,
                             i.userId,
+                            i.likeFlag,
                             i.postImage
                         )
                     )
@@ -133,5 +134,12 @@ class UserPostList : Fragment() {
 
             }
         }
+    }
+
+    override fun onDestroy(){
+
+        //ヘルパーオブジェクトの開放
+        _helper!!.close()
+        super.onDestroy()
     }
 }

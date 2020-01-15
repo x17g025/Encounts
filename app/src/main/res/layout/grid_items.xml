@@ -23,19 +23,19 @@
         android:src="@drawable/image_nothing"/>
 
     <TextView
-        android:id="@+id/PostId"
+        android:id="@+id/tvPostId"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textSize="0sp" />
 
     <TextView
-        android:id="@+id/UserId"
+        android:id="@+id/tvUserId"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textSize="0sp" />
 
     <TextView
-        android:id="@+id/ImageId"
+        android:id="@+id/tvImageId"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textSize="0sp" />

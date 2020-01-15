@@ -184,7 +184,7 @@ class PostDetails : AppCompatActivity() {
 
     fun likeToggle(flag : Boolean){
 
-        if(flag) {//a
+        if(flag) {
 
             ivPostLike.setImageResource(R.drawable.post_tool_like_true)
             var animation = AnimationUtils.loadAnimation(this,R.anim.like_touch)
@@ -196,5 +196,12 @@ class PostDetails : AppCompatActivity() {
             var animation = AnimationUtils.loadAnimation(this,R.anim.like_touch)
             ivPostLike.startAnimation(animation)
         }
+    }
+
+    override fun onDestroy(){
+
+        //ヘルパーオブジェクトの開放
+        _helper.close()
+        super.onDestroy()
     }
 }
