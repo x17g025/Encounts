@@ -1,4 +1,4 @@
-package com.example.encount.user
+package com.example.encount2.user
 
 /**
  * やってること

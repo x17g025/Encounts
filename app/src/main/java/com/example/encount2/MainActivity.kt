@@ -1,16 +1,10 @@
-package com.example.encount
+package com.example.encount2
 
-import android.Manifest
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.widget.ImageView
-import androidx.core.app.ActivityCompat
-import com.example.encount.user.UserLogin
+import com.example.encount2.user.UserLogin
 
 /**
  * やってること

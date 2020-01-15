@@ -1,14 +1,5 @@
-package com.example.encount.friend
+package com.example.encount2.friend
 
-import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.BaseAdapter
-import com.bumptech.glide.Glide
-import com.example.encount.PostList
-import com.example.encount.R
-import kotlinx.android.synthetic.main.friend_list.view.*
 //import kotlinx.android.synthetic.main.post_list.view.*
 //import kotlinx.android.synthetic.main.post_list.view.UserIcon
 //import kotlinx.android.synthetic.main.post_list.view.UserId

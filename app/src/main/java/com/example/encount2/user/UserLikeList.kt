@@ -1,17 +1,11 @@
-package com.example.encount.user
+package com.example.encount2.user
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.encount.R
-import com.example.encount.SQLiteHelper
-import com.example.encount.post.UserPost
-import kotlinx.android.synthetic.main.activity_user_home.*
+import com.example.encount2.R
 
 class UserLikeList : Fragment() {
 

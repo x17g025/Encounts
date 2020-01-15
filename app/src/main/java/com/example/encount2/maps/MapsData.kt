@@ -1,17 +1,13 @@
-package com.example.encount.maps
+package com.example.encount2.maps
 
 
 import android.os.AsyncTask
 import android.util.Log
-import com.example.encount.MainActivity
-import com.example.encount.MapsDataClassList
-import com.example.encount.MapsList
-import com.example.encount.PostList2
+import com.example.encount2.PostList2
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.*
-import java.lang.reflect.Type
 import java.io.IOException as IoIOException
 
 class MapPostGet(val activity: MapsHome) : AsyncTask<String, String, String>() {

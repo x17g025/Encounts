@@ -1,4 +1,4 @@
-package com.example.encount
+package com.example.encount2
 
 import org.junit.Test
 

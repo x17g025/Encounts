@@ -1,17 +1,14 @@
-package com.example.encount.user
+package com.example.encount2.user
 
 import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
-import com.example.encount.LoginDataClassList
-import com.example.encount.NavigationActivity
-import com.example.encount.R
-import com.example.encount.SQLiteHelper
+import com.example.encount2.LoginDataClassList
+import com.example.encount2.NavigationActivity
+import com.example.encount2.R
+import com.example.encount2.SQLiteHelper
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_user_login.*
 import okhttp3.*

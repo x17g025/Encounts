@@ -1,11 +1,11 @@
-package com.example.encount.friend
+package com.example.encount2.friend
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.encount.*
+import com.example.encount2.*
 
 /**
  * やってること

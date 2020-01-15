@@ -1,4 +1,4 @@
-package com.example.encount.maps
+package com.example.encount2.maps
 
 /*
 Copyright 2013 Square, Inc.
@@ -18,7 +18,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 
 import androidx.appcompat.app.AppCompatActivity
-import com.example.encount.*
+import com.example.encount2.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.spotmain.*

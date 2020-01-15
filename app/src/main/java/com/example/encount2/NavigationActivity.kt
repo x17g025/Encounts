@@ -1,19 +1,17 @@
-package com.example.encount
+package com.example.encount2
 
 import android.app.Activity
 import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Debug
-import android.util.Log
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import kotlinx.android.synthetic.main.activity_navigation.*
 import androidx.core.view.GravityCompat
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
-import com.example.encount.user.UserProfile
+import com.example.encount2.user.UserProfile
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import okhttp3.FormBody
@@ -21,13 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
-import android.widget.TextView
-import android.view.LayoutInflater
-import android.view.View
-import com.example.encount.post.UserHome
-import com.example.encount.user.UserSettings
-import kotlinx.android.synthetic.main.activity_user_singin.*
-import kotlinx.android.synthetic.main.drawer_navigation_header.*
+import com.example.encount2.user.UserSettings
 import kotlinx.android.synthetic.main.drawer_navigation_header.view.*
 
 /**

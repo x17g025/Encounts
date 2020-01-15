@@ -1,13 +1,11 @@
-package com.example.encount.friend
+package com.example.encount2.friend
 
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
-import com.example.encount.*
-import com.example.encount.post.PostAdapter
+import com.example.encount2.*
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request

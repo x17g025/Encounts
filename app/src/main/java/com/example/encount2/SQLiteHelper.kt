@@ -1,4 +1,4 @@
-package com.example.encount
+package com.example.encount2
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

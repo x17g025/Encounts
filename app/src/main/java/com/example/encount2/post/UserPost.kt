@@ -1,4 +1,4 @@
-package com.example.encount.post
+package com.example.encount2.post
 
 import android.Manifest
 import android.content.ContentValues
@@ -16,9 +16,9 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.example.encount.NavigationActivity
-import com.example.encount.R
-import com.example.encount.SQLiteHelper
+import com.example.encount2.NavigationActivity
+import com.example.encount2.R
+import com.example.encount2.SQLiteHelper
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_user_post.*
 import okhttp3.*

@@ -1,10 +1,10 @@
-package com.example.encount.user
+package com.example.encount2.user
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.encount.R
-import com.example.encount.SQLiteHelper
+import com.example.encount2.R
+import com.example.encount2.SQLiteHelper
 import kotlinx.android.synthetic.main.activity_user_settings.*
 
 /**
