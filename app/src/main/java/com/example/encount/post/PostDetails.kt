@@ -1,22 +1,13 @@
 package com.example.encount.post
 
-import android.content.Intent
-import android.media.Image
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.encount.*
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_post_details.*
-import kotlinx.android.synthetic.main.activity_user_home.*
-import kotlinx.android.synthetic.main.grid_items.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -118,7 +109,7 @@ class PostDetails : AppCompatActivity() {
 
                 if(postData.likeFlag){
 
-                    ivPostLike.setImageResource(R.drawable.post_tool_like_true)
+                    ivPostLike.setImageResource(R.drawable.post_like_true)
                 }
             }
             catch(e : Exception){
@@ -186,13 +177,13 @@ class PostDetails : AppCompatActivity() {
 
         if(flag) {
 
-            ivPostLike.setImageResource(R.drawable.post_tool_like_true)
+            ivPostLike.setImageResource(R.drawable.post_like_true)
             var animation = AnimationUtils.loadAnimation(this,R.anim.like_touch)
             ivPostLike.startAnimation(animation)
         }
         else{
 
-            ivPostLike.setImageResource(R.drawable.post_tool_like_false)
+            ivPostLike.setImageResource(R.drawable.post_like_false)
             var animation = AnimationUtils.loadAnimation(this,R.anim.like_touch)
             ivPostLike.startAnimation(animation)
         }

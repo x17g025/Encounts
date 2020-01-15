@@ -10,11 +10,8 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.example.encount.*
-import com.example.encount.post.UserPost
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_friend_profile.*
-import kotlinx.android.synthetic.main.activity_post_details.*
 import kotlinx.android.synthetic.main.activity_user_home.*
 import kotlinx.android.synthetic.main.grid_items.view.*
 import okhttp3.FormBody
@@ -82,8 +79,7 @@ class UserHome : Fragment() {
 
         btnPost.setOnClickListener{
 
-            val intent = Intent(context, UserPost::class.java)
-            startActivity(intent)
+            startActivity(Intent(context, UserPost::class.java))
         }
 
         swipelayout.setOnRefreshListener {
@@ -210,13 +206,13 @@ class UserHome : Fragment() {
 
                 if(likeFlag.flag) {
 
-                    viewId!!.ivPostLike.setImageResource(R.drawable.post_tool_like_true)
+                    viewId!!.ivPostLike.setImageResource(R.drawable.post_like_true)
                     var animation = AnimationUtils.loadAnimation(context,R.anim.like_touch)
                     viewId!!.ivPostLike.startAnimation(animation)
                 }
                 else{
 
-                    viewId!!.ivPostLike.setImageResource(R.drawable.post_tool_like_false)
+                    viewId!!.ivPostLike.setImageResource(R.drawable.post_like_false)
                     var animation = AnimationUtils.loadAnimation(context,R.anim.like_touch)
                     viewId!!.ivPostLike.startAnimation(animation)
                 }

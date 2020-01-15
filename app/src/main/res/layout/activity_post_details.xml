@@ -35,7 +35,7 @@
             android:id="@+id/ivUserIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/deficon"/>
+            android:src="@drawable/app_deficon"/>
 
         <TextView
             android:id="@+id/tvUserName"
@@ -103,22 +103,22 @@
 
                 <ImageView
                     android:id="@+id/ivPostLike"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_weight="1"
-                    android:src="@drawable/post_tool_like_false"/>
+                    android:src="@drawable/post_like_false"/>
 
                 <ImageView
                     android:id="@+id/ivPostReply"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_weight="1"
                     android:src="@drawable/post_tool_reply"/>
 
                 <ImageView
                 android:id="@+id/ivPostMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_weight="1"
                 android:src="@drawable/post_tool_menu"/>
             </LinearLayout>

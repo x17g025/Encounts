@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.bumptech.glide.Glide
 import com.example.encount.PostList
-import com.example.encount.PostList2
 import com.example.encount.R
-import kotlinx.android.synthetic.main.activity_post_details.*
-import kotlinx.android.synthetic.main.grid_items.*
 import kotlinx.android.synthetic.main.grid_items.view.*
 
 /**
@@ -46,11 +43,11 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
 
         if(posts[position].likeFlag){
 
-            view.ivPostLike.setImageResource(R.drawable.post_tool_like_true)
+            view.ivPostLike.setImageResource(R.drawable.post_like_true)
         }
         else{
 
-            view.ivPostLike.setImageResource(R.drawable.post_tool_like_false)
+            view.ivPostLike.setImageResource(R.drawable.post_like_false)
         }
 
         Handler().postDelayed({
