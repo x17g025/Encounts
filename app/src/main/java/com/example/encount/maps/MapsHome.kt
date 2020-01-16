@@ -66,11 +66,16 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             startActivity(intent)
         }
 
+        /**
+         * 権限を求める処理を、起動画面にまとめて追加する。
+         * 　＋以前に許可されていても、その後に拒否される可能性も考える必要がある。
+         */
         // Android 6, API 23以上でパーミッションの確認
         if (Build.VERSION.SDK_INT >= 23) {
             val permissions = arrayOf(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
             )
             checkPermission(permissions, REQUEST_CODE)
         }
@@ -78,7 +83,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
         locationRequest.setInterval(10000)   //最遅の更新間隔
         locationRequest.setFastestInterval(5000)   //最速の更新間隔
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
         onResume()
     }
 
