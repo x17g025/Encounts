@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.encount2">
+    package="com.example.encount">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,35 +17,35 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.example.encount2.user.UserLikeList"/>
-        <activity android:name="com.example.encount2.user.UserFriendList" />
-        <activity android:name="com.example.encount2.user.UserPostList" />
-        <activity android:name="com.example.encount2.user.ProfileChange" />
-        <activity android:name="com.example.encount2.user.PassForgot" />
-        <activity android:name="com.example.encount2.friend.FriendAdd" />
+        <activity android:name="com.example.encount.user.UserLikeList"/>
+        <activity android:name="com.example.encount.user.UserFriendList" />
+        <activity android:name="com.example.encount.user.UserPostList" />
+        <activity android:name="com.example.encount.user.ProfileChange" />
+        <activity android:name="com.example.encount.user.PassForgot" />
+        <activity android:name="com.example.encount.friend.FriendAdd" />
         <activity
-            android:name="com.example.encount2.user.UserLogin"
+            android:name="com.example.encount.user.UserLogin"
             android:noHistory="true" />
         <activity
-            android:name="com.example.encount2.user.UserSingin"
+            android:name="com.example.encount.user.UserSingin"
             android:noHistory="true" />
         <activity
-            android:name="com.example.encount2.user.UserSettings"
+            android:name="com.example.encount.user.UserSettings"
             android:noHistory="true" />
         <activity
-            android:name="com.example.encount2.user.UserProfile"
+            android:name="com.example.encount.user.UserProfile"
             android:noHistory="true" />
-        <activity android:name="com.example.encount2.post.UserHome" />
+        <activity android:name="com.example.encount.post.UserHome" />
         <activity
-            android:name="com.example.encount2.post.UserPost"
+            android:name="com.example.encount.post.UserPost"
             android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:name="com.example.encount2.post.PostDetails" />
-        <activity android:name="com.example.encount2.NavigationActivity" />
-        <activity android:name="com.example.encount2.friend.FriendProfile" />
-        <activity android:name="com.example.encount2.maps.MapsHome" />
-        <activity android:name="com.example.encount2.maps.SpotMainActivity"/>
+        <activity android:name="com.example.encount.post.PostDetails" />
+        <activity android:name="com.example.encount.NavigationActivity" />
+        <activity android:name="com.example.encount.friend.FriendProfile" />
+        <activity android:name="com.example.encount.maps.MapsHome" />
+        <activity android:name="com.example.encount.maps.SpotMainActivity"/>
         <activity
-            android:name="com.example.encount2.MainActivity"
+            android:name="com.example.encount.MainActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
