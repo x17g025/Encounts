@@ -83,7 +83,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
         locationRequest.setInterval(10000)   //最遅の更新間隔
         locationRequest.setFastestInterval(5000)   //最速の更新間隔
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
         onResume()
     }
 
