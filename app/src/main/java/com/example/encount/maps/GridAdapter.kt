@@ -1,13 +1,13 @@
-package com.example.encount2.maps
+package com.example.encount.maps
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.example.encount2.R
+import com.example.encount.R
 import com.bumptech.glide.Glide
-import com.example.encount2.PostList2
+import com.example.encount.PostList2
 import kotlinx.android.synthetic.main.grid_items.view.*
 
 /**

@@ -1,4 +1,4 @@
-package com.example.encount2.friend
+package com.example.encount.friend
 
 //import kotlinx.android.synthetic.main.post_list.view.*
 //import kotlinx.android.synthetic.main.post_list.view.UserIcon

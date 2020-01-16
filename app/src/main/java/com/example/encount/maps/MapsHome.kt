@@ -1,4 +1,4 @@
-package com.example.encount2.maps
+package com.example.encount.maps
 
 import androidx.core.app.ActivityCompat
 import android.Manifest
@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.encount2.PostList2
-import com.example.encount2.R
+import com.example.encount.PostList2
+import com.example.encount.R
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory

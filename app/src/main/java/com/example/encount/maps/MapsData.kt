@@ -1,9 +1,9 @@
-package com.example.encount2.maps
+package com.example.encount.maps
 
 
 import android.os.AsyncTask
 import android.util.Log
-import com.example.encount2.PostList2
+import com.example.encount.PostList2
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

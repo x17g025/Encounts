@@ -1,8 +1,8 @@
-package com.example.encount2.user
+package com.example.encount.user
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.encount2.R
+import com.example.encount.R
 
 class ProfileChange : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.encount2
+package com.example.encount
 
 import android.app.Activity
 import android.content.Intent
@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_navigation.*
 import androidx.core.view.GravityCompat
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
-import com.example.encount2.user.UserProfile
+import com.example.encount.user.UserProfile
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import okhttp3.FormBody
@@ -19,7 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
-import com.example.encount2.user.UserSettings
+import com.example.encount.user.UserSettings
 import kotlinx.android.synthetic.main.drawer_navigation_header.view.*
 
 /**

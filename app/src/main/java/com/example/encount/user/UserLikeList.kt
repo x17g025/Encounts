@@ -1,11 +1,11 @@
-package com.example.encount2.user
+package com.example.encount.user
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.encount2.R
+import com.example.encount.R
 
 class UserLikeList : Fragment() {
 

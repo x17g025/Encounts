@@ -1,12 +1,12 @@
-package com.example.encount2.user
+package com.example.encount.user
 
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.example.encount2.LoginDataClassList
-import com.example.encount2.R
+import com.example.encount.LoginDataClassList
+import com.example.encount.R
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_pass_forget.*
 import kotlinx.android.synthetic.main.activity_pass_forget.Progress

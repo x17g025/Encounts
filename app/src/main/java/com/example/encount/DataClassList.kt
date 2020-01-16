@@ -1,4 +1,4 @@
-package com.example.encount2
+package com.example.encount
 
 data class like(
     val flag: Boolean
