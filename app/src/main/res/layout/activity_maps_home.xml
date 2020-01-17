@@ -26,6 +26,6 @@
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="20dp"
         android:layout_gravity="bottom|right"
-        android:src="@drawable/to_post"/>
+        android:src="@drawable/to_spot"/>
 
 </FrameLayout>
