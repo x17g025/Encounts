@@ -49,7 +49,7 @@ class UserHome : Fragment() {
         UserPostGet().execute()
 
         //長押しでいいね
-        PostDataList.setOnItemLongClickListener { parent, view, position, id ->
+        gvPostData.setOnItemLongClickListener { parent, view, position, id ->
 
             viewId = view
             postId = view.tvPostId.text.toString()
@@ -130,7 +130,7 @@ class UserHome : Fragment() {
                     )
                 }
 
-                PostDataList.adapter = PostAdapter(context, postList)
+                gvPostData.adapter = PostAdapter(context, postList)
                 swipelayout.isRefreshing = false
             }
             catch(e : Exception){

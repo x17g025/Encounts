@@ -12,7 +12,7 @@
         android:layout_marginTop="50dp">
 
         <GridView
-            android:id="@+id/PostDataList"
+            android:id="@+id/gvPostData"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
