@@ -86,7 +86,7 @@ class MapPostGet(val activity: MapsHome) : AsyncTask<String, String, String>() {
                 )
             }
 
-            activity.setPostList(postList)
+            //activity.setPostList(postList)
 
         } catch (e: Exception) {
 

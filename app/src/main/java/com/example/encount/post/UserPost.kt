@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -94,13 +95,6 @@ class UserPost : AppCompatActivity() {
 
                 //コメントをEditTextから取得
                 cmnt = commentInput.getText().toString()
-                /*
-                //緯度を取得
-                latitude = _latitude.toString()
-                //経度を取得
-                longitude = _longitude.toString()
-                */
-                Log.d("debug","緯度Str")
                 //ここで現在地取得処理(更新)を終了させる
                 print("GPS終了")
                 onPause()
@@ -127,6 +121,7 @@ class UserPost : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         //カメラアプリからの戻りでかつ撮影成功の場合
         if(requestCode == 200 && resultCode == RESULT_OK) {
+            Toast.makeText(this@UserPost, "緯度"+ lat + "経度" + lng, Toast.LENGTH_SHORT).show()
             //撮影された画像のビットマップデータを取得。
             val bitmap = data?.getParcelableExtra<Bitmap>("data")
             //画像を表示するImageViewを取得。
@@ -140,6 +135,7 @@ class UserPost : AppCompatActivity() {
 
             //デバッグ用
             System.out.println("変換前"+_imageUri)
+
 
             /**
              * ここで一番下のメソッドを利用して、パスを取得する
@@ -286,7 +282,8 @@ class UserPost : AppCompatActivity() {
                 println("ファイルが存在しません。")
             }
 
-            Log.d("debug","緯度Str" + lat)
+
+            Log.d("debug","緯度Str" + lat + "経度Str" + lng)
             //ここでPOSTする内容を設定　"image/jpg"の部分は送りたいファイルの形式に合わせて変更する
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
