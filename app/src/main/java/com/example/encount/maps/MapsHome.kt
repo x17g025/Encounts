@@ -129,10 +129,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         Log.d("debug","取得した写真の件数 : " + cnt)
 
                         //取得した写真の件数分ピンを打つ処理
-                        for(i in postList){
+                        //for(i in postList)にすると、初回の写真取得で数値がおかしくなるので、仕方なく変数を用意している。
+                        for(i in 0..cnt-1){
                             val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
-                            println("imageID : " + postList[ccnt].imageId)
-
+                            //println("imageID : " + postList[ccnt].imageId)
                             //ここで、10m以内に投稿してある写真3件以上あれば、一つのピンにまとめて表示する。（詳細画面に遷移する）
 
                             Glide.with(activity)
@@ -148,7 +148,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                .title("imageID : " + postList[0].imageId)
+                                                .title("imageID : " + postList[i].imageId)
+                                                .snippet("user_id" + postList[i].userId)
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }

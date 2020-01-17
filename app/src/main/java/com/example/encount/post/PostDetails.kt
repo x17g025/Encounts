@@ -120,7 +120,7 @@ class PostDetails : AppCompatActivity() {
                 val adminArea = addressList?.first()!!.adminArea
 
                 //tvUserName.text = postData.userName
-                tvUserName.text = adminArea
+                //tvUserName.text = adminArea
                 tvPostName.text = postData.userName
                 tvPostDate.text = postData.postDate
                 tvPostText.text = postData.postText
