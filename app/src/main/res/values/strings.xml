@@ -49,8 +49,8 @@
     <string name="nav_close">Navigation Drawer Close</string>
 
     <!--スポット詳細画面で使用　ここから-->
-    <string name="spot_name">鎌ヶ谷情報ビジネス専門学校</string>
-    <string name="spot_code">千葉県鎌ヶ谷市新鎌ヶ谷0-00-00</string>
+    <string name="spot_name">鎌ヶ谷情報ビジネス専門学校（スポット名）</string>
+    <string name="spot_code">千葉県鎌ヶ谷市新鎌ヶ谷0-00-00（住所）</string>
     <string name="spot_popular">人気</string>
     <string name="spot_new">新着</string>
     <string name="description">写真の説明</string>
