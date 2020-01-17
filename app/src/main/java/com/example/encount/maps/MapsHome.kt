@@ -205,6 +205,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     //default location
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        //マップのスタイルも変えられるようにしたい
+        //mMap!!.setMapStyle(GoogleMap.MAP_TYPE_TERRAIN)
         val spot = LatLng(35.7044997, 139.9843911)
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
