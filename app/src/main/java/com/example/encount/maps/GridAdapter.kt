@@ -1,6 +1,8 @@
 package com.example.encount.maps
 
 import android.content.Context
+import android.location.Address
+import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +10,9 @@ import android.widget.BaseAdapter
 import com.example.encount.R
 import com.bumptech.glide.Glide
 import com.example.encount.PostList2
+import kotlinx.android.synthetic.main.activity_profile_change.view.*
 import kotlinx.android.synthetic.main.grid_items.view.*
+import kotlinx.android.synthetic.main.spotmain.view.*
 
 /**
  * やってること
@@ -35,8 +39,13 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
+        val geocoder = Geocoder(context)
+        val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+        val adminArea = addressList?.first()!!.adminArea
+
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
         view.tvUserId.text       = posts[position].userId
+        //view.SpotName.text      = /*adminArea*/"ここに住所"
         view.tvImageId.text      = posts[position].imageId
         Glide.with(context).load(posts[position].imagePath).into(view.image_view)
 

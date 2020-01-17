@@ -1,6 +1,9 @@
 package com.example.encount.post
 
+import android.content.Context
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +11,8 @@ import android.view.KeyEvent
 import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.example.encount.*
+import com.example.encount.maps.latitude
+import com.example.encount.maps.longitude
 import com.example.encount.user.UserLogin
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_post_details.*
@@ -105,7 +110,16 @@ class PostDetails : AppCompatActivity() {
 
                 Glide.with(this@PostDetails).load(postData.postImage).into(ivPostImage)
 
-                tvUserName.text = postData.userName
+                /**
+                 * 位置座標から住所に変換するサンプル
+                 */
+                val geocoder = Geocoder(this@PostDetails)
+                //この下の、latitude, longitudeを写真の投稿場所に置き換えればOK
+                val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+                val adminArea = addressList?.first()!!.adminArea
+
+                //tvUserName.text = postData.userName
+                tvUserName.text = adminArea
                 tvPostName.text = postData.userName
                 tvPostDate.text = postData.postDate
                 tvPostText.text = postData.postText

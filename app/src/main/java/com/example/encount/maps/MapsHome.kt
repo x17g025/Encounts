@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.location.Address
+import android.location.Geocoder
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -101,6 +103,14 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     longitude = location.longitude
 
                     mMap!!.setMyLocationEnabled(true)
+                    mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
+
+                    //座標から住所変換のテスト
+                    val geocoder = Geocoder(context)
+                    //val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+                    val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+                    val adminArea = addressList?.first()!!.adminArea
+                    println(adminArea)
 
                     //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
                     //MapPostGet(this@MapsHome).execute()
@@ -113,10 +123,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //写真が１件以上あれば、マップのピンを立てる処理を行う
                     if(cnt >= 1){
 
-                        //サーバから取得した1番目の写真の位置情報をデバッグ表示
-                        //Log.d("debug","postList[0].imageLat : " + postList[0].imageLat)
-                        //Log.d("debug","postList[0].imageLng : " + postList[0].imageLng)
-
                         //下のfor文内で使うカウント変数
                         var ccnt = 0
 
@@ -126,6 +132,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         for(i in postList){
                             val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
                             println("imageID : " + postList[ccnt].imageId)
+
+                            //ここで、10m以内に投稿してある写真3件以上あれば、一つのピンにまとめて表示する。（詳細画面に遷移する）
+
                             Glide.with(activity)
                                 .asBitmap()
                                 .load(postList[ccnt].imagePath)
@@ -139,7 +148,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                    //現状だと、
                                                 .title("imageID : " + postList[0].imageId)
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
@@ -153,9 +161,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.error))
                                         )
                                     }
-
                                 })
-
                             ccnt++
                         }
                     }
@@ -199,38 +205,15 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     //default location
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        /*val spot = LatLng(35.7044997, 139.9843911)
-        mMap!!.addMarker(
-            MarkerOptions()
-                .position(spot)
-                .title("Marker in FJB")
-                .icon(
-                    BitmapDescriptorFactory.fromResource(R.drawable.smile1)
-                )
-        )*/
-        //マップ上に現在地を表示
-        mMap!!.setMyLocationEnabled(true)
-
-        //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
+        val spot = LatLng(35.7044997, 139.9843911)
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
 
-        //タップしたときのリスナーをセット
-        val spot = LatLng(35.7044997, 139.9843911)
-        /*mMap!!.setOnMapClickListener {
-            mMap!!.addMarker(
-                MarkerOptions()
-                    .position(spot)
-                    .title("Marker in FJB")
-                    .icon(
-                        BitmapDescriptorFactory.fromResource(R.drawable.smile1)
-                    )
-            )
-        }*/
         mMap!!.setOnMapClickListener(object : GoogleMap.OnMapClickListener{
             override fun onMapClick(latLng: LatLng) {
 
-                var mm = mMap!!.addMarker(
+                /*var mm = mMap!!.addMarker(
                     MarkerOptions()
                         .position(spot)
                         .title("タップされました！！")
@@ -238,8 +221,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         .icon(
                             BitmapDescriptorFactory.fromResource(R.drawable.smile1)
                         )
-                )
-                mm.setTag(1)
+                )*/
+                //mm.setTag(1)
             }
         })
     }
@@ -284,7 +267,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
     /**
      * ここから下はサーバに現在地を表示し、現在地周辺の写真を取得する処理
-     *
      */
 
     private inner class SpotPhotoGet(val activity: MapsHome) : AsyncTask<String, String, String>() {
@@ -300,6 +282,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
             println("サーバに送信する緯度：" + latitude.toString())
             println("サーバに送信する経度：" + longitude.toString())
+
+
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
@@ -347,10 +331,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 cnt = postCount
                 activity.setPostList(postList)
 
+
             } catch (e: Exception) {
 
             }
         }
     }
-
 }
