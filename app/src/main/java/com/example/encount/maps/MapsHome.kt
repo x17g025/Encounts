@@ -25,6 +25,7 @@ import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -45,6 +46,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var postList = mutableListOf<PostList2>()
     //取得した写真の件数を格納する
     private var cnt = 0
+    //マップ上に打つピンを管理するための変数
+    private var mmm:Marker? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -96,7 +99,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             for (location in locationResult.locations) {
                 if (location != null) {
 
-                    //ここで前回のマップのピンを全削除する処理
+                    //前回マップ上に打ったピンを全て削除
+                    if(mmm != null){
+                        mmm!!.remove()
+                    }
 
                     //グローバル変数に位置情報を代入
                     latitude = location.latitude
@@ -145,7 +151,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
                                     ) {
-                                        mMap!!.addMarker(
+                                        mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
                                                 .title("imageID : " + postList[i].imageId)
@@ -155,7 +161,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                     }
 
                                     override fun onLoadFailed(errorDrawable: Drawable?) {
-                                        mMap!!.addMarker(
+                                        mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
                                                 .title("エラーで写真を正しく表示できませんでした。")
