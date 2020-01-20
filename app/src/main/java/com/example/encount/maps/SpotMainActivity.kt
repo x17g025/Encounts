@@ -28,8 +28,8 @@ class SpotMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.spotmain)
 
-        //postId = intent.getStringExtra("Post_Id")
-        postId = "92"
+        postId = intent.getStringExtra("Post_Id")
+        //postId = "92"
 
         SpotPhotoGet().execute()
 
