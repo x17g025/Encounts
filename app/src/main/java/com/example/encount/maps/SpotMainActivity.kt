@@ -28,7 +28,7 @@ class SpotMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.spotmain)
 
-        postId = intent.getStringExtra("Post_Id")
+        //postId = intent.getStringExtra("Post_Id")
         //postId = "92"
 
         SpotPhotoGet().execute()
@@ -38,6 +38,18 @@ class SpotMainActivity : AppCompatActivity() {
     private inner class SpotPhotoGet() : AsyncTask<String, String, String>(){
 
         override fun doInBackground(vararg params: String?): String {
+
+            var id = ""
+            val db = _helper.writableDatabase
+            val sql = "select * from userInfo"
+            val cursor = db.rawQuery(sql, null)
+
+            while(cursor.moveToNext()){
+
+                val idxId = cursor.getColumnIndex("user_id")
+                id = cursor.getString(idxId)
+            }
+
             val client = OkHttpClient()
 
             //アクセスするURL
@@ -48,10 +60,12 @@ class SpotMainActivity : AppCompatActivity() {
 
             println("経度"+latitude.toString())
             println("緯度"+longitude.toString())
+            println("ユーザ"+id)
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
             formBuilder.add("longitude", longitude.toString())
+            formBuilder.add("user",id)
 
             //リクエスト内容にformを追加
             val form = formBuilder.build()

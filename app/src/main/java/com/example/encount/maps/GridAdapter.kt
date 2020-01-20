@@ -30,6 +30,7 @@ import java.lang.Exception
 
 /**
  * やってること
+ * スポット詳細画面へ
  * カスタムGridViewを適用するためのクラス
  *
  * 製作者：大野
