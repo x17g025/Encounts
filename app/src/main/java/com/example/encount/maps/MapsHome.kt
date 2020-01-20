@@ -21,6 +21,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.encount.PostList2
 import com.example.encount.R
+
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -332,7 +333,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                             i.userId,
                             i.imagePath,
                             i.imageLat,
-                            i.imageLng
+                            i.imageLng,
+                            i.postId,
+                            i.likeFlag
                         )
                     )
                 }
