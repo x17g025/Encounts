@@ -62,7 +62,7 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
         //val adminArea = addressList?.first()!!.adminArea
 
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
-        view.tvPostId.text       = posts[position].postId
+        //view.tvPostId.text       = posts[position].postId
         view.tvUserId.text       = posts[position].userId
         //view.SpotName.text      = /*adminArea*/"ここに住所"
         view.tvImageId.text      = posts[position].imageId
