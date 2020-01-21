@@ -3,6 +3,7 @@ package com.example.encount.post
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.example.encount.*
@@ -33,6 +34,8 @@ import java.lang.Exception
 class PostDetails : AppCompatActivity() {
 
     var postId = ""
+    var imageId = ""
+
 
     private val _helper = SQLiteHelper(this@PostDetails)
 
@@ -43,13 +46,22 @@ class PostDetails : AppCompatActivity() {
 
         postId = intent.getStringExtra("Post_Id")
 
+        imageId = intent.getStringExtra("Image_Id")
+
+
         UserPostGet().execute()
         UserReplyGet().execute()
 
         //タップで投稿の詳細画面へ
-        ivPostLike.setOnClickListener{
+        ivPostLike.setOnClickListener {
 
             UserPostLike().execute()
+        }
+
+        //タップで投稿の削除
+        ivPostMenu.setOnClickListener {
+
+            UserPostDel().execute()
         }
     }
 
@@ -62,7 +74,7 @@ class PostDetails : AppCompatActivity() {
             val sql = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
-            while(cursor.moveToNext()){
+            while (cursor.moveToNext()) {
 
                 val idxId = cursor.getColumnIndex("user_id")
                 userId = cursor.getString(idxId)
@@ -77,8 +89,8 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user",userId)
-            formBuilder.add("post",postId)
+            formBuilder.add("user", userId)
+            formBuilder.add("post", postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -88,8 +100,7 @@ class PostDetails : AppCompatActivity() {
             try {
                 val response = client.newCall(request).execute()
                 return response.body()!!.string()
-            }
-            catch (e: IOException) {
+            } catch (e: IOException) {
                 e.printStackTrace()
                 return "Error"
             }
@@ -104,16 +115,15 @@ class PostDetails : AppCompatActivity() {
                 Glide.with(this@PostDetails).load(postData.postImage).into(ivPostImage)
 
                 tvPostPlace.text = postData.userName
-                tvPostName.text  = postData.userName
-                tvPostDate.text  = postData.postDate
-                tvPostText.text  = postData.postText
+                tvPostName.text = postData.userName
+                tvPostDate.text = postData.postDate
+                tvPostText.text = postData.postText
 
-                if(postData.likeFlag){
+                if (postData.likeFlag) {
 
                     ivPostLike.setImageResource(R.drawable.post_like_true)
                 }
-            }
-            catch(e : Exception){
+            } catch (e: Exception) {
 
             }
         }
@@ -128,7 +138,7 @@ class PostDetails : AppCompatActivity() {
             val sql = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
-            while(cursor.moveToNext()){
+            while (cursor.moveToNext()) {
 
                 val idxId = cursor.getColumnIndex("user_id")
                 id = cursor.getString(idxId)
@@ -143,8 +153,8 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user",id)
-            formBuilder.add("post",postId)
+            formBuilder.add("user", id)
+            formBuilder.add("post", postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -154,8 +164,7 @@ class PostDetails : AppCompatActivity() {
             try {
                 val response = client.newCall(request).execute()
                 return response.body()!!.string()
-            }
-            catch (e: IOException) {
+            } catch (e: IOException) {
                 e.printStackTrace()
                 return "Error"
             }
@@ -167,25 +176,70 @@ class PostDetails : AppCompatActivity() {
 
                 var likeFlag = Gson().fromJson(result, like::class.java)
                 likeToggle(likeFlag.flag)
-            }
-            catch(e : Exception){
+            } catch (e: Exception) {
 
             }
         }
     }
 
-    fun likeToggle(flag : Boolean){
+    //////////////////
+    private inner class UserPostDel() : AsyncTask<String, String, String>() {
 
-        if(flag) {
+        override fun doInBackground(vararg params: String): String {
+            var userId = ""
+            val db = _helper.writableDatabase
+            val sql = "select * from userInfo"
+            val cursor = db.rawQuery(sql, null)
+
+            while (cursor.moveToNext()) {
+
+                val idxId = cursor.getColumnIndex("user_id")
+                userId = cursor.getString(idxId)
+            }
+
+            val client = OkHttpClient()
+
+            //アクセスするURL
+            val url = "https://encount.cf/encount/UserPostDel.php"
+
+            //Formを作成
+            val formBuilder = FormBody.Builder()
+
+            //formに要素を追加
+            formBuilder.add("user", userId)
+            formBuilder.add("post", postId)
+            formBuilder.add("image", imageId)
+            //リクエストの内容にformを追加
+            val form = formBuilder.build()
+            Log.d("debug", "tiga")
+            //リクエストを生成
+            val request = Request.Builder().url(url).post(form).build()
+
+            try {
+                val response = client.newCall(request).execute()
+                return response.body()!!.string()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return "Error"
+            }
+        }
+
+        override fun onPostExecute(result: String) {
+
+        }
+    }
+
+    fun likeToggle(flag: Boolean) {
+
+        if (flag) {
 
             ivPostLike.setImageResource(R.drawable.post_like_true)
-            var animation = AnimationUtils.loadAnimation(this,R.anim.like_touch)
+            var animation = AnimationUtils.loadAnimation(this, R.anim.like_touch)
             ivPostLike.startAnimation(animation)
-        }
-        else{
+        } else {
 
             ivPostLike.setImageResource(R.drawable.post_like_false)
-            var animation = AnimationUtils.loadAnimation(this,R.anim.like_touch)
+            var animation = AnimationUtils.loadAnimation(this, R.anim.like_touch)
             ivPostLike.startAnimation(animation)
         }
     }
@@ -251,15 +305,13 @@ class PostDetails : AppCompatActivity() {
 
                 lvReplyData.adapter = ReplyAdapter(this@PostDetails, postList)
                 swipelayout.isRefreshing = false
-            }
-            catch(e : Exception){
+            } catch (e: Exception) {
 
             }
         }
     }
 
-
-    override fun onDestroy(){
+    override fun onDestroy() {
 
         //ヘルパーオブジェクトの開放
         _helper.close()
