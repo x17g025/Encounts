@@ -32,4 +32,31 @@
                 android:textSize="18sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/logoutbtn2"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_above="@+id/usernew"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="#BEF0FF"
+        app:cardCornerRadius="25dp"
+        android:layout_marginBottom="100dp"
+        android:background="#FFDF1961">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/logintext2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="アカウントを削除"
+                android:textColor="#898989"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

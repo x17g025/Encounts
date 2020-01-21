@@ -60,12 +60,12 @@ class SpotMainActivity : AppCompatActivity() {
 
             println("経度"+latitude.toString())
             println("緯度"+longitude.toString())
-            println("ユーザ"+id)
+            //println("ユーザ"+id)
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
             formBuilder.add("longitude", longitude.toString())
-            formBuilder.add("user",id)
+            //formBuilder.add("user",id)
 
             //リクエスト内容にformを追加
             val form = formBuilder.build()
