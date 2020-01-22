@@ -8,7 +8,7 @@
     tools:context="com.example.encount.user.UserSettings">
 
     <Button
-        android:id="@+id/ivbt"
+        android:id="@+id/acdel"
         android:layout_width="210dp"
         android:layout_height="144dp"
         android:text="アカウント" />

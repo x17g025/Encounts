@@ -3,7 +3,6 @@ package com.example.encount.post
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.example.encount.*
@@ -129,7 +128,7 @@ class PostDetails : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String): String {
 
-            var id = ""
+            var userid = ""
             val db = _helper.writableDatabase
             val sql = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
@@ -137,7 +136,7 @@ class PostDetails : AppCompatActivity() {
             while (cursor.moveToNext()) {
 
                 val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
+                userid = cursor.getString(idxId)
             }
 
             val client = OkHttpClient()
@@ -149,7 +148,7 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user", id)
+            formBuilder.add("user", userid)
             formBuilder.add("post", postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
@@ -207,7 +206,6 @@ class PostDetails : AppCompatActivity() {
             //formBuilder.add("image", imageId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
-            Log.d("debug", "tiga")
             //リクエストを生成
             val request = Request.Builder().url(url).post(form).build()
 
