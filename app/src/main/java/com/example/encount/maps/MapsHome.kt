@@ -21,6 +21,7 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.encount.PostList2
 import com.example.encount.R
+import com.example.encount.SQLiteHelper
 
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
@@ -282,6 +283,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private inner class SpotPhotoGet(val activity: MapsHome) : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String?): String {
+
             val client = OkHttpClient()
 
             //アクセスするURL
@@ -290,10 +292,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             //Formを作成
             val formBuilder = FormBody.Builder()
 
-            println("サーバに送信する緯度：" + latitude.toString())
-            println("サーバに送信する経度：" + longitude.toString())
-
-
+            println("経度"+latitude.toString())
+            println("緯度"+longitude.toString())
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
