@@ -3,6 +3,7 @@ package com.example.encount.post
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.example.encount.*
@@ -194,27 +195,16 @@ class PostDetails : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String): String {
 
-            var id = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while (cursor.moveToNext()) {
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://encount.cf/encount/UserPostGet.php"
+            val url = "https://encount.cf/encount/PostReplyGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", id)
+            formBuilder.add("post", postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -232,25 +222,28 @@ class PostDetails : AppCompatActivity() {
 
         override fun onPostExecute(result: String) {
 
+            Log.d("aaaaa",result)
             try {
-                var postList = mutableListOf<PostList>()
+
+
+                var postList = mutableListOf<ReplyList>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
 
                 for (i in postData) {
 
                     postList.add(
-                        PostList(
-                            i.postId,
+                        ReplyList(
                             i.userId,
-                            i.likeFlag,
-                            i.postImage
+                            i.userName,
+                            i.userIcon,
+                            i.postText,
+                            i.postDate
                         )
                     )
                 }
 
                 lvReplyData.adapter = ReplyAdapter(this@PostDetails, postList)
-                swipelayout.isRefreshing = false
             }
             catch(e : Exception){
 

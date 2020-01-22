@@ -23,6 +23,14 @@ data class PostList(
     val image: String
 )
 
+data class ReplyList(
+    val userId: String,
+    val userName: String,
+    val userIcon: String,
+    val postText: String,
+    val postDate: String
+)
+
 data class PostDataClassList(
     val postId: String,
     val userId: String,
