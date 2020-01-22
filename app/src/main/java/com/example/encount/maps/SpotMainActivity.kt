@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.encount.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.activity_user_home.*
 import kotlinx.android.synthetic.main.spotmain.*
 
 import okhttp3.FormBody
@@ -30,8 +31,14 @@ class SpotMainActivity : AppCompatActivity() {
 
         //postId = intent.getStringExtra("Post_Id")
         //postId = "92"
+        swipelayout2.setColorSchemeResources(R.color.colorMain)
 
         SpotPhotoGet().execute()
+
+        swipelayout2.setOnRefreshListener {
+
+            SpotPhotoGet().execute()
+        }
 
     }
 
@@ -112,10 +119,17 @@ class SpotMainActivity : AppCompatActivity() {
                 SpotNewCount.text = Integer.toString(postCount)
                 //print(Integer.toString(postCount))
                 gridview.adapter = GridAdapter(this@SpotMainActivity, postList)
+                swipelayout2.isRefreshing = false
             }
             catch (e : Exception){
 
             }
         }
+    }
+    override fun onDestroy(){
+
+        //ヘルパーオブジェクトの開放
+        _helper!!.close()
+        super.onDestroy()
     }
 }
