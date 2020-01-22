@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.encount.user.UserSettings">
 
+    <Button
+        android:id="@+id/ivbt"
+        android:layout_width="210dp"
+        android:layout_height="144dp"
+        android:text="アカウント" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/logoutbtn"
         android:layout_width="300dp"
@@ -32,4 +38,5 @@
                 android:textSize="18sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

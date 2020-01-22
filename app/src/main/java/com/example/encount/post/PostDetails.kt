@@ -34,8 +34,6 @@ import java.lang.Exception
 class PostDetails : AppCompatActivity() {
 
     var postId = ""
-    var imageId = ""
-
 
     private val _helper = SQLiteHelper(this@PostDetails)
 
@@ -45,8 +43,6 @@ class PostDetails : AppCompatActivity() {
         setContentView(R.layout.activity_post_details)
 
         postId = intent.getStringExtra("Post_Id")
-
-        imageId = intent.getStringExtra("Image_Id")
 
 
         UserPostGet().execute()
@@ -208,7 +204,7 @@ class PostDetails : AppCompatActivity() {
             //formに要素を追加
             formBuilder.add("user", userId)
             formBuilder.add("post", postId)
-            formBuilder.add("image", imageId)
+            //formBuilder.add("image", imageId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
             Log.d("debug", "tiga")
@@ -223,7 +219,6 @@ class PostDetails : AppCompatActivity() {
                 return "Error"
             }
         }
-
         override fun onPostExecute(result: String) {
 
         }
