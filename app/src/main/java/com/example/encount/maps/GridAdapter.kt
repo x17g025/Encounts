@@ -27,6 +27,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
+import java.util.*
 
 /**
  * やってること
@@ -57,9 +58,11 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val geocoder = Geocoder(context)
-        val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+        //val geocoder = Geocoder(context)
+        //val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
         //val adminArea = addressList?.first()!!.adminArea
+
+        val geocoder = Geocoder(context, Locale.getDefault())
 
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
         //view.tvPostId.text       = posts[position].postId

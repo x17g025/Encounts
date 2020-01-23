@@ -9,6 +9,7 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.example.encount.*
 import com.example.encount.maps.latitude
@@ -64,6 +65,17 @@ class PostDetails : AppCompatActivity() {
         ivPostMenu.setOnClickListener {
 
             UserPostDel().execute()
+
+            SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("投稿削除完了")
+                .setContentText("")
+                .setConfirmText("ホーム画面へ")
+                .setConfirmClickListener {
+                        sDialog -> sDialog.dismissWithAnimation()
+                    goHome()
+                }
+                .show()
+
         }
     }
 
@@ -331,5 +343,10 @@ class PostDetails : AppCompatActivity() {
         //ヘルパーオブジェクトの開放
         _helper.close()
         super.onDestroy()
+    }
+
+    fun goHome() {
+        startActivity(Intent(this, NavigationActivity::class.java))
+        finish()
     }
 }
