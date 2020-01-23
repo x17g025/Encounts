@@ -1,9 +1,12 @@
 package com.example.encount.post
 
+import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.animation.AnimationUtils
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.example.encount.*
 import com.google.gson.Gson
@@ -57,6 +60,18 @@ class PostDetails : AppCompatActivity() {
         ivPostMenu.setOnClickListener {
 
             UserPostDel().execute()
+
+            SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("投稿削除完了")
+                .setContentText("")
+                .setConfirmText("ホーム画面へ")
+                .setConfirmClickListener {
+                        sDialog -> sDialog.dismissWithAnimation()
+                    goHome()
+                }
+                .show()
+
+
         }
     }
 
@@ -181,6 +196,7 @@ class PostDetails : AppCompatActivity() {
     private inner class UserPostDel() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
+
             var userId = ""
             val db = _helper.writableDatabase
             val sql = "select * from userInfo"
@@ -206,6 +222,7 @@ class PostDetails : AppCompatActivity() {
             //formBuilder.add("image", imageId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
+            Log.d("debug", "user" + userId + "post" + postId)
             //リクエストを生成
             val request = Request.Builder().url(url).post(form).build()
 
@@ -217,6 +234,7 @@ class PostDetails : AppCompatActivity() {
                 return "Error"
             }
         }
+
         override fun onPostExecute(result: String) {
 
         }
@@ -309,5 +327,10 @@ class PostDetails : AppCompatActivity() {
         //ヘルパーオブジェクトの開放
         _helper.close()
         super.onDestroy()
+    }
+
+    fun goHome() {
+        startActivity(Intent(this, NavigationActivity::class.java))
+        finish()
     }
 }

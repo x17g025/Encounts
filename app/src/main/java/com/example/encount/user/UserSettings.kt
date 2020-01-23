@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
 import kotlinx.android.synthetic.main.activity_user_settings.*
@@ -31,30 +32,21 @@ class UserSettings : AppCompatActivity() {
         //ログアウト
         logoutbtn.setOnClickListener {
 
-            val db = _helper.writableDatabase
-            val sqlDelete = "delete from userInfo"
-            var stmt = db.compileStatement(sqlDelete)
-            stmt.executeUpdateDelete()
-
-            val intent = Intent(this, UserLogin::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
+            logout()
         }
         //アカウント削除
         acdel.setOnClickListener {
             //削除処理
             AcountDel().execute()
-            /*
-            //ログアウト
-            val db = _helper.writableDatabase
-            val sqlDelete = "delete from userInfo"
-            var stmt = db.compileStatement(sqlDelete)
-            stmt.executeUpdateDelete()
-
-            val intent = Intent(this, UserLogin::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-            */
+            SweetAlertDialog(this@UserSettings, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("アカウント削除完了")
+                .setContentText("")
+                .setConfirmText("OK")
+                .setConfirmClickListener {
+                        sDialog -> sDialog.dismissWithAnimation()
+                    logout()
+                }
+                .show()
         }
 
     }
@@ -106,6 +98,15 @@ class UserSettings : AppCompatActivity() {
             Log.d("debug","実行しました")
 
         }
+    }
+    fun logout(){
+        val db = _helper.writableDatabase
+        val sqlDelete = "delete from userInfo"
+        var stmt = db.compileStatement(sqlDelete)
+        stmt.executeUpdateDelete()
 
+        val intent = Intent(this, UserLogin::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 }
