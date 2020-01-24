@@ -21,13 +21,11 @@ data class PostList(
     val userId: String,
     val likeFlag: Boolean,
     val image: String
-
 )
 
 data class ReplyList(
     val userId: String,
     val userName: String,
-    val userIcon: String,
     val postText: String,
     val postDate: String
 )

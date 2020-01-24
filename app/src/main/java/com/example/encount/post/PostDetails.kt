@@ -9,6 +9,7 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.animation.AnimationUtils
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
@@ -19,7 +20,9 @@ import com.example.encount.user.UserLogin
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_post_details.*
+import kotlinx.android.synthetic.main.activity_post_details.Progress
 import kotlinx.android.synthetic.main.activity_user_home.*
+import kotlinx.android.synthetic.main.activity_user_login.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -43,6 +46,7 @@ import java.lang.Exception
 class PostDetails : AppCompatActivity() {
 
     var postId = ""
+    var text   = ""
 
     private val _helper = SQLiteHelper(this@PostDetails)
 
@@ -77,6 +81,37 @@ class PostDetails : AppCompatActivity() {
                 }
                 .show()
 
+        }
+
+        ivPostReply.setOnClickListener {
+
+            UserPostDel().execute()
+
+            SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("投稿削除完了")
+                .setContentText("")
+                .setConfirmText("ホーム画面へ")
+                .setConfirmClickListener {
+                        sDialog -> sDialog.dismissWithAnimation()
+                    goHome()
+                }
+                .show()
+
+        }
+
+        btnReply.setOnClickListener {
+
+            text = etReply.text.toString()
+            //txInfo.text = ""
+
+            if(text != ""){
+
+                UserReplySend().execute()
+            }
+            else{
+
+                //txInfo.text = "ユーザーまたはパスワードが入力されていません"
+            }
         }
     }
 
@@ -304,7 +339,6 @@ class PostDetails : AppCompatActivity() {
             Log.d("aaaaa",result)
             try {
 
-
                 var postList = mutableListOf<ReplyList>()
                 val listType = object : TypeToken<List<PostDataClassList>>() {}.type
                 val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
@@ -315,7 +349,6 @@ class PostDetails : AppCompatActivity() {
                         ReplyList(
                             i.userId,
                             i.userName,
-                            i.userIcon,
                             i.postText,
                             i.postDate
                         )
@@ -325,11 +358,70 @@ class PostDetails : AppCompatActivity() {
                 lvReplyData.adapter = ReplyAdapter(this@PostDetails, postList)
             }
             catch(e : Exception){
-
+                Log.d("aaaaa","sippai")
             }
         }
     }
 
+    private inner class UserReplySend() : AsyncTask<String, String, String>() {
+
+        override fun doInBackground(vararg params: String): String {
+
+            var userId = ""
+            val db = _helper.writableDatabase
+            val sql = "select * from userInfo"
+            val cursor = db.rawQuery(sql, null)
+
+            while(cursor.moveToNext()){
+
+                val idxId = cursor.getColumnIndex("user_id")
+                userId = cursor.getString(idxId)
+            }
+
+            val client = OkHttpClient()
+
+            //アクセスするURL
+            val url = "https://encount.cf/encount/PostReplySend.php"
+
+            //Formを作成
+            val formBuilder = FormBody.Builder()
+
+            //formに要素を追加
+            formBuilder.add("user",userId)
+            formBuilder.add("post",postId)
+            formBuilder.add("text",text)
+            //リクエストの内容にformを追加
+            val form = formBuilder.build()
+
+            //リクエストを生成
+            val request = Request.Builder().url(url).post(form).build()
+
+            try {
+                val response = client.newCall(request).execute()
+                return response.body()!!.string()
+            }
+            catch (e: IOException) {
+                e.printStackTrace()
+                return "Error"
+            }
+        }
+
+        override fun onPostExecute(result: String) {
+
+            etReply.getEditableText().clear()
+
+            SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("投稿完了")
+                .setContentText("")
+                .setConfirmText("OK")
+                .setConfirmClickListener {
+                    sDialog -> sDialog.dismissWithAnimation()
+                }
+                .show()
+
+           UserReplyGet().execute()
+        }
+    }
 
     override fun onDestroy(){
 
