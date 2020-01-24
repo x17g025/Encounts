@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import com.example.encount.*
-import com.example.encount.post.PostAdapter
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request

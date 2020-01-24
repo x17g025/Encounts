@@ -1,12 +1,21 @@
 package com.example.encount.post
 
+
+import android.content.Context
+import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.animation.AnimationUtils
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.example.encount.*
+import com.example.encount.maps.latitude
+import com.example.encount.maps.longitude
+import com.example.encount.user.UserLogin
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_post_details.*
@@ -51,6 +60,23 @@ class PostDetails : AppCompatActivity() {
         ivPostLike.setOnClickListener{
 
             UserPostLike().execute()
+        }
+
+        //タップで投稿の削除
+        ivPostMenu.setOnClickListener {
+
+            UserPostDel().execute()
+
+            SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("投稿削除完了")
+                .setContentText("")
+                .setConfirmText("ホーム画面へ")
+                .setConfirmClickListener {
+                        sDialog -> sDialog.dismissWithAnimation()
+                    goHome()
+                }
+                .show()
+
         }
     }
 
@@ -104,10 +130,19 @@ class PostDetails : AppCompatActivity() {
 
                 Glide.with(this@PostDetails).load(postData.postImage).into(ivPostImage)
 
-                tvPostPlace.text = postData.userName
-                tvPostName.text  = postData.userName
-                tvPostDate.text  = postData.postDate
-                tvPostText.text  = postData.postText
+                /**
+                 * 位置座標から住所に変換するサンプル
+                 */
+                val geocoder = Geocoder(this@PostDetails)
+                //この下の、latitude, longitudeを写真の投稿場所に置き換えればOK
+                val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+                val adminArea = addressList?.first()!!.adminArea
+
+                //tvUserName.text = postData.userName
+                //tvUserName.text = adminArea
+                tvPostName.text = postData.userName
+                tvPostDate.text = postData.postDate
+                tvPostText.text = postData.postText
 
                 if(postData.likeFlag){
 
@@ -172,6 +207,50 @@ class PostDetails : AppCompatActivity() {
             catch(e : Exception){
 
             }
+        }
+    }
+
+    private inner class UserPostDel() : AsyncTask<String, String, String>() {
+
+        override fun doInBackground(vararg params: String): String {
+            var userId = ""
+            val db = _helper.writableDatabase
+            val sql = "select * from userInfo"
+            val cursor = db.rawQuery(sql, null)
+
+            while (cursor.moveToNext()) {
+
+                val idxId = cursor.getColumnIndex("user_id")
+                userId = cursor.getString(idxId)
+            }
+
+            val client = OkHttpClient()
+
+            //アクセスするURL
+            val url = "https://encount.cf/encount/UserPostDel.php"
+
+            //Formを作成
+            val formBuilder = FormBody.Builder()
+
+            //formに要素を追加
+            formBuilder.add("user", userId)
+            formBuilder.add("post", postId)
+            //formBuilder.add("image", imageId)
+            //リクエストの内容にformを追加
+            val form = formBuilder.build()
+            //リクエストを生成
+            val request = Request.Builder().url(url).post(form).build()
+
+            try {
+                val response = client.newCall(request).execute()
+                return response.body()!!.string()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return "Error"
+            }
+        }
+        override fun onPostExecute(result: String) {
+
         }
     }
 
@@ -257,5 +336,10 @@ class PostDetails : AppCompatActivity() {
         //ヘルパーオブジェクトの開放
         _helper.close()
         super.onDestroy()
+    }
+
+    fun goHome() {
+        startActivity(Intent(this, NavigationActivity::class.java))
+        finish()
     }
 }

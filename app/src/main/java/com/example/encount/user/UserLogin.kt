@@ -5,9 +5,6 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
 import com.example.encount.LoginDataClassList
 import com.example.encount.NavigationActivity
 import com.example.encount.R

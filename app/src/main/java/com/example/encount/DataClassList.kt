@@ -21,6 +21,7 @@ data class PostList(
     val userId: String,
     val likeFlag: Boolean,
     val image: String
+
 )
 
 data class ReplyList(
@@ -72,5 +73,7 @@ data class PostList2(
     val userId: String,
     val imagePath: String,
     val imageLat: String,
-    val imageLng: String
+    val imageLng: String,
+    val postId: String,
+    val likeFlag: Boolean
 )

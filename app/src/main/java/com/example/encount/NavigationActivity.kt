@@ -5,8 +5,6 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Debug
-import android.util.Log
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import kotlinx.android.synthetic.main.activity_navigation.*
@@ -21,13 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
-import android.widget.TextView
-import android.view.LayoutInflater
-import android.view.View
-import com.example.encount.post.UserHome
 import com.example.encount.user.UserSettings
-import kotlinx.android.synthetic.main.activity_user_singin.*
-import kotlinx.android.synthetic.main.drawer_navigation_header.*
 import kotlinx.android.synthetic.main.drawer_navigation_header.view.*
 
 /**

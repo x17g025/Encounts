@@ -1,27 +1,37 @@
 package com.example.encount.maps
 
 import android.content.Context
-import android.graphics.Point
+import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
+import android.os.AsyncTask
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.animation.AnimationUtils
 import android.widget.BaseAdapter
-import android.widget.ImageView
 import com.example.encount.R
-import com.squareup.picasso.Picasso
-import java.util.ArrayList
-import java.util.Collections
-import java.util.Locale
-import android.content.Context.WINDOW_SERVICE
 import com.bumptech.glide.Glide
-import com.example.encount.PostList
 import com.example.encount.PostList2
+import com.example.encount.SQLiteHelper
+import com.example.encount.like
+import com.example.encount.post.PostDetails
+import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_profile_change.view.*
 import kotlinx.android.synthetic.main.grid_items.view.*
+import kotlinx.android.synthetic.main.spotmain.view.*
+import okhttp3.FormBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.io.IOException
+import java.lang.Exception
+import java.util.*
 
 /**
  * やってること
+ * スポット詳細画面へ
  * カスタムGridViewを適用するためのクラス
  *
  * 製作者：大野
@@ -30,6 +40,9 @@ import kotlinx.android.synthetic.main.grid_items.view.*
 class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapter() {
 
     val layoutInflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val _helper = SQLiteHelper(context)
+    var postId = "a"
+    var viewId : View? = null
 
     override fun getCount(): Int {
         return posts.count()
@@ -45,88 +58,120 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
+        //val geocoder = Geocoder(context)
+        //val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+        //val adminArea = addressList?.first()!!.adminArea
+
+        val geocoder = Geocoder(context, Locale.getDefault())
+
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
+        //view.tvPostId.text       = posts[position].postId
         view.tvUserId.text       = posts[position].userId
+        //view.SpotName.text      = /*adminArea*/"ここに住所"
         view.tvImageId.text      = posts[position].imageId
         Glide.with(context).load(posts[position].imagePath).into(view.image_view)
 
+        if(posts[position].likeFlag){
+
+            view.ivPostLike.setImageResource(R.drawable.post_like_true)
+        }
+        else{
+
+            view.ivPostLike.setImageResource(R.drawable.post_like_false)
+        }
+
+        view.image_view.setOnClickListener {
+
+            val intent = Intent(context, PostDetails::class.java)
+            intent.putExtra("Post_Id", posts[position].postId)
+            view.getContext().startActivity(intent)
+        }
+
+        view.ivPostLike.setOnClickListener{
+
+            postId = posts[position].postId
+            viewId = view
+            Log.d("baba", postId)
+            UserPostLike().execute()
+        }
+
+        Handler().postDelayed({
+
+            view.Progress.visibility = View.GONE
+            view.ImageNothing.visibility = View.VISIBLE
+        }, 15000)
+
         return view
+    }
+
+    private inner class UserPostLike : AsyncTask<String, String, String>() {
+
+        override fun doInBackground(vararg params: String): String {
+
+            var id = ""
+            val db = _helper.writableDatabase
+            val sql = "select * from userInfo"
+            val cursor = db.rawQuery(sql, null)
+
+            while(cursor.moveToNext()){
+
+                val idxId = cursor.getColumnIndex("user_id")
+                id = cursor.getString(idxId)
+            }
+
+            val client = OkHttpClient()
+
+            //アクセスするURL
+            val url = "https://encount.cf/encount/UserLikeSend.php"
+
+            //Formを作成
+            val formBuilder = FormBody.Builder()
+
+            //formに要素を追加
+            formBuilder.add("user",id)
+            formBuilder.add("post",postId)
+            //リクエストの内容にformを追加
+            val form = formBuilder.build()
+
+            //リクエストを生成
+            val request = Request.Builder().url(url).post(form).build()
+
+            try {
+                val response = client.newCall(request).execute()
+                return response.body()!!.string()
+            }
+            catch (e: IOException) {
+                e.printStackTrace()
+                return "Error"
+            }
+        }
+
+
+        override fun onPostExecute(result: String) {
+
+            try {
+
+                var likeFlag = Gson().fromJson(result, like::class.java)
+
+                if(likeFlag.flag) {
+
+                    viewId!!.ivPostLike.setImageResource(R.drawable.post_like_true)
+                    var animation = AnimationUtils.loadAnimation(context,R.anim.like_touch)
+                    viewId!!.ivPostLike.startAnimation(animation)
+                }
+                else{
+
+                    viewId!!.ivPostLike.setImageResource(R.drawable.post_like_false)
+                    var animation = AnimationUtils.loadAnimation(context,R.anim.like_touch)
+                    viewId!!.ivPostLike.startAnimation(animation)
+                }
+
+                _helper.close()
+            }
+            catch(e : Exception){
+
+                _helper.close()
+            }
+        }
     }
 }
-
-
-/*
-class GridAdapter internal constructor(
-    private val context: Context,
-    private val layoutId: Int,
-    iList: Array<String>
-) : BaseAdapter() {
-    private val inflater: LayoutInflater
-    private val imageList = ArrayList<String>()
-
-    private var ScreenWHalf = 0
-
-    init {
-        this.inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-        Collections.addAll(imageList, *iList)
-
-        // 画面の横幅の半分を計算
-        val wm = context.getSystemService(WINDOW_SERVICE) as WindowManager
-        if (wm != null) {
-            val disp = wm.defaultDisplay
-            val size = Point()
-            disp.getSize(size)
-
-            val screenWidth = size.x
-            ScreenWHalf = screenWidth / 2
-            Log.d("debug", "ScreenWidthHalf=$ScreenWHalf")
-        }
-
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view: View
-
-        if (convertView == null) {
-            view = inflater.inflate(layoutId, parent, false)
-        } else {
-            view = convertView
-        }
-
-        val img = view.findViewById<ImageView>(R.id.image_view)
-        img.setScaleType(ImageView.ScaleType.CENTER_CROP)
-
-        /*Picasso.with(context)
-            .load(addUrl(position))
-            .resize(ScreenWHalf, ScreenWHalf)
-            .placeholder(R.drawable.placeholder)
-            .error(R.drawable.error)
-            .into(img)*/
-
-        return view
-    }
-
-    // ネットワークアクセスするURLを設定する
-    private fun addUrl(number: Int): String {
-
-        return String.format(
-            Locale.US,
-            "https://kinako.cf/files/postImg/%s.jpg", // 自分のサーバーに上げて見ましょう
-            imageList[number]
-        )
-    }
-
-    override fun getCount(): Int {
-        // 全要素数を返す
-        return imageList.size
-    }
-
-    override fun getItem(position: Int): Any? {
-        return null
-    }
-
-    override fun getItemId(position: Int): Long {
-        return 0
-    }
-}*/

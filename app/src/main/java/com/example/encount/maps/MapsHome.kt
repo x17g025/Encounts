@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.location.Address
+import android.location.Geocoder
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -13,34 +15,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
-import com.example.encount.MapsDataClassList
-import com.example.encount.MapsList
 import com.example.encount.PostList2
 import com.example.encount.R
-import com.example.encount.post.UserPost
+import com.example.encount.SQLiteHelper
+
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.zzaa
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_maps_home.*
-import kotlinx.android.synthetic.main.grid_items.*
-import kotlinx.android.synthetic.main.grid_items.view.*
-import kotlinx.android.synthetic.main.spotmain.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -57,6 +48,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var postList = mutableListOf<PostList2>()
     //取得した写真の件数を格納する
     private var cnt = 0
+    //マップ上に打つピンを管理するための変数
+    private var mmm:Marker? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -80,11 +73,16 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             startActivity(intent)
         }
 
+        /**
+         * 権限を求める処理を、起動画面にまとめて追加する。
+         * 　＋以前に許可されていても、その後に拒否される可能性も考える必要がある。
+         */
         // Android 6, API 23以上でパーミッションの確認
         if (Build.VERSION.SDK_INT >= 23) {
             val permissions = arrayOf(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
             )
             checkPermission(permissions, REQUEST_CODE)
         }
@@ -92,7 +90,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
         locationRequest.setInterval(10000)   //最遅の更新間隔
         locationRequest.setFastestInterval(5000)   //最速の更新間隔
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
         onResume()
     }
 
@@ -103,11 +101,24 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             for (location in locationResult.locations) {
                 if (location != null) {
 
-                    //ここで前回のマップのピンを全削除する処理
+                    //前回マップ上に打ったピンを全て削除
+                    if(mmm != null){
+                        mmm!!.remove()
+                    }
 
                     //グローバル変数に位置情報を代入
                     latitude = location.latitude
                     longitude = location.longitude
+
+                    mMap!!.setMyLocationEnabled(true)
+                    mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
+
+                    //座標から住所変換のテスト
+                    val geocoder = Geocoder(context)
+                    //val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+                    val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+                    val adminArea = addressList?.first()!!.adminArea
+                    println(adminArea)
 
                     //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
                     //MapPostGet(this@MapsHome).execute()
@@ -120,19 +131,18 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //写真が１件以上あれば、マップのピンを立てる処理を行う
                     if(cnt >= 1){
 
-                        //サーバから取得した1番目の写真の位置情報をデバッグ表示
-                        //Log.d("debug","postList[0].imageLat : " + postList[0].imageLat)
-                        //Log.d("debug","postList[0].imageLng : " + postList[0].imageLng)
-
                         //下のfor文内で使うカウント変数
                         var ccnt = 0
 
                         Log.d("debug","取得した写真の件数 : " + cnt)
 
                         //取得した写真の件数分ピンを打つ処理
-                        for(i in postList){
+                        //for(i in postList)にすると、初回の写真取得で数値がおかしくなるので、仕方なく変数を用意している。
+                        for(i in 0..cnt-1){
                             val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
-                            println("imageID : " + postList[ccnt].imageId)
+                            //println("imageID : " + postList[ccnt].imageId)
+                            //ここで、10m以内に投稿してある写真3件以上あれば、一つのピンにまとめて表示する。（詳細画面に遷移する）
+
                             Glide.with(activity)
                                 .asBitmap()
                                 .load(postList[ccnt].imagePath)
@@ -143,26 +153,24 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
                                     ) {
-                                        mMap!!.addMarker(
+                                        mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                    //現状だと、
-                                                .title("imageID : " + postList[0].imageId)
+                                                .title("imageID : " + postList[i].imageId)
+                                                .snippet("user_id" + postList[i].userId)
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
 
                                     override fun onLoadFailed(errorDrawable: Drawable?) {
-                                        mMap!!.addMarker(
+                                        mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
                                                 .title("エラーで写真を正しく表示できませんでした。")
                                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.error))
                                         )
                                     }
-
                                 })
-
                             ccnt++
                         }
                     }
@@ -206,19 +214,28 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     //default location
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        //マップのスタイルも変えられるようにしたい
+        //mMap!!.setMapStyle(GoogleMap.MAP_TYPE_TERRAIN)
         val spot = LatLng(35.7044997, 139.9843911)
-        mMap!!.addMarker(
-            MarkerOptions()
-                .position(spot)
-                .title("Marker in FJB")
-                .icon(
-                    BitmapDescriptorFactory.fromResource(R.drawable.smile1)
-                )
-        )
-
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
         mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
+
+        mMap!!.setOnMapClickListener(object : GoogleMap.OnMapClickListener{
+            override fun onMapClick(latLng: LatLng) {
+
+                /*var mm = mMap!!.addMarker(
+                    MarkerOptions()
+                        .position(spot)
+                        .title("タップされました！！")
+                        .snippet("詳細説明用")
+                        .icon(
+                            BitmapDescriptorFactory.fromResource(R.drawable.smile1)
+                        )
+                )*/
+                //mm.setTag(1)
+            }
+        })
     }
 
     //許可されていないパーミッションリクエスト
@@ -261,12 +278,12 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
     /**
      * ここから下はサーバに現在地を表示し、現在地周辺の写真を取得する処理
-     *
      */
 
     private inner class SpotPhotoGet(val activity: MapsHome) : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String?): String {
+
             val client = OkHttpClient()
 
             //アクセスするURL
@@ -275,8 +292,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             //Formを作成
             val formBuilder = FormBody.Builder()
 
-            println("サーバに送信する経度：" + latitude.toString())
-            println("サーバに送信する緯度：" + longitude.toString())
+            println("経度"+latitude.toString())
+            println("緯度"+longitude.toString())
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
@@ -316,7 +333,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                             i.userId,
                             i.imagePath,
                             i.imageLat,
-                            i.imageLng
+                            i.imageLng,
+                            i.postId,
+                            i.likeFlag
                         )
                     )
                 }
@@ -324,10 +343,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 cnt = postCount
                 activity.setPostList(postList)
 
+
             } catch (e: Exception) {
 
             }
         }
     }
-
 }

@@ -82,44 +82,65 @@ class UserPost : AppCompatActivity() {
 
         // 投稿ボタンが押された時
         postButton.setOnClickListener {
-            if(_imageUri != null) {
-                //パスの処理
-                val uuri = getFileSchemeUri(_imageUri as Uri)
 
-                println(uuri.toString())
+            //ここで、緯度と経度がちゃんと取得できていなければ、投稿できないようにする。
+            Log.d("緯度経度テスト",lat + lng)
 
-                var pass = uuri.toString().substring(uuri.toString().length - 17)
-                print(pass)
-                uurl = pass
+            if((lat != "")and(lng != "")){
 
-                //コメントをEditTextから取得
-                cmnt = commentInput.getText().toString()
-                /*
-                //緯度を取得
-                latitude = _latitude.toString()
-                //経度を取得
-                longitude = _longitude.toString()
-                */
-                Log.d("debug","緯度Str")
-                //ここで現在地取得処理(更新)を終了させる
-                print("GPS終了")
-                onPause()
+                if(_imageUri != null) {
+                    //パスの処理
+                    val uuri = getFileSchemeUri(_imageUri as Uri)
 
-                //投稿処理開始
-                val postTask = OkHttpPost()
-                postTask.execute(/*uuri.toString()*/)
+                    println(uuri.toString())
 
-                SweetAlertDialog(this@UserPost, SweetAlertDialog.SUCCESS_TYPE)
-                    .setTitleText("投稿完了")
-                    .setContentText("")
-                    .setConfirmText("ホーム画面へ")
+                    var pass = uuri.toString().substring(uuri.toString().length - 17)
+                    print(pass)
+                    uurl = pass
+
+                    //コメントをEditTextから取得
+                    cmnt = commentInput.getText().toString()
+                    /*
+                    //緯度を取得
+                    latitude = _latitude.toString()
+                    //経度を取得
+                    longitude = _longitude.toString()
+                    */
+                    Log.d("debug","緯度Str")
+                    //ここで現在地取得処理(更新)を終了させる
+                    print("GPS終了")
+                    onPause()
+
+                    //投稿処理開始
+                    val postTask = OkHttpPost()
+                    postTask.execute(/*uuri.toString()*/)
+
+                    SweetAlertDialog(this@UserPost, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("投稿完了")
+                        .setContentText("")
+                        .setConfirmText("ホーム画面へ")
+                        .setConfirmClickListener {
+                                sDialog -> sDialog.dismissWithAnimation()
+                            goHome()
+                        }
+                        .show()
+                }else{
+                }
+
+            }else{
+                SweetAlertDialog(this@UserPost, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("投稿失敗")
+                    .setContentText("位置情報が取得できません。設定を見直すか、電波状況が良い場所へ移動してください。")
+                    .setConfirmText("戻る")
                     .setConfirmClickListener {
                             sDialog -> sDialog.dismissWithAnimation()
-                        goHome()
+                        //goHome()
                     }
                     .show()
-            }else{
             }
+
+
+
         }
     }
 

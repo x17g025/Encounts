@@ -12,10 +12,20 @@
         android:layout_height="match_parent"
         tools:context=".maps.MapsHome" />
 
-    <Button
+    <!--<Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="スポット詳細画面へ(テスト用)" />
+        android:layout_marginTop="30dp"
+        android:text="スポット詳細画面へ(テスト用)" />-->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/button2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginEnd="20dp"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/to_spot"/>
 
 </FrameLayout>

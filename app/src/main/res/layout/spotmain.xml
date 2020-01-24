@@ -22,7 +22,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/smile1"/>
+            android:src="@drawable/icon"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -151,16 +151,24 @@
     </LinearLayout>
     <!--タブバー　ここまで-->
 
-    <!--GridView　ここから-->
-    <GridView
-        android:id="@+id/gridview"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipelayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#888"
-        android:horizontalSpacing="2dp"
-        android:verticalSpacing="2dp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth" />
-    <!--GridView　ここまで-->
+        android:layout_height="match_parent">
+
+        <!--GridView　ここから-->
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:horizontalSpacing="2dp"
+            android:verticalSpacing="2dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth" />
+        <!--GridView　ここまで-->
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>
