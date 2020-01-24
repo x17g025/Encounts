@@ -1,10 +1,14 @@
 package com.example.encount.maps
 
+import android.location.Address
+import android.location.Geocoder
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 
 import androidx.appcompat.app.AppCompatActivity
 import com.example.encount.*
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_user_home.*
@@ -34,12 +38,22 @@ class SpotMainActivity : AppCompatActivity() {
         swipelayout2.setColorSchemeResources(R.color.colorMain)
 
         SpotPhotoGet().execute()
+        val address = getAddress(latitude, longitude)
+        SpotName.setText(getAddress(latitude, longitude))
 
         swipelayout2.setOnRefreshListener {
-
+            val address = getAddress(latitude, longitude)
+            print(address)
             SpotPhotoGet().execute()
         }
 
+    }
+
+    //位置情報を住所に変換する関数
+    private fun getAddress(lat: Double, lng: Double): String {
+        val geocoder = Geocoder(this)
+        val list = geocoder.getFromLocation(lat, lng, 1)
+        return list[0].getAddressLine(0)
     }
 
     private inner class SpotPhotoGet() : AsyncTask<String, String, String>(){

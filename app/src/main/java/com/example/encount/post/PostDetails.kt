@@ -56,6 +56,10 @@ class PostDetails : AppCompatActivity() {
         UserPostGet().execute()
         UserReplyGet().execute()
 
+        //位置情報を住所に変換
+        tvPostPlace.setText(getAddress(latitude, longitude))
+        //tvPostPlace.setText(getAddress(intent.getStringExtra("imageLat").toDouble(),intent.getDoubleExtra("imageLng").toDouble()))
+
         //タップで投稿の詳細画面へ
         ivPostLike.setOnClickListener{
 
@@ -130,16 +134,6 @@ class PostDetails : AppCompatActivity() {
 
                 Glide.with(this@PostDetails).load(postData.postImage).into(ivPostImage)
 
-                /**
-                 * 位置座標から住所に変換するサンプル
-                 */
-                val geocoder = Geocoder(this@PostDetails)
-                //この下の、latitude, longitudeを写真の投稿場所に置き換えればOK
-                val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
-                val adminArea = addressList?.first()!!.adminArea
-
-                //tvUserName.text = postData.userName
-                //tvUserName.text = adminArea
                 tvPostName.text = postData.userName
                 tvPostDate.text = postData.postDate
                 tvPostText.text = postData.postText
@@ -268,6 +262,13 @@ class PostDetails : AppCompatActivity() {
             var animation = AnimationUtils.loadAnimation(this,R.anim.like_touch)
             ivPostLike.startAnimation(animation)
         }
+    }
+
+    //位置情報を住所に変換する関数
+    private fun getAddress(lat: Double, lng: Double): String {
+        val geocoder = Geocoder(this)
+        val list = geocoder.getFromLocation(lat, lng, 1)
+        return list[0].getAddressLine(0)
     }
 
     private inner class UserReplyGet : AsyncTask<String, String, String>() {

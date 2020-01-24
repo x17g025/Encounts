@@ -17,35 +17,53 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".user.UserLikeList"/>
-        <activity android:name=".user.UserFriendList" />
-        <activity android:name=".user.UserPostList" />
-        <activity android:name=".user.ProfileChange" />
-        <activity android:name=".user.PassForgot" />
-        <activity android:name=".friend.FriendAdd" />
+        <activity android:name=".user.UserLikeList"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".user.UserFriendList"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".user.UserPostList"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".user.ProfileChange"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".user.PassForgot"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".friend.FriendAdd"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".user.UserLogin"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".user.UserSingin"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".user.UserSettings"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".user.UserProfile"/>
-        <activity android:name=".post.UserHome" />
+            android:name=".user.UserProfile"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".post.UserHome"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".post.UserPost"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:name=".post.PostDetails" />
-        <activity android:name=".NavigationActivity" />
-        <activity android:name=".friend.FriendProfile" />
-        <activity android:name=".maps.MapsHome" />
-        <activity android:name=".maps.SpotMainActivity"/>
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".post.PostDetails"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NavigationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".friend.FriendProfile"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".maps.MapsHome"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".maps.SpotMainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
