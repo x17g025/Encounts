@@ -1,7 +1,5 @@
 package com.example.encount.post
 
-
-import android.content.Context
 import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
@@ -15,11 +13,9 @@ import com.bumptech.glide.Glide
 import com.example.encount.*
 import com.example.encount.maps.latitude
 import com.example.encount.maps.longitude
-import com.example.encount.user.UserLogin
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_post_details.*
-import kotlinx.android.synthetic.main.activity_user_home.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -43,6 +39,7 @@ import java.lang.Exception
 class PostDetails : AppCompatActivity() {
 
     var postId = ""
+    var userId = ""
 
     private val _helper = SQLiteHelper(this@PostDetails)
 
@@ -52,31 +49,52 @@ class PostDetails : AppCompatActivity() {
         setContentView(R.layout.activity_post_details)
 
         postId = intent.getStringExtra("Post_Id")
+        userId = intent.getStringExtra("User_Id") //投稿者のユーザーID
 
         UserPostGet().execute()
         UserReplyGet().execute()
 
         //タップで投稿の詳細画面へ
-        ivPostLike.setOnClickListener{
+        ivPostLike.setOnClickListener {
 
             UserPostLike().execute()
         }
 
         //タップで投稿の削除
         ivPostMenu.setOnClickListener {
+            var id = ""
+            val db = _helper.writableDatabase
+            val sql = "select * from userInfo"
+            val cursor = db.rawQuery(sql, null)
 
-            UserPostDel().execute()
+            while (cursor.moveToNext()) {
 
-            SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("投稿削除完了")
-                .setContentText("")
-                .setConfirmText("ホーム画面へ")
-                .setConfirmClickListener {
-                        sDialog -> sDialog.dismissWithAnimation()
-                    goHome()
-                }
-                .show()
+                val idxId = cursor.getColumnIndex("user_id")
+                id = cursor.getString(idxId)
+            }
 
+            if (userId == id) {
+                UserPostDel().execute()
+
+                SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("投稿削除完了")
+                    .setContentText("")
+                    .setConfirmText("ホーム画面へ")
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                        goHome()
+                    }
+                    .show()
+            } else {
+                SweetAlertDialog(this@PostDetails, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Error!")
+                    .setContentText("他の人の投稿は消せません")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                    }
+                    .show()
+            }
         }
     }
 
@@ -89,7 +107,7 @@ class PostDetails : AppCompatActivity() {
             val sql = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
-            while(cursor.moveToNext()){
+            while (cursor.moveToNext()) {
 
                 val idxId = cursor.getColumnIndex("user_id")
                 userId = cursor.getString(idxId)
@@ -104,8 +122,8 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user",userId)
-            formBuilder.add("post",postId)
+            formBuilder.add("user", userId)
+            formBuilder.add("post", postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -115,8 +133,7 @@ class PostDetails : AppCompatActivity() {
             try {
                 val response = client.newCall(request).execute()
                 return response.body()!!.string()
-            }
-            catch (e: IOException) {
+            } catch (e: IOException) {
                 e.printStackTrace()
                 return "Error"
             }
@@ -144,12 +161,11 @@ class PostDetails : AppCompatActivity() {
                 tvPostDate.text = postData.postDate
                 tvPostText.text = postData.postText
 
-                if(postData.likeFlag){
+                if (postData.likeFlag) {
 
                     ivPostLike.setImageResource(R.drawable.post_like_true)
                 }
-            }
-            catch(e : Exception){
+            } catch (e: Exception) {
 
             }
         }
@@ -164,7 +180,7 @@ class PostDetails : AppCompatActivity() {
             val sql = "select * from userInfo"
             val cursor = db.rawQuery(sql, null)
 
-            while(cursor.moveToNext()){
+            while (cursor.moveToNext()) {
 
                 val idxId = cursor.getColumnIndex("user_id")
                 id = cursor.getString(idxId)
@@ -179,8 +195,8 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user",id)
-            formBuilder.add("post",postId)
+            formBuilder.add("user", id)
+            formBuilder.add("post", postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -190,8 +206,7 @@ class PostDetails : AppCompatActivity() {
             try {
                 val response = client.newCall(request).execute()
                 return response.body()!!.string()
-            }
-            catch (e: IOException) {
+            } catch (e: IOException) {
                 e.printStackTrace()
                 return "Error"
             }
@@ -203,8 +218,7 @@ class PostDetails : AppCompatActivity() {
 
                 var likeFlag = Gson().fromJson(result, like::class.java)
                 likeToggle(likeFlag.flag)
-            }
-            catch(e : Exception){
+            } catch (e: Exception) {
 
             }
         }
@@ -238,6 +252,7 @@ class PostDetails : AppCompatActivity() {
             //formBuilder.add("image", imageId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
+            Log.d("debug","u"+userId + "p" + postId)
             //リクエストを生成
             val request = Request.Builder().url(url).post(form).build()
 
@@ -249,23 +264,23 @@ class PostDetails : AppCompatActivity() {
                 return "Error"
             }
         }
+
         override fun onPostExecute(result: String) {
 
         }
     }
 
-    fun likeToggle(flag : Boolean){
+    fun likeToggle(flag: Boolean) {
 
-        if(flag) {
+        if (flag) {
 
             ivPostLike.setImageResource(R.drawable.post_like_true)
-            var animation = AnimationUtils.loadAnimation(this,R.anim.like_touch)
+            var animation = AnimationUtils.loadAnimation(this, R.anim.like_touch)
             ivPostLike.startAnimation(animation)
-        }
-        else{
+        } else {
 
             ivPostLike.setImageResource(R.drawable.post_like_false)
-            var animation = AnimationUtils.loadAnimation(this,R.anim.like_touch)
+            var animation = AnimationUtils.loadAnimation(this, R.anim.like_touch)
             ivPostLike.startAnimation(animation)
         }
     }
@@ -301,7 +316,6 @@ class PostDetails : AppCompatActivity() {
 
         override fun onPostExecute(result: String) {
 
-            Log.d("aaaaa",result)
             try {
 
 
@@ -323,15 +337,14 @@ class PostDetails : AppCompatActivity() {
                 }
 
                 lvReplyData.adapter = ReplyAdapter(this@PostDetails, postList)
-            }
-            catch(e : Exception){
+            } catch (e: Exception) {
 
             }
         }
     }
 
 
-    override fun onDestroy(){
+    override fun onDestroy() {
 
         //ヘルパーオブジェクトの開放
         _helper.close()
