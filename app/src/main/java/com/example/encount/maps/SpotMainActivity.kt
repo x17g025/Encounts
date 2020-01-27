@@ -39,7 +39,7 @@ class SpotMainActivity : AppCompatActivity() {
 
         SpotPhotoGet().execute()
         val address = getAddress(latitude, longitude)
-        SpotName.setText(getAddress(latitude, longitude))
+        SpotCode.setText(getAddress(latitude, longitude))
 
         swipelayout2.setOnRefreshListener {
             val address = getAddress(latitude, longitude)
