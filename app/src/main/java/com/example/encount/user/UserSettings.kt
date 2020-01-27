@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.example.encount.R
+//import com.example.encount.R
 import com.example.encount.SQLiteHelper
 import kotlinx.android.synthetic.main.activity_user_settings.*
 import okhttp3.FormBody
@@ -28,7 +28,7 @@ class UserSettings : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_settings)
+        setContentView(com.example.encount.R.layout.activity_user_settings)
         //ログアウト
         logoutbtn.setOnClickListener {
 
@@ -36,16 +36,27 @@ class UserSettings : AppCompatActivity() {
         }
         //アカウント削除
         acdel.setOnClickListener {
-            //削除処理
-            AcountDel().execute()
-            SweetAlertDialog(this@UserSettings, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("アカウント削除完了")
-                .setContentText("")
-                .setConfirmText("OK")
-                .setConfirmClickListener {
-                        sDialog -> sDialog.dismissWithAnimation()
-                    logout()
+
+            SweetAlertDialog(this@UserSettings, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("アカウントを削除します")
+                .setContentText("削除したアカウントは元に戻せません。")
+                .setConfirmText("Yes")
+                .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation()
+                    //削除処理
+                    AcountDel().execute()
+                    SweetAlertDialog(this@UserSettings, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("アカウント削除完了")
+                        .setContentText("")
+                        .setConfirmText("OK")
+                        .setConfirmClickListener {
+                                sDialog -> sDialog.dismissWithAnimation()
+                            logout()
+                        }
+                        .show()
                 }
+                .setCancelButton(
+                    "No"
+                ) { sDialog -> sDialog.dismissWithAnimation() }
                 .show()
         }
 

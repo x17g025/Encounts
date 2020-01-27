@@ -45,7 +45,7 @@ class PostDetails : AppCompatActivity() {
     var postId = ""
     var userId = ""
     var text   = ""
-
+  
     private val _helper = SQLiteHelper(this@PostDetails)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +62,10 @@ class PostDetails : AppCompatActivity() {
 
         UserPostGet().execute()
         UserReplyGet().execute()
+
+        //位置情報を住所に変換
+        tvPostPlace.setText(getAddress(latitude, longitude))
+        //tvPostPlace.setText(getAddress(intent.getStringExtra("imageLat").toDouble(),intent.getDoubleExtra("imageLng").toDouble()))
 
         //タップで投稿の詳細画面へ
         ivPostLike.setOnClickListener {
@@ -108,18 +112,49 @@ class PostDetails : AppCompatActivity() {
 
         ivPostReply.setOnClickListener {
 
-            UserPostDel().execute()
+            var id = ""
+            val db = _helper.writableDatabase
+            val sql = "select * from userInfo"
+            val cursor = db.rawQuery(sql, null)
 
-            SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("投稿削除完了")
-                .setContentText("")
-                .setConfirmText("ホーム画面へ")
-                .setConfirmClickListener {
-                        sDialog -> sDialog.dismissWithAnimation()
-                    goHome()
-                }
-                .show()
+            while (cursor.moveToNext()) {
 
+                val idxId = cursor.getColumnIndex("user_id")
+                id = cursor.getString(idxId)
+            }
+
+            if (userId == id) {
+                SweetAlertDialog(this@PostDetails, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("投稿を削除します")
+                    .setContentText("削除した投稿は元に戻せません。")
+                    .setConfirmText("Yes")
+                    .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation()
+                        //削除処理
+                        UserPostDel().execute()
+                        SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("投稿削除完了")
+                            .setContentText("")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener {
+                                    sDialog -> sDialog.dismissWithAnimation()
+                                goHome()
+                            }
+                            .show()
+                    }
+                    .setCancelButton(
+                        "No"
+                    ) { sDialog -> sDialog.dismissWithAnimation() }
+                    .show()
+            } else {
+                SweetAlertDialog(this@PostDetails, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Error!")
+                    .setContentText("他の人の投稿は消せません")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                    }
+                    .show()
+            }
         }
 
         btnReply.setOnClickListener {
@@ -187,16 +222,6 @@ class PostDetails : AppCompatActivity() {
 
                 Glide.with(this@PostDetails).load(postData.postImage).into(ivPostImage)
 
-                /**
-                 * 位置座標から住所に変換するサンプル
-                 */
-                val geocoder = Geocoder(this@PostDetails)
-                //この下の、latitude, longitudeを写真の投稿場所に置き換えればOK
-                val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
-                val adminArea = addressList?.first()!!.adminArea
-
-                //tvUserName.text = postData.userName
-                //tvUserName.text = adminArea
                 tvPostName.text = postData.userName
                 tvPostDate.text = postData.postDate
                 tvPostText.text = postData.postText
@@ -323,6 +348,15 @@ class PostDetails : AppCompatActivity() {
             var animation = AnimationUtils.loadAnimation(this, R.anim.like_touch)
             ivPostLike.startAnimation(animation)
         }
+    }
+
+    //位置情報を住所に変換する関数
+    private fun getAddress(lat: Double, lng: Double): String {
+        val geocoder = Geocoder(this)
+        val list = geocoder.getFromLocation(lat, lng, 1)
+        //println("0" + list[0].getAddressLine(0))
+        var kekka = list[0].getAdminArea() + list[0].getLocality() + list[0].getThoroughfare() +list[0].getSubThoroughfare()
+        return kekka
     }
 
     private inner class UserReplyGet : AsyncTask<String, String, String>() {

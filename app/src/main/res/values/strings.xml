@@ -49,8 +49,8 @@
     <string name="nav_close">Navigation Drawer Close</string>
 
     <!--スポット詳細画面で使用　ここから-->
-    <string name="spot_name">現在地周辺の画像</string>
-    <string name="spot_code">ここに住所</string>
+    <string name="spot_name">現在地周辺の投稿</string>
+    <string name="spot_code"></string>
     <string name="spot_popular">人気</string>
     <string name="spot_new">新着</string>
     <string name="description">写真の説明</string>

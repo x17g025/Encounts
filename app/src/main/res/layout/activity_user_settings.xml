@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.encount.user.UserSettings">
 
-    <Button
+    <!--<Button
         android:id="@+id/acdel"
         android:layout_width="210dp"
         android:layout_height="144dp"
-        android:text="アカウント" />
+        android:layout_marginTop="70dp"
+        android:text="アカウント" />-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/logoutbtn"
@@ -22,6 +23,7 @@
         app:cardBackgroundColor="#BEF0FF"
         app:cardCornerRadius="25dp"
         android:layout_marginBottom="15dp"
+        android:layout_marginTop="20dp"
         android:background="#FFDF1961">
 
         <RelativeLayout
@@ -34,6 +36,32 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="ログアウト"
+                android:textColor="#898989"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/acdel"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="#BEF0FF"
+        app:cardCornerRadius="25dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="90dp"
+        android:background="#FFDF1961">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/logintext2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="アカウント削除"
                 android:textColor="#898989"
                 android:textSize="18sp" />
         </RelativeLayout>

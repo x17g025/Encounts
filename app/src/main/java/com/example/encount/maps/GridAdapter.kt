@@ -58,16 +58,8 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        //val geocoder = Geocoder(context)
-        //val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
-        //val adminArea = addressList?.first()!!.adminArea
-
-        val geocoder = Geocoder(context, Locale.getDefault())
-
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
-        //view.tvPostId.text       = posts[position].postId
         view.tvUserId.text       = posts[position].userId
-        //view.SpotName.text      = /*adminArea*/"ここに住所"
         view.tvImageId.text      = posts[position].imageId
         Glide.with(context).load(posts[position].imagePath).into(view.image_view)
 
@@ -85,6 +77,8 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id", posts[position].postId)
             intent.putExtra("User_Id", posts[position].userId)
+            intent.putExtra("imageLat", posts[position].imageLat)
+            intent.putExtra("imageLng", posts[position].imageLng)
             view.getContext().startActivity(intent)
         }
 

@@ -21,6 +21,8 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.encount.PostList2
 import com.example.encount.R
+import com.example.encount.SQLiteHelper
+import com.example.encount.post.PostDetails
 import com.example.encount.post.PostDetails
 import kotlin.random.Random
 import com.google.android.gms.location.*
@@ -173,8 +175,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                .title(postList[i].postId)
-                                                .snippet(postList[i].userId)
+                                                .title(/*"imageID : " + postList[i].imageId*/"")
+                                                /*.snippet("user_id" + postList[i].userId)*/
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
