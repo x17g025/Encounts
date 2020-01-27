@@ -172,8 +172,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                .title(/*"imageID : " + postList[i].imageId*/"")
-                                                /*.snippet("user_id" + postList[i].userId)*/
+                                                .title(postList[i].postId)
+                                                .snippet(postList[i].userId)
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
