@@ -76,6 +76,7 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
 
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id", posts[position].postId)
+            intent.putExtra("User_Id", posts[position].userId)
             intent.putExtra("imageLat", posts[position].imageLat)
             intent.putExtra("imageLng", posts[position].imageLng)
             view.getContext().startActivity(intent)

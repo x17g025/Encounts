@@ -43,6 +43,7 @@ import java.lang.Exception
 class PostDetails : AppCompatActivity() {
 
     var postId = ""
+    var userId = ""
 
     private val _helper = SQLiteHelper(this@PostDetails)
 
@@ -52,6 +53,7 @@ class PostDetails : AppCompatActivity() {
         setContentView(R.layout.activity_post_details)
 
         postId = intent.getStringExtra("Post_Id")
+        userId = intent.getStringExtra("User_Id")
 
         UserPostGet().execute()
         UserReplyGet().execute()
@@ -69,27 +71,49 @@ class PostDetails : AppCompatActivity() {
         //タップで投稿の削除
         ivPostMenu.setOnClickListener {
 
-            SweetAlertDialog(this@PostDetails, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("投稿を削除します")
-                .setContentText("削除した投稿は元に戻せません。")
-                .setConfirmText("Yes")
-                .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation()
-                    //削除処理
-                    UserPostDel().execute()
-                    SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
-                        .setTitleText("投稿削除完了")
-                        .setContentText("")
-                        .setConfirmText("OK")
-                        .setConfirmClickListener {
-                                sDialog -> sDialog.dismissWithAnimation()
-                            goHome()
-                        }
-                        .show()
-                }
-                .setCancelButton(
-                    "No"
-                ) { sDialog -> sDialog.dismissWithAnimation() }
-                .show()
+            var id = ""
+            val db = _helper.writableDatabase
+            val sql = "select * from userInfo"
+            val cursor = db.rawQuery(sql, null)
+
+            while (cursor.moveToNext()) {
+
+                val idxId = cursor.getColumnIndex("user_id")
+                id = cursor.getString(idxId)
+            }
+
+            if (userId == id) {
+                SweetAlertDialog(this@PostDetails, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("投稿を削除します")
+                    .setContentText("削除した投稿は元に戻せません。")
+                    .setConfirmText("Yes")
+                    .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation()
+                        //削除処理
+                        UserPostDel().execute()
+                        SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("投稿削除完了")
+                            .setContentText("")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener {
+                                    sDialog -> sDialog.dismissWithAnimation()
+                                goHome()
+                            }
+                            .show()
+                    }
+                    .setCancelButton(
+                        "No"
+                    ) { sDialog -> sDialog.dismissWithAnimation() }
+                    .show()
+            } else {
+                SweetAlertDialog(this@PostDetails, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Error!")
+                    .setContentText("他の人の投稿は消せません")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                    }
+                    .show()
+            }
         }
     }
 
