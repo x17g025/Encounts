@@ -21,14 +21,11 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.encount.PostList2
 import com.example.encount.R
-import com.example.encount.SQLiteHelper
+
 
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_maps_home.*
@@ -49,9 +46,13 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     //取得した写真の件数を格納する
     private var cnt = 0
     //マップ上に打つピンを管理するための変数
-    private var mmm:Marker? = null
+    private var mmm: Marker? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.activity_maps_home, container, false)
@@ -63,7 +64,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         //MapsPostGetを実行
         //MapPostGet(this).execute()
 
-        val mapFragment: SupportMapFragment = getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
+        val mapFragment: SupportMapFragment =
+            getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         button2.setOnClickListener {
@@ -90,7 +92,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
         locationRequest.setInterval(10000)   //最遅の更新間隔
         locationRequest.setFastestInterval(5000)   //最速の更新間隔
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
+        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)           //バッテリー消費を抑えたい場合、精度は100m程度
         onResume()
     }
 
@@ -102,7 +104,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 if (location != null) {
 
                     //前回マップ上に打ったピンを全て削除
-                    if(mmm != null){
+                    if (mmm != null) {
                         mmm!!.remove()
                     }
 
@@ -111,12 +113,21 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     longitude = location.longitude
 
                     mMap!!.setMyLocationEnabled(true)
-                    mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
+                    //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
+                    val camPos = CameraPosition.Builder()
+                        .target(LatLng(latitude, longitude)) // Sets the new camera position
+                        .zoom(18f) // Sets the zoom
+                        .bearing(0f) // Rotate the camera
+                        .tilt(60f) // Set the camera tilt
+                        .build()
+                    mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))
+
 
                     //座標から住所変換のテスト
                     val geocoder = Geocoder(context)
                     //val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
-                    val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
+                    val addressList: List<Address>? =
+                        geocoder.getFromLocation(latitude, longitude, 1)
                     val adminArea = addressList?.first()!!.adminArea
                     println(adminArea)
 
@@ -129,24 +140,27 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     Log.d("debug", "現在地の経度" + location.longitude)
 
                     //写真が１件以上あれば、マップのピンを立てる処理を行う
-                    if(cnt >= 1){
+                    if (cnt >= 1) {
 
                         //下のfor文内で使うカウント変数
                         var ccnt = 0
 
-                        Log.d("debug","取得した写真の件数 : " + cnt)
+                        Log.d("debug", "取得した写真の件数 : " + cnt)
 
                         //取得した写真の件数分ピンを打つ処理
                         //for(i in postList)にすると、初回の写真取得で数値がおかしくなるので、仕方なく変数を用意している。
-                        for(i in 0..cnt-1){
-                            val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
+                        for (i in 0..cnt - 1) {
+                            val spot = LatLng(
+                                postList[ccnt].imageLat.toDouble(),
+                                postList[ccnt].imageLng.toDouble()
+                            )
                             //println("imageID : " + postList[ccnt].imageId)
                             //ここで、10m以内に投稿してある写真3件以上あれば、一つのピンにまとめて表示する。（詳細画面に遷移する）
 
                             Glide.with(activity)
                                 .asBitmap()
                                 .load(postList[ccnt].imagePath)
-                                .into(object : SimpleTarget<Bitmap>(100,100) {
+                                .into(object : SimpleTarget<Bitmap>(100, 100) {
 
                                     //正常に写真取得できればピンを打つ
                                     override fun onResourceReady(
@@ -216,26 +230,16 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         mMap = googleMap
         //マップのスタイルも変えられるようにしたい
         //mMap!!.setMapStyle(GoogleMap.MAP_TYPE_TERRAIN)
+        /*
         val spot = LatLng(35.7044997, 139.9843911)
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
-        //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
-        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
+        val position = CameraPosition.Builder()
+            .target(spot) // Sets the new camera position
+            .zoom(18f) // Sets the zoom
+            .bearing(0f) // Rotate the camera
+            .tilt(60f) // Set the camera tilt
+            .build() // Creates a CameraPosition from the builder
+        mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(position))*/
 
-        mMap!!.setOnMapClickListener(object : GoogleMap.OnMapClickListener{
-            override fun onMapClick(latLng: LatLng) {
-
-                /*var mm = mMap!!.addMarker(
-                    MarkerOptions()
-                        .position(spot)
-                        .title("タップされました！！")
-                        .snippet("詳細説明用")
-                        .icon(
-                            BitmapDescriptorFactory.fromResource(R.drawable.smile1)
-                        )
-                )*/
-                //mm.setTag(1)
-            }
-        })
     }
 
     //許可されていないパーミッションリクエスト
@@ -252,8 +256,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         if (requestCode == REQUEST_PERMISSION) {
             for (i in permissions.indices) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    mMap!!.setMyLocationEnabled(true)
                     Log.d("Permission", "Added Permission: " + permissions[i])
+                    //mMap!!.setMyLocationEnabled(true)
                 } else {
                     // パーミッションが拒否された
                     Log.d("Permission", "Rejected Permission: " + permissions[i])
@@ -292,8 +296,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             //Formを作成
             val formBuilder = FormBody.Builder()
 
-            println("経度"+latitude.toString())
-            println("緯度"+longitude.toString())
+            println("経度" + latitude.toString())
+            println("緯度" + longitude.toString())
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
