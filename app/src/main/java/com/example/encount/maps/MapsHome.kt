@@ -21,8 +21,8 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.encount.PostList2
 import com.example.encount.R
-import com.example.encount.SQLiteHelper
-
+import com.example.encount.post.PostDetails
+import kotlin.random.Random
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -37,6 +37,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
+import kotlin.math.floor
 
 class MapsHome : Fragment(), OnMapReadyCallback {
 
@@ -139,7 +140,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         //取得した写真の件数分ピンを打つ処理
                         //for(i in postList)にすると、初回の写真取得で数値がおかしくなるので、仕方なく変数を用意している。
                         for(i in 0..cnt-1){
-                            val spot = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
+
+                            val spot = LatLng(postList[ccnt].imageLat.toDouble() + Random.nextDouble(.001),postList[ccnt].imageLng.toDouble() + Random.nextDouble(.001))
                             //println("imageID : " + postList[ccnt].imageId)
                             //ここで、10m以内に投稿してある写真3件以上あれば、一つのピンにまとめて表示する。（詳細画面に遷移する）
 
@@ -156,8 +158,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                .title("imageID : " + postList[i].imageId)
-                                                .snippet("user_id" + postList[i].userId)
+                                                .title(postList[i].postId)
+                                                .snippet(postList[i].userId)
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
@@ -236,6 +238,13 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 //mm.setTag(1)
             }
         })
+
+        mMap!!.setOnMarkerClickListener { marker ->
+            val intent = Intent(context, PostDetails::class.java)
+            intent.putExtra("Post_Id", marker.title)
+            startActivity(intent)
+            true
+        }
     }
 
     //許可されていないパーミッションリクエスト
