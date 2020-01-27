@@ -69,18 +69,27 @@ class PostDetails : AppCompatActivity() {
         //タップで投稿の削除
         ivPostMenu.setOnClickListener {
 
-            UserPostDel().execute()
-
-            SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("投稿削除完了")
-                .setContentText("")
-                .setConfirmText("ホーム画面へ")
-                .setConfirmClickListener {
-                        sDialog -> sDialog.dismissWithAnimation()
-                    goHome()
+            SweetAlertDialog(this@PostDetails, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("投稿を削除します")
+                .setContentText("削除した投稿は元に戻せません。")
+                .setConfirmText("Yes")
+                .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation()
+                    //削除処理
+                    UserPostDel().execute()
+                    SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
+                        .setTitleText("投稿削除完了")
+                        .setContentText("")
+                        .setConfirmText("OK")
+                        .setConfirmClickListener {
+                                sDialog -> sDialog.dismissWithAnimation()
+                            goHome()
+                        }
+                        .show()
                 }
+                .setCancelButton(
+                    "No"
+                ) { sDialog -> sDialog.dismissWithAnimation() }
                 .show()
-
         }
     }
 
