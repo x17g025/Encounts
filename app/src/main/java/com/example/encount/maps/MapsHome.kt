@@ -61,8 +61,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        //MapsPostGetを実行
-        //MapPostGet(this).execute()
 
         val mapFragment: SupportMapFragment =
             getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
@@ -116,9 +114,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
                     val camPos = CameraPosition.Builder()
                         .target(LatLng(latitude, longitude)) // Sets the new camera position
-                        .zoom(18f) // Sets the zoom
+                        .zoom(19f) // Sets the zoom
                         .bearing(0f) // Rotate the camera
-                        .tilt(60f) // Set the camera tilt
+                        .tilt(40f) // Set the camera tilt
                         .build()
                     mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))
 
@@ -210,10 +208,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             locationRequest,
             locationCallback, null /* Looper */
         )
-        /*
-              startActivity(Intent(this, UserHome::class.java))
-              overridePendingTransition(0, 0)
-          }*/
     }
 
     override fun onPause() {
@@ -239,7 +233,11 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             .tilt(60f) // Set the camera tilt
             .build() // Creates a CameraPosition from the builder
         mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(position))*/
-
+        googleMap.uiSettings.isScrollGesturesEnabled = false
+        googleMap.uiSettings.isZoomGesturesEnabled = false
+        googleMap.uiSettings.isCompassEnabled = false
+        googleMap.uiSettings.isTiltGesturesEnabled = false
+        googleMap.uiSettings.isRotateGesturesEnabled = false
     }
 
     //許可されていないパーミッションリクエスト
