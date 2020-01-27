@@ -34,6 +34,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
+import java.lang.Math.abs
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MapsHome : Fragment(), OnMapReadyCallback {
 
@@ -97,15 +100,16 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     //Update Result
     val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult?) {
+
             locationResult ?: return
             for (location in locationResult.locations) {
+
                 if (location != null) {
 
-
-
-                    //グローバル変数に位置情報を代入
                     latitude = location.latitude
                     longitude = location.longitude
+
+                    //グローバル変数に位置情報を代入
 
                     mMap!!.setMyLocationEnabled(true)
                     //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
@@ -116,7 +120,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         .tilt(40f) // Set the camera tilt
                         .build()
                     mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))
-
 
                     //座標から住所変換のテスト
                     val geocoder = Geocoder(context)
@@ -150,13 +153,12 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                             //前回マップ上に打ったピンを全て削除
                             if (mmm != null) {
                                 mmm!!.remove()
-                                Log.d("delete","delete")
                             }
 
                             val spot = LatLng(
 
-                                postList[ccnt].imageLat.toDouble() + Random.nextDouble(.00001,.0003),
-                                postList[ccnt].imageLng.toDouble() + Random.nextDouble(.00001,.0003)
+                                postList[ccnt].imageLat.toDouble() + Random.nextDouble(-.0003,.0003),
+                                postList[ccnt].imageLng.toDouble() + Random.nextDouble(-.0003,.0003)
                             )
 
                             Glide.with(activity)
@@ -172,7 +174,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                .title(/*"imageID : " + postList[i].imageId*/"")
+                                                .title(postList[i].postId)
                                                 /*.snippet("user_id" + postList[i].userId)*/
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
