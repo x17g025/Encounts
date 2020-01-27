@@ -104,10 +104,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             for (location in locationResult.locations) {
                 if (location != null) {
 
-                    //前回マップ上に打ったピンを全て削除
-                    if (mmm != null) {
-                        mmm!!.remove()
-                    }
+
 
                     //グローバル変数に位置情報を代入
                     latitude = location.latitude
@@ -152,17 +149,18 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         //for(i in postList)にすると、初回の写真取得で数値がおかしくなるので、仕方なく変数を用意している。
                       
                         for (i in 0..cnt - 1) {
+
+                            //前回マップ上に打ったピンを全て削除
+                            if (mmm != null) {
+                                mmm!!.remove()
+                                Log.d("delete","delete")
+                            }
+
                             val spot = LatLng(
-                                postList[ccnt].imageLat.toDouble(),
-                                postList[ccnt].imageLng.toDouble()
+
+                                postList[ccnt].imageLat.toDouble() + Random.nextDouble(.00001,.0003),
+                                postList[ccnt].imageLng.toDouble() + Random.nextDouble(.00001,.0003)
                             )
-
-                    
-
-                            val spot = LatLng(postList[ccnt].imageLat.toDouble() + Random.nextDouble(.001),postList[ccnt].imageLng.toDouble() + Random.nextDouble(.001))
-
-                            //println("imageID : " + postList[ccnt].imageId)
-                            //ここで、10m以内に投稿してある写真3件以上あれば、一つのピンにまとめて表示する。（詳細画面に遷移する）
 
                             Glide.with(activity)
                                 .asBitmap()
@@ -247,26 +245,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         googleMap.uiSettings.isCompassEnabled = false
         googleMap.uiSettings.isTiltGesturesEnabled = false
         googleMap.uiSettings.isRotateGesturesEnabled = false
-
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
-        //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
-        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(18.3f))
-
-        mMap!!.setOnMapClickListener(object : GoogleMap.OnMapClickListener{
-            override fun onMapClick(latLng: LatLng) {
-
-                /*var mm = mMap!!.addMarker(
-                    MarkerOptions()
-                        .position(spot)
-                        .title("タップされました！！")
-                        .snippet("詳細説明用")
-                        .icon(
-                            BitmapDescriptorFactory.fromResource(R.drawable.smile1)
-                        )
-                )*/
-                //mm.setTag(1)
-            }
-        })
 
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
