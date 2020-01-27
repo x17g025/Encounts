@@ -21,8 +21,6 @@ import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.encount.PostList2
 import com.example.encount.R
-import com.example.encount.SQLiteHelper
-import com.example.encount.post.PostDetails
 import com.example.encount.post.PostDetails
 import kotlin.random.Random
 import com.google.android.gms.location.*
@@ -36,7 +34,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
-import kotlin.math.floor
 
 class MapsHome : Fragment(), OnMapReadyCallback {
 
