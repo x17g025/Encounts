@@ -22,6 +22,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.encount.PostList2
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
+import com.example.encount.post.PostDetails
 
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
@@ -156,8 +157,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
-                                                .title("imageID : " + postList[i].imageId)
-                                                .snippet("user_id" + postList[i].userId)
+                                                .title(/*"imageID : " + postList[i].imageId*/"")
+                                                /*.snippet("user_id" + postList[i].userId)*/
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
@@ -219,7 +220,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         val spot = LatLng(35.7044997, 139.9843911)
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(spot))
         //マップのズーム絶対値指定　1: 世界 5: 大陸 10:都市 15:街路 20:建物 ぐらいのサイズ
-        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(19f))
+        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(18.3f))
 
         mMap!!.setOnMapClickListener(object : GoogleMap.OnMapClickListener{
             override fun onMapClick(latLng: LatLng) {
@@ -236,6 +237,12 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 //mm.setTag(1)
             }
         })
+        mMap!!.setOnMarkerClickListener { marker ->
+            val intent = Intent(context, PostDetails::class.java)
+            intent.putExtra("Post_Id", marker.title)
+            startActivity(intent)
+            true
+        }
     }
 
     //許可されていないパーミッションリクエスト
