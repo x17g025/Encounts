@@ -54,7 +54,11 @@ class PostDetails : AppCompatActivity() {
         setContentView(R.layout.activity_post_details)
 
         postId = intent.getStringExtra("Post_Id")
-        userId = intent.getStringExtra("User_Id") //投稿者のユーザーID
+
+        if(intent.getStringExtra("User_Id") != null) {
+
+            userId = intent.getStringExtra("User_Id") //投稿者のユーザーID
+        }
 
         UserPostGet().execute()
         UserReplyGet().execute()
