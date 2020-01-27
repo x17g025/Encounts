@@ -49,7 +49,7 @@ class UserHome : Fragment() {
         UserPostGet().execute()
 
         //長押しでいいね
-        /*
+
         gvPostData.setOnItemLongClickListener { parent, view, position, id ->
 
             viewId = view
@@ -57,7 +57,7 @@ class UserHome : Fragment() {
             Log.d("baba", postId)
 
             return@setOnItemLongClickListener true
-        }*/
+        }
 
         btnPost.setOnClickListener{
 
