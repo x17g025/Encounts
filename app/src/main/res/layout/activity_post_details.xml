@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -100,7 +100,7 @@
                     android:src="@drawable/post_like_false"/>
 
                 <ImageView
-                    android:id="@+id/ivPostMap"
+                    android:id="@+id/ivPostReply"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_weight="1"
@@ -189,7 +189,7 @@
                     android:textSize="16dp" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/postButton"
+                    android:id="@+id/btnReply"
                     android:layout_width="30dp"
                     android:layout_gravity="bottom"
                     android:layout_height="30dp"
@@ -202,22 +202,18 @@
                 android:visibility="visible"
                 android:background="#dcdcdc"/>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ListView
-                    android:id="@+id/lvReplyData"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="17sp"
-                    android:divider="@null"/>
-
-            </ScrollView>
         </LinearLayout>
     </ScrollView>
+
+        <ListView
+            android:id="@+id/lvReplyData"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginHorizontal="7dp"
+            android:layout_marginTop="7dp"
+            android:textSize="17sp"
+            android:divider="@null"/>
+
 </LinearLayout>
 
 

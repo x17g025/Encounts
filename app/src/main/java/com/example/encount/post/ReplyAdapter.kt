@@ -42,7 +42,6 @@ class ReplyAdapter(val context: Context?, val posts: List<ReplyList>): BaseAdapt
         view.tvReplyText.text = posts[position].postText
         view.tvUserId.text    = posts[position].userId
         view.tvReplyDate.text = posts[position].postDate
-        Glide.with(context).load(posts[position].userIcon).into(view.ivUserIcon)
 
         return view
     }
