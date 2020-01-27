@@ -54,6 +54,8 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
         view.tvPostId.text       = posts[position].postId
         view.tvUserId.text       = posts[position].userId
+        view.tvImageLat.text     = posts[position].imageLat.toString()
+        view.tvImageLng.text     = posts[position].imageLng.toString()
         Glide.with(context).load(posts[position].image).into(view.image_view)
 
         if(posts[position].likeFlag){
@@ -70,6 +72,8 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id", posts[position].postId)
             intent.putExtra("User_Id", posts[position].userId)
+            intent.putExtra("imageLat", posts[position].imageLat)
+            intent.putExtra("imageLng", posts[position].imageLng)
             view.getContext().startActivity(intent)
         }
 

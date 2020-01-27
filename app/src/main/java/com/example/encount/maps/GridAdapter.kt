@@ -61,6 +61,8 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
         val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
         view.tvUserId.text       = posts[position].userId
         view.tvImageId.text      = posts[position].imageId
+        view.tvImageLat.text       = posts[position].imageLat
+        view.tvImageLng.text      = posts[position].imageLng
         Glide.with(context).load(posts[position].imagePath).into(view.image_view)
 
         if(posts[position].likeFlag){

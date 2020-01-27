@@ -45,6 +45,8 @@ class UserPostList : Fragment() {
 
                 val intent = Intent(context, PostDetails::class.java)
                 intent.putExtra("Post_Id", view.tvPostId.text)
+                intent.putExtra("imageLat", view.tvImageLat.text)
+                intent.putExtra("imageLng", view.tvImageLng.text)
                 startActivity(intent)
             }
 
@@ -84,7 +86,7 @@ class UserPostList : Fragment() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://encount.cf/encount/UserPostGet.php"
+            val url = "https://encount.cf/encount/UserPostGet2.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -121,7 +123,9 @@ class UserPostList : Fragment() {
                             i.postId,
                             i.userId,
                             i.likeFlag,
-                            i.postImage
+                            i.postImage,
+                            i.imageLat,
+                            i.imageLng
                         )
                     )
                 }

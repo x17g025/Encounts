@@ -67,18 +67,18 @@ class PostDetails : AppCompatActivity() {
 
         if(intent.getStringExtra("imageLat") != null) {
 
-            imageLat = intent.getStringExtra("imageLat") //投稿者のユーザーID
+            imageLat = intent.getStringExtra("imageLat") //投稿場所の緯度
         }
         if(intent.getStringExtra("imageLng") != null) {
 
-            imageLng = intent.getStringExtra("imageLng") //投稿者のユーザーID
+            imageLng = intent.getStringExtra("imageLng") //投稿場所の経度
         }
 
         //位置情報を住所に変換
         if(imageLat != "" && imageLng != ""){
             tvPostPlace.setText(getAddress(imageLat.toDouble(), imageLng.toDouble()))
         }else{
-            tvPostPlace.setText("写真の投稿場所が取得できません")
+            tvPostPlace.setText("投稿場所が取得不可")
         }
 
 

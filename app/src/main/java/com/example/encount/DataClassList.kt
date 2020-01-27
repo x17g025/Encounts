@@ -20,7 +20,9 @@ data class PostList(
     val postId: String,
     val userId: String,
     val likeFlag: Boolean,
-    val image: String
+    val image: String,
+    val imageLat: Double,
+    val imageLng: Double
 )
 
 data class ReplyList(
@@ -39,7 +41,9 @@ data class PostDataClassList(
     val postText: String,
     val postDate: String,
     val likeFlag: Boolean,
-    val postLikeCnt: Long
+    val postLikeCnt: Long,
+    val imageLat: Double,
+    val imageLng: Double
 )
 
 data class LoginDataClassList(

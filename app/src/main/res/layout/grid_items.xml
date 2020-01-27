@@ -40,6 +40,18 @@
         android:layout_height="0dp"
         android:textSize="0sp" />
 
+    <TextView
+        android:id="@+id/tvImageLat"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="0sp" />
+
+    <TextView
+        android:id="@+id/tvImageLng"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="0sp" />
+
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
