@@ -75,7 +75,12 @@ class PostDetails : AppCompatActivity() {
         }
 
         //位置情報を住所に変換
-        tvPostPlace.setText(getAddress(imageLat.toDouble(), imageLng.toDouble()))
+        if(imageLat != "" && imageLng != ""){
+            tvPostPlace.setText(getAddress(imageLat.toDouble(), imageLng.toDouble()))
+        }else{
+            tvPostPlace.setText("写真の投稿場所が取得できません")
+        }
+
 
         //タップで投稿の詳細画面へ
         ivPostLike.setOnClickListener {
