@@ -47,6 +47,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var cnt = 0
     //マップ上に打つピンを管理するための変数
     private var mmm: Marker? = null
+    //下のfor文内で使うカウント変数
+    var ccnt = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -137,9 +139,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //写真が１件以上あれば、マップのピンを立てる処理を行う
                     if (cnt >= 1) {
 
-                        //下のfor文内で使うカウント変数
-                        var ccnt = 0
-
                         Log.d("debug", "取得した写真の件数 : " + cnt)
 
                         //取得した写真の件数分ピンを打つ処理
@@ -173,8 +172,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                             MarkerOptions()
                                                 .position(spot)
                                                 .title(postList[i].postId)
-                                                .snippet(/*postList[i].userId*/postList[i].imageLat)
-                                                .snippet(postList[i].imageLng)
+                                                .snippet(postList[i].userId)
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
@@ -246,11 +244,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
-            intent.putExtra("Post_Id", marker.title)
-            println("aaa"+marker.snippet)
-            println("bbb"+marker.snippet)
-            intent.putExtra("ImageLat",marker.snippet)
-            intent.putExtra("ImageLng",marker.snippet)
+            intent.putExtra("ImageLat",postList[ccnt].imageLat)
+            intent.putExtra("ImageLng",postList[ccnt].imageLng)
             startActivity(intent)
             true
         }
