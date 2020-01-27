@@ -173,7 +173,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                             MarkerOptions()
                                                 .position(spot)
                                                 .title(postList[i].postId)
-                                                .snippet(postList[i].userId)
+                                                .snippet(/*postList[i].userId*/postList[i].imageLat)
+                                                .snippet(postList[i].imageLng)
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
@@ -246,6 +247,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id", marker.title)
+            println("aaa"+marker.snippet)
+            println("bbb"+marker.snippet)
+            intent.putExtra("ImageLat",marker.snippet)
+            intent.putExtra("ImageLng",marker.snippet)
             startActivity(intent)
             true
         }

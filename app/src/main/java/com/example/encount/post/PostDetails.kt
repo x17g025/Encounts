@@ -45,6 +45,8 @@ class PostDetails : AppCompatActivity() {
     var postId = ""
     var userId = ""
     var text   = ""
+    var imageLat   = ""
+    var imageLng   = ""
   
     private val _helper = SQLiteHelper(this@PostDetails)
 
@@ -63,9 +65,17 @@ class PostDetails : AppCompatActivity() {
         UserPostGet().execute()
         UserReplyGet().execute()
 
+        if(intent.getStringExtra("imageLat") != null) {
+
+            imageLat = intent.getStringExtra("imageLat") //投稿者のユーザーID
+        }
+        if(intent.getStringExtra("imageLng") != null) {
+
+            imageLng = intent.getStringExtra("imageLng") //投稿者のユーザーID
+        }
+
         //位置情報を住所に変換
-        tvPostPlace.setText(getAddress(latitude, longitude))
-        //tvPostPlace.setText(getAddress(intent.getStringExtra("imageLat").toDouble(),intent.getDoubleExtra("imageLng").toDouble()))
+        tvPostPlace.setText(getAddress(imageLat.toDouble(), imageLng.toDouble()))
 
         //タップで投稿の詳細画面へ
         ivPostLike.setOnClickListener {
