@@ -139,6 +139,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //写真が１件以上あれば、マップのピンを立てる処理を行う
                     if (cnt >= 1) {
 
+                        ccnt = 0
+
                         Log.d("debug", "取得した写真の件数 : " + cnt)
 
                         //取得した写真の件数分ピンを打つ処理
@@ -245,8 +247,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id",marker.title)
-            intent.putExtra("ImageLat",postList[ccnt-1].imageLat)
-            intent.putExtra("ImageLng",postList[ccnt-1].imageLng)
+            intent.putExtra("imageLat",postList[ccnt-1].imageLat)
+            intent.putExtra("imageLng",postList[ccnt-1].imageLng)
             startActivity(intent)
             true
         }
