@@ -53,7 +53,9 @@ class SpotMainActivity : AppCompatActivity() {
     private fun getAddress(lat: Double, lng: Double): String {
         val geocoder = Geocoder(this)
         val list = geocoder.getFromLocation(lat, lng, 1)
-        return list[0].getAddressLine(0)
+        //println("0" + list[0].getAddressLine(0))
+        var kekka = list[0].getAdminArea() + list[0].getLocality() + list[0].getThoroughfare() +list[0].getSubThoroughfare()
+        return kekka
     }
 
     private inner class SpotPhotoGet() : AsyncTask<String, String, String>(){
