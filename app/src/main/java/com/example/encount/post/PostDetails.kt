@@ -45,6 +45,8 @@ class PostDetails : AppCompatActivity() {
     var postId = ""
     var userId = ""
     var text   = ""
+    var imageLat   = ""
+    var imageLng   = ""
   
     private val _helper = SQLiteHelper(this@PostDetails)
 
@@ -63,9 +65,22 @@ class PostDetails : AppCompatActivity() {
         UserPostGet().execute()
         UserReplyGet().execute()
 
+        if(intent.getStringExtra("imageLat") != null) {
+
+            imageLat = intent.getStringExtra("imageLat") //投稿場所の緯度
+        }
+        if(intent.getStringExtra("imageLng") != null) {
+
+            imageLng = intent.getStringExtra("imageLng") //投稿場所の経度
+        }
+
         //位置情報を住所に変換
-        tvPostPlace.setText(getAddress(latitude, longitude))
-        //tvPostPlace.setText(getAddress(intent.getStringExtra("imageLat").toDouble(),intent.getDoubleExtra("imageLng").toDouble()))
+        if(imageLat != "" && imageLng != ""){
+            tvPostPlace.setText(getAddress(imageLat.toDouble(), imageLng.toDouble()))
+        }else{
+            tvPostPlace.setText("投稿場所が取得不可")
+        }
+
 
         //タップで投稿の詳細画面へ
         ivPostLike.setOnClickListener {
@@ -87,16 +102,26 @@ class PostDetails : AppCompatActivity() {
             }
 
             if (userId == id) {
-                UserPostDel().execute()
-
-                SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
-                    .setTitleText("投稿削除完了")
-                    .setContentText("")
-                    .setConfirmText("ホーム画面へ")
-                    .setConfirmClickListener { sDialog ->
-                        sDialog.dismissWithAnimation()
-                        goHome()
+                SweetAlertDialog(this@PostDetails, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("投稿を削除します")
+                    .setContentText("削除した投稿は元に戻せません。")
+                    .setConfirmText("Yes")
+                    .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation()
+                        //削除処理
+                        UserPostDel().execute()
+                        SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("投稿削除完了")
+                            .setContentText("")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener {
+                                    sDialog -> sDialog.dismissWithAnimation()
+                                goHome()
+                            }
+                            .show()
                     }
+                    .setCancelButton(
+                        "No"
+                    ) { sDialog -> sDialog.dismissWithAnimation() }
                     .show()
             } else {
                 SweetAlertDialog(this@PostDetails, SweetAlertDialog.ERROR_TYPE)

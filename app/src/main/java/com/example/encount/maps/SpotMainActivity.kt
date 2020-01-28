@@ -33,8 +33,6 @@ class SpotMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.spotmain)
 
-        //postId = intent.getStringExtra("Post_Id")
-        //postId = "92"
         swipelayout2.setColorSchemeResources(R.color.colorMain)
 
         SpotPhotoGet().execute()

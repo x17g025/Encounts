@@ -49,6 +49,7 @@ class UserHome : Fragment() {
         UserPostGet().execute()
 
         //長押しでいいね
+
         gvPostData.setOnItemLongClickListener { parent, view, position, id ->
 
             viewId = view
@@ -89,7 +90,7 @@ class UserHome : Fragment() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://encount.cf/encount/UserPostGet.php"
+            val url = "https://encount.cf/encount/UserPostGet2.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -125,7 +126,9 @@ class UserHome : Fragment() {
                             i.postId,
                             i.userId,
                             i.likeFlag,
-                            i.postImage
+                            i.postImage,
+                            i.imageLat,
+                            i.imageLng
                         )
                     )
                 }
