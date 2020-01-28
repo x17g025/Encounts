@@ -81,7 +81,6 @@ class PostDetails : AppCompatActivity() {
             tvPostPlace.setText("投稿場所が取得不可")
         }
 
-
         //タップで投稿の詳細画面へ
         ivPostLike.setOnClickListener {
 
