@@ -394,8 +394,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
     //ClusterManager オブジェクトを生成
     private val manager = ClusterManager<SegmentClusterItem>(context,mMap).apply {
-        //setOnCameraIdleListener(this)
-        //setOnMarkerClickListener(this)
+        mMap!!.setOnCameraIdleListener(this)
+        mMap!!.setOnMarkerClickListener(this)
     }
 
 
