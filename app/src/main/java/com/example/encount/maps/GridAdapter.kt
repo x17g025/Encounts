@@ -21,7 +21,7 @@ import com.example.encount.post.PostDetails
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_profile_change.view.*
 import kotlinx.android.synthetic.main.grid_items.view.*
-import kotlinx.android.synthetic.main.spotmain.view.*
+import kotlinx.android.synthetic.main.activity_spot_home.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request

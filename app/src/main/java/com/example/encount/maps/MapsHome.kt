@@ -22,21 +22,18 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.encount.PostList2
 import com.example.encount.R
 import com.example.encount.post.PostDetails
-import kotlin.random.Random
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_maps_home.*
+import kotlinx.android.synthetic.main.activity_spot_home.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
-import java.lang.Math.abs
-import java.text.SimpleDateFormat
-import java.util.*
 
 class MapsHome : Fragment(), OnMapReadyCallback {
 
@@ -71,7 +68,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        button2.setOnClickListener {
+        ivSpotPost.setOnClickListener {
 
             //スポット詳細画面へ遷移
             val intent = Intent(context, SpotMainActivity::class.java)
@@ -110,6 +107,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                     latitude = location.latitude
                     longitude = location.longitude
+
+                    ivSpotPost.visibility = View.VISIBLE
 
                     //グローバル変数に位置情報を代入
 
@@ -158,8 +157,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                             val spot = LatLng(
 
-                                postList[ccnt].imageLat.toDouble() + Random.nextDouble(-.0003,.0003),
-                                postList[ccnt].imageLng.toDouble() + Random.nextDouble(-.0003,.0003)
+                                postList[ccnt].imageLat.toDouble(),
+                                postList[ccnt].imageLng.toDouble()
                             )
 
                             Glide.with(activity)

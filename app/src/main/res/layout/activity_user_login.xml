@@ -96,6 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:textColor="#FFFFFF"
                 android:text="@string/userLogin"
                 android:textSize="18sp" />
 

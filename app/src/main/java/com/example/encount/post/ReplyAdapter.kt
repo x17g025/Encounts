@@ -1,6 +1,7 @@
 package com.example.encount.post
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,9 @@ import com.example.encount.PostDataClassList
 import com.example.encount.PostList
 import com.example.encount.R
 import com.example.encount.ReplyList
+import kotlinx.android.synthetic.main.grid_items.view.*
 import kotlinx.android.synthetic.main.la_bbs_item.view.*
+import kotlinx.android.synthetic.main.la_bbs_item.view.tvUserId
 
 /**
  * やってること
@@ -42,6 +45,13 @@ class ReplyAdapter(val context: Context?, val posts: List<ReplyList>): BaseAdapt
         view.tvReplyText.text = posts[position].postText
         view.tvUserId.text    = posts[position].userId
         view.tvReplyDate.text = posts[position].postDate
+
+        view.setOnClickListener {
+
+            val intent = Intent(context, PostDetails::class.java)
+            intent.putExtra("User_Id", posts[position].userId)
+            view.getContext().startActivity(intent)
+        }
 
         return view
     }

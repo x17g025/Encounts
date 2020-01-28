@@ -30,10 +30,8 @@ class FriendProfile : AppCompatActivity() {
 
         userId = intent.getStringExtra("User_Id")
 
-
         UserDataGet().execute()
         UserPostGet().execute()
-
     }
 
     private inner class UserDataGet() : AsyncTask<String, String, String>() {

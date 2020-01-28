@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipelayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--GridView　ここから-->
+        <GridView
+            android:id="@+id/gvSpotNewpost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:horizontalSpacing="2dp"
+            android:verticalSpacing="2dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth" />
+        <!--GridView　ここまで-->
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>

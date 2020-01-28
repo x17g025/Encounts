@@ -65,22 +65,6 @@ class PostDetails : AppCompatActivity() {
         UserPostGet().execute()
         UserReplyGet().execute()
 
-        if(intent.getStringExtra("imageLat") != null) {
-
-            imageLat = intent.getStringExtra("imageLat") //投稿場所の緯度
-        }
-        if(intent.getStringExtra("imageLng") != null) {
-
-            imageLng = intent.getStringExtra("imageLng") //投稿場所の経度
-        }
-
-        //位置情報を住所に変換
-        if(imageLat != "" && imageLng != ""){
-            tvPostPlace.setText(getAddress(imageLat.toDouble(), imageLng.toDouble()))
-        }else{
-            tvPostPlace.setText("投稿場所が取得不可")
-        }
-
 
         //タップで投稿の詳細画面へ
         ivPostLike.setOnClickListener {
@@ -247,9 +231,11 @@ class PostDetails : AppCompatActivity() {
 
                 Glide.with(this@PostDetails).load(postData.postImage).into(ivPostImage)
 
-                tvPostName.text = postData.userName
-                tvPostDate.text = postData.postDate
-                tvPostText.text = postData.postText
+                Log.d("loac",postData.imageLat.toString())
+                tvPostName.text  = postData.userName
+                tvPostDate.text  = postData.postDate
+                tvPostText.text  = postData.postText
+                tvPostPlace.text = getAddress(postData.imageLat, postData.imageLng)
 
                 if (postData.likeFlag) {
 

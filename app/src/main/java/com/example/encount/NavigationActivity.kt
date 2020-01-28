@@ -116,6 +116,8 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
 
                 headerView.navUserName.text   = userData.userName
                 headerView.navUserNumber.text = "ID : " + userData.userNumber.toString()
+                headerView.navPostCount.text = userData.postCount
+                headerView.navLikeCount.text = userData.likeCount
             }
             catch(e : Exception){
             }

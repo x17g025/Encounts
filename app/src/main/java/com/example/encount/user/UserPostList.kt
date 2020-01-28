@@ -12,7 +12,7 @@ import com.example.encount.post.PostAdapter
 import com.example.encount.post.PostDetails
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_user_post_list.*
+import kotlinx.android.synthetic.main.tablayout_user_post_data.*
 import kotlinx.android.synthetic.main.grid_items.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -27,7 +27,7 @@ class UserPostList : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.activity_user_post_list, container, false)
+        return inflater.inflate(R.layout.tablayout_user_post_data, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class UserPostList : Fragment() {
         UserPostGet().execute()
 
         //タップで投稿の詳細画面へ
-        UserProfilePost.setOnItemClickListener {parent, view, position, id ->
+        gvUserPostData.setOnItemClickListener {parent, view, position, id ->
 
             view.image_view.setOnClickListener {
 
@@ -49,15 +49,10 @@ class UserPostList : Fragment() {
                 intent.putExtra("imageLng", view.tvImageLng.text)
                 startActivity(intent)
             }
-
-            view.ivPostLike.setOnClickListener{
-
-                //Log.d("debugdayio",postId)
-            }
         }
 
         //長押しでいいね
-        UserProfilePost.setOnItemLongClickListener { parent, view, position, id ->
+        gvUserPostData.setOnItemLongClickListener { parent, view, position, id ->
 
             return@setOnItemLongClickListener true
         }
@@ -86,7 +81,7 @@ class UserPostList : Fragment() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://encount.cf/encount/UserPostGet2.php"
+            val url = "https://encount.cf/encount/MyPostGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -129,9 +124,8 @@ class UserPostList : Fragment() {
                         )
                     )
                 }
-                postList[1].postId
 
-                UserProfilePost.adapter = PostAdapter(context, postList)
+                gvUserPostData.adapter = PostAdapter(context, postList)
                 swipelayout.isRefreshing = false
             }
             catch(e : Exception){

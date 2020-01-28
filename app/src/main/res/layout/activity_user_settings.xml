@@ -18,7 +18,6 @@
         android:id="@+id/logoutbtn"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/usernew"
         android:layout_centerHorizontal="true"
         app:cardBackgroundColor="#BEF0FF"
         app:cardCornerRadius="25dp"

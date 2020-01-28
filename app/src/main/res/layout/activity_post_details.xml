@@ -202,17 +202,23 @@
                 android:visibility="visible"
                 android:background="#dcdcdc"/>
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:id="@+id/lvReplyData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_marginTop="7dp"
+                    android:textSize="17sp"
+                    android:divider="@null"/>
+            </ScrollView>
         </LinearLayout>
     </ScrollView>
 
-        <ListView
-            android:id="@+id/lvReplyData"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginHorizontal="7dp"
-            android:layout_marginTop="7dp"
-            android:textSize="17sp"
-            android:divider="@null"/>
+
 
 </LinearLayout>
 

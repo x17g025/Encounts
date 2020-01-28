@@ -56,7 +56,9 @@ data class UserDataClassList(
     val userName: String,
     val userNumber: Long,
     val userBio: String,
-    val userIcon: String
+    val userIcon: String,
+    val postCount: String,
+    val likeCount: String
 )
 
 data class SinginDataClassList (
