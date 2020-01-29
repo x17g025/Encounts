@@ -393,10 +393,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     }
 
     //ClusterManager オブジェクトを生成
-    private val manager = ClusterManager<SegmentClusterItem>(context,mMap).apply {
+    /*private val manager = ClusterManager<SegmentClusterItem>(context,mMap).apply {
         mMap!!.setOnCameraIdleListener(this)
         mMap!!.setOnMarkerClickListener(this)
-    }
+    }*/
 
 
 }
