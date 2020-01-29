@@ -11,10 +11,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.BaseAdapter
 import com.bumptech.glide.Glide
-import com.example.encount.PostList
-import com.example.encount.R
-import com.example.encount.SQLiteHelper
-import com.example.encount.like
+import com.example.encount.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.grid_items.view.*
 import okhttp3.FormBody
@@ -60,11 +57,11 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
 
         if(posts[position].likeFlag){
 
-            view.ivPostLike.setImageResource(R.drawable.post_like_true)
+            view.ivPostLike.setImageResource(R.drawable.tool_like_true)
         }
         else{
 
-            view.ivPostLike.setImageResource(R.drawable.post_like_false)
+            view.ivPostLike.setImageResource(R.drawable.tool_like_false)
         }
 
         view.image_view.setOnClickListener {
@@ -144,13 +141,13 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
 
                 if(likeFlag.flag) {
 
-                    viewId!!.ivPostLike.setImageResource(R.drawable.post_like_true)
+                    viewId!!.ivPostLike.setImageResource(R.drawable.tool_like_true)
                     var animation = AnimationUtils.loadAnimation(context,R.anim.like_touch)
                     viewId!!.ivPostLike.startAnimation(animation)
                 }
                 else{
 
-                    viewId!!.ivPostLike.setImageResource(R.drawable.post_like_false)
+                    viewId!!.ivPostLike.setImageResource(R.drawable.tool_like_false)
                     var animation = AnimationUtils.loadAnimation(context,R.anim.like_touch)
                     viewId!!.ivPostLike.startAnimation(animation)
                 }

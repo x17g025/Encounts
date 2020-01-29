@@ -19,6 +19,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
+import android.widget.GridView
+
+
 
 class UserPostList : Fragment() {
 
@@ -35,6 +38,8 @@ class UserPostList : Fragment() {
         _helper = SQLiteHelper(context)
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
+
+        gvUserPostData.setNumColumns(3)
 
         UserPostGet().execute()
 

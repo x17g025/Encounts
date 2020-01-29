@@ -179,15 +179,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
-
-                                    override fun onLoadFailed(errorDrawable: Drawable?) {
-                                        mmm = mMap!!.addMarker(
-                                            MarkerOptions()
-                                                .position(spot)
-                                                .title("エラーで写真を正しく表示できませんでした。")
-                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.error))
-                                        )
-                                    }
                                 })
                             ccnt++
                         }

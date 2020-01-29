@@ -4,11 +4,11 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_user"
-            android:icon="@drawable/ic_menu_user"
+            android:icon="@drawable/menu_user"
             android:title="マイページ" />
         <item
             android:id="@+id/nav_friend"
-            android:icon="@drawable/ic_drawer_friend"
+            android:icon="@drawable/drawer_friend"
             android:title="フレンド承認" />
     </group>
     <group

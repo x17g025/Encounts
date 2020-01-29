@@ -44,9 +44,6 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
         setupWithNavController(bottom_navigation, navController)
 
         UserDataGet().execute()
-
-
-
     }
 
     private fun setDrawerLayout(){
@@ -67,7 +64,7 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
         return false
     }
 
-    private inner class UserDataGet() : AsyncTask<String, String, String>() {
+    inner class UserDataGet : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
 

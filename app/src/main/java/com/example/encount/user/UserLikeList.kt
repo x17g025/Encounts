@@ -36,6 +36,8 @@ class UserLikeList : Fragment() {
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
+        gvUserLikeData.setNumColumns(3)
+
         UserLikeGet().execute()
 
         //タップで投稿の詳細画面へ

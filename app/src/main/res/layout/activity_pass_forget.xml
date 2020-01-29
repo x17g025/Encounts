@@ -27,7 +27,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/edit_text_design"
-        android:drawableLeft="@drawable/ic_action_mail"
+        android:drawableLeft="@drawable/edit_text_mail"
         android:ems="10"
         android:hint="@string/userLoginMail"
         android:inputType="text"

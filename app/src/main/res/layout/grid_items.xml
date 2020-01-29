@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/image_nothing"/>
+        android:src="@drawable/tool_nothing"/>
 
     <TextView
         android:id="@+id/tvPostId"
@@ -65,5 +65,5 @@
         android:layout_height="25dp"
         android:layout_margin="5dp"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/post_like_false" />
+        android:src="@drawable/tool_like_false" />
 </FrameLayout>

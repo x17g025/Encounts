@@ -2,8 +2,6 @@ package com.example.encount.maps
 
 import android.content.Context
 import android.content.Intent
-import android.location.Address
-import android.location.Geocoder
 import android.os.AsyncTask
 import android.os.Handler
 import android.util.Log
@@ -19,15 +17,12 @@ import com.example.encount.SQLiteHelper
 import com.example.encount.like
 import com.example.encount.post.PostDetails
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_profile_change.view.*
 import kotlinx.android.synthetic.main.grid_items.view.*
-import kotlinx.android.synthetic.main.activity_spot_home.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
-import java.util.*
 
 /**
  * やってること
@@ -67,11 +62,11 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
 
         if(posts[position].likeFlag){
 
-            view.ivPostLike.setImageResource(R.drawable.post_like_true)
+            view.ivPostLike.setImageResource(R.drawable.tool_like_true)
         }
         else{
 
-            view.ivPostLike.setImageResource(R.drawable.post_like_false)
+            view.ivPostLike.setImageResource(R.drawable.tool_like_false)
         }
 
         view.image_view.setOnClickListener {
@@ -151,13 +146,13 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
 
                 if(likeFlag.flag) {
 
-                    viewId!!.ivPostLike.setImageResource(R.drawable.post_like_true)
+                    viewId!!.ivPostLike.setImageResource(R.drawable.tool_like_true)
                     var animation = AnimationUtils.loadAnimation(context,R.anim.like_touch)
                     viewId!!.ivPostLike.startAnimation(animation)
                 }
                 else{
 
-                    viewId!!.ivPostLike.setImageResource(R.drawable.post_like_false)
+                    viewId!!.ivPostLike.setImageResource(R.drawable.tool_like_false)
                     var animation = AnimationUtils.loadAnimation(context,R.anim.like_touch)
                     viewId!!.ivPostLike.startAnimation(animation)
                 }

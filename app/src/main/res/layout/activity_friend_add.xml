@@ -19,7 +19,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="30dp"
         android:background="#dcdcdc"
-        android:drawableLeft="@drawable/ic_action_person"
+        android:drawableLeft="@drawable/edit_text_person"
         android:ems="10"
         android:layout_gravity="center|top"
         android:hint="ユーザーID"

@@ -5,18 +5,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/postHeader"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/postClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/tool_close"
+            android:layout_weight="0.1"/>
+
+        <ImageView
+            android:layout_height="45dp"
+            android:layout_width="45dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:src="@drawable/app_icon" />
+
+        <ImageView
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.1"
+            android:src="@drawable/tool_settings"/>
+    </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="60dp"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivUserIcon"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/app_deficon"/>
 
@@ -31,6 +61,7 @@
                 android:id="@+id/UserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="石川由衣"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -41,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="4"
+                android:text=""
                 android:layout_marginStart="2dp"
                 android:ellipsize="end"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -53,14 +85,14 @@
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:visibility="visible"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="160dp"
         android:background="#dcdcdc"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/UserDataList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="160dp"
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout

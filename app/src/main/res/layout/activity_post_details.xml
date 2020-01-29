@@ -15,7 +15,7 @@
             android:layout_height="40dp"
             android:layout_width="40dp"
             android:layout_gravity="center"
-            android:src="@drawable/icon"/>
+            android:src="@drawable/app_icon"/>
     </androidx.appcompat.widget.Toolbar>
 
     <View
@@ -97,21 +97,21 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_weight="1"
-                    android:src="@drawable/post_like_false"/>
+                    android:src="@drawable/tool_like_false"/>
 
                 <ImageView
                     android:id="@+id/ivPostReply"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_weight="1"
-                    android:src="@drawable/post_tool_reply"/>
+                    android:src="@drawable/tool_reply"/>
 
                 <ImageView
                 android:id="@+id/ivPostMenu"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_weight="1"
-                android:src="@drawable/post_tool_menu"/>
+                android:src="@drawable/tool_menu"/>
             </LinearLayout>
 
             <View
