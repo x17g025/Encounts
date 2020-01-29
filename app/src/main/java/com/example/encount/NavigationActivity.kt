@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import kotlinx.android.synthetic.main.activity_navigation.*
+import kotlinx.android.synthetic.main.activity_nav_main.*
 import androidx.core.view.GravityCompat
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -20,7 +20,7 @@ import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
 import com.example.encount.user.UserSettings
-import kotlinx.android.synthetic.main.drawer_navigation_header.view.*
+import kotlinx.android.synthetic.main.activity_nav_header.view.*
 
 /**
  * やってること
@@ -36,7 +36,7 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_navigation)
+        setContentView(R.layout.activity_nav_main)
 
         this.setDrawerLayout()
 

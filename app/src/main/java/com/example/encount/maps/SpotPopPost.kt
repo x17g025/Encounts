@@ -9,14 +9,14 @@ import androidx.fragment.app.Fragment
 import com.example.encount.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.tablayout_spot_post.*
+import kotlinx.android.synthetic.main.tablayout_spot_data.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
 
-class SpotNewpost : Fragment() {
+class SpotPopPost : Fragment() {
 
     var postId = ""
 
@@ -25,7 +25,7 @@ class SpotNewpost : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.tablayout_spot_post, container, false)
+        return inflater.inflate(R.layout.tablayout_spot_data, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,15 +34,15 @@ class SpotNewpost : Fragment() {
 
         swipelayout2.setColorSchemeResources(R.color.colorMain)
 
-        NewPhotoGet().execute()
+        SpotPhotoGet().execute()
 
         swipelayout2.setOnRefreshListener {
 
-            NewPhotoGet().execute()
+            SpotPhotoGet().execute()
         }
     }
 
-    private inner class NewPhotoGet() : AsyncTask<String, String, String>(){
+    private inner class SpotPhotoGet() : AsyncTask<String, String, String>(){
 
         override fun doInBackground(vararg params: String?): String {
 
@@ -60,7 +60,7 @@ class SpotNewpost : Fragment() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://encount.cf/encount/SpotInfoSend.php"
+            val url = "https://encount.cf/encount/SpotInfoPop.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -116,7 +116,7 @@ class SpotNewpost : Fragment() {
                 }
 
                 //print(Integer.toString(postCount))
-                gvSpotNewpost.adapter = GridAdapter(context, postList)
+                gvSpotPost.adapter = GridAdapter(context, postList)
                 swipelayout2.isRefreshing = false
             }
             catch (e : Exception){

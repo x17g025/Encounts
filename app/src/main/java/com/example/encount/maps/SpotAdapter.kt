@@ -10,8 +10,8 @@ class SpotAdapter(fm: FragmentManager, private val context: Context): FragmentPa
     override fun getItem(i: Int): Fragment {
 
         when (i) {
-            0    -> return SpotPoppost()
-            else -> return SpotNewpost()
+            0    -> return SpotPopPost()
+            else -> return SpotNewPost()
         }
 
     }

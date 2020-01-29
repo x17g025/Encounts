@@ -17,7 +17,7 @@ import com.example.encount.SQLiteHelper
 import com.example.encount.like
 import com.example.encount.post.PostDetails
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.grid_items.view.*
+import kotlinx.android.synthetic.main.ga_post_item.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -53,7 +53,7 @@ class GridAdapter(val context: Context?, val posts: List<PostList2>): BaseAdapte
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
+        val view = layoutInflater.inflate(R.layout.ga_post_item, parent, false)
         view.tvUserId.text       = posts[position].userId
         view.tvImageId.text      = posts[position].imageId
         view.tvImageLat.text       = posts[position].imageLat

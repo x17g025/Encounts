@@ -10,7 +10,7 @@ import com.example.encount.R
 import com.example.encount.SQLiteHelper
 import com.example.encount.SinginDataClassList
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_user_singin.*
+import kotlinx.android.synthetic.main.activity_app_singin.*
 import okhttp3.*
 import java.io.IOException
 
@@ -32,7 +32,7 @@ class UserSingin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_singin)
+        setContentView(R.layout.activity_app_singin)
 
         singinProgress.visibility = View.GONE
 

@@ -7,14 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.example.encount.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_user_home.*
-import kotlinx.android.synthetic.main.grid_items.*
-import kotlinx.android.synthetic.main.grid_items.view.*
+import kotlinx.android.synthetic.main.fragment_user_home.*
+import kotlinx.android.synthetic.main.ga_post_item.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -37,7 +35,7 @@ class UserHome : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.activity_user_home, container, false)
+        return inflater.inflate(R.layout.fragment_user_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

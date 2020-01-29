@@ -20,7 +20,7 @@ import com.example.encount.NavigationActivity
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
 import com.google.android.gms.location.*
-import kotlinx.android.synthetic.main.activity_user_post.*
+import kotlinx.android.synthetic.main.activity_user_do_post.*
 import okhttp3.*
 import java.io.File
 import java.io.IOException
@@ -53,7 +53,7 @@ class UserPost : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_post)
+        setContentView(R.layout.activity_user_do_post)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         locationRequest.setInterval(10000)   //最遅の更新間隔

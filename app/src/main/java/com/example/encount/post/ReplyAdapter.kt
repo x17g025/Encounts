@@ -6,14 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.bumptech.glide.Glide
-import com.example.encount.PostDataClassList
-import com.example.encount.PostList
 import com.example.encount.R
 import com.example.encount.ReplyList
-import kotlinx.android.synthetic.main.grid_items.view.*
-import kotlinx.android.synthetic.main.la_bbs_item.view.*
-import kotlinx.android.synthetic.main.la_bbs_item.view.tvUserId
+import kotlinx.android.synthetic.main.la_reply_item.view.*
+import kotlinx.android.synthetic.main.la_reply_item.view.tvUserId
 
 /**
  * やってること
@@ -40,7 +36,7 @@ class ReplyAdapter(val context: Context?, val posts: List<ReplyList>): BaseAdapt
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val view = layoutInflater.inflate(R.layout.la_bbs_item, parent, false)
+        val view = layoutInflater.inflate(R.layout.la_reply_item, parent, false)
         view.tvReplyName.text = posts[position].userName
         view.tvReplyText.text = posts[position].postText
         view.tvUserId.text    = posts[position].userId

@@ -21,7 +21,7 @@ class FriendAdd : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return  inflater.inflate(R.layout.activity_friend_add, container, false)
+        return  inflater.inflate(R.layout.fragment_search_home, container, false)
         /*
 
         val userId = findViewById<EditText>(R.id.userid)

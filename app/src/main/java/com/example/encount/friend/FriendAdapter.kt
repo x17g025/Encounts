@@ -30,7 +30,7 @@ class FriendAdapter(val context: Context, val posts: List<PostList>): BaseAdapte
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val view = layoutInflater.inflate(R.layout.friend_list, parent, false)
+        val view = layoutInflater.inflate(R.layout.la_friend_item, parent, false)
         view.FriendName.text   = posts[position].name
         view.UserId.text       = posts[position].userid
         Glide.with(context).load(posts[position].image).into(view.UserIcon)

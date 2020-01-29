@@ -10,7 +10,7 @@ import com.example.encount.NavigationActivity
 import com.example.encount.R
 import com.example.encount.SQLiteHelper
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_user_login.*
+import kotlinx.android.synthetic.main.activity_app_login.*
 import okhttp3.*
 import java.io.IOException
 
@@ -30,7 +30,7 @@ class UserLogin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_login)
+        setContentView(R.layout.activity_app_login)
 
         Progress.visibility = View.GONE
 

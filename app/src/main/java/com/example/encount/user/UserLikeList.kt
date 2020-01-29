@@ -12,8 +12,8 @@ import com.example.encount.post.PostAdapter
 import com.example.encount.post.PostDetails
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.grid_items.view.*
-import kotlinx.android.synthetic.main.tablayout_user_like_data.*
+import kotlinx.android.synthetic.main.ga_post_item.view.*
+import kotlinx.android.synthetic.main.tablayout_user_data.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -27,7 +27,7 @@ class UserLikeList : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.tablayout_user_like_data, container, false)
+        return inflater.inflate(R.layout.tablayout_user_data, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,12 +36,10 @@ class UserLikeList : Fragment() {
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
-        gvUserLikeData.setNumColumns(3)
-
         UserLikeGet().execute()
 
         //タップで投稿の詳細画面へ
-        gvUserLikeData.setOnItemClickListener {parent, view, position, id ->
+        gvUserData.setOnItemClickListener {parent, view, position, id ->
 
             view.image_view.setOnClickListener {
 
@@ -51,12 +49,6 @@ class UserLikeList : Fragment() {
                 intent.putExtra("imageLng", view.tvImageLng.text)
                 startActivity(intent)
             }
-        }
-
-        //長押しでいいね
-        gvUserLikeData.setOnItemLongClickListener { parent, view, position, id ->
-
-            return@setOnItemLongClickListener true
         }
 
         swipelayout.setOnRefreshListener {
@@ -127,7 +119,7 @@ class UserLikeList : Fragment() {
                     )
                 }
 
-                gvUserLikeData.adapter = PostAdapter(context, postList)
+                gvUserData.adapter = PostAdapter(context, postList)
                 swipelayout.isRefreshing = false
             }
             catch(e : Exception){

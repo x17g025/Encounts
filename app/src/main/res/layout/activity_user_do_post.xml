@@ -2,36 +2,35 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/postHeader"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_height="55dp">
 
         <ImageView
             android:id="@+id/postClose"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:src="@drawable/tool_close"
-            android:layout_weight="0.1"/>
+            android:layout_gravity="start"
+            android:src="@drawable/tool_close" />
 
         <ImageView
             android:layout_height="45dp"
             android:layout_width="45dp"
             android:layout_gravity="center"
-            android:layout_weight="2"
             android:src="@drawable/app_icon" />
 
-        <ImageView
-            android:layout_height="30dp"
-            android:layout_width="30dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.1"/>
-    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:visibility="visible"
+        android:layout_marginTop="55dp"
+        android:background="#dcdcdc"/>
 
     <EditText
         android:id="@+id/commentInput"
@@ -41,7 +40,7 @@
         android:hint="@string/userPostComment"
         android:background="#00000000"
         android:maxLength="140"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="55dp"/>
 
     <FrameLayout

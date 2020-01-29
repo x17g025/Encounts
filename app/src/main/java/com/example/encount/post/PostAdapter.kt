@@ -13,7 +13,7 @@ import android.widget.BaseAdapter
 import com.bumptech.glide.Glide
 import com.example.encount.*
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.grid_items.view.*
+import kotlinx.android.synthetic.main.ga_post_item.view.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -48,7 +48,7 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        val view = layoutInflater.inflate(R.layout.grid_items, parent, false)
+        val view = layoutInflater.inflate(R.layout.ga_post_item, parent, false)
         view.tvPostId.text       = posts[position].postId
         view.tvUserId.text       = posts[position].userId
         view.tvImageLat.text     = posts[position].imageLat.toString()

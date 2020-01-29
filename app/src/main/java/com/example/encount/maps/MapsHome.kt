@@ -5,7 +5,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.location.Address
 import android.location.Geocoder
 import android.os.AsyncTask
@@ -27,8 +26,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_maps_home.*
-import kotlinx.android.synthetic.main.activity_spot_home.*
+import kotlinx.android.synthetic.main.fragment_maps_home.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -57,7 +55,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     ): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.activity_maps_home, container, false)
+        return inflater.inflate(R.layout.fragment_maps_home, container, false)
 
     }
 
