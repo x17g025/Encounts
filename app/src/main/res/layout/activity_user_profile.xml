@@ -12,7 +12,7 @@
         android:layout_height="50dp">
 
         <ImageView
-            android:id="@+id/postClose"
+            android:id="@+id/ivProfileClose"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="start"
@@ -65,7 +65,6 @@
                 android:id="@+id/UserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="石川由衣"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"

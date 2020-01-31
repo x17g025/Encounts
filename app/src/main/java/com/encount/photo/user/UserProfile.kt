@@ -34,9 +34,10 @@ class UserProfile : AppCompatActivity() {
         tabLayout.setupWithViewPager(UserDataList)
 
         UserDataGet().execute()
+
     }
 
-    private inner class UserDataGet() : AsyncTask<String, String, String>() {
+    private inner class UserDataGet : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
 
