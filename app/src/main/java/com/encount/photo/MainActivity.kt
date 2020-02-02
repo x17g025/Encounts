@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import com.encount.photo.user.UserLogin
+import com.encount.photo.user.UserSingin
 
 /**
  * やってること
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         Handler().postDelayed({
             when {
 
-                userId == "" || userId == null  -> startActivity(Intent(this, UserLogin::class.java))
+                userId == "" || userId == null  -> startActivity(Intent(this, UserSingin::class.java))
                 else            -> startActivity(Intent(this, NavigationActivity::class.java))
             }
             finish()

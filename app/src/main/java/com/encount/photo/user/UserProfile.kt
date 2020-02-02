@@ -1,5 +1,6 @@
 package com.encount.photo.user
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +35,11 @@ class UserProfile : AppCompatActivity() {
         tabLayout.setupWithViewPager(UserDataList)
 
         UserDataGet().execute()
+
+        ivUserSettings.setOnClickListener{
+
+            startActivity(Intent(this, ProfileChange::class.java))
+        }
 
     }
 

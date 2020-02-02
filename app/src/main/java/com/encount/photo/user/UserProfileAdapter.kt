@@ -13,7 +13,6 @@ class TabAdapter(fm: FragmentManager, private val context: Context): FragmentPag
             0    -> return UserPostList()
             else -> return UserLikeList()
         }
-
     }
 
     override fun getCount(): Int {

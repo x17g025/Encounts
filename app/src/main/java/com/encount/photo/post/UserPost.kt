@@ -138,9 +138,6 @@ class UserPost : AppCompatActivity() {
                     }
                     .show()
             }
-
-
-
         }
     }
 

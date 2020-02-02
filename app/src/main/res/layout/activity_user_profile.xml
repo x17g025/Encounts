@@ -12,19 +12,13 @@
         android:layout_height="50dp">
 
         <ImageView
-            android:id="@+id/ivProfileClose"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="start"
-            android:src="@drawable/tool_close" />
-
-        <ImageView
             android:layout_height="45dp"
             android:layout_width="45dp"
             android:layout_gravity="center"
             android:src="@drawable/app_icon" />
 
         <ImageView
+            android:id="@+id/ivUserSettings"
             android:layout_height="30dp"
             android:layout_width="30dp"
             android:layout_gravity="end"

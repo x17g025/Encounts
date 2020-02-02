@@ -116,7 +116,7 @@ class UserSettings : AppCompatActivity() {
         var stmt = db.compileStatement(sqlDelete)
         stmt.executeUpdateDelete()
 
-        val intent = Intent(this, UserLogin::class.java)
+        val intent = Intent(this, UserSingin::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }

@@ -28,11 +28,11 @@
         <activity android:name="com.encount.photo.friend.FriendAdd"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.encount.photo.user.UserLogin"
+            android:name="com.encount.photo.user.UserSingin"
             android:noHistory="true"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.encount.photo.user.UserSingin"
+            android:name="com.encount.photo.user.UserSingup"
             android:noHistory="true"
             android:screenOrientation="portrait"/>
         <activity

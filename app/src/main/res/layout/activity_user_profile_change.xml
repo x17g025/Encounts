@@ -12,7 +12,7 @@
         android:layout_height="50dp">
 
         <ImageView
-            android:id="@+id/tvBack"
+            android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/tool_close"
@@ -28,7 +28,7 @@
             android:textSize="20sp"/>
 
         <ImageView
-            android:id="@+id/tvSave"
+            android:id="@+id/ivSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -43,14 +43,23 @@
         android:layout_marginTop="55dp"
         android:background="#dcdcdc"/>
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivUserIcon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/toolbar"
+        android:src="@drawable/app_deficon"/>
+
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ユーザー名"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/toolbar"
-        android:layout_alignLeft="@+id/etName"
+        android:layout_below="@+id/ivUserIcon"
+        android:layout_alignStart="@+id/etName"
         android:layout_gravity="center"
         android:textSize="15sp" />
 
@@ -65,7 +74,7 @@
         android:ems="10"
         android:inputType="text"
         android:maxLength="20"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvBio"
@@ -74,7 +83,7 @@
         android:text="自己紹介"
         android:layout_marginTop="50dp"
         android:layout_below="@+id/etName"
-        android:layout_alignLeft="@+id/etName"
+        android:layout_alignStart="@+id/etName"
         android:layout_gravity="center"
         android:textSize="15sp" />
 
@@ -86,8 +95,10 @@
         android:layout_below="@+id/tvBio"
         android:layout_centerHorizontal="true"
         android:background="@drawable/edit_text_design"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:textSize="16dp" />
+        android:ems="5"
+        android:maxLines="5"
+        android:maxLength="140"
+        android:inputType="textMultiLine"
+        android:textSize="16sp" />
 
 </RelativeLayout>
