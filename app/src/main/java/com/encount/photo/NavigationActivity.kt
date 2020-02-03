@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_nav_main.*
 import androidx.core.view.GravityCompat
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.navigation.ui.setupWithNavController
 import com.encount.photo.user.UserProfile
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
@@ -21,6 +22,8 @@ import java.io.IOException
 import java.lang.Exception
 import com.encount.photo.user.UserSettings
 import kotlinx.android.synthetic.main.activity_nav_header.view.*
+
+
 
 /**
  * やってること
@@ -118,7 +121,6 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
             }
             catch(e : Exception){
             }
-
         }
     }
 

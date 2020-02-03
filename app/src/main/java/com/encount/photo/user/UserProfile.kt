@@ -36,11 +36,6 @@ class UserProfile : AppCompatActivity() {
 
         UserDataGet().execute()
 
-        ivUserSettings.setOnClickListener{
-
-            startActivity(Intent(this, ProfileChange::class.java))
-        }
-
     }
 
     private inner class UserDataGet : AsyncTask<String, String, String>() {

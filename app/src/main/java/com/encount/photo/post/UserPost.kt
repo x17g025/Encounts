@@ -64,8 +64,9 @@ class UserPost : AppCompatActivity() {
          * 投稿処理
          * 投稿ボタン押すと動作する
          */
-        val commentInput = findViewById<EditText>(R.id.commentInput)
-        ivCameraBig.visibility = View.GONE
+
+        onTakePhoto()
+
         postClose.setOnClickListener {
             startActivity(Intent(this, NavigationActivity::class.java))
         }
@@ -124,7 +125,6 @@ class UserPost : AppCompatActivity() {
                             goHome()
                         }
                         .show()
-                }else{
                 }
 
             }else{
@@ -134,7 +134,6 @@ class UserPost : AppCompatActivity() {
                     .setConfirmText("戻る")
                     .setConfirmClickListener {
                             sDialog -> sDialog.dismissWithAnimation()
-                        //goHome()
                     }
                     .show()
             }
@@ -166,7 +165,7 @@ class UserPost : AppCompatActivity() {
             println("変換後："+uuri.toString())
 
         } else{
-            photoButton.visibility  = View.VISIBLE
+            onTakePhoto()
         }
     }
 
@@ -184,8 +183,8 @@ class UserPost : AppCompatActivity() {
         //WRITE_EXTERNAL_STORAGEに対するパーミションダイアログでかつ許可を選択したなら…
         if(requestCode == 2000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             //もう一度カメラアプリを起動。
-            val ivCamera = findViewById<ImageView>(R.id.ivCamera)
-            onCameraImageClick(ivCamera)
+
+
         }
     }
 
@@ -193,7 +192,7 @@ class UserPost : AppCompatActivity() {
      * 画像部分がタップされたときの処理メソッド。
      * カメラのパーミッション設定の確認と同時に、ここで現在地取得のパーミッションも確認して、許可がないなら再度リクエストする処理を追加する
      */
-    /*private*/ fun onCameraImageClick(view: View) {
+    private fun onTakePhoto() {
         //↑にprivateをつけるとうまく動作しなくなる
         //WRITE_EXTERNAL_STORAGEの許可が下りていないなら…
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -227,7 +226,6 @@ class UserPost : AppCompatActivity() {
         //アクティビティを起動。
         startActivityForResult(intent, 200)
 
-        photoButton.visibility  = View.GONE
     }
 
     /**
@@ -273,7 +271,6 @@ class UserPost : AppCompatActivity() {
         public override
         fun doInBackground(vararg ImagePath: String): String? {
 
-            //user-id(将来的にはAndroid内のSQLiteから取得)
             var id     = ""
             val db     = _helper.writableDatabase
             val sql    = "select * from userInfo"

@@ -4,8 +4,8 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_user"
-            android:icon="@drawable/menu_user"
-            android:title="マイページ" />
+            android:icon="@drawable/drawer_user"
+            android:title="プロフィール" />
         <item
             android:id="@+id/nav_friend"
             android:icon="@drawable/drawer_friend"
@@ -14,12 +14,6 @@
     <group
         android:id="@+id/menu_other"
         android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_notice"
-            android:title="ニュース・お知らせ" />
-        <item
-            android:id="@+id/nav_about"
-            android:title="このアプリについて" />
         <item
             android:id="@+id/nav_settings"
             android:title="設定・プライバシー" />

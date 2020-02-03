@@ -13,7 +13,6 @@ class SpotAdapter(fm: FragmentManager, private val context: Context): FragmentPa
             0    -> return SpotPopPost()
             else -> return SpotNewPost()
         }
-
     }
 
     override fun getCount(): Int {

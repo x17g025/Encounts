@@ -26,6 +26,7 @@
         <activity android:name="com.encount.photo.user.PassForgot"
             android:screenOrientation="portrait"/>
         <activity android:name="com.encount.photo.friend.FriendAdd"
+            android:noHistory="true"
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.encount.photo.user.UserSingin"
@@ -41,6 +42,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name="com.encount.photo.user.UserProfile"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:screenOrientation="portrait"/>
         <activity android:name="com.encount.photo.post.UserHome"
             android:screenOrientation="portrait"/>

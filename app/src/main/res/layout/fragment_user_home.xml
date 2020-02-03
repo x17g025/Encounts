@@ -27,9 +27,8 @@
         android:layout_height="50dp"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="20dp"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/to_post"/>
-
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/take_photo"/>
 </FrameLayout>
 
 

@@ -19,7 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
-
+import android.view.View.MeasureSpec
 
 class UserPostList : Fragment() {
 
@@ -51,7 +51,6 @@ class UserPostList : Fragment() {
                 startActivity(intent)
             }
         }
-
 
         swipelayout.setOnRefreshListener {
 

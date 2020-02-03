@@ -19,6 +19,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
+import android.view.MotionEvent
+import android.widget.GridView
+
 
 /**
  * やってること
