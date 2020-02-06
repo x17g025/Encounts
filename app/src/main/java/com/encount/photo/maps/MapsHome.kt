@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.maps.android.clustering.ClusterItem
+import com.google.maps.android.clustering.ClusterManager
 import kotlinx.android.synthetic.main.fragment_maps_home.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -229,10 +230,25 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             .tilt(60f) // Set the camera tilt
             .build() // Creates a CameraPosition from the builder
         mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(position))*/
-        googleMap.uiSettings.isScrollGesturesEnabled = false
+
+        ClusterManager<SegmentClusterItem>(context,mMap).apply{
+            mMap!!.setOnCameraIdleListener(this)
+            mMap!!.setOnMarkerClickListener(this)
+
+            //postList.values().forEach {
+
+           // }
+        }
+
+        //移動
+        googleMap.uiSettings.isScrollGesturesEnabled = true
+        //ズーム
         googleMap.uiSettings.isZoomGesturesEnabled = false
+        //回転
         googleMap.uiSettings.isCompassEnabled = false
+        //ティルト 2本指スワイプで視点を傾けることができる
         googleMap.uiSettings.isTiltGesturesEnabled = false
+        //
         googleMap.uiSettings.isRotateGesturesEnabled = false
 
         mMap!!.setOnMarkerClickListener { marker ->
