@@ -26,6 +26,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.google.maps.android.clustering.ClusterItem
 import kotlinx.android.synthetic.main.fragment_maps_home.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -355,4 +356,28 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             }
         }
     }
+
+    /**
+     * アイコンをカスタマイズするための処理
+     */
+
+    //ClusterItem を実装したクラスを作成
+    private inner class SegmentClusterItem(postList: MutableList<PostList2>) : ClusterItem {
+        override fun getSnippet(): String {
+            return postList[ccnt].userId
+        }
+        override fun getPosition(): LatLng {
+            return LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
+        }
+        override fun getTitle(): String {
+            return postList[ccnt].postId
+        }
+    }
+
+    //ClusterManager オブジェクトを生成
+    /*private val manager = ClusterManager<SegmentClusterItem>(context,mMap).apply {
+        mMap!!.setOnCameraIdleListener(this)
+        mMap!!.setOnMarkerClickListener(this)
+    }*/
+
 }
