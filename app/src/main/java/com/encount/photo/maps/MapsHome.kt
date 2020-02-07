@@ -208,7 +208,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
         /*
         //移動
-        googleMap.uiSettings.isScrollGesturesEnabled = true
+        googleMap.uiSettings.isScrollGesturesEnabled = false
         //ズーム
         googleMap.uiSettings.isZoomGesturesEnabled = true
         //回転
