@@ -87,6 +87,7 @@
 
         <activity
             android:name="com.encount.photo.maps.MapsHome"
+            android:noHistory="true"
             android:screenOrientation="portrait"/>
 
         <activity
