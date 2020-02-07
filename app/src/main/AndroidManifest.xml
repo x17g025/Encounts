@@ -19,9 +19,14 @@
         android:usesCleartextTraffic="true">
         <activity android:name="com.encount.photo.user.UserLikeList"
             android:screenOrientation="portrait"/>
+        <activity android:name="com.encount.photo.post.PostReply"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
         <activity android:name="com.encount.photo.user.UserPostList"
             android:screenOrientation="portrait"/>
         <activity android:name="com.encount.photo.user.ProfileChange"
+            android:noHistory="true"
             android:screenOrientation="portrait"/>
         <activity android:name="com.encount.photo.user.PassForgot"
             android:screenOrientation="portrait"/>

@@ -33,25 +33,24 @@
 
         <TextView
             android:id="@+id/tvPostPlace"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:layout_weight="1"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ellipsize="end"
             android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/colorText"
             android:textSize="17sp" />
 
         <TextView
             android:id="@+id/tvPostDate"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:gravity="end"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:maxLines="1"
             android:textColor="#808080"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="12sp" />
     </LinearLayout>
 
@@ -80,8 +79,8 @@
                 <ImageView
                     android:id="@+id/ivPostImage"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    android:scaleType="centerCrop"/>
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"/>
             </FrameLayout>
 
             <LinearLayout
@@ -169,52 +168,14 @@
                 android:visibility="visible"
                 android:background="#dcdcdc"/>
 
-            <LinearLayout
-                android:id="@+id/llReply"
+            <ListView
+                android:id="@+id/lvReplyData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/etReply"
-                    android:layout_width="1dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:hint="返信"
-                    android:background="@drawable/edit_text_design"
-                    android:ems="10"
-                    android:layout_marginEnd="5dp"
-                    android:textSize="16sp" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/btnReply"
-                    android:layout_width="30dp"
-                    android:layout_gravity="bottom"
-                    android:layout_height="30dp"
-                    android:src="@drawable/to_post" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:visibility="visible"
-                android:background="#dcdcdc"/>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ListView
-                    android:id="@+id/lvReplyData"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="7dp"
-                    android:layout_marginTop="7dp"
-                    android:textSize="17sp"
-                    android:divider="@null"/>
-            </ScrollView>
+                android:layout_marginHorizontal="7dp"
+                android:layout_marginTop="7dp"
+                android:textSize="17sp"
+                android:divider="@null"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

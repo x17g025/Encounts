@@ -89,7 +89,7 @@ class UserSingup : AppCompatActivity() {
                              "・小文字の半角アルファベット\n" +
                              "・大文字の半角アルファベット\n" +
                              "・半角数字\n" +
-                             "・6文字以上\n"
+                             "・6文字以上"
             checkFlag = false
         }
 

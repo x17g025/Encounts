@@ -269,17 +269,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     }
 
     companion object {
+
         private val REQUEST_CODE = 1000
         private val REQUEST_PERMISSION = 1000
-        //setter
-        /*fun setPostList(mapsHome: MapsHome, mutableList: MutableList<MapsList>) {
-            mapsHome.postList = mapsHome.postList
-            Log.d("debug", "pass" + mapsHome.postList[0].imgpath)
-        }*/
-        fun setPostList(mapsHome: MapsHome, mutableList: MutableList<PostList2>) {
-            mapsHome.postList = mapsHome.postList
-            Log.d("debug", "pass" + mapsHome.postList[0])
-        }
     }
 
     /**

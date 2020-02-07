@@ -141,6 +141,7 @@ class UserPost : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         super.onActivityResult(requestCode, resultCode, data)
         //カメラアプリからの戻りでかつ撮影成功の場合
         if(requestCode == 200 && resultCode == RESULT_OK) {
@@ -164,27 +165,10 @@ class UserPost : AppCompatActivity() {
             val uuri = getFileSchemeUri(_imageUri as Uri)
             println("変換後："+uuri.toString())
 
-        } else{
-            onTakePhoto()
         }
-    }
+        else{
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        //ACCESS_FINE_LOCATIONに対するパーミションダイアログでかつ許可を選択したなら…
-        if(requestCode == 1000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            //再度ACCESS_FINE_LOCATIONの許可が下りていないかどうかのチェックをし、降りていないなら処理を中止。
-            if(ActivityCompat.checkSelfPermission(applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return
-            }
-            //位置情報の追跡を開始。
-            onResume()
-        }
-        //ここまで
-        //WRITE_EXTERNAL_STORAGEに対するパーミションダイアログでかつ許可を選択したなら…
-        if(requestCode == 2000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            //もう一度カメラアプリを起動。
-
-
+            startActivity(Intent(this, NavigationActivity::class.java))
         }
     }
 
@@ -193,7 +177,6 @@ class UserPost : AppCompatActivity() {
      * カメラのパーミッション設定の確認と同時に、ここで現在地取得のパーミッションも確認して、許可がないなら再度リクエストする処理を追加する
      */
     private fun onTakePhoto() {
-        //↑にprivateをつけるとうまく動作しなくなる
         //WRITE_EXTERNAL_STORAGEの許可が下りていないなら…
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //WRITE_EXTERNAL_STORAGEの許可を求めるダイアログを表示。その際、リクエストコードを2000に設定。

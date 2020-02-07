@@ -58,11 +58,14 @@ class PostDetails : AppCompatActivity() {
         UserPostGet().execute()
         UserReplyGet().execute()
 
-
-        //タップで投稿の詳細画面へ
         ivPostLike.setOnClickListener {
 
             UserPostLike().execute()
+        }
+
+        ivPostReply.setOnClickListener{
+
+            startActivity(Intent(this, PostReply::class.java).putExtra("Post_Id", postId))
         }
 
         //タップで投稿の削除
@@ -109,68 +112,6 @@ class PostDetails : AppCompatActivity() {
                         sDialog.dismissWithAnimation()
                     }
                     .show()
-            }
-        }
-
-        ivPostReply.setOnClickListener {
-
-            var id = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while (cursor.moveToNext()) {
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
-            if (userId == id) {
-                SweetAlertDialog(this@PostDetails, SweetAlertDialog.WARNING_TYPE)
-                    .setTitleText("投稿を削除します")
-                    .setContentText("削除した投稿は元に戻せません。")
-                    .setConfirmText("Yes")
-                    .setConfirmClickListener { sDialog -> sDialog.dismissWithAnimation()
-                        //削除処理
-                        UserPostDel().execute()
-                        SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
-                            .setTitleText("投稿削除完了")
-                            .setContentText("")
-                            .setConfirmText("OK")
-                            .setConfirmClickListener {
-                                    sDialog -> sDialog.dismissWithAnimation()
-                                goHome()
-                            }
-                            .show()
-                    }
-                    .setCancelButton(
-                        "No"
-                    ) { sDialog -> sDialog.dismissWithAnimation() }
-                    .show()
-            } else {
-                SweetAlertDialog(this@PostDetails, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Error!")
-                    .setContentText("他の人の投稿は消せません")
-                    .setConfirmText("OK")
-                    .setConfirmClickListener { sDialog ->
-                        sDialog.dismissWithAnimation()
-                    }
-                    .show()
-            }
-        }
-
-        btnReply.setOnClickListener {
-
-            text = etReply.text.toString()
-            //txInfo.text = ""
-
-            if(text != ""){
-
-                UserReplySend().execute()
-            }
-            else{
-
-                //txInfo.text = "ユーザーまたはパスワードが入力されていません"
             }
         }
     }
@@ -416,66 +357,6 @@ class PostDetails : AppCompatActivity() {
             } catch (e: Exception) {
 
             }
-        }
-    }
-
-    private inner class UserReplySend() : AsyncTask<String, String, String>() {
-
-        override fun doInBackground(vararg params: String): String {
-
-            var userId = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                userId = cursor.getString(idxId)
-            }
-
-            val client = OkHttpClient()
-
-            //アクセスするURL
-            val url = "https://encount.cf/encount/PostReplySend.php"
-
-            //Formを作成
-            val formBuilder = FormBody.Builder()
-
-            //formに要素を追加
-            formBuilder.add("user",userId)
-            formBuilder.add("post",postId)
-            formBuilder.add("text",text)
-            //リクエストの内容にformを追加
-            val form = formBuilder.build()
-
-            //リクエストを生成
-            val request = Request.Builder().url(url).post(form).build()
-
-            try {
-                val response = client.newCall(request).execute()
-                return response.body()!!.string()
-            }
-            catch (e: IOException) {
-                e.printStackTrace()
-                return "Error"
-            }
-        }
-
-        override fun onPostExecute(result: String) {
-
-            etReply.getEditableText().clear()
-
-            SweetAlertDialog(this@PostDetails, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("投稿完了")
-                .setContentText("")
-                .setConfirmText("OK")
-                .setConfirmClickListener {
-                    sDialog -> sDialog.dismissWithAnimation()
-                }
-                .show()
-
-           UserReplyGet().execute()
         }
     }
 
