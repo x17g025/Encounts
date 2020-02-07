@@ -48,12 +48,7 @@ class PostDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_details)
 
-        postId = intent.getStringExtra("Post_Id")
-
-        if(intent.getStringExtra("User_Id") != null) {
-
-            userId = intent.getStringExtra("User_Id") //投稿者のユーザーID
-        }
+        postId = intent.getStringExtra("Post_Id")!!
 
         UserPostGet().execute()
         UserReplyGet().execute()
@@ -166,6 +161,7 @@ class PostDetails : AppCompatActivity() {
                 Glide.with(this@PostDetails).load(postData.postImage).into(ivPostImage)
 
                 Log.d("loac",postData.imageLat.toString())
+                userId           = postData.userId
                 tvPostName.text  = postData.userName
                 tvPostDate.text  = postData.postDate
                 tvPostText.text  = postData.postText
