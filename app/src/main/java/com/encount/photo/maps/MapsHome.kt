@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.encount.photo.MapPostData
+import com.encount.photo.PostList
 import com.encount.photo.R
 import com.encount.photo.post.PostDetails
 import com.google.android.gms.location.*
@@ -256,6 +257,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             intent.putExtra("Post_Id",marker.title)
             intent.putExtra("imageLat",postList[ccnt-1].imageLat)
             intent.putExtra("imageLng",postList[ccnt-1].imageLng)
+            intent.putExtra("Pre_Act", postList[ccnt-1].preAct)
             startActivity(intent)
             true
         }
@@ -302,7 +304,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://encount.cf/encount/SpotInfoSend.php"
+            val url = "https://encount.cf/encount/SpotInfoSendMap.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -350,7 +352,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                             i.imageLat,
                             i.imageLng,
                             i.postId,
-                            i.likeFlag
+                            i.likeFlag,
+                            "map"
                         )
                     )
                 }
@@ -370,7 +373,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
      */
 
     //ClusterItem を実装したクラスを作成
-    private inner class SegmentClusterItem(postList: MutableList<PostList2>) : ClusterItem {
+    private inner class SegmentClusterItem(postList: MutableList<PostList>) : ClusterItem {
         override fun getSnippet(): String {
             return postList[ccnt].userId
         }

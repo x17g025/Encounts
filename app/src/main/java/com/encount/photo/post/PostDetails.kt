@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.encount.photo.*
+import com.encount.photo.maps.MapsHome
 import com.encount.photo.maps.SpotMainActivity
 import com.encount.photo.user.UserProfile
 import com.google.gson.Gson
@@ -123,6 +124,7 @@ class PostDetails : AppCompatActivity() {
                 preAct == "home" -> { startActivity(Intent(this, NavigationActivity::class.java)) }
                 preAct == "spot" -> { startActivity(Intent(this, SpotMainActivity::class.java)) }
                 preAct == "my" -> { startActivity(Intent(this, UserProfile::class.java)) }
+                preAct == "map" -> { startActivity(Intent(this, MapsHome::class.java)) }
             }
             return true
         }

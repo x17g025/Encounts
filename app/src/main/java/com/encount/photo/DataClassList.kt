@@ -78,5 +78,6 @@ data class MapPostData(
     val imageLat: String,
     val imageLng: String,
     val postId: String,
-    val likeFlag: Boolean
+    val likeFlag: Boolean,
+    val preAct : String
 )
