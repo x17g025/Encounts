@@ -17,56 +17,88 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.encount.photo.user.UserLikeList"
+
+        <activity
+            android:name="com.encount.photo.user.UserLikeList"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.encount.photo.post.PostReply"
+
+        <activity
+            android:name="com.encount.photo.post.PostReply"
             android:windowSoftInputMode="stateVisible|adjustResize"
             android:noHistory="true"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.encount.photo.user.UserPostList"
+
+        <activity
+            android:name="com.encount.photo.user.UserPostList"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.encount.photo.user.ProfileChange"
+
+        <activity
+            android:name="com.encount.photo.user.ProfileChange"
             android:noHistory="true"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.encount.photo.user.PassForgot"
+
+        <activity
+            android:name="com.encount.photo.user.PassForgot"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.encount.photo.friend.FriendAdd"
+
+        <activity
+            android:name="com.encount.photo.friend.FriendAdd"
             android:noHistory="true"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name="com.encount.photo.user.UserSingin"
             android:noHistory="true"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name="com.encount.photo.user.UserSingup"
             android:noHistory="true"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name="com.encount.photo.user.UserSettings"
             android:noHistory="true"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name="com.encount.photo.user.UserProfile"
+            android:noHistory="true"
             android:windowSoftInputMode="stateVisible|adjustResize"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.encount.photo.post.UserHome"
+
+        <activity
+            android:name="com.encount.photo.post.UserHome"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name="com.encount.photo.post.UserPost"
             android:windowSoftInputMode="stateVisible|adjustResize"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.encount.photo.post.PostDetails"
+
+        <activity
+            android:name="com.encount.photo.post.PostDetails"
+            android:noHistory="true"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.encount.photo.NavigationActivity"
+
+        <activity
+            android:name="com.encount.photo.NavigationActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.encount.photo.maps.MapsHome"
+
+        <activity
+            android:name="com.encount.photo.maps.MapsHome"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.encount.photo.maps.SpotMainActivity"
+
+        <activity
+            android:name="com.encount.photo.maps.SpotMainActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name="com.encount.photo.MainActivity"
             android:noHistory="true"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

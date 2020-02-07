@@ -6,24 +6,6 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <ImageView
-            android:layout_height="40dp"
-            android:layout_width="40dp"
-            android:layout_gravity="center"
-            android:src="@drawable/app_icon"/>
-    </androidx.appcompat.widget.Toolbar>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:visibility="visible"
-        android:background="#dcdcdc"/>
-
     <LinearLayout
         android:id="@+id/llUserData"
         android:layout_width="match_parent"
@@ -40,7 +22,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/colorText"
-            android:textSize="17sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvPostDate"
@@ -51,7 +33,7 @@
             android:layout_gravity="center"
             android:maxLines="1"
             android:textColor="#808080"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
     </LinearLayout>
 
     <ScrollView
@@ -93,24 +75,24 @@
 
                 <ImageView
                     android:id="@+id/ivPostLike"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:src="@drawable/tool_like_false"/>
 
                 <ImageView
                     android:id="@+id/ivPostReply"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:src="@drawable/tool_reply"/>
 
                 <ImageView
-                android:id="@+id/ivPostMenu"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_weight="1"
-                android:src="@drawable/tool_menu"/>
+                    android:id="@+id/ivPostMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/tool_menu"/>
             </LinearLayout>
 
             <View
@@ -167,15 +149,6 @@
                 android:layout_height="1dp"
                 android:visibility="visible"
                 android:background="#dcdcdc"/>
-
-            <ListView
-                android:id="@+id/lvReplyData"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="7dp"
-                android:layout_marginTop="7dp"
-                android:textSize="17sp"
-                android:divider="@null"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

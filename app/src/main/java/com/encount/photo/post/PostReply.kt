@@ -3,6 +3,8 @@ package com.encount.photo.post
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_BACK
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.encount.photo.R
@@ -28,7 +30,7 @@ class PostReply : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_do_post)
 
-        postId = intent.getStringExtra("Post_Id")
+        postId = intent.getStringExtra("Post_Id")!!
 
         postButton.setOnClickListener {
 
@@ -40,6 +42,16 @@ class PostReply : AppCompatActivity() {
             }
         }
     }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KEYCODE_BACK) {
+
+            transAct()
+            return true
+        }
+        return false
+    }
+
 
     private inner class UserReplySend() : AsyncTask<String, String, String>() {
 

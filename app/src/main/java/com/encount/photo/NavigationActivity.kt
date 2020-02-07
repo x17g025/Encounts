@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import kotlinx.android.synthetic.main.activity_nav_main.*
@@ -12,6 +13,7 @@ import androidx.core.view.GravityCompat
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.navigation.ui.setupWithNavController
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.encount.photo.user.UserProfile
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
@@ -48,6 +50,28 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
 
         UserDataGet().execute()
     }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            SweetAlertDialog(this@NavigationActivity, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("終了")
+                .setContentText("アプリを終了しますか？")
+                .setConfirmText("Yes")
+                .setConfirmClickListener {
+                        sDialog ->  sDialog.dismissWithAnimation()
+                                    this.finish()
+                                    this.moveTaskToBack(true)
+                }
+                .setCancelButton(
+                    "No"
+                ) { sDialog -> sDialog.dismissWithAnimation() }
+                .show()
+            return true
+        }
+        return false
+    }
+
 
     private fun setDrawerLayout(){
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.encount.photo.*
+import com.encount.photo.post.PostAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.tablayout_spot_data.*
@@ -93,9 +94,9 @@ class SpotNewPost : Fragment() {
 
         override fun onPostExecute(result: String) {
             try{
-                var postList = mutableListOf<PostList2>()
-                val listType = object : TypeToken<List<PostList2>>() {}.type
-                val postData = Gson().fromJson<List<PostList2>>(result, listType)
+                var postList = mutableListOf<PostList>()
+                val listType = object : TypeToken<List<PostDataClassList>>() {}.type
+                val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
                 var postCount = 0
 
                 for (i in postData) {
@@ -103,20 +104,18 @@ class SpotNewPost : Fragment() {
                     postCount++
 
                     postList.add(
-                        PostList2(
-                            i.imageId,
-                            i.userId,
-                            i.imagePath,
-                            i.imageLat,
-                            i.imageLng,
+                        PostList(
                             i.postId,
-                            i.likeFlag
+                            i.userId,
+                            i.likeFlag,
+                            i.postImage,
+                            "spot"
                         )
                     )
                 }
 
                 //print(Integer.toString(postCount))
-                gvSpotPost.adapter = GridAdapter(context, postList)
+                gvSpotPost.adapter = PostAdapter(context, postList)
                 swipelayout2.isRefreshing = false
             }
             catch (e : Exception){

@@ -1,5 +1,6 @@
 package com.encount.photo.maps
 
+import android.content.Intent
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.encount.photo.*
 import kotlinx.android.synthetic.main.activity_spot_home.*
 import kotlinx.android.synthetic.main.activity_spot_home.tabLayout
+import android.view.KeyEvent.KEYCODE_BACK
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.view.KeyEvent
+
 
 var latitude = 35.704292
 var longitude = 139.984092
@@ -32,6 +39,7 @@ class SpotMainActivity : AppCompatActivity() {
 
     //位置情報を住所に変換する関数
     private fun getAddress(lat: Double, lng: Double): String {
+
         val geocoder = Geocoder(this)
         val list = geocoder.getFromLocation(lat, lng, 1)
         //println("0" + list[0].getAddressLine(0))

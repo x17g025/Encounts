@@ -21,8 +21,7 @@ data class PostList(
     val userId: String,
     val likeFlag: Boolean,
     val image: String,
-    val imageLat: Double,
-    val imageLng: Double
+    val preAct : String
 )
 
 data class ReplyList(
@@ -72,7 +71,7 @@ data class FriendDataClassList (
     val imagePath: String
 )
 
-data class PostList2(
+data class MapPostData(
     val imageId: String,
     val userId: String,
     val imagePath: String,

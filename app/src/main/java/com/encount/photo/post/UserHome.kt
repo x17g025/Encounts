@@ -52,7 +52,6 @@ class UserHome : Fragment() {
 
             viewId = view
             postId = view.tvPostId.text.toString()
-            Log.d("baba", postId)
 
             return@setOnItemLongClickListener true
         }
@@ -125,8 +124,7 @@ class UserHome : Fragment() {
                             i.userId,
                             i.likeFlag,
                             i.postImage,
-                            i.imageLat,
-                            i.imageLng
+                            "home"
                         )
                     )
                 }

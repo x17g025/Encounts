@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import com.encount.photo.PostList2
+import com.encount.photo.MapPostData
 import com.encount.photo.R
 import com.encount.photo.post.PostDetails
 import com.google.android.gms.location.*
@@ -40,7 +40,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private val requestingLocationUpdates = true //フラグ
     private val locationRequest: LocationRequest = LocationRequest.create()
     //private var postList = mutableListOf<MapsList>()
-    private var postList = mutableListOf<PostList2>()
+    private var postList = mutableListOf<MapPostData>()
     //取得した写真の件数を格納する
     private var cnt = 0
     //マップ上に打つピンを管理するための変数
@@ -189,7 +189,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     /*fun setPostList(postList: MutableList<MapsList>) {
         this.postList = postList
     }*/
-    fun setPostList(postList: MutableList<PostList2>) {
+    fun setPostList(postList: MutableList<MapPostData>) {
         this.postList = postList
     }
 
@@ -316,9 +316,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
         override fun onPostExecute(result: String) {
             try {
-                var postList = mutableListOf<PostList2>()
-                val listType = object : TypeToken<List<PostList2>>() {}.type
-                val postData = Gson().fromJson<List<PostList2>>(result, listType)
+                var postList = mutableListOf<MapPostData>()
+                val listType = object : TypeToken<List<MapPostData>>() {}.type
+                val postData = Gson().fromJson<List<MapPostData>>(result, listType)
                 var postCount = 0
 
                 for (i in postData) {
@@ -326,7 +326,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     postCount++
 
                     postList.add(
-                        PostList2(
+                        MapPostData(
                             i.imageId,
                             i.userId,
                             i.imagePath,

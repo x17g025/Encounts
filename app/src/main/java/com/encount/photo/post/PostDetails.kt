@@ -6,10 +6,15 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_BACK
+import android.view.View
 import android.view.animation.AnimationUtils
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.encount.photo.*
+import com.encount.photo.maps.SpotMainActivity
+import com.encount.photo.user.UserProfile
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_post_details.*
@@ -38,8 +43,7 @@ class PostDetails : AppCompatActivity() {
     var postId = ""
     var userId = ""
     var text   = ""
-    var imageLat   = ""
-    var imageLng   = ""
+    var preAct = ""
   
     private val _helper = SQLiteHelper(this@PostDetails)
 
@@ -49,6 +53,7 @@ class PostDetails : AppCompatActivity() {
         setContentView(R.layout.activity_post_details)
 
         postId = intent.getStringExtra("Post_Id")!!
+        preAct = intent.getStringExtra("Pre_Act")!!
 
         UserPostGet().execute()
         UserReplyGet().execute()
@@ -111,7 +116,20 @@ class PostDetails : AppCompatActivity() {
         }
     }
 
-    private inner class UserPostGet() : AsyncTask<String, String, String>() {
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KEYCODE_BACK) {
+
+            when {
+                preAct == "home" -> { startActivity(Intent(this, NavigationActivity::class.java)) }
+                preAct == "spot" -> { startActivity(Intent(this, SpotMainActivity::class.java)) }
+                preAct == "my" -> { startActivity(Intent(this, UserProfile::class.java)) }
+            }
+            return true
+        }
+        return false
+    }
+
+    private inner class UserPostGet : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
 
@@ -171,13 +189,18 @@ class PostDetails : AppCompatActivity() {
 
                     ivPostLike.setImageResource(R.drawable.tool_like_true)
                 }
+
+                if(postData.postText.isEmpty()){
+
+                    tvPostText.visibility = View.GONE
+                }
             } catch (e: Exception) {
 
             }
         }
     }
 
-    private inner class UserPostLike() : AsyncTask<String, String, String>() {
+    private inner class UserPostLike : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
 
@@ -349,7 +372,7 @@ class PostDetails : AppCompatActivity() {
                     )
                 }
 
-                lvReplyData.adapter = ReplyAdapter(this@PostDetails, postList)
+                //lvReplyData.adapter = ReplyAdapter(this@PostDetails, postList)
             } catch (e: Exception) {
 
             }
