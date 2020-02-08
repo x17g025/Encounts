@@ -387,7 +387,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
      * アイコンをカスタマイズするための処理
      */
 
-    //ClusterItem を実装したクラスを作成
+
     /*private inner class SegmentClusterItem(postList: MutableList<PostList>) : ClusterItem {
         override fun getSnippet(): String {
             return postList[ccnt].userId
@@ -399,7 +399,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             return postList[ccnt].postId
         }
     }*/
-
+    //ClusterItem を実装したクラスを作成
     private inner class SegmentClusterItem(val segment: Segment) : ClusterItem {
         override fun getSnippet(): String = segment.flowerName
 
@@ -415,7 +415,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     }*/
 
     private inner class MoreSegmentClusterRenderer(context: Context, map: GoogleMap, manager: ClusterManager<SegmentClusterItem>) :
-        DefaultClusterRenderer<MapsHome.SegmentClusterItem>(context, map, manager) {
+        DefaultClusterRenderer<SegmentClusterItem>(context, map, manager) {
         private val itemImageView: ImageView
         private val itemIconGenerator: IconGenerator = IconGenerator(context).apply {
             val iconView = LayoutInflater.from(context).inflate(R.layout.icon_segment, null, false).apply {
