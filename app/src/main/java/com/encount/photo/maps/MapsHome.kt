@@ -2,6 +2,7 @@ package com.encount.photo.maps
 
 import androidx.core.app.ActivityCompat
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -201,15 +202,11 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
     //default location
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        //mMap = googleMap
         //マップのスタイルも変えられるようにしたい
         //mMap!!.setMapStyle(GoogleMap.MAP_TYPE_TERRAIN)
 
-        ClusterManager<SegmentClusterItem>(context,mMap).apply{
-            mMap!!.setOnCameraIdleListener(this)
-            mMap!!.setOnMarkerClickListener(this)
-        }
-
+        /*
         //移動
         googleMap.uiSettings.isScrollGesturesEnabled = true
         //ズーム
@@ -220,6 +217,30 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         googleMap.uiSettings.isTiltGesturesEnabled = true
         //
         googleMap.uiSettings.isRotateGesturesEnabled = true
+    */
+
+
+        mMap = googleMap.apply {
+            moveCamera(CameraUpdateFactory.newLatLngZoom(Segment.Kita.coordinate, 12.0f))
+
+            uiSettings.run {
+                isRotateGesturesEnabled = false
+                isTiltGesturesEnabled = false
+            }
+
+            ClusterManager<SegmentClusterItem>(context, this).let {
+                it.renderer = MoreSegmentClusterRenderer(context!!, this, it)
+                setOnCameraIdleListener(it)
+                setOnMarkerClickListener(it)
+
+                Segment.values().forEach { segment ->
+                    it.addItem(SegmentClusterItem(segment))
+                }
+            }
+
+            setInfoWindowAdapter(SegmentInfoWindowAdapter(context!!))
+        }
+
 
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
