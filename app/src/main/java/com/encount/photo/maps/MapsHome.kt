@@ -56,6 +56,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     //下のfor文内で使うカウント変数
     var ccnt = 0
 
+    var pass = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -160,6 +162,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                         for (i in 0..cnt - 1) {
 
                             onMapReady(mMap!!)
+
+                            pass = postList[i].imagePath
 
                             ClusterManager<SegmentClusterItem>(activity, mMap!!).let {
                                 it.renderer = MoreSegmentClusterRenderer(context!!, mMap!!, it)
@@ -411,11 +415,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         private val itemIconGenerator: IconGenerator = IconGenerator(context).apply {
             val iconView = LayoutInflater.from(context).inflate(R.layout.icon_segment, null, false).apply {
                 itemImageView = findViewById(R.id.imageIcon)
-                /*itemImageView = */
-                /*Glide.with(activity)
-                    .asBitmap()
-                    .load("https://encount.cf/files/postImg/1086470832_5dea7e52cc0b4.jpg")
-                    .into(itemImageView)*/
             }
             setContentView(iconView)
         }
@@ -434,7 +433,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
             Glide.with(activity)
                 .asBitmap()
-                .load("https://encount.cf/files/postImg/1086470832_5dea7e52cc0b4.jpg")
+                //.load("https://encount.cf/files/postImg/1086470832_5dea7e52cc0b4.jpg")
+                .load(pass)
                 .into(object : SimpleTarget<Bitmap>(100, 100) {
 
                     //正常に写真取得できればピンを打つ
