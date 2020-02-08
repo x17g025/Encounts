@@ -116,7 +116,7 @@ class PostDetails : AppCompatActivity() {
         }
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+    /*override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KEYCODE_BACK) {
 
             when {
@@ -129,7 +129,7 @@ class PostDetails : AppCompatActivity() {
             return true
         }
         return false
-    }
+    }*/
 
     private inner class UserPostGet : AsyncTask<String, String, String>() {
 
