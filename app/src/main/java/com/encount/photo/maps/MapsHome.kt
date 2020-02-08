@@ -10,7 +10,6 @@ import android.location.Geocoder
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.encount.photo.MapPostData
+import com.encount.photo.PostDataClassList
 import com.encount.photo.R
 import com.encount.photo.post.PostDetails
 import com.google.android.gms.location.*
@@ -73,20 +73,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             startActivity(intent)
         }
 
-        /**
-         * 権限を求める処理を、起動画面にまとめて追加する。
-         * 　＋以前に許可されていても、その後に拒否される可能性も考える必要がある。
-         */
-        // Android 6, API 23以上でパーミッションの確認
-        if (Build.VERSION.SDK_INT >= 23) {
-            val permissions = arrayOf(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            checkPermission(permissions, REQUEST_CODE)
-        }
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
         locationRequest.setInterval(10000)   //最遅の更新間隔
         locationRequest.setFastestInterval(5000)   //最速の更新間隔
@@ -133,15 +119,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //サーバと通信する処理（インナークラス）を呼び出して実行する
                     SpotPhotoGet(this@MapsHome).execute()
 
-                    Log.d("debug", "現在地の緯度" + location.latitude)
-                    Log.d("debug", "現在地の経度" + location.longitude)
-
                     //写真が１件以上あれば、マップのピンを立てる処理を行う
                     if (cnt >= 1) {
 
                         ccnt = 0
-
-                        Log.d("debug", "取得した写真の件数 : " + cnt)
 
                         //取得した写真の件数分ピンを打つ処理
                         //for(i in postList)にすると、初回の写真取得で数値がおかしくなるので、仕方なく変数を用意している。
@@ -237,33 +218,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id",marker.title)
-            intent.putExtra("Pre_Act", "spot")
+            intent.putExtra("User_Id",marker.snippet)
+            intent.putExtra("Pre_Act", "map")
             startActivity(intent)
             true
-        }
-    }
-
-    //許可されていないパーミッションリクエスト
-    fun checkPermission(permissions: Array<String>, request_code: Int) {
-        ActivityCompat.requestPermissions(activity!!, permissions, request_code)
-    }
-
-    //結果
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == REQUEST_PERMISSION) {
-            for (i in permissions.indices) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d("Permission", "Added Permission: " + permissions[i])
-                    //mMap!!.setMyLocationEnabled(true)
-                } else {
-                    // パーミッションが拒否された
-                    Log.d("Permission", "Rejected Permission: " + permissions[i])
-                }
-            }
         }
     }
 
@@ -314,10 +272,11 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         }
 
         override fun onPostExecute(result: String) {
+
             try {
                 var postList = mutableListOf<MapPostData>()
-                val listType = object : TypeToken<List<MapPostData>>() {}.type
-                val postData = Gson().fromJson<List<MapPostData>>(result, listType)
+                val listType = object : TypeToken<List<PostDataClassList>>() {}.type
+                val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
                 var postCount = 0
 
                 for (i in postData) {
@@ -326,20 +285,17 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                     postList.add(
                         MapPostData(
-                            i.imageId,
-                            i.userId,
-                            i.imagePath,
-                            i.imageLat,
-                            i.imageLng,
                             i.postId,
-                            i.likeFlag
+                            i.userId,
+                            i.postImage,
+                            i.imageLat.toString(),
+                            i.imageLng.toString(),
+                            i.postLikeCnt.toInt()
                         )
                     )
                 }
-
                 cnt = postCount
                 activity.setPostList(postList)
-
 
             } catch (e: Exception) {
 

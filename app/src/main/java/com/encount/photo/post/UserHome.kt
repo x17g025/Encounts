@@ -28,9 +28,9 @@ import java.lang.Exception
 
 class UserHome : Fragment() {
 
-    var _helper : SQLiteHelper? = null
     var postId = "a"
     var viewId : View? = null
+    var inId = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -40,7 +40,7 @@ class UserHome : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        _helper = SQLiteHelper(context)
+        inId = doSelectSQLite(context)
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
@@ -67,22 +67,9 @@ class UserHome : Fragment() {
         }
     }
 
-
-
     private inner class UserPostGet : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
-
-            var id = ""
-            val db = _helper!!.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while (cursor.moveToNext()) {
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
 
             val client = OkHttpClient()
 
@@ -93,7 +80,7 @@ class UserHome : Fragment() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", id)
+            formBuilder.add("id", inId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -129,19 +116,12 @@ class UserHome : Fragment() {
                     )
                 }
 
-                gvPostData.adapter = PostAdapter(context, postList)
+                gvPostData.adapter = PostAdapter(context, postList, "")
                 swipelayout.isRefreshing = false
             }
             catch(e : Exception){
 
             }
         }
-    }
-
-    override fun onDestroy(){
-
-        //ヘルパーオブジェクトの開放
-        _helper!!.close()
-        super.onDestroy()
     }
 }

@@ -9,10 +9,7 @@ import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_BACK
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
-import com.encount.photo.R
-import com.encount.photo.SQLiteHelper
-import com.encount.photo.UserDataClassList
-import com.encount.photo.flag
+import com.encount.photo.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_user_profile_change.*
 import okhttp3.*
@@ -27,7 +24,7 @@ import java.io.IOException
 
 class ProfileChange : AppCompatActivity() {
 
-    private val _helper = SQLiteHelper(this@ProfileChange)
+    var inId = ""
     var name = ""
     var bio = ""
     private val RESULT_PICK_IMAGEFILE = 1000
@@ -36,6 +33,8 @@ class ProfileChange : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile_change)
+
+        inId = doSelectSQLite(this)
 
         UserDataGet()
 
@@ -72,17 +71,6 @@ class ProfileChange : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String): String {
 
-            var id     = ""
-            val db     = _helper.writableDatabase
-            val sql    = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
             val client = OkHttpClient()
 
             //アクセスするURL
@@ -92,7 +80,7 @@ class ProfileChange : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", id)
+            formBuilder.add("id", inId)
             formBuilder.add("name",name)
             formBuilder.add("bio",bio)
             //リクエストの内容にformを追加
@@ -146,17 +134,6 @@ class ProfileChange : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String): String {
 
-            var id     = ""
-            val db     = _helper.writableDatabase
-            val sql    = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
             val client = OkHttpClient()
 
             //アクセスするURL
@@ -166,7 +143,7 @@ class ProfileChange : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", id)
+            formBuilder.add("id", inId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -204,12 +181,6 @@ class ProfileChange : AppCompatActivity() {
             return true
         }
         return false
-    }
-
-    override fun onDestroy() {
-
-        _helper.close()
-        super.onDestroy()
     }
 
     fun goProfile(){

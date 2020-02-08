@@ -12,7 +12,7 @@ class TabAdapter(fm: FragmentManager, private val context: Context, id : String)
     override fun getItem(i: Int): Fragment {
 
         when (i) {
-            0    -> return UserPostList("4")
+            0    -> return UserPostList(userId)
             else -> return UserLikeList(userId)
         }
     }

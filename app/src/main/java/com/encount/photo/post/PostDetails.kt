@@ -45,32 +45,21 @@ class PostDetails : AppCompatActivity() {
     var preId = ""
     var text   = ""
     var preAct = ""
-  
-    private val _helper = SQLiteHelper(this@PostDetails)
+    var inId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_details)
 
+        inId = doSelectSQLite(this)
+
         postId = intent.getStringExtra("Post_Id")!!
-        preId = intent.getStringExtra("User_Id")!!
+        preId  = intent.getStringExtra("User_Id")!!
         preAct = intent.getStringExtra("Pre_Act")!!
 
         UserPostGet().execute()
         UserReplyGet().execute()
-
-        var id = ""
-        val db = _helper.writableDatabase
-        val sql = "select * from userInfo"
-        val cursor = db.rawQuery(sql, null)
-
-        while (cursor.moveToNext()) {
-
-            val idxId = cursor.getColumnIndex("user_id")
-            id = cursor.getString(idxId)
-        }
-
 
         ivPostLike.setOnClickListener {
 
@@ -79,12 +68,12 @@ class PostDetails : AppCompatActivity() {
 
         ivPostReply.setOnClickListener{
 
-            startActivity(Intent(this, PostReply::class.java).putExtra("Post_Id", postId).putExtra("Pre_Act", preAct))
+            startActivity(Intent(this, PostReply::class.java).putExtra("Post_Id", postId).putExtra("Pre_Act", preAct).putExtra("User_Id", preId))
         }
 
         llUserData.setOnClickListener{
 
-            if(preAct != "spot" || userId == id) {
+            if(preAct != "spot" && preAct != "map" || userId == inId) {
 
                 startActivity(Intent(this, UserProfile::class.java).putExtra("User_Id", userId))
             }
@@ -93,7 +82,7 @@ class PostDetails : AppCompatActivity() {
         //タップで投稿の削除
         ivPostMenu.setOnClickListener {
 
-            if (userId == id) {
+            if (userId == inId) {
                 SweetAlertDialog(this@PostDetails, SweetAlertDialog.WARNING_TYPE)
                     .setTitleText("投稿を削除します")
                     .setContentText("削除した投稿は元に戻せません。")
@@ -107,7 +96,7 @@ class PostDetails : AppCompatActivity() {
                             .setConfirmText("OK")
                             .setConfirmClickListener {
                                     sDialog -> sDialog.dismissWithAnimation()
-                                    goHome()
+                                goHome()
                             }
                             .show()
                     }
@@ -128,33 +117,9 @@ class PostDetails : AppCompatActivity() {
         }
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KEYCODE_BACK) {
-
-            when {
-                preAct == "home" -> { startActivity(Intent(this, NavigationActivity::class.java)) }
-                preAct == "spot" -> { startActivity(Intent(this, SpotMainActivity::class.java)) }
-                preAct == "my" -> { startActivity(Intent(this, UserProfile::class.java).putExtra("User_Id", preId)) }
-            }
-            return true
-        }
-        return false
-    }
-
     private inner class UserPostGet : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
-
-            var userId = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while (cursor.moveToNext()) {
-
-                val idxId = cursor.getColumnIndex("user_id")
-                userId = cursor.getString(idxId)
-            }
 
             val client = OkHttpClient()
 
@@ -165,7 +130,7 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user", userId)
+            formBuilder.add("user", inId)
             formBuilder.add("post", postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
@@ -191,20 +156,12 @@ class PostDetails : AppCompatActivity() {
                 Glide.with(this@PostDetails).load(postData.postImage).into(ivPostImage)
                 Glide.with(this@PostDetails).load(postData.userIcon).into(ivUserIcon)
 
-                Log.d("loac",postData.imageLat.toString())
                 userId           = postData.userId
                 tvPostName.text  = postData.userName
                 tvPostDate.text  = postData.postDate
                 tvPostText.text  = postData.postText
 
-                if(preAct == "spot") {
-
-                    //tvPostPlace.text = getAddress(postData.imageLat, postData.imageLng)
-                }
-                else{
-
-
-                }
+                Log.d("likelike", postData.likeFlag.toString())
 
                 if (postData.likeFlag) {
 
@@ -225,17 +182,6 @@ class PostDetails : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String): String {
 
-            var id = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while (cursor.moveToNext()) {
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
             val client = OkHttpClient()
 
             //アクセスするURL
@@ -245,7 +191,7 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user", id)
+            formBuilder.add("user", inId)
             formBuilder.add("post", postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
@@ -278,16 +224,6 @@ class PostDetails : AppCompatActivity() {
     private inner class UserPostDel() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
-            var userId = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while (cursor.moveToNext()) {
-
-                val idxId = cursor.getColumnIndex("user_id")
-                userId = cursor.getString(idxId)
-            }
 
             val client = OkHttpClient()
 
@@ -298,12 +234,11 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user", userId)
+            formBuilder.add("user", inId)
             formBuilder.add("post", postId)
             //formBuilder.add("image", imageId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
-            Log.d("debug","u"+userId + "p" + postId)
             //リクエストを生成
             val request = Request.Builder().url(url).post(form).build()
 
@@ -399,13 +334,6 @@ class PostDetails : AppCompatActivity() {
 
             }
         }
-    }
-
-    override fun onDestroy() {
-
-        //ヘルパーオブジェクトの開放
-        _helper.close()
-        super.onDestroy()
     }
 
     fun goHome() {

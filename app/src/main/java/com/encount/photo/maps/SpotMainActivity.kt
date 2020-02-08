@@ -15,8 +15,6 @@ class SpotMainActivity : AppCompatActivity() {
 
     var postId = ""
 
-    private val _helper = SQLiteHelper(this@SpotMainActivity)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spot_home)
@@ -38,12 +36,5 @@ class SpotMainActivity : AppCompatActivity() {
         //println("0" + list[0].getAddressLine(0))
         var result = list[0].getAdminArea() + list[0].getLocality() + list[0].getThoroughfare() +list[0].getSubThoroughfare()
         return result
-    }
-
-    override fun onDestroy(){
-
-        //ヘルパーオブジェクトの開放
-        _helper.close()
-        super.onDestroy()
     }
 }

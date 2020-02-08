@@ -3,7 +3,6 @@ package com.encount.photo.user
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.encount.photo.LoginDataClassList
 import com.encount.photo.R
-import com.encount.photo.SQLiteHelper
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_search_home.*
 import okhttp3.*
@@ -26,7 +24,6 @@ import java.io.IOException
 
 class UserSearch : Fragment() {
 
-    var _helper : SQLiteHelper? = null
     var name = ""
     var num = ""
     var id : Int? = null
@@ -38,8 +35,6 @@ class UserSearch : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        _helper = SQLiteHelper(context)
 
         progress.visibility = View.GONE
 
@@ -126,12 +121,6 @@ class UserSearch : Fragment() {
                     .show()
             }
         }
-    }
-
-    override fun onDestroy() {
-
-        _helper!!.close()
-        super.onDestroy()
     }
 
     fun transAct(){

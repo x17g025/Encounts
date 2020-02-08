@@ -25,7 +25,6 @@ import java.util.regex.Pattern
 
 class UserSingup : AppCompatActivity() {
 
-    private val _helper = SQLiteHelper(this@UserSingup)
     var name = ""
     var mail = ""
     var pass = ""
@@ -154,11 +153,6 @@ class UserSingup : AppCompatActivity() {
                 info.text = singinFlag.result
             }
         }
-    }
-
-    override fun onDestroy() {
-        _helper.close()
-        super.onDestroy()
     }
 
     fun goLogin(){

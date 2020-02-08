@@ -3,6 +3,8 @@ package com.encount.photo.user
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_BACK
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +28,7 @@ import java.lang.Exception
 
 class UserProfile : AppCompatActivity() {
 
-    private val _helper = SQLiteHelper(this@UserProfile)
+    var inId = ""
     var userId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,40 +36,28 @@ class UserProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
-        var id = ""
-        val db = _helper.writableDatabase
-        val sql = "select * from userInfo"
-        val cursor = db.rawQuery(sql, null)
-
-        while (cursor.moveToNext()) {
-
-            val idxId = cursor.getColumnIndex("user_id")
-            id = cursor.getString(idxId)
-        }
+        inId = doSelectSQLite(this)
 
         try {
 
-            if (intent.getStringExtra("User_Id")!!.isNotEmpty() && intent.getStringExtra("User_Id") != id) {
+            if (intent.getStringExtra("User_Id")!!.isNotEmpty() && intent.getStringExtra("User_Id") != inId) {
 
                 userId = intent.getStringExtra("User_Id")!!
                 OtherDataGet().execute()
-                UserDataList.adapter =
-                    TabAdapter(supportFragmentManager, this, userId)
+                UserDataList.adapter = TabAdapter(supportFragmentManager, this, userId)
                 tabLayout.setupWithViewPager(UserDataList)
             }
             else {
 
                 UserDataGet().execute()
-                UserDataList.adapter =
-                    TabAdapter(supportFragmentManager, this, id)
+                UserDataList.adapter = TabAdapter(supportFragmentManager, this, inId)
                 tabLayout.setupWithViewPager(UserDataList)
             }
         }
         catch (e : Exception){
 
             UserDataGet().execute()
-            UserDataList.adapter =
-                TabAdapter(supportFragmentManager, this, id)
+            UserDataList.adapter = TabAdapter(supportFragmentManager, this, inId)
             tabLayout.setupWithViewPager(UserDataList)
         }
 
@@ -83,17 +73,6 @@ class UserProfile : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String): String {
 
-            var id     = ""
-            val db     = _helper.writableDatabase
-            val sql    = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
             val client = OkHttpClient()
 
             //アクセスするURL
@@ -103,7 +82,7 @@ class UserProfile : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", id)
+            formBuilder.add("id", inId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -138,17 +117,6 @@ class UserProfile : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String): String {
 
-            var id     = ""
-            val db     = _helper.writableDatabase
-            val sql    = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
             val client = OkHttpClient()
 
             //アクセスするURL
@@ -158,7 +126,7 @@ class UserProfile : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", id)
+            formBuilder.add("id", inId)
             formBuilder.add("other_id", userId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
@@ -192,6 +160,16 @@ class UserProfile : AppCompatActivity() {
         }
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+
+        if (keyCode == KEYCODE_BACK) {
+
+            startActivity(Intent(this, NavigationActivity::class.java))
+            return true
+        }
+        return false
+    }
+
     fun followToggle(flag: Boolean) {
 
         if (flag) {
@@ -205,12 +183,5 @@ class UserProfile : AppCompatActivity() {
             var animation = AnimationUtils.loadAnimation(this, R.anim.like_touch)
             ivFollow.startAnimation(animation)
         }
-    }
-
-    override fun onDestroy(){
-
-        //ヘルパーオブジェクトの開放
-        _helper.close()
-        super.onDestroy()
     }
 }

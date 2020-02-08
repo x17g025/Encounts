@@ -111,6 +111,7 @@ class UserSettings : AppCompatActivity() {
         }
     }
     fun logout(){
+
         val db = _helper.writableDatabase
         val sqlDelete = "delete from userInfo"
         var stmt = db.compileStatement(sqlDelete)

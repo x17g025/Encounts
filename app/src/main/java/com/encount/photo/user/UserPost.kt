@@ -18,6 +18,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.encount.photo.NavigationActivity
 import com.encount.photo.R
 import com.encount.photo.SQLiteHelper
+import com.encount.photo.doSelectSQLite
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_user_do_post.*
 import okhttp3.*
@@ -36,7 +37,7 @@ class UserPost : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val requestingLocationUpdates = true //フラグ
     private val locationRequest: LocationRequest = LocationRequest.create()
-    val _helper = SQLiteHelper(this@UserPost)
+    var inId = ""
     //写真のパスを受け取る変数(将来的には撮影した写真のパス、ファイル名を取得して指定する)
     var uurl = ""
     //送信するコメント内容の受け取り変数
@@ -53,6 +54,8 @@ class UserPost : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_do_post)
+
+        inId = doSelectSQLite(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         locationRequest.setInterval(10000)   //最遅の更新間隔
@@ -253,17 +256,6 @@ class UserPost : AppCompatActivity() {
         public override
         fun doInBackground(vararg ImagePath: String): String? {
 
-            var id     = ""
-            val db     = _helper.writableDatabase
-            val sql    = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
             //アクセスするURL
             val url = "https://encount.cf/encount/PostPhoto.php"
 
@@ -287,7 +279,7 @@ class UserPost : AppCompatActivity() {
             //ここでPOSTする内容を設定　"image/jpg"の部分は送りたいファイルの形式に合わせて変更する
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("userId", id)
+                .addFormDataPart("userId", inId)
                 .addFormDataPart("longitude", lng)
                 .addFormDataPart("latitude", lat)
                 .addFormDataPart("word", cmnt)
@@ -326,13 +318,6 @@ class UserPost : AppCompatActivity() {
             //結果をログに出力(レスポンスのbodyタグ内を出力する)
             Log.d("Debug", str)
         }
-    }
-
-    override fun onDestroy(){
-
-        //ヘルパーオブジェクトの開放
-        _helper.close()
-        super.onDestroy()
     }
 
     fun goHome(){

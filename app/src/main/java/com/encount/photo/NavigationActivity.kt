@@ -35,18 +35,26 @@ import kotlinx.android.synthetic.main.activity_nav_header.view.*
 
 class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener {
 
-    private val _helper = SQLiteHelper(this@NavigationActivity)
+    var inId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_main)
 
+        inId = doSelectSQLite(this)
+
         this.setDrawerLayout()
 
         val navController = findNavController(R.id.nav_host_fragment)
         setupWithNavController(bottom_navigation, navController)
 
+        UserDataGet().execute()
+    }
+
+    override fun onStart() {
+
+        super.onStart()
         UserDataGet().execute()
     }
 
@@ -93,17 +101,6 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
 
         override fun doInBackground(vararg params: String): String {
 
-            var id     = ""
-            val db     = _helper.writableDatabase
-            val sql    = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
             val client = OkHttpClient()
 
             //アクセスするURL
@@ -113,7 +110,7 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", id)
+            formBuilder.add("id", inId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -140,18 +137,9 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
                 Glide.with(this@NavigationActivity).load(userData.userIcon).into(ivUserIcon)
                 headerView.navUserName.text   = userData.userName
                 headerView.navUserNumber.text = "ID : " + userData.userNumber.toString()
-                headerView.navPostCount.text = userData.postCount
-                headerView.navLikeCount.text = userData.likeCount
             }
             catch(e : Exception){
             }
         }
-    }
-
-    override fun onDestroy(){
-
-        //ヘルパーオブジェクトの開放
-        _helper.close()
-        super.onDestroy()
     }
 }

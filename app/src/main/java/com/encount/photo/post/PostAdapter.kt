@@ -28,10 +28,10 @@ import java.lang.Exception
  * 製作者：中村
  */
 
-class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter() {
+class PostAdapter(val context: Context?, val posts: List<PostList>, val id: String): BaseAdapter() {
 
     val layoutInflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private val _helper = SQLiteHelper(context)
+    var inId = doSelectSQLite(context)
     var postId = "a"
     var viewId : View? = null
 
@@ -67,8 +67,8 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
 
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id", posts[position].postId)
+            intent.putExtra("User_Id", id)
             intent.putExtra("Pre_Act", posts[position].preAct)
-            intent.putExtra("User_Id", posts[position].userId)
             view.getContext().startActivity(intent)
         }
 
@@ -93,17 +93,6 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
 
         override fun doInBackground(vararg params: String): String {
 
-            var id = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
             val client = OkHttpClient()
 
             //アクセスするURL
@@ -113,7 +102,7 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user",id)
+            formBuilder.add("user",inId)
             formBuilder.add("post",postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
@@ -149,12 +138,9 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
                     var animation = AnimationUtils.loadAnimation(context,R.anim.like_touch)
                     viewId!!.ivPostLike.startAnimation(animation)
                 }
-
-                _helper.close()
             }
             catch(e : Exception){
 
-                _helper.close()
             }
         }
     }

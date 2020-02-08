@@ -2,6 +2,7 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <fragment
@@ -12,14 +13,15 @@
         android:layout_height="match_parent"
         tools:context=".maps.MapsHome" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ivSpotPost"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="20dp"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:visibility="gone"
-        android:src="@drawable/to_spot"/>
+        app:backgroundTint="@color/colorMain"
+        app:srcCompat="@drawable/button_spot"/>
 
 </FrameLayout>

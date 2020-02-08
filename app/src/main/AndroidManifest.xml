@@ -63,7 +63,6 @@
 
         <activity
             android:name="com.encount.photo.user.UserProfile"
-            android:noHistory="true"
             android:windowSoftInputMode="stateVisible|adjustResize"
             android:screenOrientation="portrait"/>
 
@@ -91,7 +90,6 @@
 
         <activity
             android:name="com.encount.photo.maps.SpotMainActivity"
-            android:noHistory="true"
             android:screenOrientation="portrait"/>
 
         <activity

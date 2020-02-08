@@ -1,6 +1,5 @@
 package com.encount.photo.post
 
-import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.encount.photo.*
-import com.encount.photo.post.PostAdapter
-import com.encount.photo.post.PostDetails
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.ga_post_item.view.*
 import kotlinx.android.synthetic.main.tablayout_post_data.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -22,7 +18,7 @@ import java.lang.Exception
 
 class UserLikeList(Id : String) : Fragment() {
 
-    var _helper : SQLiteHelper? = null
+    var inId = ""
     var userId = Id
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,7 +29,7 @@ class UserLikeList(Id : String) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        _helper = SQLiteHelper(context)
+        inId = doSelectSQLite(context)
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
@@ -59,6 +55,7 @@ class UserLikeList(Id : String) : Fragment() {
 
             //formに要素を追加
             formBuilder.add("id",userId)
+            formBuilder.add("likeId",inId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -95,19 +92,12 @@ class UserLikeList(Id : String) : Fragment() {
                     )
                 }
 
-                gvPostData.adapter = PostAdapter(context, postList)
+                gvPostData.adapter = PostAdapter(context, postList, userId)
                 swipelayout.isRefreshing = false
             }
             catch(e : Exception){
 
             }
         }
-    }
-
-    override fun onDestroy(){
-
-        //ヘルパーオブジェクトの開放
-        _helper!!.close()
-        super.onDestroy()
     }
 }

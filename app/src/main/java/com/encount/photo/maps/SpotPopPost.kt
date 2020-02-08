@@ -20,8 +20,7 @@ import java.lang.Exception
 class SpotPopPost : Fragment() {
 
     var postId = ""
-
-    var _helper : SQLiteHelper? = null
+    var inId = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -31,7 +30,7 @@ class SpotPopPost : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        _helper = SQLiteHelper(context)
+        inId = doSelectSQLite(context)
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
@@ -46,17 +45,6 @@ class SpotPopPost : Fragment() {
     private inner class SpotPhotoGet() : AsyncTask<String, String, String>(){
 
         override fun doInBackground(vararg params: String?): String {
-
-            var id = ""
-            val db = _helper!!.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
 
             val client = OkHttpClient()
 
@@ -73,7 +61,7 @@ class SpotPopPost : Fragment() {
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
             formBuilder.add("longitude", longitude.toString())
-            formBuilder.add("user",id)
+            formBuilder.add("user",inId)
 
             //リクエスト内容にformを追加
             val form = formBuilder.build()
@@ -115,18 +103,12 @@ class SpotPopPost : Fragment() {
                 }
 
                 //print(Integer.toString(postCount))
-                gvPostData.adapter = PostAdapter(context, postList)
+                gvPostData.adapter = PostAdapter(context, postList, "")
                 swipelayout.isRefreshing = false
             }
             catch (e : Exception){
 
             }
         }
-    }
-    override fun onDestroy(){
-
-        //ヘルパーオブジェクトの開放
-        _helper!!.close()
-        super.onDestroy()
     }
 }

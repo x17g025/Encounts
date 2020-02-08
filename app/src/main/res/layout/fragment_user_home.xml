@@ -2,6 +2,7 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -21,14 +22,16 @@
             android:numColumns="2" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnPost"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:color="@color/colorMain"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="20dp"
         android:layout_gravity="bottom|end"
-        android:src="@drawable/take_photo"/>
+        app:backgroundTint="@color/colorMain"
+        app:srcCompat="@drawable/button_camera"/>
 </FrameLayout>
 
 

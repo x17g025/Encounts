@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.encount.photo.R
 import com.encount.photo.SQLiteHelper
+import com.encount.photo.doSelectSQLite
 import kotlinx.android.synthetic.main.activity_user_do_post.*
 import okhttp3.*
 import java.io.IOException
@@ -20,11 +21,11 @@ import java.io.IOException
 
 class PostReply : AppCompatActivity() {
 
-    val _helper = SQLiteHelper(this@PostReply)
     var postId = ""
     var userId = ""
     var text   = ""
     var preAct = ""
+    var prePos = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -32,6 +33,7 @@ class PostReply : AppCompatActivity() {
         setContentView(R.layout.activity_user_do_post)
 
         postId = intent.getStringExtra("Post_Id")!!
+        userId = intent.getStringExtra("User_Id")!!
         preAct = intent.getStringExtra("Pre_Act")!!
 
         postButton.setOnClickListener {
@@ -58,17 +60,6 @@ class PostReply : AppCompatActivity() {
     private inner class UserReplySend() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
-
-            var userId = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                userId = cursor.getString(idxId)
-            }
 
             val client = OkHttpClient()
 
@@ -116,7 +107,9 @@ class PostReply : AppCompatActivity() {
 
         val intent = Intent(this, PostDetails::class.java)
         intent.putExtra("Post_Id", postId)
+        intent.putExtra("User_Id", userId)
         intent.putExtra("Pre_Act", preAct)
+        intent.putExtra("Pre_Pos", prePos)
         startActivity(intent)
     }
 }

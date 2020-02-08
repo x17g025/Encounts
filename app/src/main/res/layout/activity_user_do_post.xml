@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
@@ -28,7 +29,6 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
     <EditText
         android:id="@+id/commentInput"
         android:layout_width="match_parent"
@@ -43,20 +43,9 @@
     <FrameLayout
         android:id="@+id/postMenu"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:background="#FFFFFF">
-
-        <!--投稿コメント用ボタン-->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/postButton"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_gravity="end"
-            android:src="@drawable/to_post"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="20dp"/>
 
         <ImageView
             android:id="@+id/ivCamera"
@@ -71,6 +60,17 @@
             android:layout_gravity="top"
             android:background="#dcdcdc"/>
     </FrameLayout>
+
+    <!--投稿コメント用ボタン-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/postButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="70dp"
+        android:layout_marginEnd="20dp"
+        app:backgroundTint="@color/colorMain"
+        app:srcCompat="@drawable/button_post"/>
 
     <ImageView
         android:id="@+id/ivCameraBig"

@@ -20,8 +20,7 @@ import java.lang.Exception
 class SpotNewPost : Fragment() {
 
     var postId = ""
-
-    var _helper : SQLiteHelper? = null
+    var inId = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -31,7 +30,7 @@ class SpotNewPost : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        _helper = SQLiteHelper(context)
+        inId = doSelectSQLite(context)
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
@@ -47,33 +46,22 @@ class SpotNewPost : Fragment() {
 
         override fun doInBackground(vararg params: String?): String {
 
-            var id = ""
-            val db = _helper!!.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
-
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://encount.cf/encount/SpotInfoSend.php"
+            val url = "https://encount.cf/encount/SpotInfoNew.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
 
             println("経度"+latitude.toString())
             println("緯度"+longitude.toString())
-            println("ユーザ"+id)
+            println("ユーザ"+inId)
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
             formBuilder.add("longitude", longitude.toString())
-            formBuilder.add("user",id)
+            formBuilder.add("user",inId)
 
             //リクエスト内容にformを追加
             val form = formBuilder.build()
@@ -115,18 +103,12 @@ class SpotNewPost : Fragment() {
                 }
 
                 //print(Integer.toString(postCount))
-                gvPostData.adapter = PostAdapter(context, postList)
+                gvPostData.adapter = PostAdapter(context, postList, "")
                 swipelayout.isRefreshing = false
             }
             catch (e : Exception){
 
             }
         }
-    }
-    override fun onDestroy(){
-
-        //ヘルパーオブジェクトの開放
-        _helper!!.close()
-        super.onDestroy()
     }
 }

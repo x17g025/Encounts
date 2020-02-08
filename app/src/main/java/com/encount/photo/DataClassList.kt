@@ -55,11 +55,11 @@ data class SinginDataClassList (
 )
 
 data class MapPostData(
-    val imageId: String,
+    val postId: String,
     val userId: String,
     val imagePath: String,
     val imageLat: String,
     val imageLng: String,
-    val postId: String,
-    val likeFlag: Boolean
+    val likeCnt: Int
+
 )
