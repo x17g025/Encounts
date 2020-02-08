@@ -4,7 +4,7 @@ import com.encount.photo.R
 import com.google.android.gms.maps.model.LatLng
 
 enum class Segment(val title: String, val flowerName: String, val imageResId: Int, val coordinate: LatLng) {
-    Kita("北区", "バラ", R.drawable.app_icon, LatLng(34.705374, 135.510049)),
+    Kita("北区", "バラ", R.drawable.app_icon, LatLng(35.7707407, 140.0022931)),
     Miyakojima("都島区", "サクラ・コスモス", R.drawable.app_icon, LatLng(34.701527, 135.528069)),
     Fukushima("福島区", "のだふじ", R.drawable.app_icon, LatLng(34.692609, 135.472285)),
     Konohana("此花区", "サクラ・チューリップ", R.drawable.app_icon, LatLng(34.683126, 135.452354)),

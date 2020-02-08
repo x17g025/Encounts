@@ -117,11 +117,11 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                     //グローバル変数に位置情報を代入
 
-                    //mMap!!.setMyLocationEnabled(true)
+                    mMap!!.setMyLocationEnabled(true)
 
                     mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(Segment.Kita.coordinate, 12.0f))
 
-                    //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
+                    mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
 
                     /*val camPos = CameraPosition.Builder()
                         .target(LatLng(latitude, longitude)) // Sets the new camera position
@@ -156,8 +156,22 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                         //取得した写真の件数分ピンを打つ処理
                         //for(i in postList)にすると、初回の写真取得で数値がおかしくなるので、仕方なく変数を用意している。
-                      
+
                         for (i in 0..cnt - 1) {
+
+                            onMapReady(mMap!!)
+
+                            ClusterManager<SegmentClusterItem>(activity, mMap!!).let {
+                                it.renderer = MoreSegmentClusterRenderer(context!!, mMap!!, it)
+                                mMap!!.setOnCameraIdleListener(it)
+                                mMap!!.setOnMarkerClickListener(it)
+
+                                Segment.values().forEach { segment ->
+                                    it.addItem(SegmentClusterItem(segment))
+                                }
+                            }
+
+                            mMap!!.setInfoWindowAdapter(SegmentInfoWindowAdapter(context!!))
 
                             //前回マップ上に打ったピンを全て削除
                             if (mmm != null) {
@@ -227,11 +241,11 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
     //default location
     override fun onMapReady(googleMap: GoogleMap) {
-        //mMap = googleMap
+        mMap = googleMap
         //マップのスタイルも変えられるようにしたい
         //mMap!!.setMapStyle(GoogleMap.MAP_TYPE_TERRAIN)
 
-        /*
+
         //移動
         googleMap.uiSettings.isScrollGesturesEnabled = true
         //ズーム
@@ -242,29 +256,17 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         googleMap.uiSettings.isTiltGesturesEnabled = true
         //
         googleMap.uiSettings.isRotateGesturesEnabled = true
-    */
 
 
-        mMap = googleMap.apply {
+
+        /*mMap = googleMap.apply {
             moveCamera(CameraUpdateFactory.newLatLngZoom(Segment.Kita.coordinate, 12.0f))
 
             uiSettings.run {
                 isRotateGesturesEnabled = false
                 isTiltGesturesEnabled = false
             }
-
-            ClusterManager<SegmentClusterItem>(activity, this).let {
-                it.renderer = MoreSegmentClusterRenderer(context!!, this, it)
-                setOnCameraIdleListener(it)
-                setOnMarkerClickListener(it)
-
-                Segment.values().forEach { segment ->
-                    it.addItem(SegmentClusterItem(segment))
-                }
-            }
-
-            setInfoWindowAdapter(SegmentInfoWindowAdapter(context!!))
-        }
+        }*/
 
 
         mMap!!.setOnMarkerClickListener { marker ->
@@ -405,6 +407,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
         override fun getTitle(): String = segment.title
 
+        //override fun getPosition(): LatLng = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
         override fun getPosition(): LatLng = segment.coordinate
     }
 
