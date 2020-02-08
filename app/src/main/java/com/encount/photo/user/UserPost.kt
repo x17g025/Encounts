@@ -1,4 +1,4 @@
-package com.encount.photo.post
+package com.encount.photo.user
 
 import android.Manifest
 import android.content.ContentValues
@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat

@@ -1,4 +1,4 @@
-package com.encount.photo.user
+package com.encount.photo.post
 
 import android.content.Intent
 import android.os.AsyncTask
@@ -13,21 +13,22 @@ import com.encount.photo.post.PostDetails
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.ga_post_item.view.*
-import kotlinx.android.synthetic.main.tablayout_user_data.*
+import kotlinx.android.synthetic.main.tablayout_post_data.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
 
-class UserLikeList : Fragment() {
+class UserPostList(Id : String) : Fragment() {
 
     var _helper : SQLiteHelper? = null
+    var userId = Id
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.tablayout_user_data, container, false)
+        return inflater.inflate(R.layout.tablayout_post_data, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,52 +37,29 @@ class UserLikeList : Fragment() {
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
-        UserLikeGet().execute()
-
-        //タップで投稿の詳細画面へ
-        gvUserData.setOnItemClickListener {parent, view, position, id ->
-
-            view.image_view.setOnClickListener {
-
-                val intent = Intent(context, PostDetails::class.java)
-                intent.putExtra("Post_Id", view.tvPostId.text)
-                intent.putExtra("imageLat", view.tvImageLat.text)
-                intent.putExtra("imageLng", view.tvImageLng.text)
-                startActivity(intent)
-            }
-        }
+        UserPostGet().execute()
 
         swipelayout.setOnRefreshListener {
 
-            UserLikeGet().execute()
+            UserPostGet().execute()
         }
     }
 
-    private inner class UserLikeGet : AsyncTask<String, String, String>() {
+    private inner class UserPostGet() : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
 
-            var id = ""
-            val db = _helper!!.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while(cursor.moveToNext()){
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
 
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://encount.cf/encount/UserLikeGet.php"
+            val url = "https://encount.cf/encount/MyPostGet.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id",id)
+            formBuilder.add("id",userId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -118,7 +96,7 @@ class UserLikeList : Fragment() {
                     )
                 }
 
-                gvUserData.adapter = PostAdapter(context, postList)
+                gvPostData.adapter = PostAdapter(context, postList)
                 swipelayout.isRefreshing = false
             }
             catch(e : Exception){

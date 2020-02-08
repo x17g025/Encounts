@@ -42,6 +42,7 @@ class PostDetails : AppCompatActivity() {
 
     var postId = ""
     var userId = ""
+    var preId = ""
     var text   = ""
     var preAct = ""
   
@@ -53,10 +54,23 @@ class PostDetails : AppCompatActivity() {
         setContentView(R.layout.activity_post_details)
 
         postId = intent.getStringExtra("Post_Id")!!
+        preId = intent.getStringExtra("User_Id")!!
         preAct = intent.getStringExtra("Pre_Act")!!
 
         UserPostGet().execute()
         UserReplyGet().execute()
+
+        var id = ""
+        val db = _helper.writableDatabase
+        val sql = "select * from userInfo"
+        val cursor = db.rawQuery(sql, null)
+
+        while (cursor.moveToNext()) {
+
+            val idxId = cursor.getColumnIndex("user_id")
+            id = cursor.getString(idxId)
+        }
+
 
         ivPostLike.setOnClickListener {
 
@@ -65,21 +79,19 @@ class PostDetails : AppCompatActivity() {
 
         ivPostReply.setOnClickListener{
 
-            startActivity(Intent(this, PostReply::class.java).putExtra("Post_Id", postId))
+            startActivity(Intent(this, PostReply::class.java).putExtra("Post_Id", postId).putExtra("Pre_Act", preAct))
+        }
+
+        llUserData.setOnClickListener{
+
+            if(preAct != "spot" || userId == id) {
+
+                startActivity(Intent(this, UserProfile::class.java).putExtra("User_Id", userId))
+            }
         }
 
         //タップで投稿の削除
         ivPostMenu.setOnClickListener {
-            var id = ""
-            val db = _helper.writableDatabase
-            val sql = "select * from userInfo"
-            val cursor = db.rawQuery(sql, null)
-
-            while (cursor.moveToNext()) {
-
-                val idxId = cursor.getColumnIndex("user_id")
-                id = cursor.getString(idxId)
-            }
 
             if (userId == id) {
                 SweetAlertDialog(this@PostDetails, SweetAlertDialog.WARNING_TYPE)
@@ -95,7 +107,7 @@ class PostDetails : AppCompatActivity() {
                             .setConfirmText("OK")
                             .setConfirmClickListener {
                                     sDialog -> sDialog.dismissWithAnimation()
-                                goHome()
+                                    goHome()
                             }
                             .show()
                     }
@@ -122,7 +134,7 @@ class PostDetails : AppCompatActivity() {
             when {
                 preAct == "home" -> { startActivity(Intent(this, NavigationActivity::class.java)) }
                 preAct == "spot" -> { startActivity(Intent(this, SpotMainActivity::class.java)) }
-                preAct == "my" -> { startActivity(Intent(this, UserProfile::class.java)) }
+                preAct == "my" -> { startActivity(Intent(this, UserProfile::class.java).putExtra("User_Id", preId)) }
             }
             return true
         }
@@ -177,13 +189,22 @@ class PostDetails : AppCompatActivity() {
                 var postData = Gson().fromJson(result, PostDataClassList::class.java)
 
                 Glide.with(this@PostDetails).load(postData.postImage).into(ivPostImage)
+                Glide.with(this@PostDetails).load(postData.userIcon).into(ivUserIcon)
 
                 Log.d("loac",postData.imageLat.toString())
                 userId           = postData.userId
                 tvPostName.text  = postData.userName
                 tvPostDate.text  = postData.postDate
                 tvPostText.text  = postData.postText
-                tvPostPlace.text = getAddress(postData.imageLat, postData.imageLng)
+
+                if(preAct == "spot") {
+
+                    //tvPostPlace.text = getAddress(postData.imageLat, postData.imageLng)
+                }
+                else{
+
+
+                }
 
                 if (postData.likeFlag) {
 
@@ -245,9 +266,10 @@ class PostDetails : AppCompatActivity() {
 
             try {
 
-                var likeFlag = Gson().fromJson(result, like::class.java)
+                var likeFlag = Gson().fromJson(result, flag::class.java)
                 likeToggle(likeFlag.flag)
-            } catch (e: Exception) {
+            }
+            catch (e: Exception) {
 
             }
         }

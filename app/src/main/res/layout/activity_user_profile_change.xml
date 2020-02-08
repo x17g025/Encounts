@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/colorBG">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -35,13 +35,6 @@
             android:src="@drawable/tool_check"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:visibility="visible"
-        android:layout_marginTop="55dp"
-        android:background="#dcdcdc"/>
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivUserIcon"
         android:layout_width="70dp"
@@ -49,7 +42,7 @@
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/toolbar"
-        android:src="@drawable/app_deficon"/>
+        android:src="@drawable/to_post"/>
 
     <TextView
         android:id="@+id/tvName"
@@ -94,6 +87,7 @@
         android:layout_below="@+id/tvBio"
         android:layout_centerHorizontal="true"
         android:background="@drawable/edit_text_design"
+        android:gravity="bottom"
         android:ems="5"
         android:maxLines="5"
         android:maxLength="140"

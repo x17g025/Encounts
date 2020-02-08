@@ -19,8 +19,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
-import android.view.MotionEvent
-import android.widget.GridView
 
 
 /**
@@ -70,6 +68,7 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id", posts[position].postId)
             intent.putExtra("Pre_Act", posts[position].preAct)
+            intent.putExtra("User_Id", posts[position].userId)
             view.getContext().startActivity(intent)
         }
 
@@ -136,7 +135,7 @@ class PostAdapter(val context: Context?, val posts: List<PostList>): BaseAdapter
 
             try {
 
-                var likeFlag = Gson().fromJson(result, like::class.java)
+                var likeFlag = Gson().fromJson(result, flag::class.java)
 
                 if(likeFlag.flag) {
 

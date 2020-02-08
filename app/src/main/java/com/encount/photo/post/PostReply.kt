@@ -24,6 +24,7 @@ class PostReply : AppCompatActivity() {
     var postId = ""
     var userId = ""
     var text   = ""
+    var preAct = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,6 +32,7 @@ class PostReply : AppCompatActivity() {
         setContentView(R.layout.activity_user_do_post)
 
         postId = intent.getStringExtra("Post_Id")!!
+        preAct = intent.getStringExtra("Pre_Act")!!
 
         postButton.setOnClickListener {
 
@@ -114,6 +116,7 @@ class PostReply : AppCompatActivity() {
 
         val intent = Intent(this, PostDetails::class.java)
         intent.putExtra("Post_Id", postId)
+        intent.putExtra("Pre_Act", preAct)
         startActivity(intent)
     }
 }

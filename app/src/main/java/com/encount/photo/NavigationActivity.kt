@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.activity_nav_main.*
 import androidx.core.view.GravityCompat
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.navigation.ui.setupWithNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.bumptech.glide.Glide
 import com.encount.photo.user.UserProfile
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
@@ -23,9 +23,8 @@ import okhttp3.Request
 import java.io.IOException
 import java.lang.Exception
 import com.encount.photo.user.UserSettings
+import kotlinx.android.synthetic.main.activity_nav_header.*
 import kotlinx.android.synthetic.main.activity_nav_header.view.*
-
-
 
 /**
  * やってること
@@ -71,7 +70,6 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
         }
         return false
     }
-
 
     private fun setDrawerLayout(){
 
@@ -134,10 +132,12 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
         override fun onPostExecute(result: String) {
 
             try{
+
                 val userData = Gson().fromJson(result, UserDataClassList::class.java)
                 val navigationView = findViewById<NavigationView>(R.id.nav_view)
                 val headerView = navigationView.getHeaderView(0)
 
+                Glide.with(this@NavigationActivity).load(userData.userIcon).into(ivUserIcon)
                 headerView.navUserName.text   = userData.userName
                 headerView.navUserNumber.text = "ID : " + userData.userNumber.toString()
                 headerView.navPostCount.text = userData.postCount

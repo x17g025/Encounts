@@ -12,6 +12,12 @@ import androidx.core.app.ActivityCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.encount.photo.user.UserSingin
 import java.lang.Exception
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.net.Uri
+
 
 /**
  * やってること
@@ -67,10 +73,10 @@ class MainActivity : AppCompatActivity() {
                         SweetAlertDialog(this@MainActivity, SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("権限エラー")
                             .setContentText("権限が取得できません。")
-                            .setConfirmText("取得")
+                            .setConfirmText("設定へ")
                             .setConfirmClickListener { sDialog ->
                                 sDialog.dismissWithAnimation()
-                                checkPermission(permissions, REQUEST_CODE)
+                                startActivity( Intent(ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")))
                             }
                             .show()
                     }

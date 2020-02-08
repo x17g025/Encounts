@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="com.encount.photo.user.UserLikeList"
+            android:name="com.encount.photo.post.UserLikeList"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -29,7 +29,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.encount.photo.user.UserPostList"
+            android:name="com.encount.photo.post.UserPostList"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -42,7 +42,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.encount.photo.friend.FriendAdd"
+            android:name="com.encount.photo.user.UserSearch"
             android:noHistory="true"
             android:screenOrientation="portrait"/>
 
@@ -72,7 +72,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.encount.photo.post.UserPost"
+            android:name="com.encount.photo.user.UserPost"
             android:windowSoftInputMode="stateVisible|adjustResize"
             android:screenOrientation="portrait"/>
 

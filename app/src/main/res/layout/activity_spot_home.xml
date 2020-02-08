@@ -55,14 +55,6 @@
     </LinearLayout>
     <!--スポットトップ画像＆スポット名　ここまで-->
 
-    <!--タブバー　ここから-->
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:visibility="visible"
-        android:layout_marginTop="15dp"
-        android:background="#dcdcdc"/>
-
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/SpotDataList"
         android:layout_width="match_parent"
@@ -72,7 +64,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginBottom="1dp"
             app:tabIndicatorColor="@color/colorMain"
             app:layout_constraintBottom_toTopOf="@+id/SpotDataList"/>

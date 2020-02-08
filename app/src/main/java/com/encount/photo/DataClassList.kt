@@ -1,19 +1,7 @@
 package com.encount.photo
 
-data class like(
+data class flag(
     val flag: Boolean
-)
-
-data class MapsList(
-    val imgpath: String,
-    val imglat: Double,
-    val imglng: Double
-)
-
-data class MapsDataClassList (
-    val imgPath: String,
-    val imgLat: Double,
-    val imgLng: Double
 )
 
 data class PostList(
@@ -57,18 +45,13 @@ data class UserDataClassList(
     val userBio: String,
     val userIcon: String,
     val postCount: String,
-    val likeCount: String
+    val likeCount: String,
+    val followFlag: Int
 )
 
 data class SinginDataClassList (
     val flag: Boolean,
     val result: String
-)
-
-data class FriendDataClassList (
-    val mapsLat: Double,
-    val mapsLng: Double,
-    val imagePath: String
 )
 
 data class MapPostData(

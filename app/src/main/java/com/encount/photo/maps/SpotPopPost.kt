@@ -10,7 +10,7 @@ import com.encount.photo.*
 import com.encount.photo.post.PostAdapter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.tablayout_spot_data.*
+import kotlinx.android.synthetic.main.tablayout_post_data.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -26,18 +26,18 @@ class SpotPopPost : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.tablayout_spot_data, container, false)
+        return inflater.inflate(R.layout.tablayout_post_data, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         _helper = SQLiteHelper(context)
 
-        swipelayout2.setColorSchemeResources(R.color.colorMain)
+        swipelayout.setColorSchemeResources(R.color.colorMain)
 
         SpotPhotoGet().execute()
 
-        swipelayout2.setOnRefreshListener {
+        swipelayout.setOnRefreshListener {
 
             SpotPhotoGet().execute()
         }
@@ -115,8 +115,8 @@ class SpotPopPost : Fragment() {
                 }
 
                 //print(Integer.toString(postCount))
-                gvSpotPost.adapter = PostAdapter(context, postList)
-                swipelayout2.isRefreshing = false
+                gvPostData.adapter = PostAdapter(context, postList)
+                swipelayout.isRefreshing = false
             }
             catch (e : Exception){
 

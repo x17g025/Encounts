@@ -1,38 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@color/colorBG"
+    android:layout_marginBottom="50dp"
+    android:layout_marginTop="50dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical">
-
+    <TextView
+        android:id="@+id/SinginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="ユーザー検索"
+        android:layout_alignParentTop="true"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"/>
 
     <EditText
-        android:id="@+id/userid"
+        android:id="@+id/etName"
         android:layout_width="match_parent"
+        android:layout_marginEnd="70dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:background="#dcdcdc"
-        android:drawableLeft="@drawable/edit_text_person"
+        android:layout_below="@+id/SinginTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_text_design"
         android:ems="10"
-        android:layout_gravity="center|top"
-        android:hint="ユーザーID"
+        android:hint="@string/userName"
         android:inputType="text"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
-    <ListView
-        android:id="@+id/FriendDataList"
+    <EditText
+        android:id="@+id/etNumber"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"/>
-    </LinearLayout>
-</FrameLayout>
+        android:layout_marginEnd="70dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/etName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edit_text_design"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="ユーザーID"
+        android:textSize="16sp" />
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="?android:attr/progressBarStyle"
+        android:layout_above="@+id/btnSearch"
+        android:indeterminateTint="#00bde7"
+        android:layout_marginBottom="10dp"
+        tools:visibility="visible"
+        android:layout_centerHorizontal="true"/>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btnSearch"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="#00bde7"
+        app:cardCornerRadius="25dp"
+        android:layout_marginBottom="15dp">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/logintext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorBG"
+                android:text="検索"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

@@ -4,17 +4,19 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_BACK
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.encount.photo.R
 import com.encount.photo.SQLiteHelper
 import com.encount.photo.UserDataClassList
+import com.encount.photo.flag
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_user_profile_change.*
 import okhttp3.*
 import java.io.IOException
-
-
 
 /**
  * やってること
@@ -35,7 +37,7 @@ class ProfileChange : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile_change)
 
-
+        UserDataGet()
 
         ivUserIcon.setOnClickListener{
 
@@ -48,9 +50,16 @@ class ProfileChange : AppCompatActivity() {
         ivSave.setOnClickListener {
 
             name = etName.text.toString()
-            bio = etBio.text.toString()
+            bio  = etBio.text.toString()
 
-            profileChange()
+            if(name.isNotEmpty()) {
+
+                onProfileChange().execute()
+            }
+            else{
+
+                etName.error = "入力されていません"
+            }
         }
 
         ivBack.setOnClickListener {
@@ -59,14 +68,7 @@ class ProfileChange : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        UserDataGet()
-    }
-
-
-    private inner class profileChange : AsyncTask<String, String, String>() {
+    private inner class onProfileChange : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
 
@@ -84,7 +86,7 @@ class ProfileChange : AppCompatActivity() {
             val client = OkHttpClient()
 
             //アクセスするURL
-            val url = "https://encount.cf/encount/UserProfileChenge.php"
+            val url = "https://encount.cf/encount/UserProfileChange.php"
 
             //Formを作成
             val formBuilder = FormBody.Builder()
@@ -92,7 +94,7 @@ class ProfileChange : AppCompatActivity() {
             //formに要素を追加
             formBuilder.add("id", id)
             formBuilder.add("name",name)
-            formBuilder.add("mail",bio)
+            formBuilder.add("bio",bio)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -111,15 +113,32 @@ class ProfileChange : AppCompatActivity() {
 
         override fun onPostExecute(result: String) {
 
-            SweetAlertDialog(this@ProfileChange, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("プロフィール変更")
-                .setContentText("変更しました！")
-                .setConfirmText("プロフィールへ")
-                .setConfirmClickListener {
-                        sDialog -> sDialog.dismissWithAnimation()
-                    goProfile()
-                }
-                .show()
+            var chgFlag = Gson().fromJson(result, flag::class.java)
+
+
+            if(chgFlag.flag) {
+
+                SweetAlertDialog(this@ProfileChange, SweetAlertDialog.SUCCESS_TYPE)
+                    .setTitleText("プロフィール変更")
+                    .setContentText("変更しました！")
+                    .setConfirmText("プロフィールへ")
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                        goProfile()
+                    }
+                    .show()
+            }
+            else{
+
+                SweetAlertDialog(this@ProfileChange, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("エラー")
+                    .setContentText("変更できませんでした")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                    }
+                    .show()
+            }
         }
     }
 
@@ -166,7 +185,6 @@ class ProfileChange : AppCompatActivity() {
         override fun onPostExecute(result: String) {
 
             try{
-
                 val userData = Gson().fromJson(result, UserDataClassList::class.java)
 
                 Glide.with(this@ProfileChange).load(userData.userIcon).into(ivUserIcon)
@@ -176,6 +194,16 @@ class ProfileChange : AppCompatActivity() {
             catch(e : Exception){
             }
         }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+
+        if (keyCode == KEYCODE_BACK) {
+
+            startActivity(Intent(this, UserProfile::class.java))
+            return true
+        }
+        return false
     }
 
     override fun onDestroy() {

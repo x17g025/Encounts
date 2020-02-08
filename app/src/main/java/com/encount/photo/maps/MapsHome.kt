@@ -237,8 +237,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id",marker.title)
-            intent.putExtra("imageLat",postList[ccnt-1].imageLat)
-            intent.putExtra("imageLng",postList[ccnt-1].imageLng)
+            intent.putExtra("Pre_Act", "spot")
             startActivity(intent)
             true
         }
