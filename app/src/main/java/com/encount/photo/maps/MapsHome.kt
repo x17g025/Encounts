@@ -257,8 +257,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         //
         googleMap.uiSettings.isRotateGesturesEnabled = true
 
-
-
         /*mMap = googleMap.apply {
             moveCamera(CameraUpdateFactory.newLatLngZoom(Segment.Kita.coordinate, 12.0f))
 
@@ -267,7 +265,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 isTiltGesturesEnabled = false
             }
         }*/
-
 
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
@@ -342,7 +339,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             try {
                 val response = client.newCall(request).execute()
                 println(url)
-                //println(response.body()!!.string())
                 return response.body()!!.string()
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -378,7 +374,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 cnt = postCount
                 activity.setPostList(postList)
 
-
             } catch (e: Exception) {
 
             }
@@ -407,22 +402,20 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
         override fun getTitle(): String = segment.title
 
-        //override fun getPosition(): LatLng = LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
         override fun getPosition(): LatLng = segment.coordinate
     }
 
-    //ClusterManager オブジェクトを生成
-    /*private val manager = ClusterManager<SegmentClusterItem>(context,mMap).apply {
-        mMap!!.setOnCameraIdleListener(this)
-        mMap!!.setOnMarkerClickListener(this)
-    }*/
-
     private inner class MoreSegmentClusterRenderer(context: Context, map: GoogleMap, manager: ClusterManager<SegmentClusterItem>) :
         DefaultClusterRenderer<SegmentClusterItem>(context, map, manager) {
-        private val itemImageView: ImageView
+        private var itemImageView: ImageView
         private val itemIconGenerator: IconGenerator = IconGenerator(context).apply {
             val iconView = LayoutInflater.from(context).inflate(R.layout.icon_segment, null, false).apply {
                 itemImageView = findViewById(R.id.imageIcon)
+                /*itemImageView = */
+                /*Glide.with(activity)
+                    .asBitmap()
+                    .load("https://encount.cf/files/postImg/1086470832_5dea7e52cc0b4.jpg")
+                    .into(itemImageView)*/
             }
             setContentView(iconView)
         }
@@ -438,9 +431,26 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         }
 
         override fun onBeforeClusterItemRendered(item: SegmentClusterItem, markerOptions: MarkerOptions) {
-            itemImageView.setImageResource(item.segment.imageResId)
-            val icon = itemIconGenerator.makeIcon()
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+
+            Glide.with(activity)
+                .asBitmap()
+                .load("https://encount.cf/files/postImg/1086470832_5dea7e52cc0b4.jpg")
+                .into(object : SimpleTarget<Bitmap>(100, 100) {
+
+                    //正常に写真取得できればピンを打つ
+                    override fun onResourceReady(
+                        resource: Bitmap?,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        itemImageView.setImageBitmap(resource)
+                        val icon = itemIconGenerator.makeIcon()
+                        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+                    }
+                })
+
+            //itemImageView.setImageResource(item.segment.imageResId)
+            //val icon = itemIconGenerator.makeIcon()
+            //markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
         }
 
         override fun onBeforeClusterRendered(cluster: Cluster<SegmentClusterItem>, markerOptions: MarkerOptions) {
