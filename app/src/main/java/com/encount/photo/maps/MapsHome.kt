@@ -15,6 +15,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -28,8 +30,11 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterItem
 import com.google.maps.android.clustering.ClusterManager
+import com.google.maps.android.clustering.view.DefaultClusterRenderer
+import com.google.maps.android.ui.IconGenerator
 import kotlinx.android.synthetic.main.fragment_maps_home.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -248,7 +253,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                 isTiltGesturesEnabled = false
             }
 
-            ClusterManager<SegmentClusterItem>(context, this).let {
+            ClusterManager<SegmentClusterItem>(activity, this).let {
                 it.renderer = MoreSegmentClusterRenderer(context!!, this, it)
                 setOnCameraIdleListener(it)
                 setOnMarkerClickListener(it)
@@ -383,7 +388,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
      */
 
     //ClusterItem を実装したクラスを作成
-    private inner class SegmentClusterItem(postList: MutableList<PostList>) : ClusterItem {
+    /*private inner class SegmentClusterItem(postList: MutableList<PostList>) : ClusterItem {
         override fun getSnippet(): String {
             return postList[ccnt].userId
         }
@@ -393,6 +398,14 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         override fun getTitle(): String {
             return postList[ccnt].postId
         }
+    }*/
+
+    private inner class SegmentClusterItem(val segment: Segment) : ClusterItem {
+        override fun getSnippet(): String = segment.flowerName
+
+        override fun getTitle(): String = segment.title
+
+        override fun getPosition(): LatLng = segment.coordinate
     }
 
     //ClusterManager オブジェクトを生成
@@ -400,5 +413,49 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         mMap!!.setOnCameraIdleListener(this)
         mMap!!.setOnMarkerClickListener(this)
     }*/
+
+    private inner class MoreSegmentClusterRenderer(context: Context, map: GoogleMap, manager: ClusterManager<SegmentClusterItem>) :
+        DefaultClusterRenderer<MapsHome.SegmentClusterItem>(context, map, manager) {
+        private val itemImageView: ImageView
+        private val itemIconGenerator: IconGenerator = IconGenerator(context).apply {
+            val iconView = LayoutInflater.from(context).inflate(R.layout.icon_segment, null, false).apply {
+                itemImageView = findViewById(R.id.imageIcon)
+            }
+            setContentView(iconView)
+        }
+
+        private val clusterImageView: ImageView
+        private val clusterTextView: TextView
+        private val clusterIconGenerator: IconGenerator = IconGenerator(context).apply {
+            val clusterView = LayoutInflater.from(context).inflate(R.layout.icon_segment_cluster, null, false).apply {
+                clusterImageView = findViewById(R.id.imageIcon)
+                clusterTextView = findViewById(R.id.textNumber)
+            }
+            setContentView(clusterView)
+        }
+
+        override fun onBeforeClusterItemRendered(item: SegmentClusterItem, markerOptions: MarkerOptions) {
+            itemImageView.setImageResource(item.segment.imageResId)
+            val icon = itemIconGenerator.makeIcon()
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+        }
+
+        override fun onBeforeClusterRendered(cluster: Cluster<SegmentClusterItem>, markerOptions: MarkerOptions) {
+            clusterImageView.setImageResource(R.drawable.app_logo)
+            clusterTextView.text = cluster.size.toString()
+            val icon = clusterIconGenerator.makeIcon()
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+        }
+
+        override fun onClusterItemRendered(item: SegmentClusterItem, marker: Marker) {
+            marker.tag = item.segment
+            super.onClusterItemRendered(item, marker)
+        }
+
+        override fun shouldRenderAsCluster(cluster: Cluster<SegmentClusterItem>?): Boolean {
+            // ClusterItemが一定距離内にいくつ集まったらクラスタ化するかをBooleanで返す
+            return cluster?.size ?: 0 >= 5
+        }
+    }
 
 }
