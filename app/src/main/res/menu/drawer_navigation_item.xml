@@ -12,7 +12,7 @@
             android:title="フレンド一覧" />
         <item
             android:id="@+id/nav_friend_request"
-            android:icon="@drawable/drawer_friend"
+            android:icon="@drawable/drawer_friend_add"
             android:title="フレンド承認" />
     </group>
     <group
