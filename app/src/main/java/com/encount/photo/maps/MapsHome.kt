@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.encount.photo.MapPostData
+import com.encount.photo.MapsDataClassList
 import com.encount.photo.PostList
 import com.encount.photo.R
 import com.encount.photo.post.PostDetails
@@ -170,12 +171,22 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                 mMap!!.setOnCameraIdleListener(it)
                                 mMap!!.setOnMarkerClickListener(it)
 
-                                Segment.values().forEach { segment ->
+                                /*Segment.values().forEach { segment ->
                                     it.addItem(SegmentClusterItem(segment))
+                                }*/
+
+                                postList.forEach {
+                                    postList ->
+                                    it.addItem(SegmentClusterItem(postList))
                                 }
+
+                                /*for (j in 0..cnt - 1) {
+                                    it.addItem(SegmentClusterItem(postList[j]))
+                                }*/
                             }
 
                             mMap!!.setInfoWindowAdapter(SegmentInfoWindowAdapter(context!!))
+
 
                             //前回マップ上に打ったピンを全て削除
                             if (mmm != null) {
@@ -401,12 +412,35 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         }
     }*/
     //ClusterItem を実装したクラスを作成
-    private inner class SegmentClusterItem(val segment: Segment) : ClusterItem {
-        override fun getSnippet(): String = segment.flowerName
+    private inner class SegmentClusterItem(/*val segment: Segment*/postList: MapPostData) : ClusterItem {
+        //override fun getSnippet(): String = segment.flowerName
 
-        override fun getTitle(): String = segment.title
+        //override fun getTitle(): String = segment.title
 
-        override fun getPosition(): LatLng = segment.coordinate
+       // override fun getPosition(): LatLng = segment.coordinate
+
+        override fun getSnippet(): String {
+            if(ccnt >= 7 ){
+                ccnt = ccnt - 1
+            }
+            return postList[ccnt].userId
+            //return postList[1].userId
+        }
+        override fun getPosition(): LatLng {
+            if(ccnt >= 7 ){
+                ccnt = ccnt - 1
+            }
+            return LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
+            //return LatLng(postList[1].imageLat.toDouble(),postList[1].imageLng.toDouble())
+            //return LatLng(35.7707407, 140.0022931)
+        }
+        override fun getTitle(): String {
+            if(ccnt >= 7 ){
+                ccnt = ccnt - 1
+            }
+            return postList[ccnt].postId
+           // return postList[1].postId
+        }
     }
 
     private inner class MoreSegmentClusterRenderer(context: Context, map: GoogleMap, manager: ClusterManager<SegmentClusterItem>) :
@@ -431,10 +465,13 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
         override fun onBeforeClusterItemRendered(item: SegmentClusterItem, markerOptions: MarkerOptions) {
 
+            if(ccnt >= 7 ){
+                ccnt = ccnt - 1
+            }
             Glide.with(activity)
                 .asBitmap()
                 //.load("https://encount.cf/files/postImg/1086470832_5dea7e52cc0b4.jpg")
-                .load(pass)
+                .load(/*pass*/postList[ccnt].imagePath)
                 .into(object : SimpleTarget<Bitmap>(100, 100) {
 
                     //正常に写真取得できればピンを打つ
@@ -461,13 +498,13 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         }
 
         override fun onClusterItemRendered(item: SegmentClusterItem, marker: Marker) {
-            marker.tag = item.segment
+            marker.tag = /*item.segment*/postList
             super.onClusterItemRendered(item, marker)
         }
 
         override fun shouldRenderAsCluster(cluster: Cluster<SegmentClusterItem>?): Boolean {
             // ClusterItemが一定距離内にいくつ集まったらクラスタ化するかをBooleanで返す
-            return cluster?.size ?: 0 >= 5
+            return cluster?.size ?: 0 >= 10
         }
     }
 
