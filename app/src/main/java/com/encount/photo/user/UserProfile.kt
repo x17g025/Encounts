@@ -61,11 +61,15 @@ class UserProfile : AppCompatActivity() {
             tabLayout.setupWithViewPager(UserDataList)
         }
 
-
-
+        //プロフィール変更
         ivChange.setOnClickListener {
 
             startActivity(Intent(this, ProfileChange::class.java))
+        }
+
+        ivFollow.setOnClickListener {
+
+            FriendToggle().execute()
         }
     }
 
@@ -152,8 +156,73 @@ class UserProfile : AppCompatActivity() {
                 UserName.text = userData.userName
                 UserBio.text = userData.userBio
 
+                when (userData.followFlag) {
+
+                    2 -> {
+                        ivFollow.setImageResource(R.drawable.tool_wait)
+                    }
+                    1 -> {
+                        ivFollow.setImageResource(R.drawable.tool_check)
+                    }
+                    else -> {
+                        ivFollow.setImageResource(R.drawable.tool_add)
+                    }
+                }
                 ivFollow.visibility = View.VISIBLE
 
+            }
+            catch(e : Exception){
+            }
+        }
+    }
+
+    private inner class FriendToggle : AsyncTask<String, String, String>() {
+
+        override fun doInBackground(vararg params: String): String {
+
+            val client = OkHttpClient()
+
+            //アクセスするURL
+            val url = "https://encount.cf/encount/FriendToggle.php"
+
+            //Formを作成
+            val formBuilder = FormBody.Builder()
+
+            //formに要素を追加
+            formBuilder.add("id", inId)
+            formBuilder.add("other", userId)
+            //リクエストの内容にformを追加
+            val form = formBuilder.build()
+
+            //リクエストを生成
+            val request = Request.Builder().url(url).post(form).build()
+
+            try {
+                val response = client.newCall(request).execute()
+                return response.body()!!.string()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                return "Error"
+            }
+        }
+
+        override fun onPostExecute(result: String) {
+
+            try{
+                val userData = Gson().fromJson(result, UserDataClassList::class.java)
+
+                when (userData.followFlag) {
+
+                    2 -> {
+                        ivFollow.setImageResource(R.drawable.tool_wait)
+                    }
+                    1 -> {
+                        ivFollow.setImageResource(R.drawable.tool_check)
+                    }
+                    else -> {
+                        ivFollow.setImageResource(R.drawable.tool_add)
+                    }
+                }
             }
             catch(e : Exception){
             }
@@ -168,20 +237,5 @@ class UserProfile : AppCompatActivity() {
             return true
         }
         return false
-    }
-
-    fun followToggle(flag: Boolean) {
-
-        if (flag) {
-
-            ivFollow.setImageResource(R.drawable.tool_check)
-            var animation = AnimationUtils.loadAnimation(this, R.anim.like_touch)
-            ivFollow.startAnimation(animation)
-        } else {
-
-            ivFollow.setImageResource(R.drawable.tool_add)
-            var animation = AnimationUtils.loadAnimation(this, R.anim.like_touch)
-            ivFollow.startAnimation(animation)
-        }
     }
 }

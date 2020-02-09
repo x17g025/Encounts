@@ -14,6 +14,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
+import com.encount.photo.user.FriendList
+import com.encount.photo.user.RequestFriend
 import com.encount.photo.user.UserProfile
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
@@ -90,8 +92,10 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            R.id.nav_user -> startActivity(Intent(this, UserProfile::class.java))
-            R.id.nav_settings -> startActivity(Intent(this, UserSettings::class.java))
+            R.id.nav_user           -> startActivity(Intent(this, UserProfile::class.java))
+            R.id.nav_friend_list    -> startActivity(Intent(this, FriendList::class.java))
+            R.id.nav_friend_request -> startActivity(Intent(this, RequestFriend::class.java))
+            R.id.nav_settings       -> startActivity(Intent(this, UserSettings::class.java))
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return false

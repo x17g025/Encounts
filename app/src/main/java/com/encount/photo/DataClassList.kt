@@ -19,6 +19,12 @@ data class ReplyList(
     val postDate: String
 )
 
+data class FriendList(
+    val userId: String,
+    val userName: String,
+    val userIcon: String
+)
+
 data class PostDataClassList(
     val postId: String,
     val userId: String,
@@ -40,6 +46,7 @@ data class LoginDataClassList(
 )
 
 data class UserDataClassList(
+    val userId: String,
     val userName: String,
     val userNumber: Long,
     val userBio: String,

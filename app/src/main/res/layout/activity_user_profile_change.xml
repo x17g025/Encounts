@@ -41,8 +41,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/toolbar"
-        android:src="@drawable/to_post"/>
+        android:layout_below="@+id/toolbar"/>
 
     <TextView
         android:id="@+id/tvName"
