@@ -202,9 +202,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                 postList[ccnt].imageLng.toDouble()
                             )
 
-                            val iconGenerator = IconGenerator(activity)
-                            val window = activity!!.layoutInflater.inflate(R.layout.info_window_segment, null)
-                            iconGenerator.setContentView(window)
+                            //val iconGenerator = IconGenerator(activity)
+                            //val window = activity!!.layoutInflater.inflate(R.layout.info_window_segment, null)
+                            //iconGenerator.setContentView(window)
 
                             Glide.with(activity)
                                 .asBitmap()
@@ -216,8 +216,12 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
                                     ) {
+                                        
                                         imageView.setImageBitmap(resource)
-                                        //findViewById<ImageView>(R.id.imageView).setImageResource(resource)
+                                        val iconGenerator = IconGenerator(activity)
+                                        val window = activity!!.layoutInflater.inflate(R.layout.info_window_segment, null)
+                                        iconGenerator.setContentView(window)
+
                                         mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
@@ -236,9 +240,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         }
     }
 
-    /*fun setPostList(postList: MutableList<MapsList>) {
-        this.postList = postList
-    }*/
     fun setPostList(postList: MutableList<MapPostData>) {
         this.postList = postList
     }
@@ -269,7 +270,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         mMap = googleMap
         //マップのスタイルも変えられるようにしたい
         //mMap!!.setMapStyle(GoogleMap.MAP_TYPE_TERRAIN)
-
 
         //移動
         googleMap.uiSettings.isScrollGesturesEnabled = true
