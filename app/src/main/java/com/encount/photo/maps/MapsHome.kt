@@ -128,13 +128,13 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                     mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
 
-                    /*val camPos = CameraPosition.Builder()
+                    val camPos = CameraPosition.Builder()
                         .target(LatLng(latitude, longitude)) // Sets the new camera position
                         .zoom(19f) // Sets the zoom
                         .bearing(0f) // Rotate the camera
                         .tilt(40f) // Set the camera tilt
                         .build()
-                    mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))*/
+                    mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))
 
                     //座標から住所変換のテスト
                     val geocoder = Geocoder(context)
@@ -217,10 +217,14 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         transition: Transition<in Bitmap>?
                                     ) {
                                         
-                                        imageView.setImageBitmap(resource)
+                                        //imageView.setImageBitmap(resource)
                                         val iconGenerator = IconGenerator(activity)
-                                        val window = activity!!.layoutInflater.inflate(R.layout.info_window_segment, null)
-                                        iconGenerator.setContentView(window)
+                                        val imageView = ImageView(activity)
+                                        imageView.setImageBitmap(resource)
+
+                                        /*val window = activity!!.layoutInflater.inflate(R.layout.info_window_segment, null)
+                                        iconGenerator.setContentView(window)*/
+                                        iconGenerator.setContentView(imageView)
 
                                         mmm = mMap!!.addMarker(
                                             MarkerOptions()
