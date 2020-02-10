@@ -103,7 +103,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                     val camPos = CameraPosition.Builder()
                         .target(LatLng(latitude, longitude)) // Sets the new camera position
-                        .zoom(18.5f) // Sets the zoom
+                        .zoom(19f) // Sets the zoom
                         .bearing(0f) // Rotate the camera
                         .tilt(40f) // Set the camera tilt
                         .build()
