@@ -214,15 +214,16 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             .build() // Creates a CameraPosition from the builder
         mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(position))*/
         //移動
-        googleMap.uiSettings.isScrollGesturesEnabled = true
+        googleMap.uiSettings.isScrollGesturesEnabled = false
         //ズーム
         googleMap.uiSettings.isZoomGesturesEnabled = true
         //回転
         googleMap.uiSettings.isCompassEnabled = true
-        //ティルト 2本指スワイプで視点を傾けることができる
-        googleMap.uiSettings.isTiltGesturesEnabled = true
-        //
         googleMap.uiSettings.isRotateGesturesEnabled = true
+        //ティルト 2本指スワイプで視点を傾けることができる
+        googleMap.uiSettings.isTiltGesturesEnabled = false
+        googleMap.setMaxZoomPreference(19f)
+        googleMap.setMinZoomPreference(17f)
 
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
