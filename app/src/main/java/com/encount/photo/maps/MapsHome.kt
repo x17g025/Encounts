@@ -139,8 +139,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
                     val addressList: List<Address>? =
                         geocoder.getFromLocation(latitude, longitude, 1)
-                    val adminArea = addressList?.first()!!.adminArea
-                    println(adminArea)
+                    //val adminArea = addressList?.first()!!.adminArea
+                    //println(adminArea)
 
                     //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
                     //MapPostGet(this@MapsHome).execute()
@@ -162,7 +162,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                         for (i in 0..cnt - 1) {
 
-                            onMapReady(mMap!!)
+                            //onMapReady(mMap!!)
 
                             pass = postList[i].imagePath
 
@@ -189,7 +189,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
 
                             //前回マップ上に打ったピンを全て削除
-                            if (mmm != null) {
+                            /*if (mmm != null) {
                                 mmm!!.remove()
                             }
 
@@ -217,7 +217,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                                 .icon(BitmapDescriptorFactory.fromBitmap(resource))
                                         )
                                     }
-                                })
+                                })*/
                             ccnt++
                         }
                     }
@@ -490,11 +490,12 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             //markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
         }
 
+        // クラスタ化したやつの生成
         override fun onBeforeClusterRendered(cluster: Cluster<SegmentClusterItem>, markerOptions: MarkerOptions) {
             clusterImageView.setImageResource(R.drawable.app_logo)
             clusterTextView.text = cluster.size.toString()
             val icon = clusterIconGenerator.makeIcon()
-            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+            //markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
         }
 
         override fun onClusterItemRendered(item: SegmentClusterItem, marker: Marker) {
