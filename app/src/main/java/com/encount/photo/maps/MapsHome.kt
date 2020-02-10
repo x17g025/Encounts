@@ -174,9 +174,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         }
     }
 
-    /*fun setPostList(postList: MutableList<MapsList>) {
-        this.postList = postList
-    }*/
     fun setPostList(postList: MutableList<MapPostData>) {
         this.postList = postList
     }
