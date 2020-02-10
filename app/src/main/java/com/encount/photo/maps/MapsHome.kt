@@ -213,11 +213,16 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             .tilt(60f) // Set the camera tilt
             .build() // Creates a CameraPosition from the builder
         mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(position))*/
-        googleMap.uiSettings.isScrollGesturesEnabled = false
-        googleMap.uiSettings.isZoomGesturesEnabled = false
-        googleMap.uiSettings.isCompassEnabled = false
-        googleMap.uiSettings.isTiltGesturesEnabled = false
-        googleMap.uiSettings.isRotateGesturesEnabled = false
+        //移動
+        googleMap.uiSettings.isScrollGesturesEnabled = true
+        //ズーム
+        googleMap.uiSettings.isZoomGesturesEnabled = true
+        //回転
+        googleMap.uiSettings.isCompassEnabled = true
+        //ティルト 2本指スワイプで視点を傾けることができる
+        googleMap.uiSettings.isTiltGesturesEnabled = true
+        //
+        googleMap.uiSettings.isRotateGesturesEnabled = true
 
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
