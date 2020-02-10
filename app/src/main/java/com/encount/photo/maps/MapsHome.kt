@@ -222,6 +222,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         googleMap.uiSettings.isRotateGesturesEnabled = true
         //ティルト 2本指スワイプで視点を傾けることができる
         googleMap.uiSettings.isTiltGesturesEnabled = false
+        //ズーム範囲指定
         googleMap.setMaxZoomPreference(19f)
         googleMap.setMinZoomPreference(17f)
 
