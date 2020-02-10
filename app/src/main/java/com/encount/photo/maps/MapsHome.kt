@@ -213,6 +213,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             .tilt(60f) // Set the camera tilt
             .build() // Creates a CameraPosition from the builder
         mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(position))*/
+
         //移動
         googleMap.uiSettings.isScrollGesturesEnabled = false
         //ズーム
