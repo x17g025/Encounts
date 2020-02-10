@@ -11,6 +11,7 @@ import android.location.Geocoder
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +38,7 @@ import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
 import com.google.maps.android.ui.IconGenerator
 import kotlinx.android.synthetic.main.fragment_maps_home.*
+import kotlinx.android.synthetic.main.info_window_segment.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -122,7 +124,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                     mMap!!.setMyLocationEnabled(true)
 
-                    mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(Segment.Kita.coordinate, 12.0f))
+                    //mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(Segment.Kita.coordinate, 12.0f))
 
                     mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
 
@@ -137,8 +139,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //座標から住所変換のテスト
                     val geocoder = Geocoder(context)
                     //val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
-                    val addressList: List<Address>? =
-                        geocoder.getFromLocation(latitude, longitude, 1)
+                    //val addressList: List<Address>? =
+                        //geocoder.getFromLocation(latitude, longitude, 1)
                     //val adminArea = addressList?.first()!!.adminArea
                     //println(adminArea)
 
@@ -164,6 +166,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                             //onMapReady(mMap!!)
 
+                            /*
                             pass = postList[i].imagePath
 
                             ClusterManager<SegmentClusterItem>(activity, mMap!!).let {
@@ -185,11 +188,11 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                 }*/
                             }
 
-                            mMap!!.setInfoWindowAdapter(SegmentInfoWindowAdapter(context!!))
+                            mMap!!.setInfoWindowAdapter(SegmentInfoWindowAdapter(context!!))*/
 
 
                             //前回マップ上に打ったピンを全て削除
-                            /*if (mmm != null) {
+                            if (mmm != null) {
                                 mmm!!.remove()
                             }
 
@@ -198,6 +201,10 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                 postList[ccnt].imageLat.toDouble(),
                                 postList[ccnt].imageLng.toDouble()
                             )
+
+                            val iconGenerator = IconGenerator(activity)
+                            val window = activity!!.layoutInflater.inflate(R.layout.info_window_segment, null)
+                            iconGenerator.setContentView(window)
 
                             Glide.with(activity)
                                 .asBitmap()
@@ -209,15 +216,18 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
                                     ) {
+                                        imageView.setImageBitmap(resource)
+                                        //findViewById<ImageView>(R.id.imageView).setImageResource(resource)
                                         mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
                                                 .title(postList[i].postId)
                                                 .snippet(postList[i].userId)
-                                                .icon(BitmapDescriptorFactory.fromBitmap(resource))
+                                                //.icon(BitmapDescriptorFactory.fromBitmap(resource))
+                                                .icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon()))
                                         )
                                     }
-                                })*/
+                                })
                             ccnt++
                         }
                     }
@@ -399,7 +409,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
      * アイコンをカスタマイズするための処理
      */
 
-
+/*
     /*private inner class SegmentClusterItem(postList: MutableList<PostList>) : ClusterItem {
         override fun getSnippet(): String {
             return postList[ccnt].userId
@@ -468,34 +478,38 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             if(ccnt >= 7 ){
                 ccnt = ccnt - 1
             }
-            Glide.with(activity)
-                .asBitmap()
-                //.load("https://encount.cf/files/postImg/1086470832_5dea7e52cc0b4.jpg")
-                .load(/*pass*/postList[ccnt].imagePath)
-                .into(object : SimpleTarget<Bitmap>(100, 100) {
 
-                    //正常に写真取得できればピンを打つ
-                    override fun onResourceReady(
-                        resource: Bitmap?,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        itemImageView.setImageBitmap(resource)
-                        val icon = itemIconGenerator.makeIcon()
-                        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
-                    }
-                })
+            //for (i in 0..cnt - 1) {
+                Glide.with(activity)
+                    .asBitmap()
+                    //.load("https://encount.cf/files/postImg/1086470832_5dea7e52cc0b4.jpg")
+                    .load(/*pass*/postList[ccnt].imagePath)
+                    .into(object : SimpleTarget<Bitmap>(130, 130) {
+
+                        //正常に写真取得できればピンを打つ
+                        override fun onResourceReady(
+                            resource: Bitmap?,
+                            transition: Transition<in Bitmap>?
+                        ) {
+                            itemImageView.setImageBitmap(resource)
+                            val icon = itemIconGenerator.makeIcon()
+                            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+                        }
+                    })
+            //}
+
 
             //itemImageView.setImageResource(item.segment.imageResId)
             //val icon = itemIconGenerator.makeIcon()
             //markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
         }
 
-        // クラスタ化したやつの生成
+        // クラスタ化したやつの生成(でかいやつ)
         override fun onBeforeClusterRendered(cluster: Cluster<SegmentClusterItem>, markerOptions: MarkerOptions) {
-            clusterImageView.setImageResource(R.drawable.app_logo)
+            /*clusterImageView.setImageResource(R.drawable.app_logo)
             clusterTextView.text = cluster.size.toString()
             val icon = clusterIconGenerator.makeIcon()
-            //markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(icon))*/
         }
 
         override fun onClusterItemRendered(item: SegmentClusterItem, marker: Marker) {
@@ -505,8 +519,23 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
         override fun shouldRenderAsCluster(cluster: Cluster<SegmentClusterItem>?): Boolean {
             // ClusterItemが一定距離内にいくつ集まったらクラスタ化するかをBooleanで返す
-            return cluster?.size ?: 0 >= 10
+            return cluster?.size ?: 0 >= 5
         }
     }
+
+    private inner class SegmentInfoWindowAdapter(private val context: Context) : GoogleMap.InfoWindowAdapter {
+        override fun getInfoContents(marker: Marker): View? = null
+
+        override fun getInfoWindow(marker: Marker): View =
+            LayoutInflater.from(context).inflate(R.layout.info_window_segment, null, false).apply {
+                //val segment = marker.tag as Segment
+                //val segment = marker.tag as
+
+                //var segment = marker.tag
+                //findViewById<ImageView>(R.id.imageView).setImageResource(segment.imageResId)
+                //findViewById<TextView>(R.id.textTitle).text = segment.title
+                //findViewById<TextView>(R.id.textFlowerName).text = segment.flowerName
+            }
+    }*/
 
 }
