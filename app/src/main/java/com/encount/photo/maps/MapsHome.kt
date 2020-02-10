@@ -41,7 +41,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var mMap: GoogleMap? = null
     private val requestingLocationUpdates = true //フラグ
     private val locationRequest: LocationRequest = LocationRequest.create()
-    //private var postList = mutableListOf<MapsList>()
     private var postList = mutableListOf<MapPostData>()
     //取得した写真の件数を格納する
     private var cnt = 0
@@ -49,6 +48,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var mmm: Marker? = null
     //下のfor文内で使うカウント変数
     var ccnt = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -100,6 +100,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                     mMap!!.setMyLocationEnabled(true)
                     //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
+
                     val camPos = CameraPosition.Builder()
                         .target(LatLng(latitude, longitude)) // Sets the new camera position
                         .zoom(18.5f) // Sets the zoom
@@ -120,6 +121,14 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //MapPostGet(this@MapsHome).execute()
                     //サーバと通信する処理（インナークラス）を呼び出して実行する
                     SpotPhotoGet(this@MapsHome).execute()
+
+                    //マップの移動範囲を制限
+                    var maxLat = latitude + 0.001
+                    var maxLng = longitude + 0.002
+                    var minLat = latitude - 0.001
+                    var minLng = longitude - 0.002
+                    mMap!!.setLatLngBoundsForCameraTarget(
+                        LatLngBounds(LatLng(minLat,minLng),LatLng(maxLat,maxLng)))
 
                     //写真が１件以上あれば、マップのピンを立てる処理を行う
                     if (cnt >= 1) {
@@ -215,7 +224,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(position))*/
 
         //移動
-        googleMap.uiSettings.isScrollGesturesEnabled = false
+        googleMap.uiSettings.isScrollGesturesEnabled = true
+
+
         //ズーム
         googleMap.uiSettings.isZoomGesturesEnabled = true
         //回転

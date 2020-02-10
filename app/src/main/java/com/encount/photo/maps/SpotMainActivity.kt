@@ -8,8 +8,8 @@ import com.encount.photo.*
 import kotlinx.android.synthetic.main.activity_spot_home.*
 import kotlinx.android.synthetic.main.activity_spot_home.tabLayout
 
-var latitude = 35.704292
-var longitude = 139.984092
+var latitude = 0.0
+var longitude = 0.0
 
 class SpotMainActivity : AppCompatActivity() {
 
