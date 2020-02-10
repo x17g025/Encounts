@@ -2,7 +2,6 @@ package com.encount.photo.maps
 
 import androidx.core.app.ActivityCompat
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -14,6 +13,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -27,8 +27,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.google.maps.android.clustering.ClusterItem
-import com.google.maps.android.clustering.ClusterManager
+import com.google.maps.android.ui.IconGenerator
 import kotlinx.android.synthetic.main.fragment_maps_home.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -42,6 +41,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var mMap: GoogleMap? = null
     private val requestingLocationUpdates = true //フラグ
     private val locationRequest: LocationRequest = LocationRequest.create()
+    //private var postList = mutableListOf<MapsList>()
     private var postList = mutableListOf<MapPostData>()
     //取得した写真の件数を格納する
     private var cnt = 0
@@ -62,6 +62,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
 
         val mapFragment: SupportMapFragment =
             getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
@@ -97,19 +98,15 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                     //グローバル変数に位置情報を代入
 
-                    //mMap!!.setMyLocationEnabled(true)
-
-                    mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(Segment.Kita.coordinate, 12.0f))
-
+                    mMap!!.setMyLocationEnabled(true)
                     //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
-
-                    /*val camPos = CameraPosition.Builder()
+                    val camPos = CameraPosition.Builder()
                         .target(LatLng(latitude, longitude)) // Sets the new camera position
                         .zoom(19f) // Sets the zoom
                         .bearing(0f) // Rotate the camera
                         .tilt(40f) // Set the camera tilt
                         .build()
-                    mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))*/
+                    mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(camPos))
 
                     //座標から住所変換のテスト
                     val geocoder = Geocoder(context)
@@ -131,7 +128,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                         //取得した写真の件数分ピンを打つ処理
                         //for(i in postList)にすると、初回の写真取得で数値がおかしくなるので、仕方なく変数を用意している。
-                      
+
                         for (i in 0..cnt - 1) {
 
                             //前回マップ上に打ったピンを全て削除
@@ -155,12 +152,17 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
                                     ) {
+                                        val iconGenerator = IconGenerator(activity)
+                                        val imageView = ImageView(activity)
+                                        imageView.setImageBitmap(resource)
+                                        iconGenerator.setContentView(imageView)
                                         mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
                                                 .title(postList[i].postId)
                                                 .snippet(postList[i].userId)
-                                                .icon(BitmapDescriptorFactory.fromBitmap(resource))
+                                                //.icon(BitmapDescriptorFactory.fromBitmap(resource))
+                                                .icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon()))
                                         )
                                     }
                                 })
@@ -202,45 +204,23 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
     //default location
     override fun onMapReady(googleMap: GoogleMap) {
-        //mMap = googleMap
+        mMap = googleMap
         //マップのスタイルも変えられるようにしたい
         //mMap!!.setMapStyle(GoogleMap.MAP_TYPE_TERRAIN)
-
         /*
-        //移動
+        val spot = LatLng(35.7044997, 139.9843911)
+        val position = CameraPosition.Builder()
+            .target(spot) // Sets the new camera position
+            .zoom(18f) // Sets the zoom
+            .bearing(0f) // Rotate the camera
+            .tilt(60f) // Set the camera tilt
+            .build() // Creates a CameraPosition from the builder
+        mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(position))*/
         googleMap.uiSettings.isScrollGesturesEnabled = false
-        //ズーム
-        googleMap.uiSettings.isZoomGesturesEnabled = true
-        //回転
-        googleMap.uiSettings.isCompassEnabled = true
-        //ティルト 2本指スワイプで視点を傾けることができる
-        googleMap.uiSettings.isTiltGesturesEnabled = true
-        //
-        googleMap.uiSettings.isRotateGesturesEnabled = true
-    */
-
-
-        mMap = googleMap.apply {
-            moveCamera(CameraUpdateFactory.newLatLngZoom(Segment.Kita.coordinate, 12.0f))
-
-            uiSettings.run {
-                isRotateGesturesEnabled = false
-                isTiltGesturesEnabled = false
-            }
-
-            ClusterManager<SegmentClusterItem>(context, this).let {
-                it.renderer = MoreSegmentClusterRenderer(context!!, this, it)
-                setOnCameraIdleListener(it)
-                setOnMarkerClickListener(it)
-
-                Segment.values().forEach { segment ->
-                    it.addItem(SegmentClusterItem(segment))
-                }
-            }
-
-            setInfoWindowAdapter(SegmentInfoWindowAdapter(context!!))
-        }
-
+        googleMap.uiSettings.isZoomGesturesEnabled = false
+        googleMap.uiSettings.isCompassEnabled = false
+        googleMap.uiSettings.isTiltGesturesEnabled = false
+        googleMap.uiSettings.isRotateGesturesEnabled = false
 
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
@@ -329,28 +309,4 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             }
         }
     }
-
-    /**
-     * アイコンをカスタマイズするための処理
-     */
-
-    //ClusterItem を実装したクラスを作成
-    private inner class SegmentClusterItem(postList: MutableList<PostList2>) : ClusterItem {
-        override fun getSnippet(): String {
-            return postList[ccnt].userId
-        }
-        override fun getPosition(): LatLng {
-            return LatLng(postList[ccnt].imageLat.toDouble(),postList[ccnt].imageLng.toDouble())
-        }
-        override fun getTitle(): String {
-            return postList[ccnt].postId
-        }
-    }
-
-    //ClusterManager オブジェクトを生成
-    /*private val manager = ClusterManager<SegmentClusterItem>(context,mMap).apply {
-        mMap!!.setOnCameraIdleListener(this)
-        mMap!!.setOnMarkerClickListener(this)
-    }*/
-
 }
