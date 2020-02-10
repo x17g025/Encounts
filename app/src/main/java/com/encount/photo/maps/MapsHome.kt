@@ -102,7 +102,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
                     val camPos = CameraPosition.Builder()
                         .target(LatLng(latitude, longitude)) // Sets the new camera position
-                        .zoom(19f) // Sets the zoom
+                        .zoom(18.5f) // Sets the zoom
                         .bearing(0f) // Rotate the camera
                         .tilt(40f) // Set the camera tilt
                         .build()
@@ -145,7 +145,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                             Glide.with(activity)
                                 .asBitmap()
                                 .load(postList[ccnt].imagePath)
-                                .into(object : SimpleTarget<Bitmap>(100, 100) {
+                                .into(object : SimpleTarget<Bitmap>(200, 200) {
 
                                     //正常に写真取得できればピンを打つ
                                     override fun onResourceReady(
@@ -223,7 +223,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         //ティルト 2本指スワイプで視点を傾けることができる
         googleMap.uiSettings.isTiltGesturesEnabled = false
         //ズーム範囲指定
-        googleMap.setMaxZoomPreference(19f)
+        googleMap.setMaxZoomPreference(20f)
         googleMap.setMinZoomPreference(17f)
 
         mMap!!.setOnMarkerClickListener { marker ->
