@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.SimpleTarget
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.google.maps.android.ui.IconGenerator
 import kotlinx.android.synthetic.main.fragment_maps_home.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -39,7 +41,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var mMap: GoogleMap? = null
     private val requestingLocationUpdates = true //フラグ
     private val locationRequest: LocationRequest = LocationRequest.create()
-    //private var postList = mutableListOf<MapsList>()
     private var postList = mutableListOf<MapPostData>()
     //取得した写真の件数を格納する
     private var cnt = 0
@@ -47,6 +48,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var mmm: Marker? = null
     //下のfor文内で使うカウント変数
     var ccnt = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -98,6 +100,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                     mMap!!.setMyLocationEnabled(true)
                     //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
+
                     val camPos = CameraPosition.Builder()
                         .target(LatLng(latitude, longitude)) // Sets the new camera position
                         .zoom(19f) // Sets the zoom
@@ -119,6 +122,14 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     //サーバと通信する処理（インナークラス）を呼び出して実行する
                     SpotPhotoGet(this@MapsHome).execute()
 
+                    //マップの移動範囲を制限
+                    var maxLat = latitude + 0.001
+                    var maxLng = longitude + 0.002
+                    var minLat = latitude - 0.001
+                    var minLng = longitude - 0.002
+                    mMap!!.setLatLngBoundsForCameraTarget(
+                        LatLngBounds(LatLng(minLat,minLng),LatLng(maxLat,maxLng)))
+
                     //写真が１件以上あれば、マップのピンを立てる処理を行う
                     if (cnt >= 1) {
 
@@ -126,7 +137,7 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                         //取得した写真の件数分ピンを打つ処理
                         //for(i in postList)にすると、初回の写真取得で数値がおかしくなるので、仕方なく変数を用意している。
-                      
+
                         for (i in 0..cnt - 1) {
 
                             //前回マップ上に打ったピンを全て削除
@@ -143,19 +154,24 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                             Glide.with(activity)
                                 .asBitmap()
                                 .load(postList[ccnt].imagePath)
-                                .into(object : SimpleTarget<Bitmap>(100, 100) {
+                                .into(object : SimpleTarget<Bitmap>(200, 200) {
 
                                     //正常に写真取得できればピンを打つ
                                     override fun onResourceReady(
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
                                     ) {
+                                        val iconGenerator = IconGenerator(activity)
+                                        val imageView = ImageView(activity)
+                                        imageView.setImageBitmap(resource)
+                                        iconGenerator.setContentView(imageView)
                                         mmm = mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
                                                 .title(postList[i].postId)
                                                 .snippet(postList[i].userId)
-                                                .icon(BitmapDescriptorFactory.fromBitmap(resource))
+                                                //.icon(BitmapDescriptorFactory.fromBitmap(resource))
+                                                .icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon()))
                                         )
                                     }
                                 })
@@ -167,9 +183,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         }
     }
 
-    /*fun setPostList(postList: MutableList<MapsList>) {
-        this.postList = postList
-    }*/
     fun setPostList(postList: MutableList<MapPostData>) {
         this.postList = postList
     }
@@ -209,11 +222,21 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             .tilt(60f) // Set the camera tilt
             .build() // Creates a CameraPosition from the builder
         mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(position))*/
-        googleMap.uiSettings.isScrollGesturesEnabled = false
-        googleMap.uiSettings.isZoomGesturesEnabled = false
-        googleMap.uiSettings.isCompassEnabled = false
+
+        //移動
+        googleMap.uiSettings.isScrollGesturesEnabled = true
+
+
+        //ズーム
+        googleMap.uiSettings.isZoomGesturesEnabled = true
+        //回転
+        googleMap.uiSettings.isCompassEnabled = true
+        googleMap.uiSettings.isRotateGesturesEnabled = true
+        //ティルト 2本指スワイプで視点を傾けることができる
         googleMap.uiSettings.isTiltGesturesEnabled = false
-        googleMap.uiSettings.isRotateGesturesEnabled = false
+        //ズーム範囲指定
+        googleMap.setMaxZoomPreference(20f)
+        googleMap.setMinZoomPreference(17f)
 
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
