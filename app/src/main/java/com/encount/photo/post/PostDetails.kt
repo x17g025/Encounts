@@ -68,14 +68,18 @@ class PostDetails : AppCompatActivity() {
 
         ivPostReply.setOnClickListener{
 
-            startActivity(Intent(this, PostReply::class.java).putExtra("Post_Id", postId).putExtra("Pre_Act", preAct).putExtra("User_Id", preId))
+            startActivity(Intent(this, PostReply::class.java)
+                .putExtra("Post_Id", postId)
+                .putExtra("Pre_Act", preAct)
+                .putExtra("User_Id", preId))
         }
 
         llUserData.setOnClickListener{
 
             if(preAct != "spot" && preAct != "map" || userId == inId) {
 
-                startActivity(Intent(this, UserProfile::class.java).putExtra("User_Id", userId))
+                startActivity(Intent(this, UserProfile::class.java)
+                    .putExtra("User_Id", userId))
             }
         }
 
@@ -159,9 +163,6 @@ class PostDetails : AppCompatActivity() {
                 userId           = postData.userId
                 tvPostName.text  = postData.userName
                 tvPostDate.text  = postData.postDate
-                tvPostText.text  = postData.postText
-
-                Log.d("likelike", postData.likeFlag.toString())
 
                 if (postData.likeFlag) {
 
@@ -170,7 +171,11 @@ class PostDetails : AppCompatActivity() {
 
                 if(postData.postText.isEmpty()){
 
-                    tvPostText.visibility = View.GONE
+                    llPostText.visibility = View.GONE
+                }
+                else{
+
+                    tvPostText.text  = postData.postText
                 }
             } catch (e: Exception) {
 
