@@ -1,12 +1,16 @@
 package com.encount.photo.user
 
+import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.encount.photo.LoginDataClassList
+import com.encount.photo.NavigationActivity
 import com.encount.photo.R
+import com.encount.photo.flag
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_app_forget.*
 import kotlinx.android.synthetic.main.activity_app_forget.Progress
@@ -75,7 +79,7 @@ class PassForgot : AppCompatActivity() {
 
         override fun onPostExecute(result: String) {
 
-            var searchFlag = Gson().fromJson(result, LoginDataClassList::class.java)
+            var searchFlag = Gson().fromJson(result, flag::class.java)
             Progress.visibility = View.GONE
 
             if(searchFlag.flag) {
@@ -86,13 +90,36 @@ class PassForgot : AppCompatActivity() {
                     .setConfirmText("ログイン画面へ")
                     .setConfirmClickListener {
                             sDialog -> sDialog.dismissWithAnimation()
+                        goHome()
                     }
                     .show()
             }
             else{
 
-                txInfo.text = searchFlag.result
+                SweetAlertDialog(this@PassForgot, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Error")
+                    .setContentText("アカウントが見つかりませんでした")
+                    .setConfirmText("OK")
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                    }
+                    .show()
             }
         }
+    }
+
+    fun goHome(){
+
+        startActivity(Intent(this, UserSingin::class.java))
+        finish()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            goHome()
+            return true
+        }
+        return false
     }
 }

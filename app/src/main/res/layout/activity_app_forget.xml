@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@color/colorBG">
 
     <TextView
         android:id="@+id/SinginTitle"
@@ -30,8 +30,8 @@
         android:drawableLeft="@drawable/edit_text_mail"
         android:ems="10"
         android:hint="@string/userLoginMail"
-        android:inputType="text"
-        android:textSize="16dp" />
+        android:inputType="textEmailAddress"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/txInfo"

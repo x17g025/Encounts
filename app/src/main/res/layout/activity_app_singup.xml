@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.encount.photo.user.UserSingup">
+    tools:context="com.encount.photo.user.UserSingup"
+    android:background="@color/colorBG">
 
     <TextView
         android:id="@+id/SinginTitle"
@@ -26,11 +27,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/edit_text_design"
-        android:drawableLeft="@drawable/edit_text_person"
+        android:drawableStart="@drawable/edit_text_person"
         android:ems="10"
         android:hint="@string/userName"
-        android:inputType="text"
-        android:textSize="16dp" />
+        android:inputType="text"/>
 
     <EditText
         android:id="@+id/usermail"
@@ -41,11 +41,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/edit_text_design"
-        android:drawableLeft="@drawable/edit_text_mail"
+        android:drawableStart="@drawable/edit_text_mail"
         android:ems="10"
         android:hint="@string/userLoginMail"
-        android:inputType="textEmailAddress"
-        android:textSize="16dp" />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/userpass"
@@ -56,7 +55,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/edit_text_design"
-        android:drawableLeft="@drawable/edit_text_pass"
+        android:drawableStart="@drawable/edit_text_pass"
         android:ems="10"
         android:hint="@string/userLoginPass"
         android:inputType="textPassword" />
@@ -70,7 +69,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/edit_text_design"
-        android:drawableLeft="@drawable/edit_text_pass"
+        android:drawableStart="@drawable/edit_text_pass"
         android:ems="10"
         android:hint="@string/reUserLoginPass"
         android:inputType="textPassword" />

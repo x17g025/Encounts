@@ -53,7 +53,7 @@ class UserSingup : AppCompatActivity() {
 
             if(checkFlag) {
 
-                if (name.isNotEmpty()) {
+                if (name.isEmpty()) {
 
                     name = "名無しさん"
                 }

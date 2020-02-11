@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.encount.photo.user.UserSingin">
+    tools:context="com.encount.photo.user.UserSingin"
+    android:background="@color/colorBG">
 
     <ImageView
         android:id="@+id/LoginImg"
@@ -35,18 +36,17 @@
         android:layout_marginEnd="70dp"
         android:layout_marginTop="30dp"
         android:background="@drawable/edit_text_design"
-        android:drawableLeft="@drawable/edit_text_mail"
+        android:drawableStart="@drawable/edit_text_mail"
         android:ems="10"
         android:hint="@string/userLoginMail"
-        android:inputType="textEmailAddress"
-        android:textSize="16dp" />
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/etUserPass"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/edit_text_design"
-        android:drawableLeft="@drawable/edit_text_pass"
+        android:drawableStart="@drawable/edit_text_pass"
         android:ems="10"
         android:layout_marginEnd="70dp"
         android:hint="@string/userLoginPass"
