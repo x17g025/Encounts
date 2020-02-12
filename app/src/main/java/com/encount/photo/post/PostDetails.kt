@@ -5,18 +5,13 @@ import android.location.Geocoder
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_BACK
 import android.view.View
 import android.view.animation.AnimationUtils
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.encount.photo.*
-import com.encount.photo.maps.SpotMainActivity
 import com.encount.photo.user.UserProfile
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_post_details.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
@@ -59,7 +54,6 @@ class PostDetails : AppCompatActivity() {
         preAct = intent.getStringExtra("Pre_Act")!!
 
         UserPostGet().execute()
-        UserReplyGet().execute()
 
         ivPostLike.setOnClickListener {
 
@@ -68,7 +62,7 @@ class PostDetails : AppCompatActivity() {
 
         ivPostReply.setOnClickListener{
 
-            startActivity(Intent(this, PostReply::class.java)
+            startActivity(Intent(this, PostReplyList::class.java)
                 .putExtra("Post_Id", postId)
                 .putExtra("Pre_Act", preAct)
                 .putExtra("User_Id", preId))
@@ -283,62 +277,6 @@ class PostDetails : AppCompatActivity() {
         //println("0" + list[0].getAddressLine(0))
         var kekka = list[0].getAdminArea() + list[0].getLocality() + list[0].getThoroughfare() +list[0].getSubThoroughfare()
         return kekka
-    }
-
-    private inner class UserReplyGet : AsyncTask<String, String, String>() {
-
-        override fun doInBackground(vararg params: String): String {
-
-            val client = OkHttpClient()
-
-            //アクセスするURL
-            val url = "https://encount.cf/encount/PostReplyGet.php"
-
-            //Formを作成
-            val formBuilder = FormBody.Builder()
-
-            //formに要素を追加
-            formBuilder.add("post", postId)
-            //リクエストの内容にformを追加
-            val form = formBuilder.build()
-
-            //リクエストを生成
-            val request = Request.Builder().url(url).post(form).build()
-
-            try {
-                val response = client.newCall(request).execute()
-                return response.body()!!.string()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                return "Error"
-            }
-        }
-
-        override fun onPostExecute(result: String) {
-
-            try {
-
-                var postList = mutableListOf<ReplyList>()
-                val listType = object : TypeToken<List<PostDataClassList>>() {}.type
-                val postData = Gson().fromJson<List<PostDataClassList>>(result, listType)
-
-                for (i in postData) {
-
-                    postList.add(
-                        ReplyList(
-                            i.userId,
-                            i.userName,
-                            i.postText,
-                            i.postDate
-                        )
-                    )
-                }
-
-                //lvReplyData.adapter = ReplyAdapter(this@PostDetails, postList)
-            } catch (e: Exception) {
-
-            }
-        }
     }
 
     fun goHome() {

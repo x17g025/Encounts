@@ -42,13 +42,6 @@ class ReplyAdapter(val context: Context?, val posts: List<ReplyList>): BaseAdapt
         view.tvUserId.text    = posts[position].userId
         view.tvReplyDate.text = posts[position].postDate
 
-        view.setOnClickListener {
-
-            val intent = Intent(context, PostDetails::class.java)
-            intent.putExtra("User_Id", posts[position].userId)
-            view.getContext().startActivity(intent)
-        }
-
         return view
     }
 }

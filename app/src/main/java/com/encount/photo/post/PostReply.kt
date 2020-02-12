@@ -21,16 +21,18 @@ import java.io.IOException
 
 class PostReply : AppCompatActivity() {
 
+    var _id = ""
     var postId = ""
     var userId = ""
     var text   = ""
     var preAct = ""
-    var prePos = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_do_post)
+
+        _id = doSelectSQLite(this)
 
         postId = intent.getStringExtra("Post_Id")!!
         userId = intent.getStringExtra("User_Id")!!
@@ -57,7 +59,7 @@ class PostReply : AppCompatActivity() {
     }
 
 
-    private inner class UserReplySend() : AsyncTask<String, String, String>() {
+    private inner class UserReplySend : AsyncTask<String, String, String>() {
 
         override fun doInBackground(vararg params: String): String {
 
@@ -70,7 +72,7 @@ class PostReply : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user",userId)
+            formBuilder.add("user",_id)
             formBuilder.add("post",postId)
             formBuilder.add("text",text)
             //リクエストの内容にformを追加
@@ -105,11 +107,10 @@ class PostReply : AppCompatActivity() {
 
     fun transAct(){
 
-        val intent = Intent(this, PostDetails::class.java)
+        val intent = Intent(this, PostReplyList::class.java)
         intent.putExtra("Post_Id", postId)
         intent.putExtra("User_Id", userId)
         intent.putExtra("Pre_Act", preAct)
-        intent.putExtra("Pre_Pos", prePos)
         startActivity(intent)
     }
 }
