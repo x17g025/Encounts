@@ -17,7 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".user.FriendList"></activity>
+        <activity
+            android:name=".TutorialActivity"
+            android:theme="@style/WelcomeScreenTheme">
+        </activity>
+        <activity android:name=".user.FriendList" />
         <activity android:name=".user.RequestFriend" />
         <activity
             android:name=".post.UserLikeList"

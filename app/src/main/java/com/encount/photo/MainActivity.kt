@@ -45,6 +45,9 @@ class MainActivity : AppCompatActivity() {
             )
             checkPermission(permissions, REQUEST_CODE)
         }
+        //チュートリアルを表示
+        //初回起動時のみ表示
+        //TutorialActivity.showIfNeeded(this@MainActivity,savedInstanceState)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
