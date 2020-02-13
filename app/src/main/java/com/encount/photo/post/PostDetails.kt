@@ -40,14 +40,14 @@ class PostDetails : AppCompatActivity() {
     var preId = ""
     var text   = ""
     var preAct = ""
-    var inId = ""
+    var _id = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_details)
 
-        inId = doSelectSQLite(this)
+        _id = doSelectSQLite(this)
 
         postId = intent.getStringExtra("Post_Id")!!
         preId  = intent.getStringExtra("User_Id")!!
@@ -70,7 +70,7 @@ class PostDetails : AppCompatActivity() {
 
         llUserData.setOnClickListener{
 
-            if(preAct != "spot" && preAct != "map" || userId == inId) {
+            if(preAct != "spot" && preAct != "map" || userId == _id) {
 
                 startActivity(Intent(this, UserProfile::class.java)
                     .putExtra("User_Id", userId))
@@ -80,7 +80,7 @@ class PostDetails : AppCompatActivity() {
         //タップで投稿の削除
         ivPostMenu.setOnClickListener {
 
-            if (userId == inId) {
+            if (userId == _id) {
                 SweetAlertDialog(this@PostDetails, SweetAlertDialog.WARNING_TYPE)
                     .setTitleText("投稿を削除します")
                     .setContentText("削除した投稿は元に戻せません。")
@@ -128,7 +128,7 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user", inId)
+            formBuilder.add("user", _id)
             formBuilder.add("post", postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
@@ -190,7 +190,7 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user", inId)
+            formBuilder.add("user", _id)
             formBuilder.add("post", postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
@@ -233,7 +233,7 @@ class PostDetails : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user", inId)
+            formBuilder.add("user", _id)
             formBuilder.add("post", postId)
             //formBuilder.add("image", imageId)
             //リクエストの内容にformを追加

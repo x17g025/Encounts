@@ -20,7 +20,7 @@ import java.lang.Exception
 class SpotNewPost : Fragment() {
 
     var postId = ""
-    var inId = ""
+    var _id = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -30,7 +30,7 @@ class SpotNewPost : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        inId = doSelectSQLite(context)
+        _id = doSelectSQLite(context)
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
@@ -56,12 +56,12 @@ class SpotNewPost : Fragment() {
 
             println("経度"+latitude.toString())
             println("緯度"+longitude.toString())
-            println("ユーザ"+inId)
+            println("ユーザ"+_id)
 
             //Formに要素を追加
             formBuilder.add("latitude", latitude.toString())
             formBuilder.add("longitude", longitude.toString())
-            formBuilder.add("user",inId)
+            formBuilder.add("user",_id)
 
             //リクエスト内容にformを追加
             val form = formBuilder.build()

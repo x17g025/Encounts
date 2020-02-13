@@ -18,7 +18,7 @@ import java.lang.Exception
 
 class UserPostList(Id : String) : Fragment() {
 
-    var inId = ""
+    var _id = ""
     var userId = Id
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -29,7 +29,7 @@ class UserPostList(Id : String) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        inId = doSelectSQLite(context)
+        _id = doSelectSQLite(context)
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
@@ -55,7 +55,7 @@ class UserPostList(Id : String) : Fragment() {
 
             //formに要素を追加
             formBuilder.add("id",userId)
-            formBuilder.add("likeId",inId)
+            formBuilder.add("likeId",_id)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 

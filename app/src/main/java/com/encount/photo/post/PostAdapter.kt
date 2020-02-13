@@ -31,7 +31,7 @@ import java.lang.Exception
 class PostAdapter(val context: Context?, val posts: List<PostList>, val id: String): BaseAdapter() {
 
     val layoutInflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    var inId = doSelectSQLite(context)
+    var _id = doSelectSQLite(context)
     var postId = "a"
     var viewId : View? = null
 
@@ -102,7 +102,7 @@ class PostAdapter(val context: Context?, val posts: List<PostList>, val id: Stri
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("user",inId)
+            formBuilder.add("user",_id)
             formBuilder.add("post",postId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()

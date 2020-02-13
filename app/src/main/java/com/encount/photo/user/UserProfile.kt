@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_BACK
 import android.view.View
-import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.encount.photo.*
@@ -28,7 +27,7 @@ import java.lang.Exception
 
 class UserProfile : AppCompatActivity() {
 
-    var inId = ""
+    var _id = ""
     var userId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +35,11 @@ class UserProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile)
 
-        inId = doSelectSQLite(this)
+        _id = doSelectSQLite(this)
 
         try {
 
-            if (intent.getStringExtra("User_Id")!!.isNotEmpty() && intent.getStringExtra("User_Id") != inId) {
+            if (intent.getStringExtra("User_Id")!!.isNotEmpty() && intent.getStringExtra("User_Id") != _id) {
 
                 userId = intent.getStringExtra("User_Id")!!
                 OtherDataGet().execute()
@@ -50,14 +49,14 @@ class UserProfile : AppCompatActivity() {
             else {
 
                 UserDataGet().execute()
-                UserDataList.adapter = TabAdapter(supportFragmentManager, this, inId)
+                UserDataList.adapter = TabAdapter(supportFragmentManager, this, _id)
                 tabLayout.setupWithViewPager(UserDataList)
             }
         }
         catch (e : Exception){
 
             UserDataGet().execute()
-            UserDataList.adapter = TabAdapter(supportFragmentManager, this, inId)
+            UserDataList.adapter = TabAdapter(supportFragmentManager, this, _id)
             tabLayout.setupWithViewPager(UserDataList)
         }
 
@@ -86,7 +85,7 @@ class UserProfile : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", inId)
+            formBuilder.add("id", _id)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
@@ -130,7 +129,7 @@ class UserProfile : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", inId)
+            formBuilder.add("id", _id)
             formBuilder.add("other_id", userId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
@@ -189,7 +188,7 @@ class UserProfile : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", inId)
+            formBuilder.add("id", _id)
             formBuilder.add("other", userId)
             //リクエストの内容にformを追加
             val form = formBuilder.build()

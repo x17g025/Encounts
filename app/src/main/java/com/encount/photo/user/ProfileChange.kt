@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_BACK
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -24,7 +23,7 @@ import java.io.IOException
 
 class ProfileChange : AppCompatActivity() {
 
-    var inId = ""
+    var _id = ""
     var name = ""
     var bio = ""
     private val RESULT_PICK_IMAGEFILE = 1000
@@ -34,7 +33,7 @@ class ProfileChange : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_profile_change)
 
-        inId = doSelectSQLite(this)
+        _id = doSelectSQLite(this)
 
         UserDataGet()
 
@@ -80,7 +79,7 @@ class ProfileChange : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", inId)
+            formBuilder.add("id", _id)
             formBuilder.add("name",name)
             formBuilder.add("bio",bio)
             //リクエストの内容にformを追加
@@ -143,7 +142,7 @@ class ProfileChange : AppCompatActivity() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", inId)
+            formBuilder.add("id", _id)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 

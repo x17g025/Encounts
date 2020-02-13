@@ -12,8 +12,8 @@ android {
         applicationId "com.encount.photo"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 9
-        versionName "1.5"
+        versionCode 11
+        versionName "1.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -57,4 +57,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.maps.android:android-maps-utils:0.5'
+    implementation 'com.stephentuso:welcome:1.4.1'
 }

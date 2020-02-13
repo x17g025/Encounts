@@ -1,14 +1,10 @@
 package com.encount.photo.maps
 
-import androidx.core.app.ActivityCompat
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.location.Address
 import android.location.Geocoder
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,11 +40,9 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     private var postList = mutableListOf<MapPostData>()
     //取得した写真の件数を格納する
     private var cnt = 0
-    //マップ上に打つピンを管理するための変数
-    private var mmm: Marker? = null
-    //下のfor文内で使うカウント変数
-    var ccnt = 0
-
+    //マップ上に打ったピンを管理するためのList
+    val mMarkers = mutableListOf<Marker>()
+    var mMarkersOld = mutableListOf<Marker>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +56,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
 
         val mapFragment: SupportMapFragment =
             getChildFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
@@ -90,13 +83,20 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             for (location in locationResult.locations) {
 
                 if (location != null) {
+                    //前回打ったピンを全てOldに移動
+                    mMarkersOld = mMarkers.toMutableList()
 
+                    //グローバル変数に位置情報を代入
                     latitude = location.latitude
                     longitude = location.longitude
 
                     ivSpotPost.visibility = View.VISIBLE
 
-                    //グローバル変数に位置情報を代入
+                    //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
+                    //MapPostGet(this@MapsHome).execute()
+                    //サーバと通信する処理（インナークラス）を呼び出して実行する
+                    SpotPhotoGet(this@MapsHome).execute()
+                    println("取得した件数"+cnt)
 
                     mMap!!.setMyLocationEnabled(true)
                     //mMap!!.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
@@ -117,11 +117,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                     val adminArea = addressList?.first()!!.adminArea
                     println(adminArea)
 
-                    //MapPostGet(this,lat,lng).execute()で緯度経度を引数にして渡す
-                    //MapPostGet(this@MapsHome).execute()
-                    //サーバと通信する処理（インナークラス）を呼び出して実行する
-                    SpotPhotoGet(this@MapsHome).execute()
-
                     //マップの移動範囲を制限
                     var maxLat = latitude + 0.001
                     var maxLng = longitude + 0.002
@@ -132,28 +127,17 @@ class MapsHome : Fragment(), OnMapReadyCallback {
 
                     //写真が１件以上あれば、マップのピンを立てる処理を行う
                     if (cnt >= 1) {
-
-                        ccnt = 0
-
                         //取得した写真の件数分ピンを打つ処理
-                        //for(i in postList)にすると、初回の写真取得で数値がおかしくなるので、仕方なく変数を用意している。
 
                         for (i in 0..cnt - 1) {
-
-                            //前回マップ上に打ったピンを全て削除
-                            if (mmm != null) {
-                                mmm!!.remove()
-                            }
-
                             val spot = LatLng(
-
-                                postList[ccnt].imageLat.toDouble(),
-                                postList[ccnt].imageLng.toDouble()
+                                postList[i].imageLat.toDouble(),
+                                postList[i].imageLng.toDouble()
                             )
 
                             Glide.with(activity)
                                 .asBitmap()
-                                .load(postList[ccnt].imagePath)
+                                .load(postList[i].imagePath)
                                 .into(object : SimpleTarget<Bitmap>(200, 200) {
 
                                     //正常に写真取得できればピンを打つ
@@ -161,21 +145,33 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                         resource: Bitmap?,
                                         transition: Transition<in Bitmap>?
                                     ) {
+                                        //iconGeneratorを使用
                                         val iconGenerator = IconGenerator(activity)
                                         val imageView = ImageView(activity)
                                         imageView.setImageBitmap(resource)
                                         iconGenerator.setContentView(imageView)
-                                        mmm = mMap!!.addMarker(
+
+                                        //ピンを打ちつつ、Listにも追加
+                                        mMarkers.add(mMap!!.addMarker(
                                             MarkerOptions()
                                                 .position(spot)
                                                 .title(postList[i].postId)
                                                 .snippet(postList[i].userId)
                                                 //.icon(BitmapDescriptorFactory.fromBitmap(resource))
                                                 .icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon()))
-                                        )
+                                        ))
                                     }
                                 })
-                            ccnt++
+                        }
+                        //ピンが打ち終わったら、前回打ったピンを全削除する
+                        //この処理をしないでピンを全削除すると、ピンが点滅してしまう
+                        if(mMarkersOld.size >= 1){
+                            val itr = mMarkersOld.iterator()
+                            while (itr.hasNext()){
+                                val m: Marker = itr.next()
+                                m.remove()//地図上から削除
+                                itr.remove()//リストからも削除
+                            }
                         }
                     }
                 }
@@ -213,20 +209,8 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         mMap = googleMap
         //マップのスタイルも変えられるようにしたい
         //mMap!!.setMapStyle(GoogleMap.MAP_TYPE_TERRAIN)
-        /*
-        val spot = LatLng(35.7044997, 139.9843911)
-        val position = CameraPosition.Builder()
-            .target(spot) // Sets the new camera position
-            .zoom(18f) // Sets the zoom
-            .bearing(0f) // Rotate the camera
-            .tilt(60f) // Set the camera tilt
-            .build() // Creates a CameraPosition from the builder
-        mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(position))*/
-
         //移動
         googleMap.uiSettings.isScrollGesturesEnabled = true
-
-
         //ズーム
         googleMap.uiSettings.isZoomGesturesEnabled = true
         //回転

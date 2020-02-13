@@ -37,14 +37,14 @@ import kotlinx.android.synthetic.main.activity_nav_header.view.*
 
 class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener {
 
-    var inId = ""
+    var _id = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nav_main)
 
-        inId = doSelectSQLite(this)
+        _id = doSelectSQLite(this)
 
         this.setDrawerLayout()
 
@@ -114,7 +114,7 @@ class NavigationActivity : AppCompatActivity() , NavigationView.OnNavigationItem
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", inId)
+            formBuilder.add("id", _id)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 

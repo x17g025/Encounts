@@ -17,7 +17,6 @@ import androidx.core.app.ActivityCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.encount.photo.NavigationActivity
 import com.encount.photo.R
-import com.encount.photo.SQLiteHelper
 import com.encount.photo.doSelectSQLite
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_user_do_post.*
@@ -37,7 +36,7 @@ class UserPost : AppCompatActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val requestingLocationUpdates = true //フラグ
     private val locationRequest: LocationRequest = LocationRequest.create()
-    var inId = ""
+    var _id = ""
     //写真のパスを受け取る変数(将来的には撮影した写真のパス、ファイル名を取得して指定する)
     var uurl = ""
     //送信するコメント内容の受け取り変数
@@ -55,7 +54,7 @@ class UserPost : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_do_post)
 
-        inId = doSelectSQLite(this)
+        _id = doSelectSQLite(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         locationRequest.setInterval(10000)   //最遅の更新間隔
@@ -279,7 +278,7 @@ class UserPost : AppCompatActivity() {
             //ここでPOSTする内容を設定　"image/jpg"の部分は送りたいファイルの形式に合わせて変更する
             val requestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("userId", inId)
+                .addFormDataPart("userId", _id)
                 .addFormDataPart("longitude", lng)
                 .addFormDataPart("latitude", lat)
                 .addFormDataPart("word", cmnt)

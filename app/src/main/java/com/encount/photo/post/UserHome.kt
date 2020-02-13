@@ -30,7 +30,7 @@ class UserHome : Fragment() {
 
     var postId = "a"
     var viewId : View? = null
-    var inId = ""
+    var _id = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -40,7 +40,7 @@ class UserHome : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        inId = doSelectSQLite(context)
+        _id = doSelectSQLite(context)
 
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
@@ -80,7 +80,7 @@ class UserHome : Fragment() {
             val formBuilder = FormBody.Builder()
 
             //formに要素を追加
-            formBuilder.add("id", inId)
+            formBuilder.add("id", _id)
             //リクエストの内容にformを追加
             val form = formBuilder.build()
 
