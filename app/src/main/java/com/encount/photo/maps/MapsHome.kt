@@ -156,7 +156,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
                                             MarkerOptions()
                                                 .position(spot)
                                                 .title(postList[i].postId)
-                                                .snippet(postList[i].userId)
                                                 //.icon(BitmapDescriptorFactory.fromBitmap(resource))
                                                 .icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon()))
                                         ))
@@ -225,7 +224,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
         mMap!!.setOnMarkerClickListener { marker ->
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id",marker.title)
-            intent.putExtra("User_Id",marker.snippet)
             startActivity(intent)
             true
         }

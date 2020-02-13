@@ -30,7 +30,6 @@ class UserProfile : AppCompatActivity() {
 
     var _id = ""
     var userId = ""
-    var friendFlag = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -46,24 +45,22 @@ class UserProfile : AppCompatActivity() {
                 userId = intent.getStringExtra("User_Id")!!
                 OtherDataGet().execute()
 
-                if(friendFlag == 1) {
-
-                    UserDataList.adapter = TabAdapter(supportFragmentManager, this, userId)
-                    tabLayout.setupWithViewPager(UserDataList)
-                }
             }
             else {
 
                 UserDataGet().execute()
-                UserDataList.adapter = TabAdapter(supportFragmentManager, this, _id)
-                tabLayout.setupWithViewPager(UserDataList)
+                showPost(_id)
             }
         }
         catch (e : Exception){
 
             UserDataGet().execute()
-            UserDataList.adapter = TabAdapter(supportFragmentManager, this, _id)
-            tabLayout.setupWithViewPager(UserDataList)
+            showPost(_id)
+        }
+
+        btnHome.setOnClickListener {
+
+            startActivity(Intent(this, NavigationActivity::class.java))
         }
 
         //プロフィール変更
@@ -160,7 +157,6 @@ class UserProfile : AppCompatActivity() {
                 Glide.with(this@UserProfile).load(userData.userIcon).into(ivUserIcon)
                 UserName.text = userData.userName
                 UserBio.text = userData.userBio
-                friendFlag = userData.followFlag
 
                 when (userData.followFlag) {
 
@@ -169,6 +165,7 @@ class UserProfile : AppCompatActivity() {
                     }
                     1 -> {
                         ivFollow.setImageResource(R.drawable.tool_check)
+                        showPost(userId)
                     }
                     else -> {
                         ivFollow.setImageResource(R.drawable.tool_add)
@@ -235,13 +232,9 @@ class UserProfile : AppCompatActivity() {
         }
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+    fun showPost(id: String){
 
-        if (keyCode == KEYCODE_BACK) {
-
-            startActivity(Intent(this, NavigationActivity::class.java))
-            return true
-        }
-        return false
+        UserDataList.adapter = TabAdapter(supportFragmentManager, this, id)
+        tabLayout.setupWithViewPager(UserDataList)
     }
 }

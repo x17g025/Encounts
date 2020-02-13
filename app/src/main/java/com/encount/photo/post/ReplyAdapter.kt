@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.encount.photo.R
 import com.encount.photo.ReplyList
+import com.encount.photo.user.UserProfile
 import kotlinx.android.synthetic.main.la_reply_item.view.*
 import kotlinx.android.synthetic.main.la_reply_item.view.tvUserId
 
@@ -41,6 +42,13 @@ class ReplyAdapter(val context: Context?, val posts: List<ReplyList>): BaseAdapt
         view.tvReplyText.text = posts[position].postText
         view.tvUserId.text    = posts[position].userId
         view.tvReplyDate.text = posts[position].postDate
+
+        view.setOnClickListener {
+
+            val intent = Intent(context, UserProfile::class.java)
+            intent.putExtra("User_Id", posts[position].userId)
+            view.getContext().startActivity(intent)
+        }
 
         return view
     }
