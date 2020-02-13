@@ -86,8 +86,7 @@ class UserLikeList(Id : String) : Fragment() {
                             i.postId,
                             i.userId,
                             i.likeFlag,
-                            i.postImage,
-                            "my"
+                            i.postImage
                         )
                     )
                 }

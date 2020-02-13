@@ -96,8 +96,7 @@ class SpotPopPost : Fragment() {
                             i.postId,
                             i.userId,
                             i.likeFlag,
-                            i.postImage,
-                            "spot"
+                            i.postImage
                         )
                     )
                 }

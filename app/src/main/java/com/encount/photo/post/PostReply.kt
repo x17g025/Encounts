@@ -23,9 +23,7 @@ class PostReply : AppCompatActivity() {
 
     var _id = ""
     var postId = ""
-    var userId = ""
     var text   = ""
-    var preAct = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -35,8 +33,6 @@ class PostReply : AppCompatActivity() {
         _id = doSelectSQLite(this)
 
         postId = intent.getStringExtra("Post_Id")!!
-        userId = intent.getStringExtra("User_Id")!!
-        preAct = intent.getStringExtra("Pre_Act")!!
 
         postButton.setOnClickListener {
 
@@ -109,8 +105,6 @@ class PostReply : AppCompatActivity() {
 
         val intent = Intent(this, PostReplyList::class.java)
         intent.putExtra("Post_Id", postId)
-        intent.putExtra("User_Id", userId)
-        intent.putExtra("Pre_Act", preAct)
         startActivity(intent)
     }
 }

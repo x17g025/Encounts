@@ -110,8 +110,7 @@ class UserHome : Fragment() {
                             i.postId,
                             i.userId,
                             i.likeFlag,
-                            i.postImage,
-                            "home"
+                            i.postImage
                         )
                     )
                 }

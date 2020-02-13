@@ -3,6 +3,7 @@ package com.encount.photo.user
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_BACK
 import android.view.View
@@ -29,6 +30,7 @@ class UserProfile : AppCompatActivity() {
 
     var _id = ""
     var userId = ""
+    var friendFlag = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -43,8 +45,12 @@ class UserProfile : AppCompatActivity() {
 
                 userId = intent.getStringExtra("User_Id")!!
                 OtherDataGet().execute()
-                UserDataList.adapter = TabAdapter(supportFragmentManager, this, userId)
-                tabLayout.setupWithViewPager(UserDataList)
+
+                if(friendFlag == 1) {
+
+                    UserDataList.adapter = TabAdapter(supportFragmentManager, this, userId)
+                    tabLayout.setupWithViewPager(UserDataList)
+                }
             }
             else {
 
@@ -154,6 +160,7 @@ class UserProfile : AppCompatActivity() {
                 Glide.with(this@UserProfile).load(userData.userIcon).into(ivUserIcon)
                 UserName.text = userData.userName
                 UserBio.text = userData.userBio
+                friendFlag = userData.followFlag
 
                 when (userData.followFlag) {
 

@@ -21,9 +21,8 @@ class PostReplyList : AppCompatActivity() {
 
     var _id = ""
     var postId = ""
-    var userId = ""
+
     var text   = ""
-    var preAct = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +31,6 @@ class PostReplyList : AppCompatActivity() {
         swipelayout.setColorSchemeResources(R.color.colorMain)
 
         postId = intent.getStringExtra("Post_Id")!!
-        userId = intent.getStringExtra("User_Id")!!
-        preAct = intent.getStringExtra("Pre_Act")!!
-
-        Log.d("aaaaaaa",userId)
 
         _id = doSelectSQLite(this)
 
@@ -50,9 +45,7 @@ class PostReplyList : AppCompatActivity() {
 
             startActivity(
                 Intent(this, PostReply::class.java)
-                    .putExtra("Post_Id", postId)
-                    .putExtra("Pre_Act", preAct)
-                    .putExtra("User_Id", userId))
+                    .putExtra("Post_Id", postId))
         }
     }
 
@@ -119,18 +112,4 @@ class PostReplyList : AppCompatActivity() {
             }
         }
     }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-
-            val intent = Intent(this, PostDetails::class.java)
-            intent.putExtra("Post_Id", postId)
-            intent.putExtra("User_Id", userId)
-            intent.putExtra("Pre_Act", preAct)
-            startActivity(intent)
-            return true
-        }
-        return false
-    }
-
 }

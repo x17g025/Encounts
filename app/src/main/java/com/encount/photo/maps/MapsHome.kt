@@ -226,7 +226,6 @@ class MapsHome : Fragment(), OnMapReadyCallback {
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id",marker.title)
             intent.putExtra("User_Id",marker.snippet)
-            intent.putExtra("Pre_Act", "map")
             startActivity(intent)
             true
         }

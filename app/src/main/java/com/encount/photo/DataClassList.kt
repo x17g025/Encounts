@@ -8,8 +8,7 @@ data class PostList(
     val postId: String,
     val userId: String,
     val likeFlag: Boolean,
-    val image: String,
-    val preAct : String
+    val image: String
 )
 
 data class ReplyList(

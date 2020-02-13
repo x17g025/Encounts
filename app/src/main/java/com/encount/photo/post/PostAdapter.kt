@@ -67,8 +67,6 @@ class PostAdapter(val context: Context?, val posts: List<PostList>, val id: Stri
 
             val intent = Intent(context, PostDetails::class.java)
             intent.putExtra("Post_Id", posts[position].postId)
-            intent.putExtra("User_Id", id)
-            intent.putExtra("Pre_Act", posts[position].preAct)
             view.getContext().startActivity(intent)
         }
 

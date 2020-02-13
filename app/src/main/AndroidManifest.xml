@@ -19,9 +19,13 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".post.PostReplyList"
-            android:noHistory="true"/>
-        <activity android:name=".user.FriendList" />
-        <activity android:name=".user.RequestFriend" />
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.FriendList"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".user.RequestFriend"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".post.UserLikeList"
             android:screenOrientation="portrait" />
@@ -69,7 +73,6 @@
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".post.PostDetails"
-            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".NavigationActivity"
@@ -86,7 +89,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- マップ機能を利用するために必要な記述　ここから -->
